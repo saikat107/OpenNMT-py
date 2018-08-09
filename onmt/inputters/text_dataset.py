@@ -232,7 +232,7 @@ class TextDataset(DatasetBase):
         def make_src(data, vocab):
             """ ? """
             src_size = max([t.size(0) for t in data])
-            src_vocab_size = max([max(t) for t in data]) + 1
+            src_vocab_size = max([max(t) if t.size(0) != 0 else 0 for t in data]) + 1
             alignment = torch.zeros(src_size, len(data), src_vocab_size)
             for i, sent in enumerate(data):
                 for j, t in enumerate(sent):
