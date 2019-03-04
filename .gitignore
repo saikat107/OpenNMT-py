@@ -6,6 +6,7 @@ structure_change_data/*
 structure_change_model/*
 result_bleus/*
 results/*
+available_models/*
 # repo-specific stuff
 pred.txt
 multi-bleu.perl
