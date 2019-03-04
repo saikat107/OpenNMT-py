@@ -125,6 +125,7 @@ class Trainer(object):
         Return:
             None
         """
+        max_ppl = 9999999
         logger.info('Start training...')
 
         step = self.optim._step + 1
@@ -138,7 +139,6 @@ class Trainer(object):
         self._start_report_manager(start_time=total_stats.start_time)
 
         while step <= train_steps:
-            print(step)
             reduce_counter = 0
             for i, batch in enumerate(train_iter):
                 if self.n_gpu == 0 or (i % self.n_gpu == self.gpu_rank):
@@ -198,9 +198,13 @@ class Trainer(object):
                                             % (self.gpu_rank, step))
                             self._report_step(self.optim.learning_rate,
                                               step, valid_stats=valid_stats)
+                            valid_ppl = valid_stats.ppl()
+                            if valid_ppl < max_ppl:
+                                max_ppl = valid_ppl
+                                self.model_saver._save_best_validation_model()
 
-                        if self.gpu_rank == 0:
-                            self._maybe_save(step)
+                        # if self.gpu_rank == 0:
+                        #     self._maybe_save(step)
                         step += 1
                         if step > train_steps:
                             break
