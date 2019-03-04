@@ -69,7 +69,7 @@ def training_opt_postprocessing(opt):
     return opt
 
 
-def main(opt):
+def main(opt, train_type):
     opt = training_opt_postprocessing(opt)
     init_logger(opt.log_file)
     # Load checkpoint if we resume from a previous training.
@@ -141,4 +141,4 @@ if __name__ == "__main__":
     opts.train_opts(parser)
 
     opt = parser.parse_args()
-    main(opt)
+    main(opt, '')

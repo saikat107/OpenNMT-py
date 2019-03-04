@@ -14,7 +14,7 @@ from onmt.utils.logging import logger
 from onmt.train_single import main as single_main
 
 
-def main(opt):
+def main(opt, train_type):
     """ Spawns 1 process per GPU """
     nb_gpu = len(opt.gpuid)
     mp = torch.multiprocessing.get_context('spawn')
