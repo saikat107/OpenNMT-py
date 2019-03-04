@@ -1,3 +1,11 @@
+tools/nonbreaking_prefixes/*
+docs/*
+rule_based_data/*
+rule_based_models/*
+structure_change_data/*
+structure_change_model/*
+result_bleus/*
+results/*
 # repo-specific stuff
 pred.txt
 multi-bleu.perl
