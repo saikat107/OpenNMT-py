@@ -64,11 +64,11 @@ def print_bleu_res_to_file(b_file, bls):
         for i in range(r):
             s = ','.join([str(x) for x in bls[i]])
             b_file.write(s + '\n')
-        first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls ]
-        avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
-        cand_max_bleus = [np.max(x) if len(x) > 0 else 0.0 for x in bls]
+        #first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls ]
+        #avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
+        #cand_max_bleus = [np.max(x) if len(x) > 0 else 0.0 for x in bls]
         #print np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
-        return np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
+        #return np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
     pass
 
 
@@ -97,7 +97,7 @@ def main(opt, grammar, actual_n_best):
                          src_dir=opt.src_dir,
                          batch_size=opt.batch_size,
                          attn_debug=opt.attn_debug)
-    beam_size = len(all_scores[0])
+    beam_size = actual_n_best#len(all_scores[0])
     exp_name = opt.name
     all_sources = []
     all_targets = []
@@ -139,7 +139,7 @@ def main(opt, grammar, actual_n_best):
         bleus = []
         found = False
         for cand, tree in zip(filtered_cands, filtered_trees):
-            ed = get_bleu_score(tgt, cand)
+            ed = get_edit_dist(tgt, cand)
             if cand == tgt:
                 found = True
             bleus.append(ed)
