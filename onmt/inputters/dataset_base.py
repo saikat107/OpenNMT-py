@@ -61,7 +61,7 @@ class DatasetBase(torchtext.data.Dataset):
         if not tokens:
             return [], [], -1
 
-        split_tokens = [token.split(u"￨") for token in tokens]
+        split_tokens = [token.split('`') for token in tokens]
         split_tokens = [token for token in split_tokens if token[0]]
         token_size = len(split_tokens[0])
 
