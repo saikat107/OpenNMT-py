@@ -9,7 +9,7 @@ import onmt.opts
 from onmt.utils.misc import use_gpu
 from onmt.utils.logging import init_logger, logger
 
-parser = argparse.ArgumentParser(description='translate.py')
+parser = argparse.ArgumentParser(description='translate_token.py')
 
 parser.add_argument('-model', required=True,
                     help='Path to model .pt file')
