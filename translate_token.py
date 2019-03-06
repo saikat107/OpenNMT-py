@@ -16,6 +16,8 @@ import onmt
 import onmt.model_builder
 import onmt.modules
 import onmt.opts
+from util import write_dummy_generated_node_types
+
 
 def get_bleu_score(original_codes, generated_top_result):
     blue_scores = []
@@ -48,13 +50,40 @@ def print_bleu_res_to_file(b_file, bls):
         return np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
     pass
 
+
+def get_all_node_type_str(file_path):
+    node_types = []
+    with open(file_path) as inp:
+        for line in inp:
+            line = line.strip()
+            parts = line.split('\t')
+            node_types.append(parts)
+        inp.close()
+        return node_types
+    pass
+
+
+def process_source(src_str):
+    src_str = src_str.strip()
+    words = src_str.split()
+    src_modified = [word.split(u"|")[0] for word in words]
+    return ' '.join(src_modified)
+    pass
+
+
 def main(opt):
+    # # This is justa dummy to test the implementation
+    # # TODO this needs to be fixed
+    # write_dummy_generated_node_types(opt.tgt, 'tmp/generated_node_types.nt')
+    # ####################################################################################
+    all_node_type_seq_str = get_all_node_type_str('rule_based_data/raw/all/original_small/test/next.token.id')
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
     scores, all_cands = translator.translate(src_path=opt.src,
                          tgt_path=opt.tgt,
                          src_dir=opt.src_dir,
                          batch_size=opt.batch_size,
-                         attn_debug=opt.attn_debug)
+                         attn_debug=opt.attn_debug,
+                         node_type_seq=all_node_type_seq_str)
     beam_size = len(scores[0])
     exp_name = opt.name
     all_sources = []
@@ -62,8 +91,8 @@ def main(opt):
     tgt_file = open(opt.tgt)
     src_file = open(opt.src)
     for a, b in zip(src_file, tgt_file):
-        all_sources.append(a.strip())
-        all_targets.append(b.strip())
+        all_sources.append(process_source(a.strip()))
+        all_targets.append(process_source(b.strip()))
     tgt_file.close()
     src_file.close()
     correct = 0

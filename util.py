@@ -15,5 +15,22 @@ def debug(*msg):
         res += (str(ms) + ' ')
     print(res)
 
+def write_dummy_generated_node_types(input_file, output_file):
+    with open(input_file) as inp:
+        with open(output_file, 'w') as out:
+            for line in inp:
+                line = line.strip()
+                words = line.split()
+                seq_str = []
+                for word in words[:-1]:
+                    parts = word.split(u"|")
+                    seq_str.append(parts[1])
+                wstr = ' '.join(seq_str)
+                out.write(wstr + '\n')
+            out.close()
+            inp.close()
+    pass
+
+
 if __name__ == '__main__':
     debug('hello')
