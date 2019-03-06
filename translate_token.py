@@ -49,7 +49,7 @@ def print_bleu_res_to_file(b_file, bls):
     pass
 
 def main(opt):
-    translator = build_translator(opt, report_score=True)
+    translator = build_translator(opt, report_score=True, multi_feature_translator=True)
     scores, all_cands = translator.translate(src_path=opt.src,
                          tgt_path=opt.tgt,
                          src_dir=opt.src_dir,
@@ -69,7 +69,7 @@ def main(opt):
     correct = 0
     no_change = 0
     decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_bleus/' + exp_name + '_'+ str(beam_size) + '_bleus.csv', 'w')
+    bleu_file = open('result_bleus/' + exp_name + '_' + str(beam_size) + '_bleus.csv', 'w')
 
     all_bleus = []
     total_example = 0
