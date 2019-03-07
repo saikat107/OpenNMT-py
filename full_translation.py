@@ -7,6 +7,7 @@ from codit.grammar import JavaGrammar
 from translate_structure import translate_all as structure_translate
 import os
 from translate_token import main as token_translate
+from util import debug
 
 
 def transform_structurally(structure_options):
@@ -20,6 +21,7 @@ def transform_structurally(structure_options):
         os.mkdir('tmp')
     with open(structure_options.tmp_file, 'w') as tmp:
         for trees in all_trees:
+            # debug(trees)
             t_strs = [' '.join(tree) for tree in trees]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
@@ -28,15 +30,15 @@ def transform_structurally(structure_options):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-model_structure', help='Model For Rule Transformation', required=True)
-    parser.add_argument('-model_token', help='Model for Token', required=True)
-    parser.add_argument('-src_token', help='Source version file(tokens)', required=True)
-    parser.add_argument('-tgt_token', help='Target version file(tokens)', required=True)
-    parser.add_argument('-src_struct', help='Source version file(rules)', required=True)
-    parser.add_argument('-beam_size', help='Beam Size', default=10)
-    parser.add_argument('-n_best', help='best K hypothesis', default=1)
-    parser.add_argument('-name', help='Name of the experiment', default='Test')
-    parser.add_argument('-grammar', help='Path of the Grammar file', required=True)
+    parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation', required=True)
+    parser.add_argument('--model_token', '-mt', help='Model for Token', required=True)
+    parser.add_argument('--src_token', '-st', help='Source version file(tokens)', required=True)
+    parser.add_argument('--tgt_token', '-tt', help='Target version file(tokens)', required=True)
+    parser.add_argument('--src_struct', '-ss', help='Source version file(rules)', required=True)
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=10)
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=1)
+    parser.add_argument('--name', '-n', help='Name of the experiment', default='Test')
+    parser.add_argument('--grammar', '-g', help='Path of the Grammar file', required=True)
     options = parser.parse_args()
 
     structure_options, token_options = get_options(options)
