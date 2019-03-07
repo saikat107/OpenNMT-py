@@ -90,13 +90,38 @@ def create_tree_from_candidates(cands, grammar):
     pass
 
 
-def main(opt, grammar, actual_n_best):
+def generate_all_tree_candidates(all_cands, grammar, actual_n_best):
+    all_filtered_trees = []
+    all_filtered_cands = []
+    for cands in all_cands:
+        filtered_trees = []
+        filtered_cands = []
+        trees = create_tree_from_candidates(cands, grammar)
+        for tree, cand in zip(trees, cands):
+            if tree is not None:
+                filtered_cands.append(cand)
+                filtered_trees.append(tree)
+        all_filtered_cands.append(filtered_cands[:actual_n_best])
+        all_filtered_trees.append(filtered_trees[:actual_n_best])
+    return all_filtered_cands, all_filtered_trees
+    pass
+
+
+def translate_all(opt, grammar, actual_n_best):
     translator = build_translator(opt, report_score=True)
     all_scores, all_cands = translator.translate(src_path=opt.src,
-                         tgt_path=opt.tgt,
-                         src_dir=opt.src_dir,
-                         batch_size=opt.batch_size,
-                         attn_debug=opt.attn_debug)
+                                                 tgt_path=opt.tgt,
+                                                 src_dir=opt.src_dir,
+                                                 batch_size=opt.batch_size,
+                                                 attn_debug=opt.attn_debug)
+    all_cands, all_trees = generate_all_tree_candidates(all_cands, grammar, actual_n_best)
+    return all_scores, all_cands, all_trees
+
+
+def main(opt, grammar, actual_n_best):
+    translator = build_translator(opt, report_score=True)
+    all_scores, all_cands, all_tree_cands = translate_all(opt, grammar, actual_n_best)
+    debug(len(all_cands[0]), len(all_tree_cands[0]))
     beam_size = actual_n_best#len(all_scores[0])
     exp_name = opt.name
     all_sources = []
@@ -115,18 +140,8 @@ def main(opt, grammar, actual_n_best):
 
     all_bleus = []
     total_example = 0
-    for idx, (src, tgt, cands, scores) in enumerate(zip(all_sources, all_targets, all_cands, all_scores)):
+    for idx, (src, tgt, cands, trees) in enumerate(zip(all_sources, all_targets, all_cands, all_tree_cands)):
         total_example += 1
-        tree_cands = create_tree_from_candidates(cands, grammar)
-        filtered_cands , filtered_trees = [], []
-        count = 0
-        for cand, tree in zip(cands, tree_cands):
-            if tree is not None:
-                filtered_cands.append(cand)
-                filtered_trees.append(tree)
-                count += 1
-                if count == actual_n_best:
-                    break
         decode_res_file.write(str(idx) + '\n')
         decode_res_file.write(src + '\n')
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
@@ -134,11 +149,12 @@ def main(opt, grammar, actual_n_best):
         if src == tgt:
             no_change += 1
         decode_res_file.write('=====================================================================================\n')
-        decode_res_file.write('Canditdate Size : ' + str(len(filtered_cands)) + '\n')
+        decode_res_file.write('Canditdate Size : ' + str(len(cands)) + '\n')
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         bleus = []
         found = False
-        for cand, tree in zip(filtered_cands, filtered_trees):
+        debug(len(cands), len(trees))
+        for cand, tree in zip(cands, trees):
             ed = get_edit_dist(tgt, cand)
             if cand == tgt:
                 found = True
@@ -173,7 +189,9 @@ if __name__ == "__main__":
     opt.n_best *= 10
     logger = init_logger(opt.log_file)
     f = open(opt.grammar, 'rb')
+    debug('Loading the Grammar')
     grammar = pickle.load(f)
+    debug('Grammar Loaded From : %s' % opt.grammar)
     assert isinstance(grammar, JavaGrammar)
     # print(create_tree_from_candidates(['2018 688 1624 1913 1606 469'], grammar))
     main(opt, grammar, actual_n_best)
