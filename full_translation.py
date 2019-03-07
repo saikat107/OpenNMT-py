@@ -11,9 +11,9 @@ from util import debug
 
 
 def transform_structurally(opt_structure):
-    opt_structure.beam_size *= 10
+    # opt_structure.beam_size *= 10
     actual_n_best = opt_structure.n_best
-    opt_structure.n_best *= 10
+    # opt_structure.n_best *= 10
     f = open(opt_structure.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
