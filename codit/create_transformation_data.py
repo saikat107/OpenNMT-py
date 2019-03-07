@@ -644,7 +644,9 @@ def parse_java_change_dataset():
     num_valid_examples += num_train_examples
 
     debug('Finished Reading Data')
-    grammar = get_grammar(child_trees)
+    pt = [tree for tree in parent_tree_o]
+    pt.extend(child_trees)
+    grammar = get_grammar(pt)
     debug('Total rules : ' + str((len(grammar.rules))))
     debug(grammar.terminal_nodes)
     value_nodes = grammar.value_node_rules.keys()
