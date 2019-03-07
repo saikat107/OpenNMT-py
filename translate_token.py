@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import division, unicode_literals
+
+import os
+
 import argparse
 import numpy as np
 from nltk.translate import bleu_score
@@ -16,6 +19,7 @@ import onmt
 import onmt.model_builder
 import onmt.modules
 import onmt.opts
+from translate_structure import get_edit_dist
 from util import write_dummy_generated_node_types
 
 
@@ -97,10 +101,16 @@ def main(opt):
     src_file.close()
     correct = 0
     no_change = 0
-    decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_bleus/' + exp_name + '_' + str(beam_size) + '_bleus.csv', 'w')
+    if not os.path.exists('results'):
+        os.mkdir('results')
 
-    all_bleus = []
+    if not os.path.exists('result_eds'):
+        os.mkdir('result_eds')
+
+    decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
+    bleu_file = open('result_eds/' + exp_name + '_' + str(beam_size) + '_bleus.csv', 'w')
+
+    all_eds = []
     total_example = 0
     for idx, (src, tgt, cands) in enumerate(zip(all_sources, all_targets, all_cands)):
         total_example += 1
@@ -113,22 +123,22 @@ def main(opt):
         decode_res_file.write('=====================================================================================\n')
         decode_res_file.write('Canditdate Size : ' + str(len(cands)) + '\n')
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
-        bleus = []
+        eds = []
         found = False
         for cand in cands:
-            bleu = get_bleu_score([tgt], [cand])
+            ed = get_edit_dist(tgt, cand)
             if cand == tgt:
                 found = True
-            bleus.append(bleu)
+            eds.append(ed)
             decode_res_file.write(cand + '\n')
-            decode_res_file.write(str(bleu) + '\n')
+            decode_res_file.write(str(ed) + '\n')
         if found:
             correct += 1
-        all_bleus.append(bleus)
+        all_eds.append(eds)
         decode_res_file.write(str(found) + '\n\n')
 
-    all_bleus = np.asarray(all_bleus)
-    print_bleu_res_to_file(bleu_file, all_bleus)
+    all_eds = np.asarray(all_eds)
+    print_bleu_res_to_file(bleu_file, all_eds)
     decode_res_file.close()
     bleu_file.close()
     print(correct, no_change, total_example)
