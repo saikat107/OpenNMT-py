@@ -177,7 +177,7 @@ class TokenTranslator(object):
             nt_sequences = node_type_seq[example_idx]
             scores = []
             predictions = []
-            for type_sequence in nt_sequences:
+            for type_sequence in nt_sequences[:5]:
                 batch_data = self.translate_batch(batch, data, node_type_str=type_sequence, fast=False)
                 translations = builder.from_batch(batch_data)
 

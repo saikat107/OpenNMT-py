@@ -1,6 +1,7 @@
 tools/nonbreaking_prefixes/*
 docs/*
 tmp/*
+result_eds/*
 rule_based_data/*
 rule_based_models/*
 structure_change_data/*

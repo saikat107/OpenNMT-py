@@ -2,6 +2,7 @@ import pickle
 
 import argparse
 
+from codit.clone_based_model import clone_based_structural_transformation
 from codit.codit_options_parser import get_options
 from codit.grammar import JavaGrammar
 from translate_structure import translate_all as structure_translate
@@ -39,11 +40,21 @@ if __name__ == '__main__':
     parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=1)
     parser.add_argument('--name', '-n', help='Name of the experiment', default='Test')
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file', required=True)
+    parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
+                        choices=['clone', 'nmt', 'none'], default='none')
+    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
+    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
     options = parser.parse_args()
 
     structure_options, token_options = get_options(options)
-
-    transform_structurally(structure_options)
+    if options.rule_gen == 'nmt':
+        transform_structurally(structure_options)
+    elif options.rule_gen == 'clone':
+        assert (options.train_rule_src is not None) and (options.train_rule_tgt is not None), \
+            'Train Src and Tgt rules must be provided for clone based structural transformation'
+        clone_based_structural_transformation(
+            options.train_rule_src, options.train_rule_tgt,
+            options.src_struct, 100, options.grammar, 'tmp/generated_node_types_clone_5.nt')
     token_translate(token_options)
 
     # print(create_tree_from_candidates(['2018 688 1624 1913 1606 469'], grammar))
