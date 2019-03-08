@@ -1,6 +1,9 @@
 import inspect
 import os
 from datetime import datetime
+from apted import APTED, Config
+from codit.hypothesis import Hypothesis
+
 
 def debug(*msg):
     time = datetime.now()
@@ -34,6 +37,53 @@ def write_dummy_generated_node_types(input_file, output_file):
             out.close()
             inp.close()
     pass
+
+
+def read_file(file_path):
+    with open(file_path) as fp:
+        lines = [line.strip() for line in fp]
+        fp.close()
+        return lines
+
+
+def generate_tree_from_rule_str(rule_str, grammar):
+    try:
+        rules = [int(rule) for rule in rule_str.split()]
+        hyp = Hypothesis(grammar)
+        for rule_id in rules:
+            c_rule = grammar.id_to_rule[rule_id]
+            hyp.apply_rule(c_rule)
+        return hyp.tree
+    except:
+        return None
+
+
+def generate_terminal_node_sequence(rule_str, grammar):
+    try:
+        rules = [int(rule) for rule in rule_str.split()]
+        hyp = Hypothesis(grammar)
+        for rule_id in rules:
+            c_rule = grammar.id_to_rule[rule_id]
+            hyp.apply_rule(c_rule)
+        return hyp.get_terminal_sequence()
+    except:
+        return None
+
+
+def get_tree_edit_distance(tree1, tree2):
+    class TreeEditDistanceConfig(Config):
+        def __init__(self):
+            pass
+
+        def rename(self, node1, node2):
+            return 1 if node1.value != node2.value else 0
+
+        def children(self, node):
+            return [x for x in node.children]
+
+    apted = APTED(tree1, tree2, TreeEditDistanceConfig())
+    ed = apted.compute_edit_distance()
+    return ed
 
 
 if __name__ == '__main__':
