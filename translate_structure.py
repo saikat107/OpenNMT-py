@@ -195,7 +195,7 @@ if __name__ == "__main__":
     opt = parser.parse_args()
     opt.beam_size *= 10
     actual_n_best = opt.n_best
-    opt.n_best *= 10
+    opt.n_best = max(opt.n_best * 10, opt.beam_size)
     logger = init_logger(opt.log_file)
     f = open(opt.grammar, 'rb')
     debug('Loading the Grammar')

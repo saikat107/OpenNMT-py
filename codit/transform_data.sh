@@ -27,7 +27,7 @@ do
         do
                 echo $type
                 echo $size
-                python codit/create_transformation_data.py -data /local/saikatc/Research/icse_data_$type\
+                python codit/create_transformation_data.py -data $HOME/Research/icse_data_$type\
                                 -source all -name $size -valid eval -output rule_based_data/raw/all/$type'_'$size
         done
 done
@@ -38,7 +38,7 @@ do
         do
                 echo $type
                 echo $size
-                python codit/create_transformation_data.py -data /local/saikatc/Research/icse_data_$type\
+                python codit/create_transformation_data.py -data $HOME/Research/icse_data_$type\
                 -source all -name $size -valid eval -output rule_based_data/raw/filtered/$type'_'$size -exclude_no_structure_change
         done
 done

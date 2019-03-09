@@ -5,23 +5,10 @@ from codit.grammar import ASTNode, get_grammar
 import numpy as np
 import argparse
 import pickle
+from util import debug
 
 
 import os
-def debug(*msg):
-    import inspect
-    file_path = inspect.stack()[1][1]
-    line_num = inspect.stack()[1][2]
-    file_name = file_path
-    if os.getcwd() in file_path:
-        file_name = file_path[len(os.getcwd())+1:]
-    stack = str(file_name) + ' # ' + str(line_num)
-    print(stack, end=' ')
-    res = '\t'
-    for ms in msg:
-        res += (str(ms) + ' ')
-    print(res)
-
 
 def serialize_to_file(obj, path, protocol=pickle.HIGHEST_PROTOCOL):
     f = open(path, 'wb')
@@ -184,134 +171,82 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
         allowed_tokens_file = [None] * len(parent_codes)
     if file_names is None:
         file_names = [None] * len(parent_codes)
-    if child_original_codes is None:
-        for idx, (parent_code, parent_tree, child_code, child_tree,
-                  parent_tree_o, allowed_tokens, file_name) in \
-                enumerate(zip(parent_codes, parent_trees, child_codes, child_trees,
-                              parent_tree_os, allowed_tokens_file, file_names)):
+
+    for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o) in \
+                enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os)):
             if parent_tree is None or len(parent_tree) < 5:
                 continue
-            p_code_splitted = parent_code.split()
-            c_code_splitted = child_code.split()
-            if type != 'original':
-                assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
-                variables = set()
-                method_names = set()
-                type_names = set()
-                packages = set()
-                p_nodes = parent_tree_o.get_leaves()
-                for node in p_nodes:
-                    if node.type.strip() == '42':
-                        ident_type = get_identifier_type(node, parent_tree_o, parent_code)
-                        if ident_type == 'method':
-                            method_names.add(node.value.strip())
-                        elif ident_type == 'type':
-                            type_names.add(node.value.strip())
-                        else:
-                            variables.add(node.value.strip())
-                    elif node.type.strip() == '40':
-                        packages.add(node.value.strip())
-                c_nodes = child_tree.get_leaves()
-                for node in c_nodes:
-                    if node.type.strip() == '42' :
-                        ident_type = get_identifier_type(node, child_tree, child_code)
-                        if ident_type == 'method':
-                            method_names.add(node.value.strip())
-                        elif ident_type == 'type':
-                            type_names.add(node.value.strip())
-                        else:
-                            variables.add(node.value.strip())
-                    elif node.type.strip() == '40':
-                        packages.add(node.value.strip())
-                variable_map = {}
-                for idx, v in enumerate(variables):
-                    variable_map[v] = "VAR_" + str(idx + 1)
-                method_name_map = {}
-                for idx, v in enumerate(method_names):
-                    method_name_map[v] = "METHOD_" + str(idx + 1)
-                type_map = {}
-                for idx, v in enumerate(type_names):
-                    type_map[v] = "TYPE_" + str(idx + 1)
-                package_map = {}
-                for idx, v in enumerate(packages):
-                    package_map[v] = "PACKAGE_" + str(idx + 1)
 
-                for idx, token in enumerate(p_code_splitted):
-                    token = token.strip()
-                    if token in type_map.keys():
-                        p_code_splitted[idx] = type_map[token]
-                    elif token in variable_map.keys():
-                        p_code_splitted[idx] = variable_map[token]
-                    elif token in method_name_map.keys():
-                        p_code_splitted[idx] = method_name_map[token]
-                    elif token in package_map.keys():
-                        p_code_splitted[idx] = package_map[token]
-                for idx, token in enumerate(c_code_splitted):
-                    token = token.strip()
-                    if token in type_map.keys():
-                        c_code_splitted[idx] = type_map[token]
-                    elif token in variable_map.keys():
-                        c_code_splitted[idx] = variable_map[token]
-                    elif token in method_name_map.keys():
-                        c_code_splitted[idx] = method_name_map[token]
-                    elif token in package_map.keys():
-                        c_code_splitted[idx] = package_map[token]
-                for idx, token in enumerate(allowed_tokens):
-                    token = token.strip()
-                    if token in type_map.keys():
-                        allowed_tokens[idx] = type_map[token]
-                    elif token in variable_map.keys():
-                        allowed_tokens[idx] = variable_map[token]
-                    elif token in method_name_map.keys():
-                        allowed_tokens[idx] = method_name_map[token]
-                    elif token in package_map.keys():
-                        allowed_tokens[idx] = package_map[token]
-                child_code = ' '.join(c_code_splitted)
-                # allowed_tokens = ' '.join(allowed_tokens_splitted)
-                for node in p_nodes:
-                    if node.type.strip() == '40' or node.type.strip() == '42':
-                        v = node.value.strip()
-                        if v in variable_map.keys():
-                            node.value = variable_map[v]
-                        elif v in type_map.keys():
-                            node.value = type_map[v]
-                        elif v in method_name_map.keys():
-                            node.value = method_name_map[v]
-                        elif v in package_map.keys():
-                            node.value = package_map[v]
-                for node in c_nodes:
-                    if node.type.strip() == '40' or node.type.strip() == '42':
-                        v = node.value.strip()
-                        if v in variable_map.keys():
-                            node.value = variable_map[v]
-                        elif v in type_map.keys():
-                            node.value = type_map[v]
-                        elif v in method_name_map.keys():
-                            node.value = method_name_map[v]
-                        elif v in package_map.keys():
-                            node.value = package_map[v]
+            assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
+            variables = set()
+            method_names = set()
+            type_names = set()
+            packages = set()
+            p_nodes = parent_tree_o.get_leaves()
+            for node_p in p_nodes:
+                if node_p.type.strip() == '42':
+                    ident_type = get_identifier_type(node_p, parent_tree_o, parent_code)
+                    if ident_type == 'method':
+                        method_names.add(node_p.value.strip())
+                    elif ident_type == 'type':
+                        type_names.add(node_p.value.strip())
+                    else:
+                        variables.add(node_p.value.strip())
+                elif node_p.type.strip() == '40':
+                    packages.add(node_p.value.strip())
 
-            example = {'id': idx, 'query_tokens': p_code_splitted, 'code': child_code,
-                       'parent_tree': parent_tree,
-                       'child_tree': child_tree,
-                       'parent_original_tree': parent_tree_o,
-                       'allowed_tokens': allowed_tokens,
-                       'file_name': file_name}
+            c_nodes = child_tree.get_leaves()
+            for node_c in c_nodes:
+                if node_c.type.strip() == '42':
+                    ident_type = get_identifier_type(node_c, child_tree, child_code)
+                    if ident_type == 'method':
+                        method_names.add(node_c.value.strip())
+                    elif ident_type == 'type':
+                        type_names.add(node_c.value.strip())
+                    else:
+                        variables.add(node_c.value.strip())
+                elif node_c.type.strip() == '40':
+                    packages.add(node_c.value.strip())
 
-            data.append(example)
-    else:
-        for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o,
-                  child_o_code, allowed_tokens, file_name) in \
-                enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os,
-                              child_original_codes, allowed_tokens_file, file_names)):
-            if parent_tree is None or len(parent_tree) < 5:
-                continue
+            variable_map = {}
+            for id1, v in enumerate(variables):
+                variable_map[v] = "VAR_" + str(id1 + 1)
+            method_name_map = {}
+            for id1, v in enumerate(method_names):
+                method_name_map[v] = "METHOD_" + str(id1 + 1)
+            type_map = {}
+            for id1, v in enumerate(type_names):
+                type_map[v] = "TYPE_" + str(id1 + 1)
+            package_map = {}
+            for id1, v in enumerate(packages):
+                package_map[v] = "PACKAGE_" + str(id1 + 1)
+
+                    # allowed_tokens = ' '.join(allowed_tokens_splitted)
+            for np in p_nodes:
+                if np.type.strip() == '40' or np.type.strip() == '42':
+                    v = np.value.strip()
+                    if v in variable_map.keys():
+                        np.type = '800'
+                    elif v in type_map.keys():
+                        np.type = '801'
+                    elif v in method_name_map.keys():
+                        np.type = '802'
+
+            for nc in c_nodes:
+                if nc.type.strip() == '40' or nc.type.strip() == '42':
+                    v = nc.value.strip()
+                    if v in variable_map.keys():
+                        nc.type = '800'
+                    elif v in type_map.keys():
+                        nc.type = '801'
+                    elif v in method_name_map.keys():
+                        nc.type = '802'
+
+
             example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
                        'parent_tree': parent_tree, 'child_tree': child_tree,
                        'parent_original_tree': parent_tree_o,
-                       'child_original_code' : child_o_code,
-                       'allowed_tokens': allowed_tokens,
-                       'file_name': file_name}
+                       }
 
             data.append(example)
 
@@ -560,17 +495,23 @@ def create_all_files(folder_name, data_type):
     next_token_file = open(os.path.join(folder_name + '/' + data_type, 'next.token'), 'w')
     prev_token_plus_id_file = open(os.path.join(folder_name + '/' + data_type, 'prev.augmented.token'), 'w')
     next_token_plus_id_file = open(os.path.join(folder_name + '/' + data_type, 'next.augmented.token'), 'w')
+    prev_augmented_rule_file = open(os.path.join(folder_name + '/' + data_type, 'prev.augmented.rule'), 'w')
+    next_augmented_rule_file = open(os.path.join(folder_name + '/' + data_type, 'next.augmented.rule'), 'w')
+    prev_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'prev.frontier'), 'w')
+    next_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'next.frontier'), 'w')
     return prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file, \
     prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file, \
-    next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file
+    next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file,\
+    prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file
 
 
 def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file,
-    prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file,
-    next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file,
-                   prev_rule, next_rule, prev_rule_parent, next_rule_parent,
-    prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-    next_token_node_id, prev_token, next_token):
+                prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file,
+                next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file,
+                prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file,
+                prev_rule, next_rule, prev_rule_parent, next_rule_parent,
+                prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
+                next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier):
     prev_rule_file.write(' '.join([str(x) for x in prev_rule]) + '\n')
     next_rule_file.write(' '.join([str(x) for x in next_rule]) + '\n')
     prev_rule_parent_file.write(' '.join([str(x) for x in prev_rule_parent]) + '\n')
@@ -591,6 +532,18 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
     next_augmented_token_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(next_token, next_token_node_id)]) + '\n'
     prev_token_plus_id_file.write(prev_augmented_token_str)
     next_token_plus_id_file.write(next_augmented_token_str)
+
+    prev_frontier_file.write(' '.join([str(x) for x in prev_rule_frontier]) + '\n')
+    next_frontier_file.write(' '.join([str(x) for x in next_rule_frontier]) + '\n')
+
+    prev_rule_frontier.append(-1)
+    next_rule_frontier.append(-1)
+    prev_rule_frontier = prev_rule_frontier[1:]
+    next_rule_frontier = next_rule_frontier[1:]
+    prev_augmented_rule_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(prev_rule, prev_rule_frontier)]) + '\n'
+    next_augmented_rule_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(next_rule, next_rule_frontier)]) + '\n'
+    prev_augmented_rule_file.write(prev_augmented_rule_str)
+    next_augmented_rule_file.write(next_augmented_rule_str)
 
 
 def flush_all(*files):
@@ -644,20 +597,26 @@ def parse_java_change_dataset():
     num_valid_examples += num_train_examples
 
     debug('Finished Reading Data')
-    pt = [tree for tree in parent_tree_o]
-    pt.extend(child_trees)
+
+    data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
+                                        child_codes=child_codes, child_trees=child_trees,
+                                        parent_tree_os=parent_tree_o, file_names=file_names,
+                                        allowed_tokens_file=allowed_tokens_for_nodes)
+    pt = [entry['parent_original_tree'] for entry in data]
+    pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
     debug('Total rules : ' + str((len(grammar.rules))))
     debug(grammar.terminal_nodes)
     value_nodes = grammar.value_node_rules.keys()
-    for node in value_nodes:
-        debug(grammar.value_node_rules[node])
+    debug('Total Value Nodes : ', len(value_nodes))
+    # for node in value_nodes:
+    #     debug(grammar.value_node_rules[node])
     # debug('Total terminal nodes : ' + str(len(grammar.terminal_nodes)))
 
-    data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
-                                       child_codes=child_codes, child_trees=child_trees,
-                                       parent_tree_os=parent_tree_o, file_names=file_names,
-                                       allowed_tokens_file=allowed_tokens_for_nodes)
+    # data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
+    #                                    child_codes=child_codes, child_trees=child_trees,
+    #                                    # parent_tree_os=parent_tree_o, file_names=file_names,
+    #                                    allowed_tokens_file=allowed_tokens_for_nodes)
 
     train_data, dev_data, test_data, all_examples, train_ids, dev_ids, test_ids = [], [], [], [], [], [], []
 
@@ -672,6 +631,9 @@ def parse_java_change_dataset():
         prev_rule = []
         prev_rule_parent = []
         prev_rule_parent_t = []
+
+        prev_rule_frontier = []
+        next_rule_frontier = []
 
         parse_tree = entry['child_tree']
         parent_original_tree = entry['parent_original_tree']
@@ -693,6 +655,7 @@ def parse_java_change_dataset():
                 next_rule.append(grammar.rule_to_id.get(rule))
                 next_rule_parent_t.append(grammar.rule_to_id.get(parent_rule))
                 next_rule_parent.append(parent_t)
+                next_rule_frontier.append(rule.type)
             else:
                 node_id = str(rule.type)
                 node_value = str(rule.value)
@@ -714,6 +677,7 @@ def parse_java_change_dataset():
                 prev_rule.append(grammar.rule_to_id.get(rule))
                 prev_rule_parent.append(grammar.rule_to_id.get(parent_rule))
                 prev_rule_parent_t.append(parent_t)
+                prev_rule_frontier.append(rule.type)
             else:
                 node_id = str(rule.type)
                 node_value = str(rule.value)
@@ -724,7 +688,7 @@ def parse_java_change_dataset():
             continue
         example = [prev_rule, next_rule, prev_rule_parent, next_rule_parent,
                     prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                    next_token_node_id, prev_token, next_token]
+                    next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier]
         all_examples.append(example)
 
         if idx < num_train_examples:
