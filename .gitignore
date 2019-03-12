@@ -1,9 +1,12 @@
+c_data/*
+c_models/*
 tools/nonbreaking_prefixes/*
 docs/*
 tmp/*
 result_eds/*
 rule_based_data/*
 rule_based_models/*
+rule_based_model/*
 structure_change_data/*
 structure_change_model/*
 result_bleus/*

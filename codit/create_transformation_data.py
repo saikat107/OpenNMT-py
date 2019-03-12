@@ -267,7 +267,7 @@ def get_terminal_tokens(_terminal_str):
 
 
 def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
-                  allowed_tokens_file, file_names_file, exc_str_ch=False, samples=10000000):
+                  allowed_tokens_file, file_names_file, exc_str_ch=True, samples=10000000):
     pc = open(p_code)
     pt = open(p_tree)
     cc = open(c_code)
@@ -309,8 +309,8 @@ def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
     else:
         counter = 0
         for idx, (pcs, pts, ccs, cts, pots, at, fn) in enumerate(zip(pc, pt, cc, ct, pot, ats, fnf)):
-            #if exc_str_ch and cts.strip() == pots.strip():
-            #    continue
+            if exc_str_ch and pcs.strip() == ccs.strip():
+                continue
             counter += 1
             if '`' in ccs:
                 continue
@@ -328,46 +328,6 @@ def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
                 break
     return pcodes[:samples], ptrees[:samples], ccodes[:samples], \
            ctrees[:samples], potrees[:samples], allowed_tokens[:samples], file_names[:samples], included_ids[:samples]
-
-
-def read_raw_data_for_type_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
-                  child_original_code, allowed_tokens_file, exc_str_ch=False, samples=10000000):
-    pc = open(p_code)
-    pt = open(p_tree)
-    cc = open(c_code)
-    ct = open(c_tree)
-    pot = open(parent_original_tree)
-    choc = open(child_original_code)
-    ats = open(allowed_tokens_file)
-    included_ids = []
-    pcodes = []
-    ptrees = []
-    ccodes = []
-    ctrees = []
-    potrees = []
-    cocodes = []
-    allowed_tokens = []
-    counter = 0
-    for idx, (pcs, pts, ccs, cts, pots, chc, at) in enumerate(zip(pc, pt, cc, ct, pot, choc, ats)):
-        if exc_str_ch and pcs.strip() == ccs.strip():
-            continue
-        counter += 1
-        if '`' in ccs:
-            continue
-        if len(pts.strip()) < 5:
-            continue
-        pcodes.append(pcs.strip())
-        ptrees.append(pts.strip())
-        ccodes.append(ccs.strip())
-        ctrees.append(create_tree_from_string(cts))
-        potrees.append(create_tree_from_string(pots))
-        cocodes.append(chc.strip())
-        allowed_tokens.append([s.strip() for s in at.split()])
-        included_ids.append(idx)
-        if counter == samples:
-            break
-    return pcodes[:samples], ptrees[:samples], ccodes[:samples], ctrees[:samples], \
-           potrees[:samples], cocodes[:samples], allowed_tokens[:samples], included_ids
 
 
 def get_final_token_mask(allowed_tokens, t_vocab):
@@ -512,6 +472,9 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
                 prev_rule, next_rule, prev_rule_parent, next_rule_parent,
                 prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
                 next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier):
+    if len(prev_rule) == 0 or len(next_rule) == 0 or len(prev_token) == 0 or len(next_token) == 0 or len(prev_token_node_id) == 0  or len(next_token_node_id) == 0 or len(prev_rule_frontier) == 0 or len(next_rule_frontier) == 0:
+        return 0 
+
     prev_rule_file.write(' '.join([str(x) for x in prev_rule]) + '\n')
     next_rule_file.write(' '.join([str(x) for x in next_rule]) + '\n')
     prev_rule_parent_file.write(' '.join([str(x) for x in prev_rule_parent]) + '\n')
@@ -544,6 +507,8 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
     next_augmented_rule_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(next_rule, next_rule_frontier)]) + '\n'
     prev_augmented_rule_file.write(prev_augmented_rule_str)
     next_augmented_rule_file.write(next_augmented_rule_str)
+    return 1
+
 
 
 def flush_all(*files):
@@ -702,29 +667,34 @@ def parse_java_change_dataset():
             test_ids.append(idx)
 
     _file_all = create_all_files(args.output, 'train')
+
+    train_w = 0
     for ex in train_data:
         af = [f for f in _file_all]
         af.extend(ex)
-        write_contents(*af)
+        train_w += write_contents(*af)
         flush_all(*_file_all)
     closs_all(*_file_all)
 
     _file_all = create_all_files(args.output, 'valid')
+
+    valid_w = 0
     for ex in dev_data:
         af = [f for f in _file_all]
         af.extend(ex)
-        write_contents(*af)
+        valid_w += write_contents(*af)
         flush_all(*_file_all)
     closs_all(*_file_all)
 
     _file_all = create_all_files(args.output, 'test')
+    test_w = 0
     for ex in test_data:
         af = [f for f in _file_all]
         af.extend(ex)
-        write_contents(*af)
+        test_w += write_contents(*af)
         flush_all(*_file_all)
     closs_all(*_file_all)
-
+    debug(train_w, valid_w, test_w)
     serialize_to_file(grammar, os.path.join(args.output, 'grammar.bin'))
     return train_data, dev_data, test_data
 

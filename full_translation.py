@@ -13,9 +13,9 @@ from util import debug
 
 def transform_structurally(structure_options):
     f = open(structure_options.grammar, 'rb')
-    # debug('Loading the Grammar')
+    debug('Loading the Grammar')
     grammar = pickle.load(f)
-    # debug('Grammar Loaded From : %s' % opt_structure.grammar)
+    debug('Grammar Loaded From : %s' % structure_options.grammar)
     assert isinstance(grammar, JavaGrammar)
     _, _, all_trees = structure_translate(structure_options, grammar, structure_options.n_best)
     if not os.path.exists('tmp'):
@@ -31,6 +31,7 @@ def transform_structurally(structure_options):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation', required=True)
     parser.add_argument('--model_token', '-mt', help='Model for Token', required=True)
     parser.add_argument('--src_token', '-st', help='Source version file(tokens)', required=True)
@@ -44,6 +45,7 @@ if __name__ == '__main__':
                         choices=['clone', 'nmt', 'none'], default='none')
     parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
     parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
+    parser.add_argument('-cout', default='clone')
     options = parser.parse_args()
 
     structure_options, token_options = get_options(options)
@@ -54,7 +56,8 @@ if __name__ == '__main__':
             'Train Src and Tgt rules must be provided for clone based structural transformation'
         clone_based_structural_transformation(
             options.train_rule_src, options.train_rule_tgt,
-            options.src_struct, 100, options.grammar, 'tmp/generated_node_types_clone_5.nt')
+            options.src_struct, 100, options.grammar, 'tmp/' + options.cout)
+
     token_translate(token_options)
 
     # print(create_tree_from_candidates(['2018 688 1624 1913 1606 469'], grammar))

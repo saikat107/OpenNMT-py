@@ -10,7 +10,8 @@ def get_k_most_similar_train_example(test_tree, train_src_tree, k):
         return indices
     dists = []
     for tr_idx, train_tree in enumerate(train_src_tree):
-        debug(tr_idx)
+        if tr_idx % 1000 == 0:
+            debug(tr_idx)
         if train_tree is not None:
             dist = get_tree_edit_distance(test_tree, train_tree)
         else:
