@@ -80,7 +80,7 @@ def main(opt):
     # # TODO this needs to be fixed
     # write_dummy_generated_node_types(opt.tgt, 'tmp/generated_node_types.nt')
     # ####################################################################################
-    all_node_type_seq_str = get_all_node_type_str('tmp/generated_node_types.nt')
+    all_node_type_seq_str = get_all_node_type_str('tmp/' + opt.name + '.gen.rule')
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
     scores, all_cands = translator.translate(src_path=opt.src,
                          tgt_path=opt.tgt,

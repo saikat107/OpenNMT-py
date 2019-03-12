@@ -28,10 +28,10 @@ def get_options(options):
     structure_options = get_structure_transformation_parser().parse_args(
         (' -src ' + options.src_struct + ' -batch_size 64'
          + ' -model ' + options.model_structure + ' -beam_size 100 -n_best 100 -gpu 0 '
-         + ' --grammar ' + options.grammar).split())
+         + ' --grammar ' + options.grammar  + ' -tmp_file tmp/' + options.name + '.gen.rule -verbose').split())
     token_options = get_token_transformation_parser().parse_args(
         ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
          + ' --name ' + options.name + ' -batch_size 1 ' + ' -beam_size ' + str(options.beam_size)
-         + ' -n_best ' + str(options.n_best))
+         + ' -n_best ' + str(options.n_best) + ' -verbose' )
             .split())
     return structure_options, token_options
