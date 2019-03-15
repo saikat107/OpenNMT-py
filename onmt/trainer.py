@@ -208,6 +208,7 @@ class Trainer(object):
                                 self.model_saver._save_best_validation_model('acc')
                                 patience_counter = 0
                             else:
+                                logger.info('Hitting accuracy counter : %d' % patience_counter)
                                 patience_counter += 1
 
                             if valid_ppl < min_ppl:
@@ -215,6 +216,7 @@ class Trainer(object):
                                 self.model_saver._save_best_validation_model('ppl')
                                 ppl_patience_counter = 0
                             else:
+                                logger.info('Hitting ppl counter : %d' % ppl_patience_counter)
                                 ppl_patience_counter += 1
 
                             if patience_counter >= 30 or ppl_patience_counter >= 30:
