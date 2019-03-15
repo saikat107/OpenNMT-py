@@ -125,6 +125,8 @@ class Trainer(object):
         Return:
             None
         """
+        min_ppl = 999999
+        ppl_patience_counter = 0
         patience_counter = 0
         max_acc = 0
         logger.info('Start training...')
@@ -200,14 +202,22 @@ class Trainer(object):
                             self._report_step(self.optim.learning_rate,
                                               step, valid_stats=valid_stats)
                             valid_acc = valid_stats.accuracy()
+                            valid_ppl = valid_stats.ppl()
                             if valid_acc > max_acc:
                                 max_acc = valid_acc
-                                self.model_saver._save_best_validation_model()
+                                self.model_saver._save_best_validation_model('acc')
                                 patience_counter = 0
                             else:
                                 patience_counter += 1
 
-                            if patience_counter >= 20:
+                            if valid_ppl < min_ppl:
+                                min_ppl = valid_ppl
+                                self.model_saver._save_best_validation_model('ppl')
+                                ppl_patience_counter = 0
+                            else:
+                                ppl_patience_counter += 1
+
+                            if patience_counter >= 30 or ppl_patience_counter >= 30:
                                 break
 
                         # if self.gpu_rank == 0:

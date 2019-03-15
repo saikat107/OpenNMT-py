@@ -301,7 +301,7 @@ def train_opts(parser):
                        Approximately equivalent to updating
                        batch_size * accum_count batches at once.
                        Recommended for Transformer.""")
-    group.add_argument('-valid_steps', type=int, default=1000,
+    group.add_argument('-valid_steps', type=int, default=50,
                        help='Perfom validation every X steps')
     group.add_argument('-valid_batch_size', type=int, default=32,
                        help='Maximum batch size for validation')
@@ -309,7 +309,7 @@ def train_opts(parser):
                        help="""Maximum batches of words in a sequence to run
                         the generator on in parallel. Higher is faster, but
                         uses more memory.""")
-    group.add_argument('-train_steps', type=int, default=100000,
+    group.add_argument('-train_steps', type=int, default=50000,
                        help='Number of training steps')
     group.add_argument('-epochs', type=int, default=0,
                        help='Deprecated epochs see train_steps')

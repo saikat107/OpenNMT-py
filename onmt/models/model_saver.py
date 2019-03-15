@@ -82,7 +82,7 @@ class ModelSaverBase(object):
         """
         raise NotImplementedError()
 
-    def _save_best_validation_model(self):
+    def _save_best_validation_model(self, name=None):
         raise NotImplementedError()
 
 
@@ -122,7 +122,7 @@ class ModelSaver(ModelSaverBase):
         torch.save(checkpoint, checkpoint_path)
         return checkpoint, checkpoint_path
 
-    def _save_best_validation_model(self):
+    def _save_best_validation_model(self, name=None):
         real_model = (self.model.module
                       if isinstance(self.model, nn.DataParallel)
                       else self.model)
@@ -141,9 +141,12 @@ class ModelSaver(ModelSaverBase):
             'opt': self.model_opt,
             'optim': self.optim,
         }
-
-        logger.info("Saving checkpoint %s.pt" % (self.base_path))
-        checkpoint_path = '%s.pt' % (self.base_path)
+        if name is not None:
+            name = '-best-' + name
+        else:
+            name = ''
+        logger.info("Saving checkpoint %s.pt" % (self.base_path + name))
+        checkpoint_path = '%s.pt' % (self.base_path + name)
         torch.save(checkpoint, checkpoint_path)
         return checkpoint, checkpoint_path
 
