@@ -13,6 +13,7 @@ result_bleus/*
 results/*
 available_models/*
 old_data_and_model/*
+defj_rule_based_data/*
 rdt/*
 # repo-specific stuff
 pred.txt
