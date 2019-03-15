@@ -191,7 +191,6 @@ class Trainer(object):
                                             % (self.gpu_rank, step))
                             valid_iter = valid_iter_fct()
                             valid_stats = self.validate(valid_iter)
-                            print(valid_stats)
                             if self.gpu_verbose_level > 0:
                                 logger.info('GpuRank %d: gather valid stat \
                                             step %d' % (self.gpu_rank, step))
