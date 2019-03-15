@@ -128,9 +128,9 @@ def main(opt):
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         bleus = []
         found = False
-        for cand in zip(cands):
+        for cand in cands:
             ed = get_edit_dist(tgt, cand)
-            if cand == tgt:
+            if ed == 0:
                 found = True
             bleus.append(ed)
             decode_res_file.write(cand + '\n')
