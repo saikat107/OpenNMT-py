@@ -11,16 +11,16 @@ from translate_token import main as token_translate
 from util import debug
 
 
-def transform_structurally(structure_options):
-    f = open(structure_options.grammar, 'rb')
+def transform_structurally(structure_opts):
+    f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
-    debug('Grammar Loaded From : %s' % structure_options.grammar)
+    debug('Grammar Loaded From : %s' % structure_opts.grammar)
     assert isinstance(grammar, JavaGrammar)
-    _, _, all_trees = structure_translate(structure_options, grammar, structure_options.n_best)
+    _, _, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
     if not os.path.exists('tmp'):
         os.mkdir('tmp')
-    with open(structure_options.tmp_file, 'w') as tmp:
+    with open(structure_opts.tmp_file, 'w') as tmp:
         for trees in all_trees:
             # debug(trees)
             t_strs = [' '.join(tree) for tree in trees]
@@ -43,8 +43,10 @@ if __name__ == '__main__':
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file', required=True)
     parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
                         choices=['clone', 'nmt', 'none'], default='none')
-    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
-    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
+    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule '
+                                                            'src file for clone based detection', default=None)
+    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule '
+                                                            'src file for clone based detection', default=None)
     parser.add_argument('-cout', default='clone')
     options = parser.parse_args()
 

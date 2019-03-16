@@ -15,6 +15,7 @@ import onmt.inputters as inputters
 import onmt.utils
 
 from onmt.utils.logging import logger
+from util import debug
 
 
 def build_trainer(opt, model, fields, optim, data_type, model_saver=None):
@@ -143,6 +144,7 @@ class Trainer(object):
 
         while step <= train_steps:
             reduce_counter = 0
+            train_complete = False
             for i, batch in enumerate(train_iter):
                 if self.n_gpu == 0 or (i % self.n_gpu == self.gpu_rank):
                     if self.gpu_verbose_level > 1:
@@ -218,7 +220,8 @@ class Trainer(object):
                                 logger.info('Hitting ppl counter : %d' % ppl_patience_counter)
                                 ppl_patience_counter += 1
 
-                            if patience_counter >= 30 or ppl_patience_counter >= 30:
+                            if patience_counter >= 100 or ppl_patience_counter >= 100:
+                                train_complete = True
                                 break
 
                         # if self.gpu_rank == 0:
@@ -226,6 +229,10 @@ class Trainer(object):
                         step += 1
                         if step > train_steps:
                             break
+            debug(train_complete)
+
+            if train_complete:
+                break
             if self.gpu_verbose_level > 0:
                 logger.info('GpuRank %d: we completed an epoch \
                             at step %d' % (self.gpu_rank, step))

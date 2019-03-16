@@ -2,13 +2,13 @@ import sys, os
 
 from codit.grammar import ASTNode, get_grammar
 
-import numpy as np
+import numpy
 import argparse
 import pickle
 from util import debug
 
-
 import os
+
 
 def serialize_to_file(obj, path, protocol=pickle.HIGHEST_PROTOCOL):
     f = open(path, 'wb')
@@ -126,7 +126,7 @@ def find_closest_right_cousin(node, tree):
         return None
     ci = parent.children.index(node)
     if ci < number_of_siblings - 1:
-        return get_left_most_node(parent.children[ci+1])
+        return get_left_most_node(parent.children[ci + 1])
     else:
         return find_closest_right_cousin(parent, tree)
     pass
@@ -164,91 +164,110 @@ def get_identifier_type(node, tree, code):
 
 
 def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
-                                child_trees, parent_tree_os, file_names=None,
-                                child_original_codes=None, allowed_tokens_file=None, type='original'):
+                                 child_trees, parent_tree_os, type='original'):
     data = []
-    if allowed_tokens_file is None:
-        allowed_tokens_file = [None] * len(parent_codes)
-    if file_names is None:
-        file_names = [None] * len(parent_codes)
 
     for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o) in \
-                enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os)):
-            if parent_tree is None or len(parent_tree) < 5:
-                continue
+            enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os)):
+        if parent_tree is None or len(parent_tree) < 5:
+            continue
 
-            assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
-            variables = set()
-            method_names = set()
-            type_names = set()
-            packages = set()
-            p_nodes = parent_tree_o.get_leaves()
-            for node_p in p_nodes:
-                if node_p.type.strip() == '42':
-                    ident_type = get_identifier_type(node_p, parent_tree_o, parent_code)
-                    if ident_type == 'method':
-                        method_names.add(node_p.value.strip())
-                    elif ident_type == 'type':
-                        type_names.add(node_p.value.strip())
-                    else:
-                        variables.add(node_p.value.strip())
-                elif node_p.type.strip() == '40':
-                    packages.add(node_p.value.strip())
+        assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
+        variables = set()
+        method_names = set()
+        type_names = set()
+        packages = set()
+        p_nodes = parent_tree_o.get_leaves()
+        for node_p in p_nodes:
+            if node_p.type.strip() == '42':
+                ident_type = get_identifier_type(node_p, parent_tree_o, parent_code)
+                if ident_type == 'method':
+                    method_names.add(node_p.value.strip())
+                elif ident_type == 'type':
+                    type_names.add(node_p.value.strip())
+                else:
+                    variables.add(node_p.value.strip())
+            elif node_p.type.strip() == '40':
+                packages.add(node_p.value.strip())
 
-            c_nodes = child_tree.get_leaves()
-            for node_c in c_nodes:
-                if node_c.type.strip() == '42':
-                    ident_type = get_identifier_type(node_c, child_tree, child_code)
-                    if ident_type == 'method':
-                        method_names.add(node_c.value.strip())
-                    elif ident_type == 'type':
-                        type_names.add(node_c.value.strip())
-                    else:
-                        variables.add(node_c.value.strip())
-                elif node_c.type.strip() == '40':
-                    packages.add(node_c.value.strip())
+        c_nodes = child_tree.get_leaves()
+        for node_c in c_nodes:
+            if node_c.type.strip() == '42':
+                ident_type = get_identifier_type(node_c, child_tree, child_code)
+                if ident_type == 'method':
+                    method_names.add(node_c.value.strip())
+                elif ident_type == 'type':
+                    type_names.add(node_c.value.strip())
+                else:
+                    variables.add(node_c.value.strip())
+            elif node_c.type.strip() == '40':
+                packages.add(node_c.value.strip())
 
-            variable_map = {}
-            for id1, v in enumerate(variables):
-                variable_map[v] = "VAR_" + str(id1 + 1)
-            method_name_map = {}
-            for id1, v in enumerate(method_names):
-                method_name_map[v] = "METHOD_" + str(id1 + 1)
-            type_map = {}
-            for id1, v in enumerate(type_names):
-                type_map[v] = "TYPE_" + str(id1 + 1)
-            package_map = {}
-            for id1, v in enumerate(packages):
-                package_map[v] = "PACKAGE_" + str(id1 + 1)
+        variable_map = {}
+        for id1, v in enumerate(variables):
+            variable_map[v] = "VAR_" + str(id1 + 1)
+        method_name_map = {}
+        for id1, v in enumerate(method_names):
+            method_name_map[v] = "METHOD_" + str(id1 + 1)
+        type_map = {}
+        for id1, v in enumerate(type_names):
+            type_map[v] = "TYPE_" + str(id1 + 1)
+        package_map = {}
+        for id1, v in enumerate(packages):
+            package_map[v] = "PACKAGE_" + str(id1 + 1)
 
-                    # allowed_tokens = ' '.join(allowed_tokens_splitted)
-            for np in p_nodes:
-                if np.type.strip() == '40' or np.type.strip() == '42':
-                    v = np.value.strip()
-                    if v in variable_map.keys():
-                        np.type = '800'
-                    elif v in type_map.keys():
-                        np.type = '801'
-                    elif v in method_name_map.keys():
-                        np.type = '802'
+        for np in p_nodes:
+            if np.type.strip() == '40' or np.type.strip() == '42':
+                v = np.value.strip()
+                if v in variable_map.keys():
+                    np.type = '800'
+                    if type == 'abstract':
+                        np.value = variable_map[v]
+                elif v in type_map.keys():
+                    np.type = '801'
+                    if type == 'abstract':
+                        np.value = type_map[v]
+                elif v in method_name_map.keys():
+                    np.type = '802'
+                    if type == 'abstract':
+                        np.value = method_name_map[v]
+                elif v in package_map.keys():
+                    if type == 'abstract':
+                        np.value = package_map[v]
+                # parent_code = parent_code.replace(v, np.value)
+        if type == 'abstract':
+            parent_code = ' '.join([str(pn.value) for pn in parent_tree_o.get_leaves()])
+            # debug(parent_code)
 
-            for nc in c_nodes:
-                if nc.type.strip() == '40' or nc.type.strip() == '42':
-                    v = nc.value.strip()
-                    if v in variable_map.keys():
-                        nc.type = '800'
-                    elif v in type_map.keys():
-                        nc.type = '801'
-                    elif v in method_name_map.keys():
-                        nc.type = '802'
+        for nc in c_nodes:
+            if nc.type.strip() == '40' or nc.type.strip() == '42':
+                v = nc.value.strip()
+                if v in variable_map.keys():
+                    nc.type = '800'
+                    if type == 'abstract':
+                        nc.value = variable_map[v]
+                elif v in type_map.keys():
+                    nc.type = '801'
+                    if type == 'abstract':
+                        nc.value = type_map[v]
+                elif v in method_name_map.keys():
+                    nc.type = '802'
+                    if type == 'abstract':
+                        nc.value = method_name_map[v]
+                elif v in package_map.keys():
+                    if type == 'abstract':
+                        nc.value = package_map[v]
+                # child_code = child_code.replace(v, nc.value)
+        if type == 'abstract':
+            child_code = ' '.join([str(cn.value) for cn in child_tree.get_leaves()])
+            # debug(child_code)
 
+        example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
+                   'parent_tree': parent_tree, 'child_tree': child_tree,
+                   'parent_original_tree': parent_tree_o,
+                   }
 
-            example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
-                       'parent_tree': parent_tree, 'child_tree': child_tree,
-                       'parent_original_tree': parent_tree_o,
-                       }
-
-            data.append(example)
+        data.append(example)
 
     return data
 
@@ -338,11 +357,11 @@ def get_final_token_mask(allowed_tokens, t_vocab):
         else:
             if word.strip() in t_vocab.token_id_map.keys():
                 indices.append(t_vocab.token_id_map[word.strip()])
-    mask = np.array([1e-30] * t_vocab.size, dtype='float32')
+    mask = numpy.array([1e-30] * t_vocab.size, dtype='float32')
     for index in indices:
         mask[index] = 1.00
     # print np.sum(mask)
-    return np.array(indices), mask
+    return numpy.array(indices), mask
     pass
 
 
@@ -444,7 +463,7 @@ def create_all_files(folder_name, data_type):
     if not os.path.exists(folder_name + '/' + data_type):
         os.mkdir(folder_name + '/' + data_type)
     prev_rule_file = open(os.path.join(folder_name + '/' + data_type, 'prev.rule'), 'w')
-    next_rule_file = open(os.path.join(folder_name+ '/' + data_type, 'next.rule'), 'w')
+    next_rule_file = open(os.path.join(folder_name + '/' + data_type, 'next.rule'), 'w')
     prev_rule_parent_file = open(os.path.join(folder_name + '/' + data_type, 'prev.parent.rule'), 'w')
     next_rule_parent_file = open(os.path.join(folder_name + '/' + data_type, 'next.parent.rule'), 'w')
     prev_rule_parent_t_file = open(os.path.join(folder_name + '/' + data_type, 'prev.parent.time'), 'w')
@@ -460,20 +479,23 @@ def create_all_files(folder_name, data_type):
     prev_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'prev.frontier'), 'w')
     next_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'next.frontier'), 'w')
     return prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file, \
-    prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file, \
-    next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file,\
-    prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file
+           prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file, \
+           next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file, \
+           prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file
 
 
 def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file,
-                prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file,
-                next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file,
-                prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file,
-                prev_rule, next_rule, prev_rule_parent, next_rule_parent,
-                prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier):
-    if len(prev_rule) == 0 or len(next_rule) == 0 or len(prev_token) == 0 or len(next_token) == 0 or len(prev_token_node_id) == 0  or len(next_token_node_id) == 0 or len(prev_rule_frontier) == 0 or len(next_rule_frontier) == 0:
-        return 0 
+                   prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file,
+                   next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file,
+                   next_token_plus_id_file,
+                   prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file,
+                   prev_rule, next_rule, prev_rule_parent, next_rule_parent,
+                   prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
+                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier):
+    if len(prev_rule) == 0 or len(next_rule) == 0 or len(prev_token) == 0 or len(next_token) == 0 or \
+            len(prev_token_node_id) == 0 or len(next_token_node_id) == 0 or len(prev_rule_frontier) == 0 or \
+            len(next_rule_frontier) == 0:
+        return 0
 
     prev_rule_file.write(' '.join([str(x) for x in prev_rule]) + '\n')
     next_rule_file.write(' '.join([str(x) for x in next_rule]) + '\n')
@@ -491,7 +513,7 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
     prev_token_node_id = prev_token_node_id[1:]
     next_token_node_id = next_token_node_id[1:]
     #######################################################
-    prev_augmented_token_str = ' '.join([str(x) + u"|" + str(y) for x,y in zip(prev_token, prev_token_node_id)]) + '\n'
+    prev_augmented_token_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(prev_token, prev_token_node_id)]) + '\n'
     next_augmented_token_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(next_token, next_token_node_id)]) + '\n'
     prev_token_plus_id_file.write(prev_augmented_token_str)
     next_token_plus_id_file.write(next_augmented_token_str)
@@ -510,7 +532,6 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
     return 1
 
 
-
 def flush_all(*files):
     for f in files:
         f.flush()
@@ -524,16 +545,17 @@ def closs_all(*files):
 def parse_java_change_dataset():
     import os
     parser = argparse.ArgumentParser()
-    parser.add_argument('-data', help='Main Data Directory', default='/Users/saikat')
-    parser.add_argument('-source', help='Relative path of the data source', default='Research')
+    parser.add_argument('-data', help='Main Data Directory', default='/home/saikatc/Research/codit_data')
+    parser.add_argument('-source', help='Relative path of the data source', default='complete_split_data')
     parser.add_argument('-train', help='Train Folder Name(s)', nargs='+', default=['train'])
     parser.add_argument('-valid', help='Train Folder Name', default='valid')
-    parser.add_argument('-test', help='Train Folder Name(s)',  default='test')
+    parser.add_argument('-test', help='Train Folder Name(s)', default='test')
 
-    parser.add_argument('-output', help='name of the output folder', default='rule_list_output')
-    parser.add_argument('-name', help='name of the data file',default='small')
+    parser.add_argument('-output', help='name of the output folder',
+                        default='/home/saikatc/Research/codit_data/rule_based_data/concrete')
+    parser.add_argument('-name', help='name of the data file', default='10_20_original')
     parser.add_argument('-exclude_no_structure_change', action='store_true')
-
+    parser.add_argument('-type', help='Type of the Data given', default='concrete')
 
     # parser.set_defaults(exclude_string_change=True)
     args = parser.parse_args()
@@ -547,7 +569,7 @@ def parse_java_change_dataset():
         os.mkdir(args.output)
 
     parent_codes, parent_trees, child_codes, child_trees, parent_tree_o, allowed_tokens_for_nodes, \
-        file_names , num_train_examples, num_valid_examples \
+    file_names, num_train_examples, num_valid_examples \
         = read_train_and_test_data(train_folders, valid_folder, test_folder)
     total_examples = len(parent_codes)
     num_test_examples = total_examples - num_train_examples - num_valid_examples
@@ -565,8 +587,7 @@ def parse_java_change_dataset():
 
     data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
                                         child_codes=child_codes, child_trees=child_trees,
-                                        parent_tree_os=parent_tree_o, file_names=file_names,
-                                        allowed_tokens_file=allowed_tokens_for_nodes)
+                                        parent_tree_os=parent_tree_o, type=args.type)
     pt = [entry['parent_original_tree'] for entry in data]
     pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
@@ -604,7 +625,8 @@ def parse_java_change_dataset():
         parent_original_tree = entry['parent_original_tree']
 
         rule_list_next_v, rule_parents_next_v, value_nodes_next_v = parse_tree.get_productions(include_value_node=True)
-        rule_list_prev_v, rule_parents_prev_v, value_nodes_prev_v = parent_original_tree.get_productions(include_value_node=True)
+        rule_list_prev_v, rule_parents_prev_v, value_nodes_prev_v = parent_original_tree.get_productions(
+            include_value_node=True)
         actions = []
         rule_pos_map = dict()
         for rule_count, rule in enumerate(rule_list_next_v):
@@ -652,8 +674,8 @@ def parse_java_change_dataset():
         if args.exclude_no_structure_change and prev_rule == next_rule:
             continue
         example = [prev_rule, next_rule, prev_rule_parent, next_rule_parent,
-                    prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                    next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier]
+                   prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
+                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier]
         all_examples.append(example)
 
         if idx < num_train_examples:
@@ -700,6 +722,6 @@ def parse_java_change_dataset():
 
 
 if __name__ == '__main__':
-    np.random.seed(1000)
+    numpy.random.seed(1000)
     tra, dev, tes = parse_java_change_dataset()
     # print tra.get_prob_func_inputs([0])
