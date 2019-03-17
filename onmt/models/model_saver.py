@@ -82,6 +82,9 @@ class ModelSaverBase(object):
         """
         raise NotImplementedError()
 
+    def save_validation_model(self, name=None):
+        self._save_best_validation_model(name)
+
     def _save_best_validation_model(self, name=None):
         raise NotImplementedError()
 

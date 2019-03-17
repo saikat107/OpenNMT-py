@@ -206,18 +206,20 @@ class Trainer(object):
                             valid_ppl = valid_stats.ppl()
                             if valid_acc > max_acc:
                                 max_acc = valid_acc
-                                self.model_saver._save_best_validation_model('acc')
+                                self.model_saver.save_validation_model('acc')
                                 patience_counter = 0
                             else:
-                                logger.info('Hitting accuracy counter : %d' % patience_counter)
+                                logger.info('Acc counter : %d\tAccuracy: %f\tBest known: %f'
+                                            % (patience_counter, valid_acc, max_acc))
                                 patience_counter += 1
 
                             if valid_ppl < min_ppl:
                                 min_ppl = valid_ppl
-                                self.model_saver._save_best_validation_model('ppl')
+                                self.model_saver.save_validation_model('ppl')
                                 ppl_patience_counter = 0
                             else:
-                                logger.info('Hitting ppl counter : %d' % ppl_patience_counter)
+                                logger.info('Ppl counter : %d\tPerplexity: %f\tBest known: %f'
+                                            % (ppl_patience_counter, valid_ppl, min_ppl))
                                 ppl_patience_counter += 1
 
                             if patience_counter >= 100 or ppl_patience_counter >= 100:
