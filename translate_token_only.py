@@ -90,6 +90,20 @@ def create_tree_from_candidates(cands, grammar):
     pass
 
 
+def is_there_new_token_in_tgt(src, tgt):
+    src = src.strip()
+    tgt = tgt.strip()
+    s_parts = src.split()
+    s_parts = [s.strip() for s in s_parts]
+    t_parts = set(tgt.split())
+    for tt in t_parts:
+        tt = tt.strip()
+        if '_' in tt and tt not in s_parts:
+            return True
+    return False
+    pass
+
+
 def main(opt):
     translator = build_translator(opt, report_score=True)
     all_scores, all_cands = translator.translate(src_path=opt.src,
@@ -115,12 +129,17 @@ def main(opt):
 
     all_bleus = []
     total_example = 0
+    new_token_added_total_count = 0
+    new_token_added_of_correct_examples = 0
     for idx, (src, tgt, cands) in enumerate(zip(all_sources, all_targets, all_cands)):
         total_example += 1
         decode_res_file.write(str(idx) + '\n')
         decode_res_file.write(src + '\n')
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         decode_res_file.write(tgt + '\n')
+        n_token_added = is_there_new_token_in_tgt(src, tgt)
+        if n_token_added:
+            new_token_added_total_count += 1
         if src == tgt:
             no_change += 1
         decode_res_file.write('=====================================================================================\n')
@@ -136,6 +155,8 @@ def main(opt):
             decode_res_file.write(cand + '\n')
             decode_res_file.write(str(ed) + '\n')
         if found:
+            if n_token_added:
+                new_token_added_of_correct_examples += 1
             correct += 1
         all_bleus.append(bleus)
         decode_res_file.write(str(found) + '\n\n')
@@ -144,7 +165,7 @@ def main(opt):
     print_bleu_res_to_file(bleu_file, all_bleus)
     decode_res_file.close()
     bleu_file.close()
-    print(correct, no_change, total_example)
+    print(correct, no_change, total_example, new_token_added_of_correct_examples, new_token_added_total_count)
 
 
 if __name__ == "__main__":

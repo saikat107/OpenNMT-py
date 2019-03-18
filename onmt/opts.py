@@ -441,7 +441,7 @@ def translate_opts(parser):
     group.add_argument('-fast', action="store_true",
                        help="""Use fast beam search (some features may not be
                        supported!)""")
-    group.add_argument('-beam_size', type=int, default=5,
+    group.add_argument('-beam_size', type=int, default=10,
                        help='Beam size')
     group.add_argument('-min_length', type=int, default=0,
                        help='Minimum prediction length')
@@ -490,7 +490,7 @@ def translate_opts(parser):
                        help='Print best attn for each word')
     group.add_argument('-dump_beam', type=str, default="",
                        help='File to dump beam information to.')
-    group.add_argument('-n_best', type=int, default=1,
+    group.add_argument('-n_best', type=int, default=10,
                        help="""If verbose is set, will output the n_best
                        decoded sentences""")
 

@@ -285,12 +285,11 @@ class TokenTranslator(object):
         with torch.no_grad():
             return self._translate_batch(batch, data, node_type_str)
 
-
     def _translate_batch(self, batch, data, node_type=None):
 
         # Help functions for working with beams and batches
         def var(a):
-            return torch.tensor(a, requires_grad=False)
+            return a.clone().detach().requires_grad_(False)
 
         def rvar(a):
             return var(a.repeat(1, beam_size, 1))

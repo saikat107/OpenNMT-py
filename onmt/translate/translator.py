@@ -510,7 +510,8 @@ class Translator(object):
                 for __ in range(batch_size)]
 
         # Help functions for working with beams and batches
-        def var(a): return torch.tensor(a, requires_grad=False)
+        def var(a):
+            return a.clone().detach().requires_grad_(False)
 
         def rvar(a): return var(a.repeat(1, beam_size, 1))
 

@@ -130,7 +130,7 @@ def translate_all(opt, grammar, actual_n_best):
 def main(opt, grammar, actual_n_best):
     translator = build_translator(opt, report_score=True)
     all_scores, all_cands, all_tree_cands = translate_all(opt, grammar, actual_n_best)
-    debug(len(all_cands[0]), len(all_tree_cands[0]))
+    # debug(len(all_cands[0]), len(all_tree_cands[0]))
     beam_size = actual_n_best#len(all_scores[0])
     exp_name = opt.name
     all_sources = []
@@ -162,7 +162,7 @@ def main(opt, grammar, actual_n_best):
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         bleus = []
         found = False
-        debug(len(cands), len(trees))
+        # debug(len(cands), len(trees))
         for cand, tree in zip(cands, trees):
             ed = get_edit_dist(tgt, cand)
             if cand == tgt:
@@ -193,9 +193,9 @@ if __name__ == "__main__":
     parser.add_argument('--grammar', help='Path of the grammar file', required=True)
 
     opt = parser.parse_args()
-    opt.beam_size *= 10
+    opt.beam_size *= 2
     actual_n_best = opt.n_best
-    opt.n_best = max(opt.n_best * 10, opt.beam_size)
+    opt.n_best = max(opt.n_best * 2, opt.beam_size)
     logger = init_logger(opt.log_file)
     f = open(opt.grammar, 'rb')
     debug('Loading the Grammar')
