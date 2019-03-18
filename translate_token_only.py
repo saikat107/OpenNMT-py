@@ -126,6 +126,7 @@ def main(opt):
     no_change = 0
     decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
     bleu_file = open('result_bleus/' + exp_name + '_'+ str(beam_size) + '_bleus.csv', 'w')
+    correct_id_file = open('correct_ids/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
 
     all_bleus = []
     total_example = 0
@@ -158,6 +159,7 @@ def main(opt):
             if n_token_added:
                 new_token_added_of_correct_examples += 1
             correct += 1
+            correct_id_file.write(str(idx) + '\n')
         all_bleus.append(bleus)
         decode_res_file.write(str(found) + '\n\n')
 
@@ -165,6 +167,7 @@ def main(opt):
     print_bleu_res_to_file(bleu_file, all_bleus)
     decode_res_file.close()
     bleu_file.close()
+    correct_id_file.close()
     print(correct, no_change, total_example, new_token_added_of_correct_examples, new_token_added_total_count)
 
 

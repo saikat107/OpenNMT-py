@@ -289,7 +289,10 @@ class TokenTranslator(object):
 
         # Help functions for working with beams and batches
         def var(a):
-            return a.clone().detach().requires_grad_(False)
+            if isinstance(a, torch.Tensor):
+                return a.clone().detach().requires_grad_(False)
+            else:
+                return torch.tensor(a, requires_grad=False)
 
         def rvar(a):
             return var(a.repeat(1, beam_size, 1))

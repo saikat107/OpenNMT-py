@@ -1,7 +1,7 @@
 import pickle
 
 import argparse
-
+import sys, os
 from codit.clone_based_model import clone_based_structural_transformation
 from codit.codit_options_parser import get_options
 from codit.grammar import JavaGrammar
@@ -29,27 +29,78 @@ def transform_structurally(structure_opts):
         tmp.close()
 
 
+def get_paths(dataset_str):
+    dataset_dir = {
+        'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_data/raw',
+        'codit': '/home/saikatc/Research/OpenNMT-py/c_data/raw'
+    }
+    model_dir = {
+        'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_models',
+        'codit': '/home/saikatc/Research/OpenNMT-py/c_models'
+    }
+    model_prefix = {
+        'icse': {
+            'all': 'all',
+            'filtered': 'filtered'
+        },
+        'codit': {
+            'all': 'original',
+            'filtered': 'filtered'
+        }
+    }
+    parts = dataset.split('-')
+    _data = parts[0]
+    _kind = parts[1]  # all, filtered
+    _type = parts[2]  # concrete abstract original
+    _type_m = parts[2]
+    if len(parts) > 3:
+        _type += ('_' + parts[3])
+        _type_m += ('.' + parts[3])
+    _data_path = dataset_dir[_data] + '/' + _kind + '/' + _type
+    _model_base = model_dir[_data] + '/' + model_prefix[_data][_kind] + '.' + _type_m + '.'
+    return _data_path, _model_base
+
+
 if __name__ == '__main__':
+    dataset = sys.argv[1]
+    data_path, model_base = get_paths(dataset)
+    augmented_token_model = model_base + 'augmented.token-best-acc.pt'
+    structure_model = model_base + 'rule-best-acc.pt'
+    src_token = data_path + '/test/prev.augmented.token'
+    tgt_token = data_path + '/test/next.augmented.token'
+    src_struc = data_path + '/test/prev.rule'
+    grammar = data_path + '/grammar.bin'
+    tmp_file = dataset
+    name = dataset
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation', required=True)
-    parser.add_argument('--model_token', '-mt', help='Model for Token', required=True)
-    parser.add_argument('--src_token', '-st', help='Source version file(tokens)', required=True)
-    parser.add_argument('--tgt_token', '-tt', help='Target version file(tokens)', required=True)
-    parser.add_argument('--src_struct', '-ss', help='Source version file(rules)', required=True)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=10)
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=1)
-    parser.add_argument('--name', '-n', help='Name of the experiment', default='Test')
-    parser.add_argument('--grammar', '-g', help='Path of the Grammar file', required=True)
+    parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
+                        default=structure_model)
+    parser.add_argument('--model_token', '-mt', help='Model for Token',
+                        default=augmented_token_model)
+    parser.add_argument('--src_token', '-st', help='Source version file(tokens)',
+                        default=src_token)
+    parser.add_argument('--tgt_token', '-tt', help='Target version file(tokens)',
+                        default=tgt_token)
+    parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
+                        default=src_struc)
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=50)
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=10)
+    parser.add_argument('--name', '-n', help='Name of the experiment',
+                        default=name)
+    parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
+                        default=grammar)
     parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
-                        choices=['clone', 'nmt', 'none'], default='none')
+                        choices=['clone', 'nmt', 'none'],
+                        default='none')
     parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule '
                                                             'src file for clone based detection', default=None)
     parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule '
                                                             'src file for clone based detection', default=None)
-    parser.add_argument('-cout', default='clone')
-    options = parser.parse_args()
-
+    parser.add_argument('-cout',
+                        default=tmp_file)
+    options = parser.parse_args('')
+    options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)
     if options.rule_gen == 'nmt':
         transform_structurally(structure_options)
