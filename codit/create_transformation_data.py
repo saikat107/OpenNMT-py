@@ -164,13 +164,23 @@ def get_identifier_type(node, tree, code):
 
 
 def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
-                                 child_trees, parent_tree_os, type='original'):
+                                 child_trees, parent_tree_os,  type='original', allowed_tokens=None):
     data = []
+    if allowed_tokens is not None:
+        assert len(allowed_tokens) == len(parent_codes)
 
     for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o) in \
             enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os)):
         if parent_tree is None or len(parent_tree) < 5:
             continue
+        if allowed_tokens is not None:
+            atc = dict()
+            atc['40'] = allowed_tokens[idx]
+            atc['800'] = allowed_tokens[idx]
+            atc['801'] = allowed_tokens[idx]
+            atc['802'] = allowed_tokens[idx]
+        else:
+            atc['40'],  atc['800'],  atc['801'],  atc['802'] = [], [], [], []
 
         assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
         variables = set()
@@ -223,17 +233,22 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                     np.type = '800'
                     if type == 'abstract':
                         np.value = variable_map[v]
+                    atc['800'].append(np.value)
                 elif v in type_map.keys():
                     np.type = '801'
                     if type == 'abstract':
                         np.value = type_map[v]
+                    atc['801'].append(np.value)
                 elif v in method_name_map.keys():
                     np.type = '802'
                     if type == 'abstract':
                         np.value = method_name_map[v]
+                    atc['802'].append(np.value)
                 elif v in package_map.keys():
                     if type == 'abstract':
                         np.value = package_map[v]
+                    atc['40'].append(np.value)
+
                 # parent_code = parent_code.replace(v, np.value)
         if type == 'abstract':
             parent_code = ' '.join([str(pn.value) for pn in parent_tree_o.get_leaves()])
@@ -246,17 +261,21 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                     nc.type = '800'
                     if type == 'abstract':
                         nc.value = variable_map[v]
+                    atc['800'].append(nc.value)
                 elif v in type_map.keys():
                     nc.type = '801'
                     if type == 'abstract':
                         nc.value = type_map[v]
+                    atc['801'].append(nc.value)
                 elif v in method_name_map.keys():
                     nc.type = '802'
                     if type == 'abstract':
                         nc.value = method_name_map[v]
+                    atc['802'].append(nc.value)
                 elif v in package_map.keys():
                     if type == 'abstract':
                         nc.value = package_map[v]
+                    atc['40'].append(nc.value)
                 # child_code = child_code.replace(v, nc.value)
         if type == 'abstract':
             child_code = ' '.join([str(cn.value) for cn in child_tree.get_leaves()])
@@ -264,7 +283,7 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
 
         example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
                    'parent_tree': parent_tree, 'child_tree': child_tree,
-                   'parent_original_tree': parent_tree_o,
+                   'parent_original_tree': parent_tree_o, 'atc': atc
                    }
 
         data.append(example)
@@ -587,7 +606,8 @@ def parse_java_change_dataset():
 
     data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
                                         child_codes=child_codes, child_trees=child_trees,
-                                        parent_tree_os=parent_tree_o, type=args.type)
+                                        parent_tree_os=parent_tree_o, type=args.type,
+                                        allowed_tokens=allowed_tokens_for_nodes)
     pt = [entry['parent_original_tree'] for entry in data]
     pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
@@ -673,9 +693,10 @@ def parse_java_change_dataset():
 
         if args.exclude_no_structure_change and prev_rule == next_rule:
             continue
+        atc = entry['atc']
         example = [prev_rule, next_rule, prev_rule_parent, next_rule_parent,
                    prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier]
+                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier, atc]
         all_examples.append(example)
 
         if idx < num_train_examples:
@@ -691,30 +712,45 @@ def parse_java_change_dataset():
     _file_all = create_all_files(args.output, 'train')
 
     train_w = 0
+    _atc = []
     for ex in train_data:
         af = [f for f in _file_all]
-        af.extend(ex)
+        af.extend(ex[:-1])
+        _atc.append(ex[-1])
         train_w += write_contents(*af)
         flush_all(*_file_all)
+    debug(_atc)
+    atc_file = os.path.join(args.output, 'train/atc.bin')
+    serialize_to_file(_atc, atc_file)
     closs_all(*_file_all)
 
     _file_all = create_all_files(args.output, 'valid')
 
     valid_w = 0
+    _atc = []
     for ex in dev_data:
         af = [f for f in _file_all]
-        af.extend(ex)
+        af.extend(ex[:-1])
+        _atc.append(ex[-1])
         valid_w += write_contents(*af)
         flush_all(*_file_all)
+    debug(_atc)
+    atc_file = os.path.join(args.output, 'valid/atc.bin')
+    serialize_to_file(_atc, atc_file)
     closs_all(*_file_all)
 
     _file_all = create_all_files(args.output, 'test')
     test_w = 0
+    _atc = []
     for ex in test_data:
         af = [f for f in _file_all]
-        af.extend(ex)
+        af.extend(ex[:-1])
+        _atc.append(ex[-1])
         test_w += write_contents(*af)
         flush_all(*_file_all)
+    debug(_atc)
+    atc_file = os.path.join(args.output, 'test/atc.bin')
+    serialize_to_file(_atc, atc_file)
     closs_all(*_file_all)
     debug(train_w, valid_w, test_w)
     serialize_to_file(grammar, os.path.join(args.output, 'grammar.bin'))
