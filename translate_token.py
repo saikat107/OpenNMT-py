@@ -165,7 +165,9 @@ if __name__ == "__main__":
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
     parser.add_argument('--name', help='Name of the Experiment')
+    parser.add_argument('--tmp_file', default='')
 
     opt = parser.parse_args()
+    opt.batch_size = 1
     logger = init_logger(opt.log_file)
     main(opt)

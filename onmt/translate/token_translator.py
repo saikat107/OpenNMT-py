@@ -180,7 +180,7 @@ class TokenTranslator(object):
             nt_sequences = node_type_seq[example_idx]
             scores = []
             predictions = []
-            tree_count = 10
+            tree_count = 2
             for type_sequence in nt_sequences[:tree_count]:
                 batch_data = self.translate_batch(batch, data, node_type_str=type_sequence, fast=False)
                 translations = builder.from_batch(batch_data)
@@ -287,7 +287,8 @@ class TokenTranslator(object):
            Shouldn't need the original dataset.
         """
         with torch.no_grad():
-            return self._translate_batch(batch, data, node_type_str)
+            # return self._translate_batch(batch, data, node_type_str)
+            return self._fast_translate_batch(batch, data, 0, node_type_str)
 
     def _translate_batch(self, batch, data, node_type=None):
 
@@ -453,14 +454,7 @@ class TokenTranslator(object):
 
         return ret
 
-
-    def _fast_translate_batch(self,
-                              batch,
-                              data,
-                              max_length,
-                              min_length=0,
-                              n_best=1,
-                              node_type=None):
+    def _fast_translate_batch(self, batch, data, min_length=0, node_type=None):
         # TODO: faster code path for beam_size == 1.
 
         # TODO: support these blacklisted features.
@@ -470,8 +464,6 @@ class TokenTranslator(object):
         assert not self.use_filter_pred
         assert self.block_ngram_repeat == 0
         assert self.global_scorer.beta == 0
-
-
         beam_size = self.beam_size
         batch_size = batch.batch_size
         vocab = self.fields["tgt"].vocab
@@ -484,6 +476,7 @@ class TokenTranslator(object):
         node_type_vocab = self.fields['tgt_feat_0'].vocab
 
         node_types = [var(node_type_vocab.stoi[n_type.strip()]) for n_type in node_type.split()]
+        node_types.append(var(node_type_vocab.stoi['-1']))
         if self.cuda:
             node_types = [n_type.cuda() for n_type in node_types]
         # debug(node_types)
@@ -529,14 +522,20 @@ class TokenTranslator(object):
         results["gold_score"] = [0] * batch_size
         results["batch"] = batch
 
-        max_length += 1
+        # max_length += 1
 
         for step in range(max_length):
+            # debug(node_types[step])
             decoder_input = alive_seq[:, -1].view(1, -1, 1)
-
+            node_type = node_types[step]
+            extra_input = torch.stack([node_types[step] for _ in range(decoder_input.shape[1])])
+            extra_input = extra_input.view(1, -1, 1)
+            final_input = torch.cat((decoder_input, extra_input), dim=-1)
+            if self.cuda:
+                final_input = final_input.cuda()
             # Decoder forward.
             dec_out, dec_states, attn = self.model.decoder(
-                decoder_input,
+                final_input,
                 memory_bank,
                 dec_states,
                 memory_lengths=memory_lengths,
@@ -588,7 +587,7 @@ class TokenTranslator(object):
                         alive_attn.size(0), -1, beam_size, alive_attn.size(-1))
                 for i in finished:
                     b = batch_offset[i]
-                    for n in range(n_best):
+                    for n in range(self.n_best):
                         results["predictions"][b].append(predictions[i, n, 1:])
                         results["scores"][b].append(scores[i, n])
                         if attention is None:
