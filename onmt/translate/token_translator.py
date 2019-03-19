@@ -11,6 +11,38 @@ from onmt.utils.misc import tile
 from util import debug
 
 
+def generate_token_mask(atc, node_type_vocab, vocab):
+    if atc is None:
+        atc = dict()
+    token_mask_all = dict()
+    allowed_tokens_indices = dict()
+    not_allowed_token_indices = dict()
+    node_ids = node_type_vocab.stoi.keys()
+    for node_id in node_ids:
+        if node_id in atc.keys():
+            tokens = atc[node_id]
+        else:
+            tokens = []
+        if node_id == '-1':
+            tokens = [inputters.EOS_WORD]
+        token_mask = [1. for _ in range(len(vocab))]
+        token_indices = [idx for idx in range(len(vocab))]
+        inverse_token_indices = []
+        if len(tokens) > 0:
+            token_mask = [1e-20 for _ in range(len(vocab))]
+            token_indices = []
+            inverse_token_indices = [idx for idx in range(len(vocab))]
+            for token in tokens:
+                token_mask[vocab.stoi[token]] = 1.0
+                token_indices.append(vocab.stoi[token])
+                inverse_token_indices.remove(vocab.stoi[token])
+        allowed_tokens_indices[node_id] = token_indices
+        token_mask_all[node_id] = torch.FloatTensor(token_mask)
+        not_allowed_token_indices[node_id] = inverse_token_indices
+    return token_mask_all, allowed_tokens_indices, not_allowed_token_indices
+    pass
+
+
 class TokenTranslator(object):
     """
     Uses a model to translate a batch of sentences.
@@ -107,7 +139,8 @@ class TokenTranslator(object):
                   src_dir=None,
                   batch_size=None,
                   attn_debug=False,
-                  node_type_seq=None):
+                  node_type_seq=None,
+                  atc=None):
         """
         Translate content of `src_data_iter` (if not None) or `src_path`
         and get gold scores if one of `tgt_data_iter` or `tgt_path` is set.
@@ -178,11 +211,16 @@ class TokenTranslator(object):
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
             debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
+            if atc is not None:
+                atc_item = atc[example_idx]
+            else:
+                atc_item = None
             scores = []
             predictions = []
             tree_count = 2
             for type_sequence in nt_sequences[:tree_count]:
-                batch_data = self.translate_batch(batch, data, node_type_str=type_sequence, fast=False)
+                batch_data = self.translate_batch(
+                    batch, data, node_type_str=type_sequence, fast=self.fast, atc=atc_item)
                 translations = builder.from_batch(batch_data)
 
                 for trans in translations:
@@ -272,7 +310,7 @@ class TokenTranslator(object):
                       codecs.open(self.dump_beam, 'w', 'utf-8'))
         return all_scores, all_predictions
 
-    def translate_batch(self, batch, data, node_type_str, fast=False):
+    def translate_batch(self, batch, data, node_type_str, fast=False, atc=None):
         """
         Translate a batch of sentences.
 
@@ -288,7 +326,7 @@ class TokenTranslator(object):
         """
         with torch.no_grad():
             # return self._translate_batch(batch, data, node_type_str)
-            return self._fast_translate_batch(batch, data, 0, node_type_str)
+            return self._fast_translate_batch(batch, data, 0, node_type_str, atc)
 
     def _translate_batch(self, batch, data, node_type=None):
 
@@ -454,7 +492,7 @@ class TokenTranslator(object):
 
         return ret
 
-    def _fast_translate_batch(self, batch, data, min_length=0, node_type=None):
+    def _fast_translate_batch(self, batch, data, min_length=0, node_type=None, atc=None):
         # TODO: faster code path for beam_size == 1.
 
         # TODO: support these blacklisted features.
@@ -467,13 +505,15 @@ class TokenTranslator(object):
         beam_size = self.beam_size
         batch_size = batch.batch_size
         vocab = self.fields["tgt"].vocab
+        node_type_vocab = self.fields['tgt_feat_0'].vocab
         start_token = vocab.stoi[inputters.BOS_WORD]
         end_token = vocab.stoi[inputters.EOS_WORD]
-
+        token_masks, allowed_token_indices, not_allowed_token_indices\
+            = generate_token_mask(atc, node_type_vocab, vocab)
+        # debug(token_masks.keys())
         assert batch_size == 1, "Only 1 example decoding at a time supported"
         assert (node_type is not None) and isinstance(node_type, str), \
             "Node type string must be provided to translate tokens"
-        node_type_vocab = self.fields['tgt_feat_0'].vocab
 
         node_types = [var(node_type_vocab.stoi[n_type.strip()]) for n_type in node_type.split()]
         node_types.append(var(node_type_vocab.stoi['-1']))
@@ -525,9 +565,12 @@ class TokenTranslator(object):
         # max_length += 1
 
         for step in range(max_length):
-            # debug(node_types[step])
             decoder_input = alive_seq[:, -1].view(1, -1, 1)
             node_type = node_types[step]
+            node_type_str = str(node_type_vocab.itos[node_type.item()])
+            not_allowed_indices = not_allowed_token_indices[node_type_str]
+            # debug(node_type_str, len(not_allowed_indices))
+            # debug(node_type_str, len(current_node_type_allowed_indices))
             extra_input = torch.stack([node_types[step] for _ in range(decoder_input.shape[1])])
             extra_input = extra_input.view(1, -1, 1)
             final_input = torch.cat((decoder_input, extra_input), dim=-1)
@@ -544,10 +587,13 @@ class TokenTranslator(object):
             # Generator forward.
             log_probs = self.model.generator.forward(dec_out.squeeze(0))
             vocab_size = log_probs.size(-1)
-
+            # debug(vocab_size, len(vocab))
             if step < min_length:
                 log_probs[:, end_token] = -1e20
 
+            log_probs[:, not_allowed_indices] = 1e-20
+            debug(log_probs.shape)
+            # log_probs[:, current_node_type_allowed_indices] =
             # Multiply probs by the beam probability.
             log_probs += topk_log_probs.view(-1).unsqueeze(1)
 

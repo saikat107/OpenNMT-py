@@ -93,6 +93,9 @@ def main(opt):
     # # TODO this needs to be fixed
     # write_dummy_generated_node_types(opt.tgt, 'tmp/generated_node_types.nt')
     # ####################################################################################
+    #TODO 1. Extract grammar and build initial atc
+    #TODO 2. Extract atc_file and enhance atc
+
     all_node_type_seq_str = get_all_node_type_str(opt.tmp_file)
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
     scores, all_cands = translator.translate(src_path=opt.src,
@@ -166,6 +169,7 @@ if __name__ == "__main__":
     onmt.opts.translate_opts(parser)
     parser.add_argument('--name', help='Name of the Experiment')
     parser.add_argument('--tmp_file', default='')
+    parser.add_argument('--atc', default=None)
 
     opt = parser.parse_args()
     opt.batch_size = 1
