@@ -332,6 +332,7 @@ class Translator(object):
         # TODO: faster code path for beam_size == 1.
 
         # TODO: support these blacklisted features.
+        debug('Fast Tranlation')
         assert data.data_type == 'text'
         assert not self.copy_attn
         assert not self.dump_beam

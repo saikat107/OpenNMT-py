@@ -12,6 +12,9 @@ from util import debug
 
 
 def transform_structurally(structure_opts):
+    if os.path.exists(structure_opts.tmp_file):
+        debug('Structure Transformation result already exists!\n')
+        return
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
@@ -92,7 +95,7 @@ if __name__ == '__main__':
                         default=grammar)
     parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
                         choices=['clone', 'nmt', 'none'],
-                        default='none')
+                        default='nmt')
     parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule '
                                                             'src file for clone based detection', default=None)
     parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule '

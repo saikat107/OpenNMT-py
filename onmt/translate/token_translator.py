@@ -7,6 +7,7 @@ import torch
 
 import onmt.translate
 from onmt import inputters as inputters
+from onmt.utils.misc import tile
 from util import debug
 
 
@@ -172,12 +173,15 @@ class TokenTranslator(object):
         all_predictions = []
 
         for bidx, batch in enumerate(data_iter):
-            example_idx = batch.indices.item() #Only 1 item in this batch, guaranteed
+            # if bidx == 100:
+            #     break
+            example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
             debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             scores = []
             predictions = []
-            for type_sequence in nt_sequences[:5]:
+            tree_count = 10
+            for type_sequence in nt_sequences[:tree_count]:
                 batch_data = self.translate_batch(batch, data, node_type_str=type_sequence, fast=False)
                 translations = builder.from_batch(batch_data)
 
@@ -225,11 +229,11 @@ class TokenTranslator(object):
                             output += row_format.format(word, *row) + '\n'
                             row_format = "{:>10.10} " + "{:>10.7f} " * len(srcs)
                         os.write(1, output.encode('utf-8'))
-            all = sorted(zip(scores, predictions),key=lambda x:x[0])[::-1]
-            scores = [p[0] for p in all]
-            predictions = [p[1] for p in all]
-            scores = scores[:self.n_best]
-            predictions = predictions[:self.n_best]
+            # all = sorted(zip(scores, predictions),key=lambda x:x[0])[::-1]
+            # scores = [p[0] for p in all]
+            # predictions = [p[1] for p in all]
+            # scores = scores[:self.n_best]
+            # predictions = predictions[:self.n_best]
             all_scores += [scores]
             all_predictions += [predictions]
                 # debug(all_scores)
@@ -449,6 +453,171 @@ class TokenTranslator(object):
 
         return ret
 
+
+    def _fast_translate_batch(self,
+                              batch,
+                              data,
+                              max_length,
+                              min_length=0,
+                              n_best=1,
+                              node_type=None):
+        # TODO: faster code path for beam_size == 1.
+
+        # TODO: support these blacklisted features.
+        assert data.data_type == 'text'
+        assert not self.copy_attn
+        assert not self.dump_beam
+        assert not self.use_filter_pred
+        assert self.block_ngram_repeat == 0
+        assert self.global_scorer.beta == 0
+
+
+        beam_size = self.beam_size
+        batch_size = batch.batch_size
+        vocab = self.fields["tgt"].vocab
+        start_token = vocab.stoi[inputters.BOS_WORD]
+        end_token = vocab.stoi[inputters.EOS_WORD]
+
+        assert batch_size == 1, "Only 1 example decoding at a time supported"
+        assert (node_type is not None) and isinstance(node_type, str), \
+            "Node type string must be provided to translate tokens"
+        node_type_vocab = self.fields['tgt_feat_0'].vocab
+
+        node_types = [var(node_type_vocab.stoi[n_type.strip()]) for n_type in node_type.split()]
+        if self.cuda:
+            node_types = [n_type.cuda() for n_type in node_types]
+        # debug(node_types)
+        max_length = len(node_types)
+
+        # Encoder forward.
+        src = inputters.make_features(batch, 'src', data.data_type)
+        _, src_lengths = batch.src
+        enc_states, memory_bank = self.model.encoder(src, src_lengths)
+        dec_states = self.model.decoder.init_decoder_state(
+            src, memory_bank, enc_states, with_cache=True)
+
+        # Tile states and memory beam_size times.
+        dec_states.map_batch_fn(
+            lambda state, dim: tile(state, beam_size, dim=dim))
+        memory_bank = tile(memory_bank, beam_size, dim=1)
+        memory_lengths = tile(src_lengths, beam_size)
+
+        batch_offset = torch.arange(
+            batch_size, dtype=torch.long, device=memory_bank.device)
+        beam_offset = torch.arange(
+            0,
+            batch_size * beam_size,
+            step=beam_size,
+            dtype=torch.long,
+            device=memory_bank.device)
+        alive_seq = torch.full(
+            [batch_size * beam_size, 1],
+            start_token,
+            dtype=torch.long,
+            device=memory_bank.device)
+        alive_attn = None
+
+        # Give full probability to the first beam on the first step.
+        topk_log_probs = (
+            torch.tensor([0.0] + [float("-inf")] * (beam_size - 1),
+                         device=memory_bank.device).repeat(batch_size))
+
+        results = dict()
+        results["predictions"] = [[] for _ in range(batch_size)]  # noqa: F812
+        results["scores"] = [[] for _ in range(batch_size)]  # noqa: F812
+        results["attention"] = [[] for _ in range(batch_size)]  # noqa: F812
+        results["gold_score"] = [0] * batch_size
+        results["batch"] = batch
+
+        max_length += 1
+
+        for step in range(max_length):
+            decoder_input = alive_seq[:, -1].view(1, -1, 1)
+
+            # Decoder forward.
+            dec_out, dec_states, attn = self.model.decoder(
+                decoder_input,
+                memory_bank,
+                dec_states,
+                memory_lengths=memory_lengths,
+                step=step)
+
+            # Generator forward.
+            log_probs = self.model.generator.forward(dec_out.squeeze(0))
+            vocab_size = log_probs.size(-1)
+
+            if step < min_length:
+                log_probs[:, end_token] = -1e20
+
+            # Multiply probs by the beam probability.
+            log_probs += topk_log_probs.view(-1).unsqueeze(1)
+
+            alpha = self.global_scorer.alpha
+            length_penalty = ((5.0 + (step + 1)) / 6.0) ** alpha
+
+            # Flatten probs into a list of possibilities.
+            curr_scores = log_probs / length_penalty
+            curr_scores = curr_scores.reshape(-1, beam_size * vocab_size)
+            topk_scores, topk_ids = curr_scores.topk(beam_size, dim=-1)
+
+            # Recover log probs.
+            topk_log_probs = topk_scores * length_penalty
+
+            # Resolve beam origin and true word ids.
+            topk_beam_index = topk_ids.div(vocab_size)
+            topk_ids = topk_ids.fmod(vocab_size)
+
+            # Map beam_index to batch_index in the flat representation.
+            batch_index = (
+                topk_beam_index
+                + beam_offset[:topk_beam_index.size(0)].unsqueeze(1))
+
+            # End condition is the top beam reached end_token.
+            end_condition = topk_ids[:, 0].eq(end_token)
+            if step + 1 == max_length:
+                end_condition.fill_(1)
+            finished = end_condition.nonzero().view(-1)
+
+            # Save result of finished sentences.
+            if len(finished) > 0:
+                predictions = alive_seq.view(-1, beam_size, alive_seq.size(-1))
+                scores = topk_scores.view(-1, beam_size)
+                attention = None
+                if alive_attn is not None:
+                    attention = alive_attn.view(
+                        alive_attn.size(0), -1, beam_size, alive_attn.size(-1))
+                for i in finished:
+                    b = batch_offset[i]
+                    for n in range(n_best):
+                        results["predictions"][b].append(predictions[i, n, 1:])
+                        results["scores"][b].append(scores[i, n])
+                        if attention is None:
+                            results["attention"][b].append([])
+                        else:
+                            results["attention"][b].append(
+                                attention[:, i, n, :memory_lengths[i]])
+                non_finished = end_condition.eq(0).nonzero().view(-1)
+                # If all sentences are translated, no need to go further.
+                if len(non_finished) == 0:
+                    break
+                # Remove finished batches for the next step.
+                topk_log_probs = topk_log_probs.index_select(
+                    0, non_finished.to(topk_log_probs.device))
+                topk_ids = topk_ids.index_select(0, non_finished)
+                batch_index = batch_index.index_select(0, non_finished)
+                batch_offset = batch_offset.index_select(0, non_finished)
+
+            # Select and reorder alive batches.
+            select_indices = batch_index.view(-1)
+            alive_seq = alive_seq.index_select(0, select_indices)
+            memory_bank = memory_bank.index_select(1, select_indices)
+            memory_lengths = memory_lengths.index_select(0, select_indices)
+            dec_states.map_batch_fn(
+                lambda state, dim: state.index_select(dim, select_indices))
+            # Append last prediction.
+            alive_seq = torch.cat([alive_seq, topk_ids.view(-1, 1)], -1)
+        return results
+
     def _from_beam(self, beam):
         ret = {"predictions": [],
                "scores": [],
@@ -528,3 +697,12 @@ class TokenTranslator(object):
             stdin=self.out_file).decode("utf-8")
         msg = res.strip()
         return msg
+
+
+# Help functions for working with beams and batches
+def var(a):
+    if isinstance(a, torch.Tensor):
+        return a.clone().detach().requires_grad_(False)
+    else:
+        return torch.tensor(a, requires_grad=False)
+

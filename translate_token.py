@@ -75,6 +75,19 @@ def process_source(src_str):
     pass
 
 
+def re_organize_candidates(cands, src, n_best):
+    scores = []
+    for cand in cands:
+        scores.append(get_edit_dist(src, cand))
+    sorted_indices = np.argsort(scores)
+    reformatted = []
+    for i in sorted_indices[:n_best]:
+        reformatted.append(cands[sorted_indices[i]])
+    return reformatted
+    # dists =
+    pass
+
+
 def main(opt):
     # # This is justa dummy to test the implementation
     # # TODO this needs to be fixed
@@ -125,7 +138,8 @@ def main(opt):
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         eds = []
         found = False
-        for cand in cands:
+        cands_reformatted = re_organize_candidates(cands, src, opt.n_best)
+        for cand in cands_reformatted:
             ed = get_edit_dist(tgt, cand)
             if cand == tgt:
                 found = True
