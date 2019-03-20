@@ -171,7 +171,7 @@ class TokenTranslator(object):
 
         all_scores = []
         all_predictions = []
-
+        debug(self.option.tree_count)
         for bidx, batch in enumerate(data_iter):
             # if bidx == 100:
             #     break

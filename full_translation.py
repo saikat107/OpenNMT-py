@@ -66,6 +66,9 @@ def get_paths(dataset_str):
 
 if __name__ == '__main__':
     dataset = sys.argv[1]
+    tree_count = '2'
+    if len(sys.argv) > 2:
+        tree_count = sys.argv[2]
     data_path, model_base = get_paths(dataset)
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
@@ -103,11 +106,12 @@ if __name__ == '__main__':
                                                             'src file for clone based detection', default=None)
     parser.add_argument('-cout',
                         default=tmp_file)
-    parser.add_argument('--tree_count', default='5')
+    parser.add_argument('--tree_count', default=tree_count)
     parser.add_argument('--atc', default=atc_file_path)
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)
+    debug(token_options)
     if options.rule_gen == 'nmt':
         transform_structurally(structure_options)
     elif options.rule_gen == 'clone':
