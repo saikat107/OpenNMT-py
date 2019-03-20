@@ -61,12 +61,15 @@ def get_paths(dataset_str):
         _type_m += ('.' + parts[3])
     _data_path = dataset_dir[_data] + '/' + _kind + '/' + _type
     _model_base = model_dir[_data] + '/' + model_prefix[_data][_kind] + '.' + _type_m + '.'
+    tree_count = '1'
+    if len(parts) > 4:
+        tree_count = parts[4].strip()
     return _data_path, _model_base
 
 
 if __name__ == '__main__':
     dataset = sys.argv[1]
-    data_path, model_base = get_paths(dataset)
+    data_path, model_base, tree_count = get_paths(dataset)
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
     src_token = data_path + '/test_new/prev.augmented.token'
@@ -103,7 +106,7 @@ if __name__ == '__main__':
                                                             'src file for clone based detection', default=None)
     parser.add_argument('-cout',
                         default=tmp_file)
-    parser.add_argument('--tree_count', default='5')
+    parser.add_argument('--tree_count', default=tree_count)
     parser.add_argument('--atc', default=atc_file_path)
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)

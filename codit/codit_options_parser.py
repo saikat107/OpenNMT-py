@@ -37,7 +37,7 @@ def get_options(options):
          ).split())
     token_options = get_token_transformation_parser().parse_args(
         ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
-         + ' --name ' + options.name + ' -batch_size 1 ' + ' -beam_size ' + str(options.beam_size)
+         + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size ' + str(options.beam_size)
          + ' -n_best ' + str(options.n_best) + ' --tmp_file tmp/' + options.cout
          + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + options.tree_count
          # + ' -verbose '
