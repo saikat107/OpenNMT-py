@@ -3,13 +3,16 @@
 
 from __future__ import division, unicode_literals
 
+import copy
 import os
 
 import argparse
+import pickle
+
 import numpy as np
 from nltk.translate import bleu_score
 
-
+from codit.grammar import JavaGrammar
 from onmt.utils.logging import init_logger
 from onmt.translate.translator import build_translator
 
@@ -20,7 +23,7 @@ import onmt.model_builder
 import onmt.modules
 import onmt.opts
 from translate_structure import get_edit_dist
-from util import write_dummy_generated_node_types
+from util import write_dummy_generated_node_types, debug
 
 
 def get_bleu_score(original_codes, generated_top_result):
@@ -35,7 +38,7 @@ def get_bleu_score(original_codes, generated_top_result):
             if x.strip() != '':
                 hyp.append(x.strip())
 
-        blue = bleu_score.sentence_bleu([ref], hyp ,
+        blue = bleu_score.sentence_bleu([ref], hyp,
                                         smoothing_function=bleu_score.SmoothingFunction().method3)
         blue_scores.append(blue)
     return blue_scores
@@ -88,22 +91,65 @@ def re_organize_candidates(cands, src, n_best):
     pass
 
 
+def extract_atc_from_grammar(grammar_file):
+    f = open(grammar_file, 'rb')
+    grammar = pickle.load(f)
+    f.close()
+    assert isinstance(grammar, JavaGrammar)
+    value_node_rules = grammar.value_node_rules
+    return value_node_rules
+    pass
+
+
+def refine_atc(all_atcs, atc_file):
+    f = open(atc_file, 'rb')
+    code_atcs = pickle.load(f)
+    f.close()
+    new_atcs = []
+    for i in range(len(all_atcs)):
+        atc = copy.copy(all_atcs[i])
+        # debug(len(atc['40']))
+        atc['40'] = [token for token in code_atcs[i]['40']]
+        atc['800'] = [token for token in code_atcs[i]['800']]
+        atc['801'] = [token for token in code_atcs[i]['801']]
+        atc['802'] = [token for token in code_atcs[i]['802']]
+        # debug(len(atc['40']))
+        new_atcs.append(atc)
+        # debug('')
+    return new_atcs
+    pass
+
+
 def main(opt):
-    # # This is justa dummy to test the implementation
+    # # This is just a dummy to test the implementation
     # # TODO this needs to be fixed
     # write_dummy_generated_node_types(opt.tgt, 'tmp/generated_node_types.nt')
     # ####################################################################################
     #TODO 1. Extract grammar and build initial atc
     #TODO 2. Extract atc_file and enhance atc
 
+    grammar_atc = extract_atc_from_grammar(opt.grammar)
     all_node_type_seq_str = get_all_node_type_str(opt.tmp_file)
+    total_number_of_test_examples = len(all_node_type_seq_str)
+    all_atcs = [grammar_atc for _ in range(total_number_of_test_examples)]
+    if opt.atc is not None:
+        all_atcs = refine_atc(all_atcs, opt.atc)
+    # exit()
+    # for i, atc in enumerate(all_atcs):
+    #     for key in atc.keys():
+    #         debug(i, key, len(atc[key]))
+    #     exit()
+    #     debug('')
+
+
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
     scores, all_cands = translator.translate(src_path=opt.src,
-                         tgt_path=opt.tgt,
-                         src_dir=opt.src_dir,
-                         batch_size=opt.batch_size,
-                         attn_debug=opt.attn_debug,
-                         node_type_seq=all_node_type_seq_str)
+                                             tgt_path=opt.tgt,
+                                             src_dir=opt.src_dir,
+                                             batch_size=opt.batch_size,
+                                             attn_debug=opt.attn_debug,
+                                             node_type_seq=all_node_type_seq_str,
+                                             atc=all_atcs)
     beam_size = len(scores[0])
     exp_name = opt.name
     all_sources = []
@@ -129,6 +175,7 @@ def main(opt):
     all_eds = []
     total_example = 0
     for idx, (src, tgt, cands) in enumerate(zip(all_sources, all_targets, all_cands)):
+        atc = all_atcs[idx]
         total_example += 1
         decode_res_file.write(str(idx) + '\n')
         decode_res_file.write(src + '\n')
@@ -153,6 +200,7 @@ def main(opt):
             correct += 1
         all_eds.append(eds)
         decode_res_file.write(str(found) + '\n\n')
+        decode_res_file.flush()
 
     all_eds = np.asarray(all_eds)
     print_bleu_res_to_file(bleu_file, all_eds)
@@ -169,6 +217,7 @@ if __name__ == "__main__":
     onmt.opts.translate_opts(parser)
     parser.add_argument('--name', help='Name of the Experiment')
     parser.add_argument('--tmp_file', default='')
+    parser.add_argument('--grammar', required=True)
     parser.add_argument('--atc', default=None)
 
     opt = parser.parse_args()

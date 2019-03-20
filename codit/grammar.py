@@ -431,7 +431,9 @@ def get_grammar(parse_trees):
     rules = set()
     # rule_num_dist = defaultdict(int)
     value_node_rules = {}
-    for parse_tree in parse_trees:
+    for idx, parse_tree in enumerate(parse_trees):
+        if idx % 1000 == 0:
+            print(idx, len(parse_trees))
         parse_tree_rules, rule_parents, value_nodes = parse_tree.get_productions()
         for rule in parse_tree_rules:
             rules.add(rule)

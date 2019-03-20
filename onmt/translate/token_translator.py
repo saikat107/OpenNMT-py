@@ -33,9 +33,11 @@ def generate_token_mask(atc, node_type_vocab, vocab):
             token_indices = []
             inverse_token_indices = [idx for idx in range(len(vocab))]
             for token in tokens:
-                token_mask[vocab.stoi[token]] = 1.0
-                token_indices.append(vocab.stoi[token])
-                inverse_token_indices.remove(vocab.stoi[token])
+                tidx = vocab.stoi[token]
+                token_mask[tidx] = 1.0
+                token_indices.append(tidx)
+                if tidx in inverse_token_indices:
+                    inverse_token_indices.remove(tidx)
         allowed_tokens_indices[node_id] = token_indices
         token_mask_all[node_id] = torch.FloatTensor(token_mask)
         not_allowed_token_indices[node_id] = inverse_token_indices
@@ -209,7 +211,8 @@ class TokenTranslator(object):
             # if bidx == 100:
             #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
-            debug('Current Example : ', example_idx)
+            if bidx % 20 == 0:
+                debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             if atc is not None:
                 atc_item = atc[example_idx]
@@ -589,10 +592,11 @@ class TokenTranslator(object):
             vocab_size = log_probs.size(-1)
             # debug(vocab_size, len(vocab))
             if step < min_length:
-                log_probs[:, end_token] = -1e20
+                log_probs[:, end_token] = -1.1e20
 
-            log_probs[:, not_allowed_indices] = 1e-20
-            debug(log_probs.shape)
+            # debug(len(not_allowed_indices))
+            log_probs[:, not_allowed_indices] = -1e20
+            # debug(log_probs.shape)
             # log_probs[:, current_node_type_allowed_indices] =
             # Multiply probs by the beam probability.
             log_probs += topk_log_probs.view(-1).unsqueeze(1)

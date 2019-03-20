@@ -173,6 +173,8 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
             enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os)):
         if parent_tree is None or len(parent_tree) < 5:
             continue
+        if idx % 1000 == 0:
+            debug(idx)
         if allowed_tokens is not None:
             atc = dict()
             atc['40'] = allowed_tokens[idx]
@@ -180,6 +182,7 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
             atc['801'] = allowed_tokens[idx]
             atc['802'] = allowed_tokens[idx]
         else:
+            atc = dict()
             atc['40'],  atc['800'],  atc['801'],  atc['802'] = [], [], [], []
 
         assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
@@ -233,20 +236,28 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                     np.type = '800'
                     if type == 'abstract':
                         np.value = variable_map[v]
+                    if v in atc['800']:
+                        atc['800'].remove(v)
                     atc['800'].append(np.value)
                 elif v in type_map.keys():
                     np.type = '801'
                     if type == 'abstract':
                         np.value = type_map[v]
+                    if v in atc['801']:
+                        atc['801'].remove(v)
                     atc['801'].append(np.value)
                 elif v in method_name_map.keys():
                     np.type = '802'
                     if type == 'abstract':
                         np.value = method_name_map[v]
+                    if v in atc['802']:
+                        atc['802'].remove(v)
                     atc['802'].append(np.value)
                 elif v in package_map.keys():
                     if type == 'abstract':
                         np.value = package_map[v]
+                    if v in atc['40']:
+                        atc['40'].remove(v)
                     atc['40'].append(np.value)
 
                 # parent_code = parent_code.replace(v, np.value)
@@ -280,6 +291,9 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
         if type == 'abstract':
             child_code = ' '.join([str(cn.value) for cn in child_tree.get_leaves()])
             # debug(child_code)
+        nodes = ['40', '800', '801', '802']
+        for node in nodes:
+            atc[node] = list(set(atc[node]))
 
         example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
                    'parent_tree': parent_tree, 'child_tree': child_tree,
@@ -606,8 +620,7 @@ def parse_java_change_dataset():
 
     data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
                                         child_codes=child_codes, child_trees=child_trees,
-                                        parent_tree_os=parent_tree_o, type=args.type,
-                                        allowed_tokens=allowed_tokens_for_nodes)
+                                        parent_tree_os=parent_tree_o, type=args.type)
     pt = [entry['parent_original_tree'] for entry in data]
     pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
@@ -627,6 +640,8 @@ def parse_java_change_dataset():
     train_data, dev_data, test_data, all_examples, train_ids, dev_ids, test_ids = [], [], [], [], [], [], []
 
     for idx, entry in enumerate(data):
+        if idx % 1000 == 0:
+            debug(idx)
         prev_token_node_id = []
         prev_token = []
         next_token_node_id = []
