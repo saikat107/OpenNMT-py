@@ -64,7 +64,7 @@ def get_paths(dataset_str):
     tree_count = '1'
     if len(parts) > 4:
         tree_count = parts[4].strip()
-    return _data_path, _model_base
+    return _data_path, _model_base, tree_count
 
 
 if __name__ == '__main__':
