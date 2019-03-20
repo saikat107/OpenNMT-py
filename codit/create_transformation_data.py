@@ -575,6 +575,29 @@ def closs_all(*files):
         f.close()
 
 
+def get_token_str(example):
+    prev_token_str = ' '.join(example[-5])
+    next_token_str = ' '.join(example[-4])
+    return prev_token_str + ' ' + next_token_str
+    pass
+
+
+def check_and_remove_example_from_train_data(train_data, example):
+    example_str = get_token_str(example)
+    found = False
+    fid = -1
+    for idx, t_ex in enumerate(train_data):
+        t_ex_str = get_token_str(t_ex)
+        if example_str == t_ex_str:
+            found = True
+            fid = idx
+            debug('Found\t', fid)
+            break
+    if found:
+        del train_data[fid]
+    pass
+
+
 def parse_java_change_dataset():
     import os
     parser = argparse.ArgumentParser()
@@ -589,9 +612,11 @@ def parse_java_change_dataset():
     parser.add_argument('-name', help='name of the data file', default='10_20_original')
     parser.add_argument('-exclude_no_structure_change', action='store_true')
     parser.add_argument('-type', help='Type of the Data given', default='concrete')
+    parser.add_argument('-remove_repeat', action='store_true')
 
     # parser.set_defaults(exclude_string_change=True)
     args = parser.parse_args()
+    debug(args)
     data_base = os.path.join(args.data, args.source)
     name = args.name
     data_directory = os.path.join(data_base, name)
@@ -652,7 +677,6 @@ def parse_java_change_dataset():
         prev_rule = []
         prev_rule_parent = []
         prev_rule_parent_t = []
-
         prev_rule_frontier = []
         next_rule_frontier = []
 
@@ -718,12 +742,18 @@ def parse_java_change_dataset():
             train_data.append(example)
             train_ids.append(idx)
         elif idx < num_valid_examples:
+            if args.remove_repeat:
+                debug(idx)
+                check_and_remove_example_from_train_data(train_data, example)
             dev_data.append(example)
             dev_ids.append(idx)
         else:
+            if args.remove_repeat:
+                debug(idx)
+                check_and_remove_example_from_train_data(train_data, example)
             test_data.append(example)
             test_ids.append(idx)
-
+    atc_file_name = 'atc_scope.bin'
     _file_all = create_all_files(args.output, 'train')
 
     train_w = 0
@@ -734,8 +764,8 @@ def parse_java_change_dataset():
         _atc.append(ex[-1])
         train_w += write_contents(*af)
         flush_all(*_file_all)
-    debug(_atc)
-    atc_file = os.path.join(args.output, 'train/atc.bin')
+    # debug(_atc)
+    atc_file = os.path.join(args.output, 'train/' + atc_file_name)
     serialize_to_file(_atc, atc_file)
     closs_all(*_file_all)
 
@@ -749,8 +779,8 @@ def parse_java_change_dataset():
         _atc.append(ex[-1])
         valid_w += write_contents(*af)
         flush_all(*_file_all)
-    debug(_atc)
-    atc_file = os.path.join(args.output, 'valid/atc.bin')
+    # debug(_atc)
+    atc_file = os.path.join(args.output, 'valid/' + atc_file_name)
     serialize_to_file(_atc, atc_file)
     closs_all(*_file_all)
 
@@ -763,8 +793,8 @@ def parse_java_change_dataset():
         _atc.append(ex[-1])
         test_w += write_contents(*af)
         flush_all(*_file_all)
-    debug(_atc)
-    atc_file = os.path.join(args.output, 'test/atc.bin')
+    # debug(_atc)
+    atc_file = os.path.join(args.output, 'test/' + atc_file_name)
     serialize_to_file(_atc, atc_file)
     closs_all(*_file_all)
     debug(train_w, valid_w, test_w)

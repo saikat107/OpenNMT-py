@@ -1,3 +1,6 @@
+icse_data/*
+icse_models/*
+defj_experiment/models/*
 correct_ids/*
 defj_models/*
 c_data/*

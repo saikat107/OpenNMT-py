@@ -218,6 +218,7 @@ if __name__ == "__main__":
     parser.add_argument('--tmp_file', default='')
     parser.add_argument('--grammar', required=True)
     parser.add_argument('--atc', default=None)
+    parser.add_argument('--tree_count', type=int, default=2)
 
     opt = parser.parse_args()
     opt.batch_size = 1
