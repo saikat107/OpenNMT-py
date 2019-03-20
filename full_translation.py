@@ -69,12 +69,13 @@ if __name__ == '__main__':
     data_path, model_base = get_paths(dataset)
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
-    src_token = data_path + '/test/prev.augmented.token'
-    tgt_token = data_path + '/test/next.augmented.token'
-    src_struc = data_path + '/test/prev.rule'
+    src_token = data_path + '/test_new/prev.augmented.token'
+    tgt_token = data_path + '/test_new/next.augmented.token'
+    src_struc = data_path + '/test_new/prev.rule'
     grammar = data_path + '/grammar.bin'
     tmp_file = dataset
     name = dataset
+    atc_file_path = data_path + '/test_new/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
@@ -102,6 +103,8 @@ if __name__ == '__main__':
                                                             'src file for clone based detection', default=None)
     parser.add_argument('-cout',
                         default=tmp_file)
+    parser.add_argument('--tree_count', default='5')
+    parser.add_argument('--atc', default=atc_file_path)
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)

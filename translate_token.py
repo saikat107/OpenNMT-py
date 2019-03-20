@@ -141,7 +141,6 @@ def main(opt):
     #     exit()
     #     debug('')
 
-
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
     scores, all_cands = translator.translate(src_path=opt.src,
                                              tgt_path=opt.tgt,

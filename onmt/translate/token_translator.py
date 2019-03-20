@@ -65,34 +65,13 @@ class TokenTranslator(object):
        logger(logging.Logger): logger.
     """
 
-    def __init__(self,
-                 model,
-                 fields,
-                 beam_size,
-                 n_best=1,
-                 max_length=100,
-                 global_scorer=None,
-                 copy_attn=False,
-                 logger=None,
-                 gpu=False,
-                 dump_beam="",
-                 min_length=0,
-                 stepwise_penalty=False,
-                 block_ngram_repeat=0,
-                 ignore_when_blocking=[],
-                 sample_rate='16000',
-                 window_size=.02,
-                 window_stride=.01,
-                 window='hamming',
-                 use_filter_pred=False,
-                 data_type="text",
-                 replace_unk=False,
-                 report_score=True,
-                 report_bleu=False,
-                 report_rouge=False,
-                 verbose=False,
-                 out_file=None,
-                 fast=False):
+    def __init__(self, model, fields,  beam_size, n_best=1, max_length=100, global_scorer=None, copy_attn=False,
+                 logger=None, gpu=False, dump_beam="",  min_length=0, stepwise_penalty=False,
+                 block_ngram_repeat=0, ignore_when_blocking=[], sample_rate='16000', window_size=.02,
+                 window_stride=.01, window='hamming', use_filter_pred=False, data_type="text",
+                 replace_unk=False, report_score=True, report_bleu=False, report_rouge=False,
+                 verbose=False, out_file=None, fast=False, option=None):
+        self.option = option
         self.logger = logger
         self.gpu = gpu
         self.cuda = gpu > -1
@@ -133,16 +112,8 @@ class TokenTranslator(object):
                 "scores": [],
                 "log_probs": []}
 
-    def translate(self,
-                  src_path=None,
-                  src_data_iter=None,
-                  tgt_path=None,
-                  tgt_data_iter=None,
-                  src_dir=None,
-                  batch_size=None,
-                  attn_debug=False,
-                  node_type_seq=None,
-                  atc=None):
+    def translate(self, src_path=None, src_data_iter=None, tgt_path=None, tgt_data_iter=None, src_dir=None,
+                  batch_size=None, attn_debug=False, node_type_seq=None, atc=None):
         """
         Translate content of `src_data_iter` (if not None) or `src_path`
         and get gold scores if one of `tgt_data_iter` or `tgt_path` is set.
@@ -172,17 +143,11 @@ class TokenTranslator(object):
         assert node_type_seq is not None, 'Node Types must be provided'
         if batch_size is None:
             raise ValueError("batch_size must be set")
-        data = inputters.build_dataset(self.fields,
-                                       self.data_type,
-                                       src_path=src_path,
-                                       src_data_iter=src_data_iter,
-                                       tgt_path=tgt_path,
-                                       tgt_data_iter=tgt_data_iter,
-                                       src_dir=src_dir,
-                                       sample_rate=self.sample_rate,
-                                       window_size=self.window_size,
-                                       window_stride=self.window_stride,
-                                       window=self.window,
+        data = inputters.build_dataset(self.fields,  self.data_type,  src_path=src_path,
+                                       src_data_iter=src_data_iter, tgt_path=tgt_path,
+                                       tgt_data_iter=tgt_data_iter, src_dir=src_dir,
+                                       sample_rate=self.sample_rate, window_size=self.window_size,
+                                       window_stride=self.window_stride, window=self.window,
                                        use_filter_pred=self.use_filter_pred)
 
         if self.cuda:
@@ -211,8 +176,8 @@ class TokenTranslator(object):
             # if bidx == 100:
             #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
-            if bidx % 20 == 0:
-                debug('Current Example : ', example_idx)
+            # if bidx % 20 == 0:
+            debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             if atc is not None:
                 atc_item = atc[example_idx]
@@ -220,7 +185,7 @@ class TokenTranslator(object):
                 atc_item = None
             scores = []
             predictions = []
-            tree_count = 2
+            tree_count = self.option.tree_count
             for type_sequence in nt_sequences[:tree_count]:
                 batch_data = self.translate_batch(
                     batch, data, node_type_str=type_sequence, fast=self.fast, atc=atc_item)

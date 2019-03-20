@@ -49,11 +49,13 @@ def build_translator(opt, report_score=True, logger=None, out_file=None, multi_f
         translator = Translator(model, fields, global_scorer=scorer,
                                 out_file=out_file, report_score=report_score,
                                 copy_attn=model_opt.copy_attn, logger=logger,
+                                option=opt,
                                 **kwargs)
     else:
         translator = TokenTranslator(model, fields, global_scorer=scorer,
                                      out_file=out_file, report_score=report_score,
                                      copy_attn=model_opt.copy_attn, logger=logger,
+                                     option=opt,
                                      **kwargs)
     return translator
 
@@ -78,34 +80,13 @@ class Translator(object):
        logger(logging.Logger): logger.
     """
 
-    def __init__(self,
-                 model,
-                 fields,
-                 beam_size,
-                 n_best=1,
-                 max_length=100,
-                 global_scorer=None,
-                 copy_attn=False,
-                 logger=None,
-                 gpu=False,
-                 dump_beam="",
-                 min_length=0,
-                 stepwise_penalty=False,
-                 block_ngram_repeat=0,
-                 ignore_when_blocking=[],
-                 sample_rate='16000',
-                 window_size=.02,
-                 window_stride=.01,
-                 window='hamming',
-                 use_filter_pred=False,
-                 data_type="text",
-                 replace_unk=False,
-                 report_score=True,
-                 report_bleu=False,
-                 report_rouge=False,
-                 verbose=False,
-                 out_file=None,
-                 fast=False):
+    def __init__(self, model, fields, beam_size, n_best=1, max_length=100, global_scorer=None,
+                 copy_attn=False, logger=None, gpu=False, dump_beam="", min_length=0, stepwise_penalty=False,
+                 block_ngram_repeat=0, ignore_when_blocking=[], sample_rate='16000', window_size=.02,
+                 window_stride=.01, window='hamming', use_filter_pred=False, data_type="text",
+                 replace_unk=False, report_score=True, report_bleu=False, report_rouge=False,
+                 verbose=False, out_file=None, fast=False, option=None):
+        self.option = option
         self.logger = logger
         self.gpu = gpu
         self.cuda = gpu > -1
