@@ -172,6 +172,15 @@ class TokenTranslator(object):
         all_scores = []
         all_predictions = []
         debug(self.option.tree_count)
+
+        def check_correctness(preds, gold):
+            for p in preds:
+                if p.strip() == gold.strip():
+                    return 1
+            return 0
+
+        total_correct = 0
+
         for bidx, batch in enumerate(data_iter):
             # if bidx == 100:
             #     break
@@ -204,10 +213,12 @@ class TokenTranslator(object):
 
                     n_best_preds = [" ".join(pred)
                                     for pred in trans.pred_sents[:self.n_best]]
+                    gold_sent = ' '.join(trans.gold_sent)
+                    correct = check_correctness(n_best_preds, gold_sent)
+                    debug(correct == 1)
+                    total_correct += correct
                     # debug(len(n_best_preds))
                     predictions += n_best_preds
-                    # self.out_file.write('\n'.join(n_best_preds) + '\n')
-                    # self.out_file.flush()
 
                     if self.verbose:
                         sent_number = next(counter)
@@ -217,7 +228,6 @@ class TokenTranslator(object):
                         else:
                             os.write(1, output.encode('utf-8'))
 
-                    # Debug attention.
                     if attn_debug:
                         srcs = trans.src_raw
                         preds = trans.pred_sents[0]
@@ -235,23 +245,10 @@ class TokenTranslator(object):
                             output += row_format.format(word, *row) + '\n'
                             row_format = "{:>10.10} " + "{:>10.7f} " * len(srcs)
                         os.write(1, output.encode('utf-8'))
-            # all = sorted(zip(scores, predictions),key=lambda x:x[0])[::-1]
-            # scores = [p[0] for p in all]
-            # predictions = [p[1] for p in all]
-            # scores = scores[:self.n_best]
-            # predictions = predictions[:self.n_best]
             all_scores += [scores]
             all_predictions += [predictions]
-                # debug(all_scores)
-                # debug(all_predictions)
-            # exit()
+
         if self.report_score:
-            msg = self._report_score('PRED', pred_score_total,
-                                     pred_words_total)
-            # if self.logger:
-            #     self.logger.info(msg)
-            # else:
-            #     print(msg)
             if tgt_path is not None:
                 msg = self._report_score('GOLD', gold_score_total,
                                          gold_words_total)
@@ -276,6 +273,7 @@ class TokenTranslator(object):
             import json
             json.dump(self.translator.beam_accum,
                       codecs.open(self.dump_beam, 'w', 'utf-8'))
+        debug(total_correct)
         return all_scores, all_predictions
 
     def translate_batch(self, batch, data, node_type_str, fast=False, atc=None):
@@ -476,6 +474,7 @@ class TokenTranslator(object):
         node_type_vocab = self.fields['tgt_feat_0'].vocab
         start_token = vocab.stoi[inputters.BOS_WORD]
         end_token = vocab.stoi[inputters.EOS_WORD]
+        unk_token = vocab.stoi[inputters.UNK]
         token_masks, allowed_token_indices, not_allowed_token_indices\
             = generate_token_mask(atc, node_type_vocab, vocab)
         # debug(token_masks.keys())
@@ -537,8 +536,6 @@ class TokenTranslator(object):
             node_type = node_types[step]
             node_type_str = str(node_type_vocab.itos[node_type.item()])
             not_allowed_indices = not_allowed_token_indices[node_type_str]
-            # debug(node_type_str, len(not_allowed_indices))
-            # debug(node_type_str, len(current_node_type_allowed_indices))
             extra_input = torch.stack([node_types[step] for _ in range(decoder_input.shape[1])])
             extra_input = extra_input.view(1, -1, 1)
             final_input = torch.cat((decoder_input, extra_input), dim=-1)
@@ -561,10 +558,12 @@ class TokenTranslator(object):
 
             # debug(len(not_allowed_indices))
             log_probs[:, not_allowed_indices] = -1e20
-            # debug(log_probs.shape)
-            # log_probs[:, current_node_type_allowed_indices] =
-            # Multiply probs by the beam probability.
             log_probs += topk_log_probs.view(-1).unsqueeze(1)
+            # debug('Source  Shape :\t', memory_bank.size())
+            # debug('Probab Shape :\t', log_probs.size())
+            #
+            # attn['std'] = attn['std'].squeeze()
+            # debug('Inside Attn:\t', attn['std'].size())
 
             alpha = self.global_scorer.alpha
             length_penalty = ((5.0 + (step + 1)) / 6.0) ** alpha
@@ -586,41 +585,6 @@ class TokenTranslator(object):
                 topk_beam_index
                 + beam_offset[:topk_beam_index.size(0)].unsqueeze(1))
 
-            # End condition is the top beam reached end_token.
-            end_condition = topk_ids[:, 0].eq(end_token)
-            if step + 1 == max_length:
-                end_condition.fill_(1)
-            finished = end_condition.nonzero().view(-1)
-
-            # Save result of finished sentences.
-            if len(finished) > 0:
-                predictions = alive_seq.view(-1, beam_size, alive_seq.size(-1))
-                scores = topk_scores.view(-1, beam_size)
-                attention = None
-                if alive_attn is not None:
-                    attention = alive_attn.view(
-                        alive_attn.size(0), -1, beam_size, alive_attn.size(-1))
-                for i in finished:
-                    b = batch_offset[i]
-                    for n in range(self.n_best):
-                        results["predictions"][b].append(predictions[i, n, 1:])
-                        results["scores"][b].append(scores[i, n])
-                        if attention is None:
-                            results["attention"][b].append([])
-                        else:
-                            results["attention"][b].append(
-                                attention[:, i, n, :memory_lengths[i]])
-                non_finished = end_condition.eq(0).nonzero().view(-1)
-                # If all sentences are translated, no need to go further.
-                if len(non_finished) == 0:
-                    break
-                # Remove finished batches for the next step.
-                topk_log_probs = topk_log_probs.index_select(
-                    0, non_finished.to(topk_log_probs.device))
-                topk_ids = topk_ids.index_select(0, non_finished)
-                batch_index = batch_index.index_select(0, non_finished)
-                batch_offset = batch_offset.index_select(0, non_finished)
-
             # Select and reorder alive batches.
             select_indices = batch_index.view(-1)
             alive_seq = alive_seq.index_select(0, select_indices)
@@ -628,8 +592,47 @@ class TokenTranslator(object):
             memory_lengths = memory_lengths.index_select(0, select_indices)
             dec_states.map_batch_fn(
                 lambda state, dim: state.index_select(dim, select_indices))
-            # Append last prediction.
             alive_seq = torch.cat([alive_seq, topk_ids.view(-1, 1)], -1)
+
+        # # End condition is the top beam reached end_token.
+        # end_condition = topk_ids[: , 0].eq(end_token)
+        # if step + 1 == max_length:
+        #     end_condition.fill_(1)
+        # finished = end_condition.nonzero().view(-1)
+        #
+        # # Save result of finished sentences.
+        # if len(finished) > 0:
+        predictions = alive_seq.view(-1, beam_size, alive_seq.size(-1))
+        scores = topk_scores.view(-1, beam_size)
+        attention = None
+        if alive_attn is not None:
+            attention = alive_attn.view(
+                        alive_attn.size(0), -1, beam_size, alive_attn.size(-1))
+        # debug(predictions.size())
+        # debug(end_token)
+        # debug(start_token)
+
+        for i in range(len(predictions)):
+            b = batch_offset[i]
+            for n in range(self.n_best):
+                # debug(unk_token in predictions[i, n, 1:].cpu().numpy().tolist())
+                results["predictions"][b].append(predictions[i, n, 1:])
+                results["scores"][b].append(scores[i, n])
+                if attention is None:
+                    results["attention"][b].append([])
+                else:
+                    results["attention"][b].append(attention[:, i, n, :memory_lengths[i]])
+                # non_finished = end_condition.eq(0).nonzero().view(-1)
+                # # If all sentences are translated, no need to go further.
+                # if len(non_finished) == 0:
+                #     break
+                # # Remove finished batches for the next step.
+                # topk_log_probs = topk_log_probs.index_select(
+                #     0 , non_finished.to(topk_log_probs.device))
+                # topk_ids = topk_ids.index_select(0 , non_finished)
+                # batch_index = batch_index.index_select(0 , non_finished)
+                # batch_offset = batch_offset.index_select(0 , non_finished)
+
         return results
 
     def _from_beam(self, beam):

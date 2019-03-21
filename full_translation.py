@@ -47,7 +47,7 @@ def get_paths(dataset_str):
             'filtered': 'filtered'
         },
         'codit': {
-            'all': 'all',
+            'all': 'original',
             'filtered': 'filtered'
         }
     }
