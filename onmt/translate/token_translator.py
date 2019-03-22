@@ -219,7 +219,7 @@ class TokenTranslator(object):
                                     for pred in trans.pred_sents[:self.n_best]]
                     gold_sent = ' '.join(trans.gold_sent)
                     correct = check_correctness(n_best_preds, gold_sent)
-                    # debug(correct == 1)
+                    debug(correct == 1)
                     if not already_found:
                         total_correct += correct
                         already_found = True

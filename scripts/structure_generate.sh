@@ -26,5 +26,5 @@ echo $model_path
 python translate_structure.py -model $model_path \
         -src $input_base_path/prev.rule -tgt $input_base_path/next.rule\
         --name $dataset.$datasize.$datatype.structure-test -gpu 0 \
-        --grammar $grammar_path -beam_size 1 -n_best 1 \
+        --grammar $grammar_path -beam_size 20 -n_best 10 \
         -verbose

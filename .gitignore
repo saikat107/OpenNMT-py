@@ -9,7 +9,7 @@ c_data/*
 c_models/*
 tools/nonbreaking_prefixes/*
 docs/*
-tmp/*
+tmp*/*
 result_eds/*
 rule_based_data/*
 rule_based_models/*

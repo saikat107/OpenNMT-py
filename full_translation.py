@@ -12,9 +12,9 @@ from util import debug
 
 
 def transform_structurally(structure_opts):
-    # if os.path.exists(structure_opts.tmp_file):
-    #     debug('Structure Transformation result already exists!\n')
-    #     return
+    if os.path.exists(structure_opts.tmp_file):
+        debug('Structure Transformation result already exists!\n')
+        return
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
@@ -47,7 +47,7 @@ def get_paths(dataset_str):
             'filtered': 'filtered'
         },
         'codit': {
-            'all': 'original',
+            'all': 'all',
             'filtered': 'filtered'
         }
     }
