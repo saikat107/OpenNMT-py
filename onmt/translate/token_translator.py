@@ -528,6 +528,7 @@ class TokenTranslator(object):
         results["attention"] = [[] for _ in range(batch_size)]  # noqa: F812
         results["gold_score"] = [0] * batch_size
         results["batch"] = batch
+        save_attention = [[] for _ in range(batch_size)]
 
         # max_length += 1
 
@@ -562,7 +563,7 @@ class TokenTranslator(object):
             # debug('Source  Shape :\t', memory_bank.size())
             # debug('Probab Shape :\t', log_probs.size())
             #
-            # attn['std'] = attn['std'].squeeze()
+            attn_probs = attn['std'].squeeze() # (beam_size, source_length)
             # debug('Inside Attn:\t', attn['std'].size())
 
             alpha = self.global_scorer.alpha
@@ -579,7 +580,9 @@ class TokenTranslator(object):
             # Resolve beam origin and true word ids.
             topk_beam_index = topk_ids.div(vocab_size)
             topk_ids = topk_ids.fmod(vocab_size)
-
+            beam_indices = topk_beam_index.squeeze().cpu().numpy().tolist()
+            attn_to_save = attn_probs[beam_indices, :]
+            save_attention[0].append(attn_to_save)
             # Map beam_index to batch_index in the flat representation.
             batch_index = (
                 topk_beam_index
@@ -622,6 +625,7 @@ class TokenTranslator(object):
                     results["attention"][b].append([])
                 else:
                     results["attention"][b].append(attention[:, i, n, :memory_lengths[i]])
+                # results["save_attention"] =
                 # non_finished = end_condition.eq(0).nonzero().view(-1)
                 # # If all sentences are translated, no need to go further.
                 # if len(non_finished) == 0:
