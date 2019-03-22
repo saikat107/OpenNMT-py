@@ -6,6 +6,7 @@ import argparse
 import pickle
 
 import numpy as np
+import torch
 from nltk.translate import bleu_score
 
 from codit.grammar import JavaGrammar
@@ -104,7 +105,11 @@ def generate_all_tree_candidates(all_cands, all_scores, grammar, actual_n_best, 
             if tree is not None:
                 filtered_cands.append(cand)
                 filtered_trees.append(tree)
-                filtered_scores.append(score)
+                if isinstance(score, torch.Tensor):
+                    filtered_scores.append(float(score.item()))
+                else:
+                    filtered_scores.append(score)
+
         filtered_cands.append(line)
         if actual_src_tree is None:
             actual_src_tree = '83 39 42 214 42 230 42 231 42 234 39 42 234 39 42 234 42 230 40 231 42 215 301 42 227'.split()

@@ -636,9 +636,9 @@ class Translator(object):
         return gold_scores
 
     def _report_score(self, name, score_total, words_total):
-        msg = ("%s AVG SCORE: %.4f, %s PPL: %.4f" % (
+        msg = ("%s AVG SCORE: %.4f, %s PPL: %.4f Num Words %d" % (
             name, score_total / words_total,
-            name, math.exp(-score_total / words_total)))
+            name, math.exp(-score_total / words_total), words_total))
         return msg
 
     def _report_bleu(self, tgt_path):

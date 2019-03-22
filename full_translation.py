@@ -12,9 +12,9 @@ from util import debug
 
 
 def transform_structurally(structure_opts):
-    if os.path.exists(structure_opts.tmp_file):
-        debug('Structure Transformation result already exists!\n')
-        return
+    # if os.path.exists(structure_opts.tmp_file):
+    #     debug('Structure Transformation result already exists!\n')
+    #     return
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
@@ -24,9 +24,9 @@ def transform_structurally(structure_opts):
     if not os.path.exists('tmp'):
         os.mkdir('tmp')
     with open(structure_opts.tmp_file, 'w') as tmp:
-        for trees, scores in all_trees, all_scores:
-            # debug(trees)
-            t_strs = [' '.join(tree) + '/' +str(score) for tree, score in zip(trees,scores)]
+        for trees, scores in zip(all_trees, all_scores):
+            debug(trees, scores)
+            t_strs = [' '.join(tree) + '/' + str(score) for tree, score in zip(trees, scores)]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
         tmp.close()
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)
-    debug(token_options)
+    # debug(token_options)
     if options.rule_gen == 'nmt':
         transform_structurally(structure_options)
     elif options.rule_gen == 'clone':
