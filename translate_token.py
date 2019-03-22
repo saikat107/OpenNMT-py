@@ -59,14 +59,24 @@ def print_bleu_res_to_file(b_file, bls):
 
 
 def get_all_node_type_str(file_path):
-    node_types = []
+    node_types, all_scores = [], []
     with open(file_path) as inp:
         for line in inp:
             line = line.strip()
             parts = line.split('\t')
-            node_types.append(parts)
+            node_sequences = []
+            scores = []
+            for part in parts:
+                score_parts = part.split('/')
+                node_sequences.append(score_parts[0])
+                if len(score_parts) > 1:
+                    scores.append(float(score_parts[1]))
+                else:
+                    scores.append(1.0)
+            node_types.append(node_sequences)
+            all_scores.append(scores)
         inp.close()
-        return node_types
+        return node_types, all_scores
     pass
 
 
@@ -78,11 +88,11 @@ def process_source(src_str):
     pass
 
 
-def re_organize_candidates(cands, src, n_best):
-    scores = []
-    for cand in cands:
-        scores.append(get_edit_dist(src, cand))
-    sorted_indices = np.argsort(scores)
+def re_organize_candidates(cands, scores, src, n_best):
+    all_scores = []
+    for cand, score in zip(cands, scores):
+        all_scores.append(score)
+    sorted_indices = np.argsort(all_scores)
     reformatted = []
     for i in sorted_indices[:n_best]:
         reformatted.append(cands[sorted_indices[i]])
@@ -129,7 +139,7 @@ def main(opt):
     #TODO 2. Extract atc_file and enhance atc
 
     grammar_atc = extract_atc_from_grammar(opt.grammar)
-    all_node_type_seq_str = get_all_node_type_str(opt.tmp_file)
+    all_node_type_seq_str, node_seq_scores = get_all_node_type_str(opt.tmp_file)
     total_number_of_test_examples = len(all_node_type_seq_str)
     all_atcs = [grammar_atc for _ in range(total_number_of_test_examples)]
     if opt.atc is not None:
@@ -142,14 +152,14 @@ def main(opt):
     #     debug('')
 
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
-    scores, all_cands = translator.translate(src_path=opt.src,
+    all_scores, all_cands = translator.translate(src_path=opt.src,
                                              tgt_path=opt.tgt,
                                              src_dir=opt.src_dir,
                                              batch_size=opt.batch_size,
                                              attn_debug=opt.attn_debug,
-                                             node_type_seq=all_node_type_seq_str,
+                                             node_type_seq=[all_node_type_seq_str, node_seq_scores],
                                              atc=all_atcs)
-    beam_size = len(scores[0])
+    beam_size = len(all_scores[0])
     exp_name = opt.name
     all_sources = []
     all_targets = []
@@ -173,8 +183,7 @@ def main(opt):
 
     all_eds = []
     total_example = 0
-    for idx, (src, tgt, cands) in enumerate(zip(all_sources, all_targets, all_cands)):
-        atc = all_atcs[idx]
+    for idx, (src, tgt, cands, scores) in enumerate(zip(all_sources, all_targets, all_cands, all_scores)):
         total_example += 1
         decode_res_file.write(str(idx) + '\n')
         decode_res_file.write(src + '\n')
@@ -187,7 +196,7 @@ def main(opt):
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         eds = []
         found = False
-        cands_reformatted = re_organize_candidates(cands, src, opt.n_best)
+        cands_reformatted = re_organize_candidates(cands, scores, src, opt.n_best)
         for cand in cands_reformatted:
             ed = get_edit_dist(tgt, cand)
             if cand == tgt:

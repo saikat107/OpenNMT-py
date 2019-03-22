@@ -141,6 +141,8 @@ class TokenTranslator(object):
         """
         assert src_data_iter is not None or src_path is not None
         assert node_type_seq is not None, 'Node Types must be provided'
+        node_type_scores = node_type_seq[1]
+        node_type_seq = node_type_seq[0]
         if batch_size is None:
             raise ValueError("batch_size must be set")
         data = inputters.build_dataset(self.fields,  self.data_type,  src_path=src_path,
@@ -188,6 +190,7 @@ class TokenTranslator(object):
             # if bidx % 20 == 0:
             debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
+            nt_scores = node_type_scores[example_idx]
             if atc is not None:
                 atc_item = atc[example_idx]
             else:
@@ -195,13 +198,13 @@ class TokenTranslator(object):
             scores = []
             predictions = []
             tree_count = self.option.tree_count
-            for type_sequence in nt_sequences[:tree_count]:
+            for type_sequence, type_score in zip(nt_sequences[:tree_count], nt_scores[:tree_count]):
                 batch_data = self.translate_batch(
                     batch, data, node_type_str=type_sequence, fast=self.fast, atc=atc_item)
                 translations = builder.from_batch(batch_data)
 
                 for trans in translations:
-                    pred_scores = trans.pred_scores[:self.n_best]
+                    pred_scores = [score * type_score for score in trans.pred_scores[:self.n_best]]
                     # debug(len(pred_scores))
                     scores += pred_scores
 
