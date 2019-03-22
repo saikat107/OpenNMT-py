@@ -202,7 +202,7 @@ class TokenTranslator(object):
                 batch_data = self.translate_batch(
                     batch, data, node_type_str=type_sequence, fast=self.fast, atc=atc_item)
                 translations = builder.from_batch(batch_data)
-
+                already_found = False
                 for trans in translations:
                     pred_scores = [score * type_score for score in trans.pred_scores[:self.n_best]]
                     # debug(len(pred_scores))
@@ -219,7 +219,9 @@ class TokenTranslator(object):
                     gold_sent = ' '.join(trans.gold_sent)
                     correct = check_correctness(n_best_preds, gold_sent)
                     debug(correct == 1)
-                    total_correct += correct
+                    if not already_found:
+                        total_correct += correct
+                        already_found = True
                     # debug(len(n_best_preds))
                     predictions += n_best_preds
 
