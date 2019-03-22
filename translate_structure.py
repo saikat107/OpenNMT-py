@@ -90,29 +90,31 @@ def create_tree_from_candidates(cands, grammar):
     pass
 
 
-def generate_all_tree_candidates(all_cands, grammar, actual_n_best, src_file):
+def generate_all_tree_candidates(all_cands, all_scores, grammar, actual_n_best, src_file):
     all_filtered_trees = []
     all_filtered_cands = []
+    all_filtered_scores = []
     inp = open(src_file)
-    for i, (cands, line) in enumerate(zip(all_cands, inp)):
+    for i, (cands, scores, line) in enumerate(zip(all_cands, all_scores, inp)):
         line = line.strip()
-        filtered_trees = []
-        filtered_cands = []
+        filtered_trees, filtered_cands, filtered_scores = [], [], []
         trees = create_tree_from_candidates(cands, grammar)
         actual_src_tree = create_tree_from_candidates([line], grammar)[0]
-        for tree, cand in zip(trees, cands):
+        for tree, cand, score in zip(trees, cands, scores):
             if tree is not None:
                 filtered_cands.append(cand)
                 filtered_trees.append(tree)
+                filtered_scores.append(score)
         filtered_cands.append(line)
         if actual_src_tree is None:
-            # Dummy token ids
             actual_src_tree = '83 39 42 214 42 230 42 231 42 234 39 42 234 39 42 234 42 230 40 231 42 215 301 42 227'.split()
         filtered_trees.append(actual_src_tree)
+        filtered_scores.append(-1e20)
         all_filtered_cands.append(filtered_cands[:actual_n_best])
         all_filtered_trees.append(filtered_trees[:actual_n_best])
+        all_filtered_scores.append(filtered_scores[:actual_n_best])
     inp.close()
-    return all_filtered_cands, all_filtered_trees
+    return all_filtered_cands, all_filtered_trees, all_filtered_scores
     pass
 
 
@@ -123,7 +125,8 @@ def translate_all(opt, grammar, actual_n_best):
                                                  src_dir=opt.src_dir,
                                                  batch_size=opt.batch_size,
                                                  attn_debug=opt.attn_debug)
-    all_cands, all_trees = generate_all_tree_candidates(all_cands, grammar, actual_n_best, opt.src)
+    all_cands, all_trees, all_scores = generate_all_tree_candidates(
+        all_cands, all_scores, grammar, actual_n_best, opt.src)
     return all_scores, all_cands, all_trees
 
 

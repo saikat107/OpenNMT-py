@@ -20,13 +20,13 @@ def transform_structurally(structure_opts):
     grammar = pickle.load(f)
     debug('Grammar Loaded From : %s' % structure_opts.grammar)
     assert isinstance(grammar, JavaGrammar)
-    _, _, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
+    all_scores, _, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
     if not os.path.exists('tmp'):
         os.mkdir('tmp')
     with open(structure_opts.tmp_file, 'w') as tmp:
-        for trees in all_trees:
+        for trees, scores in all_trees, all_scores:
             # debug(trees)
-            t_strs = [' '.join(tree) for tree in trees]
+            t_strs = [' '.join(tree) + '/' +str(score) for tree, score in zip(trees,scores)]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
         tmp.close()
