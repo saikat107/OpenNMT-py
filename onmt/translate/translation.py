@@ -4,6 +4,8 @@ from __future__ import print_function
 
 import torch
 import onmt.inputters as inputters
+from util import debug
+import numpy as np
 
 
 class TranslationBuilder(object):
@@ -54,10 +56,11 @@ class TranslationBuilder(object):
                len(translation_batch["predictions"]))
         batch_size = batch.batch_size
 
-        preds, pred_score, attn, gold_score, indices = list(zip(
+        preds, pred_score, attn, save_attn, gold_score, indices = list(zip(
             *sorted(zip(translation_batch["predictions"],
                         translation_batch["scores"],
                         translation_batch["attention"],
+                        translation_batch["save_attention"],
                         translation_batch["gold_score"],
                         batch.indices.data),
                     key=lambda x: x[-1])))
@@ -89,6 +92,19 @@ class TranslationBuilder(object):
                 src_vocab, src_raw,
                 preds[b][n], attn[b][n])
                 for n in range(self.n_best)]
+
+            num_pred_sent = len(pred_sents)
+            for beam_position in range(num_pred_sent):
+                sent = pred_sents[beam_position]
+                # debug(sent)
+                num_words = len(sent)
+                for time_step in range(num_words):
+                    if pred_sents[beam_position][time_step] == '<unk>':
+                        current_attn = save_attn[b][time_step][beam_position].cpu().numpy()
+                        max_idx = np.argmax(current_attn)
+                        pred_sents[beam_position][time_step] = src_raw[max_idx]
+
+
             gold_sent = None
             if tgt is not None:
                 gold_sent = self._build_target_tokens(

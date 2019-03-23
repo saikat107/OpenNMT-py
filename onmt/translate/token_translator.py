@@ -631,6 +631,7 @@ class TokenTranslator(object):
                     results["attention"][b].append([])
                 else:
                     results["attention"][b].append(attention[:, i, n, :memory_lengths[i]])
+                results["save_attention"] = save_attention
                 # results["save_attention"] =
                 # non_finished = end_condition.eq(0).nonzero().view(-1)
                 # # If all sentences are translated, no need to go further.
