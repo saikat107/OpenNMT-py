@@ -188,7 +188,7 @@ class TokenTranslator(object):
             #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
             # if bidx % 20 == 0:
-            if bidx% 1 == 0:
+            if bidx % 2000 == 0:
                 debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             nt_scores = node_type_scores[example_idx]
@@ -219,7 +219,7 @@ class TokenTranslator(object):
                                     for pred in trans.pred_sents[:self.n_best]]
                     gold_sent = ' '.join(trans.gold_sent)
                     correct = check_correctness(n_best_preds, gold_sent)
-                    debug(correct == 1)
+                    # debug(correct == 1)
                     if not already_found:
                         total_correct += correct
                         already_found = True
