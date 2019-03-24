@@ -643,7 +643,9 @@ class TokenTranslator(object):
                 # topk_ids = topk_ids.index_select(0 , non_finished)
                 # batch_index = batch_index.index_select(0 , non_finished)
                 # batch_offset = batch_offset.index_select(0 , non_finished)
-
+        results["gold_score"] = [0] * batch_size
+        if "tgt" in batch.__dict__:
+            results["gold_score"] = self._run_target(batch , data)
         return results
 
     def _from_beam(self, beam):
