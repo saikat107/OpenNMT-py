@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import torch
 import onmt.inputters as inputters
-from util import debug
+from util import debug , sample_roulette_wheel
 import numpy as np
 
 
@@ -112,8 +112,9 @@ class TranslationBuilder(object):
                     for time_step in range(num_words):
                         if pred_sents[beam_position][time_step] == '<unk>':
                             current_attn = save_attn[b][time_step][beam_position].cpu().numpy()
-                            max_idx = np.argmax(current_attn)
-                            pred_sents[beam_position][time_step] = src_raw[max_idx]
+                            idx = sample_roulette_wheel(current_attn)
+                            # max_idx = np.argmax(current_attn)
+                            pred_sents[beam_position][time_step] = src_raw[idx]
 
 
             gold_sent = None
