@@ -56,14 +56,24 @@ class TranslationBuilder(object):
                len(translation_batch["predictions"]))
         batch_size = batch.batch_size
 
-        preds, pred_score, attn, save_attn, gold_score, indices = list(zip(
-            *sorted(zip(translation_batch["predictions"],
-                        translation_batch["scores"],
-                        translation_batch["attention"],
-                        translation_batch["save_attention"],
-                        translation_batch["gold_score"],
-                        batch.indices.data),
-                    key=lambda x: x[-1])))
+        if "save_attntion" in translation_batch.keys():
+            preds, pred_score, attn, save_attn, gold_score, indices = list(zip(
+                *sorted(zip(translation_batch["predictions"],
+                            translation_batch["scores"],
+                            translation_batch["attention"],
+                            translation_batch["save_attention"],
+                            translation_batch["gold_score"],
+                            batch.indices.data),
+                        key=lambda x: x[-1])))
+        else:
+            preds, pred_score, attn, gold_score, indices = list(zip(
+                *sorted(zip(translation_batch["predictions"],
+                            translation_batch["scores"],
+                            translation_batch["attention"],
+                            translation_batch["gold_score"],
+                            batch.indices.data),
+                        key=lambda x: x[-1])))
+            save_attn = None
 
         # Sorting
         inds, perm = torch.sort(batch.indices.data)
@@ -94,15 +104,16 @@ class TranslationBuilder(object):
                 for n in range(self.n_best)]
 
             num_pred_sent = len(pred_sents)
-            for beam_position in range(num_pred_sent):
-                sent = pred_sents[beam_position]
-                # debug(sent)
-                num_words = len(sent)
-                for time_step in range(num_words):
-                    if pred_sents[beam_position][time_step] == '<unk>':
-                        current_attn = save_attn[b][time_step][beam_position].cpu().numpy()
-                        max_idx = np.argmax(current_attn)
-                        pred_sents[beam_position][time_step] = src_raw[max_idx]
+            if save_attn is not None:
+                for beam_position in range(num_pred_sent):
+                    sent = pred_sents[beam_position]
+                    # debug(sent)
+                    num_words = len(sent)
+                    for time_step in range(num_words):
+                        if pred_sents[beam_position][time_step] == '<unk>':
+                            current_attn = save_attn[b][time_step][beam_position].cpu().numpy()
+                            max_idx = np.argmax(current_attn)
+                            pred_sents[beam_position][time_step] = src_raw[max_idx]
 
 
             gold_sent = None
