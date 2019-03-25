@@ -164,13 +164,16 @@ def get_identifier_type(node, tree, code):
 
 
 def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
-                                 child_trees, parent_tree_os,  type='original', allowed_tokens=None):
+                                 child_trees, parent_tree_os,  type='original', allowed_tokens=None,
+                                 file_names=None):
     data = []
     if allowed_tokens is not None:
         assert len(allowed_tokens) == len(parent_codes)
+    if file_names is None:
+        file_names = [''] * len(parent_codes)
 
-    for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o) in \
-            enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os)):
+    for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o, file_name) in \
+            enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os, file_names)):
         if parent_tree is None or len(parent_tree) < 5:
             continue
         if idx % 1000 == 0:
@@ -297,7 +300,8 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
 
         example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
                    'parent_tree': parent_tree, 'child_tree': child_tree,
-                   'parent_original_tree': parent_tree_o, 'atc': atc
+                   'parent_original_tree': parent_tree_o, 'atc': atc,
+                   'file_name': file_name
                    }
 
         data.append(example)
@@ -511,20 +515,24 @@ def create_all_files(folder_name, data_type):
     next_augmented_rule_file = open(os.path.join(folder_name + '/' + data_type, 'next.augmented.rule'), 'w')
     prev_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'prev.frontier'), 'w')
     next_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'next.frontier'), 'w')
+    parent_tree_file = open(os.path.join(folder_name + '/' + data_type, 'prev.tree'), 'w')
+    child_tree_file = open(os.path.join(folder_name + '/' + data_type, 'next.tree') , 'w')
     return prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file, \
            prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file, \
            next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file, \
-           prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file
+           prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file,\
+            parent_tree_file, child_tree_file
 
 
 def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file,
                    prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file,
                    next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file,
-                   next_token_plus_id_file,
-                   prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file,
+                   next_token_plus_id_file, prev_augmented_rule_file, next_augmented_rule_file,
+                   prev_frontier_file, next_frontier_file, parent_tree_file, child_tree_file,
                    prev_rule, next_rule, prev_rule_parent, next_rule_parent,
                    prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier):
+                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier,
+                   parent_tree, child_tree):
     if len(prev_rule) == 0 or len(next_rule) == 0 or len(prev_token) == 0 or len(next_token) == 0 or \
             len(prev_token_node_id) == 0 or len(next_token_node_id) == 0 or len(prev_rule_frontier) == 0 or \
             len(next_rule_frontier) == 0:
@@ -562,6 +570,8 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
     next_augmented_rule_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(next_rule, next_rule_frontier)]) + '\n'
     prev_augmented_rule_file.write(prev_augmented_rule_str)
     next_augmented_rule_file.write(next_augmented_rule_str)
+    parent_tree_file.write(str(parent_tree) + '\n')
+    child_tree_file.write(str(child_tree) + '\n')
     return 1
 
 
@@ -570,7 +580,7 @@ def flush_all(*files):
         f.flush()
 
 
-def closs_all(*files):
+def close_all(*files):
     for f in files:
         f.close()
 
@@ -591,7 +601,7 @@ def check_and_remove_example_from_train_data(train_data, example):
         if example_str == t_ex_str:
             found = True
             fid = idx
-            debug('Found\t', fid)
+            # debug('Found\t', fid)
             break
     if found:
         del train_data[fid]
@@ -645,7 +655,9 @@ def parse_java_change_dataset():
 
     data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
                                         child_codes=child_codes, child_trees=child_trees,
-                                        parent_tree_os=parent_tree_o, type=args.type)
+                                        parent_tree_os=parent_tree_o, type=args.type,
+                                        file_names=file_names)
+
     pt = [entry['parent_original_tree'] for entry in data]
     pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
@@ -653,6 +665,7 @@ def parse_java_change_dataset():
     debug(grammar.terminal_nodes)
     value_nodes = grammar.value_node_rules.keys()
     debug('Total Value Nodes : ', len(value_nodes))
+
     # for node in value_nodes:
     #     debug(grammar.value_node_rules[node])
     # debug('Total terminal nodes : ' + str(len(grammar.terminal_nodes)))
@@ -667,18 +680,9 @@ def parse_java_change_dataset():
     for idx, entry in enumerate(data):
         if idx % 1000 == 0:
             debug(idx)
-        prev_token_node_id = []
-        prev_token = []
-        next_token_node_id = []
-        next_token = []
-        next_rule = []
-        next_rule_parent_t = []
-        next_rule_parent = []
-        prev_rule = []
-        prev_rule_parent = []
-        prev_rule_parent_t = []
-        prev_rule_frontier = []
-        next_rule_frontier = []
+        prev_token_node_id, prev_token, next_token_node_id, next_token, next_rule, next_rule_parent_t,\
+            next_rule_parent, prev_rule, prev_rule_parent, prev_rule_parent_t,\
+            prev_rule_frontier, next_rule_frontier = [], [], [], [], [], [], [], [], [], [], [], []
 
         parse_tree = entry['child_tree']
         parent_original_tree = entry['parent_original_tree']
@@ -735,7 +739,8 @@ def parse_java_change_dataset():
         atc = entry['atc']
         example = [prev_rule, next_rule, prev_rule_parent, next_rule_parent,
                    prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier, atc]
+                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier,
+                   parent_original_tree, parse_tree, atc, entry['file_name']]
         all_examples.append(example)
 
         if idx < num_train_examples:
@@ -749,57 +754,42 @@ def parse_java_change_dataset():
             dev_ids.append(idx)
         else:
             if args.remove_repeat:
-                debug(idx)
+                # debug(idx)
                 check_and_remove_example_from_train_data(train_data, example)
             test_data.append(example)
             test_ids.append(idx)
     atc_file_name = 'atc_scope.bin'
-    _file_all = create_all_files(args.output, 'train')
 
-    train_w = 0
-    _atc = []
-    for ex in train_data:
-        af = [f for f in _file_all]
-        af.extend(ex[:-1])
-        _atc.append(ex[-1])
-        train_w += write_contents(*af)
-        flush_all(*_file_all)
-    # debug(_atc)
-    atc_file = os.path.join(args.output, 'train/' + atc_file_name)
-    serialize_to_file(_atc, atc_file)
-    closs_all(*_file_all)
+    train_w = write_all_content_to_file(args, atc_file_name, train_data, 'train')
 
-    _file_all = create_all_files(args.output, 'valid')
+    valid_w = write_all_content_to_file(args, atc_file_name, dev_data, 'valid')
 
-    valid_w = 0
-    _atc = []
-    for ex in dev_data:
-        af = [f for f in _file_all]
-        af.extend(ex[:-1])
-        _atc.append(ex[-1])
-        valid_w += write_contents(*af)
-        flush_all(*_file_all)
-    # debug(_atc)
-    atc_file = os.path.join(args.output, 'valid/' + atc_file_name)
-    serialize_to_file(_atc, atc_file)
-    closs_all(*_file_all)
+    test_w = write_all_content_to_file(args, atc_file_name, test_data, 'test')
 
-    _file_all = create_all_files(args.output, 'test')
-    test_w = 0
-    _atc = []
-    for ex in test_data:
-        af = [f for f in _file_all]
-        af.extend(ex[:-1])
-        _atc.append(ex[-1])
-        test_w += write_contents(*af)
-        flush_all(*_file_all)
-    # debug(_atc)
-    atc_file = os.path.join(args.output, 'test/' + atc_file_name)
-    serialize_to_file(_atc, atc_file)
-    closs_all(*_file_all)
     debug(train_w, valid_w, test_w)
     serialize_to_file(grammar, os.path.join(args.output, 'grammar.bin'))
     return train_data, dev_data, test_data
+
+
+def write_all_content_to_file(args, atc_file_name, _data, name):
+    _file_all = create_all_files(args.output, name)
+    train_w = 0
+    _atc = []
+    file_names_file = open(os.path.join(args.output, name + '/files.txt'), 'w')
+    for ex in _data:
+        af = [f for f in _file_all]
+        af.extend(ex[:-2])
+        _atc.append(ex[-2])
+        success = write_contents(*af)
+        train_w += success
+        flush_all(*_file_all)
+        if success == 1:
+            file_names_file.write(ex[-1].strip() + '\n')
+    file_names_file.close()
+    atc_file = os.path.join(args.output, name + '/' + atc_file_name)
+    serialize_to_file(_atc, atc_file)
+    close_all(*_file_all)
+    return train_w
 
 
 if __name__ == '__main__':

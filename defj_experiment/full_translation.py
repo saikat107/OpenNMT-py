@@ -4,35 +4,38 @@ import argparse
 import sys, os
 from codit.clone_based_model import clone_based_structural_transformation
 from codit.codit_options_parser import get_options
-from full_translation import transform_structurally
-from onmt.translate.translator import build_translator
+from codit.grammar import JavaGrammar
+from translate_structure import translate_all as structure_translate
 import os
-from translate_token import main as token_translate,\
-    extract_atc_from_grammar, get_all_node_type_str, refine_atc,\
-    process_source, re_organize_candidates, print_bleu_res_to_file
-from translate_token_only import get_edit_dist
+from translate_token import main as token_translate
 from util import debug
 
 
+def transform_structurally(structure_opts):
+    if os.path.exists(structure_opts.tmp_file):
+        debug('Structure Transformation result already exists!\n')
+        return
+    f = open(structure_opts.grammar, 'rb')
+    debug('Loading the Grammar')
+    grammar = pickle.load(f)
+    debug('Grammar Loaded From : %s' % structure_opts.grammar)
+    assert isinstance(grammar, JavaGrammar)
+    all_scores, _, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
+    if not os.path.exists('tmp'):
+        os.mkdir('tmp')
+    with open(structure_opts.tmp_file, 'w') as tmp:
+        for trees, scores in zip(all_trees, all_scores):
+            debug(trees, scores)
+            t_strs = [' '.join(tree) + '/' + str(score) for tree, score in zip(trees, scores)]
+            wstr = '\t'.join(t_strs)
+            tmp.write(wstr + '\n')
+        tmp.close()
+
+
 def get_paths(dataset_str):
-    dataset_dir = {
-        'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_data/raw',
-        'codit': '/home/saikatc/Research/OpenNMT-py/c_data/raw'
-    }
-    model_dir = {
-        'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_models',
-        'codit': '/home/saikatc/Research/OpenNMT-py/c_models'
-    }
-    model_prefix = {
-        'icse': {
-            'all': 'all',
-            'filtered': 'filtered'
-        },
-        'codit': {
-            'all': 'all',
-            'filtered': 'filtered'
-        }
-    }
+    dataset_dir = "/home/saikatc/Research/OpenNMT-py/defj_experiment/data/raw"
+    model_dir = "/home/saikatc/Research/OpenNMT-py/defj_experiment/models"
+    model_prefix = "br" # "original"
     parts = dataset.split('-')
     _data = parts[0]
     _kind = parts[1]  # all, filtered
@@ -44,80 +47,6 @@ def get_paths(dataset_str):
     _data_path = dataset_dir[_data] + '/' + _kind + '/' + _type
     _model_base = model_dir[_data] + '/' + model_prefix[_data][_kind] + '.' + _type_m + '.'
     return _data_path, _model_base
-
-
-def generate_patch(opt):
-    grammar_atc = extract_atc_from_grammar(opt.grammar)
-    all_node_type_seq_str = get_all_node_type_str(opt.tmp_file)
-    total_number_of_test_examples = len(all_node_type_seq_str)
-    all_atcs = [grammar_atc for _ in range(total_number_of_test_examples)]
-    if opt.atc is not None:
-        all_atcs = refine_atc(all_atcs, opt.atc)
-    translator = build_translator(opt, report_score=True, multi_feature_translator=True)
-    scores, all_cands = translator.translate(src_path=opt.src,
-                                             tgt_path=opt.tgt,
-                                             src_dir=opt.src_dir,
-                                             batch_size=opt.batch_size,
-                                             attn_debug=opt.attn_debug,
-                                             node_type_seq=all_node_type_seq_str,
-                                             atc=all_atcs)
-    beam_size = len(scores[0])
-    exp_name = opt.name
-    all_sources = []
-    all_targets = []
-    tgt_file = open(opt.tgt)
-    src_file = open(opt.src)
-    for a, b in zip(src_file, tgt_file):
-        all_sources.append(process_source(a.strip()))
-        all_targets.append(process_source(b.strip()))
-    tgt_file.close()
-    src_file.close()
-    correct = 0
-    no_change = 0
-    if not os.path.exists('results'):
-        os.mkdir('results')
-
-    if not os.path.exists('result_eds'):
-        os.mkdir('result_eds')
-
-    decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_eds/' + exp_name + '_' + str(beam_size) + '_bleus.csv', 'w')
-
-    all_eds = []
-    total_example = 0
-    for idx, (src, tgt, cands) in enumerate(zip(all_sources, all_targets, all_cands)):
-        atc = all_atcs[idx]
-        total_example += 1
-        decode_res_file.write(str(idx) + '\n')
-        decode_res_file.write(src + '\n')
-        decode_res_file.write('-------------------------------------------------------------------------------------\n')
-        decode_res_file.write(tgt + '\n')
-        if src == tgt:
-            no_change += 1
-        decode_res_file.write('=====================================================================================\n')
-        decode_res_file.write('Canditdate Size : ' + str(len(cands)) + '\n')
-        decode_res_file.write('-------------------------------------------------------------------------------------\n')
-        eds = []
-        found = False
-        cands_reformatted = re_organize_candidates(cands, src, opt.n_best)
-        for cand in cands_reformatted:
-            ed = get_edit_dist(tgt, cand)
-            if cand == tgt:
-                found = True
-            eds.append(ed)
-            decode_res_file.write(cand + '\n')
-            decode_res_file.write(str(ed) + '\n')
-        if found:
-            correct += 1
-        all_eds.append(eds)
-        decode_res_file.write(str(found) + '\n\n')
-        decode_res_file.flush()
-
-    all_eds = np.asarray(all_eds)
-    print_bleu_res_to_file(bleu_file, all_eds)
-    decode_res_file.close()
-    bleu_file.close()
-    print(correct, no_change, total_example)
 
 
 if __name__ == '__main__':
@@ -167,7 +96,7 @@ if __name__ == '__main__':
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)
-    debug(token_options)
+    # debug(token_options)
     if options.rule_gen == 'nmt':
         transform_structurally(structure_options)
     elif options.rule_gen == 'clone':
