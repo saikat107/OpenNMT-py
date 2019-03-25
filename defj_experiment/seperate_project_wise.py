@@ -97,7 +97,7 @@ def write_content_to_file(regular_files, atc_file_paths,
                           test_data, test_atcs):
     for fidx, rf in enumerate(regular_files):
         print(len(rf))
-    for fidx, af in enumerate(atc_files):
+    for fidx, af in enumerate(atc_file_paths):
         print(af)
     pass
 
@@ -132,15 +132,15 @@ def main():
         valid_example_ids = all_valid_information['examples_in_project'][project]
         test_example_ids = all_test_information['examples_in_project'][project]
         print(project, len(train_example_ids), len(valid_example_ids), len(test_example_ids))
-        # write_content_to_file(
-        #     all_regular_files[project], all_atc_file_paths[project],
-        #     train_data[train_example_ids],
-        #     train_atcs[train_example_ids],
-        #     valid_data[valid_example_ids],
-        #     valid_atcs[valid_example_ids],
-        #     test_data[test_example_ids],
-        #     test_atcs[test_example_ids]
-        # )
+        write_content_to_file(
+            all_regular_files[project], all_atc_file_paths[project],
+            train_data[train_example_ids],
+            train_atcs[train_example_ids],
+            valid_data[valid_example_ids],
+            valid_atcs[valid_example_ids],
+            test_data[test_example_ids],
+            test_atcs[test_example_ids]
+        )
 
 
 if __name__ == '__main__':
