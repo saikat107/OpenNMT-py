@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from apted import APTED, Config
 from codit.hypothesis import Hypothesis
+import numpy as np
 
 
 def debug(*msg):
@@ -20,6 +21,15 @@ def debug(*msg):
     for ms in msg:
         res += (str(ms) + ' ')
     print(res)
+
+
+def sample_roulette_wheel(prob_dist):
+    cum_dist = np.cumsum(prob_dist)
+    random = np.random.uniform(0, 1)
+    sz = len(cum_dist)
+    for i in range(sz):
+        if cum_dist[i] >= random:
+            return i
 
 
 def write_dummy_generated_node_types(input_file, output_file):
