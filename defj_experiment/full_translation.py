@@ -50,20 +50,20 @@ def get_paths(dataset_str):
 
 
 if __name__ == '__main__':
-    dataset = sys.argv[1]
-    tree_count = '2'
-    if len(sys.argv) > 2:
-        tree_count = sys.argv[2]
-    data_path, model_base = get_paths(dataset)
+    datatype = sys.argv[1]
+    tree_count = sys.argv[2]
+    prefix = "/home/saikatc/Research/OpenNMT-py/defj_experiment/"
+    data_path, model_base = prefix + "data/raw/" + datatype, \
+                            prefix + "models/" + datatype + "."
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
-    src_token = data_path + '/test_new/prev.augmented.token'
-    tgt_token = data_path + '/test_new/next.augmented.token'
-    src_struc = data_path + '/test_new/prev.rule'
+    src_token = data_path + '/test/prev.augmented.token'
+    tgt_token = data_path + '/test/next.augmented.token'
+    src_struc = data_path + '/test/prev.rule'
     grammar = data_path + '/grammar.bin'
-    tmp_file = dataset
-    name = dataset
-    atc_file_path = data_path + '/test_new/atc_scope.bin'
+    tmp_file = datatype
+    name = datatype
+    atc_file_path = data_path + '/test/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',

@@ -656,7 +656,7 @@ def parse_java_change_dataset():
     data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
                                         child_codes=child_codes, child_trees=child_trees,
                                         parent_tree_os=parent_tree_o, type=args.type,
-                                        file_names=file_names)
+                                        file_names=file_names, allowed_tokens=allowed_tokens_for_nodes)
 
     pt = [entry['parent_original_tree'] for entry in data]
     pt.extend([entry['child_tree'] for entry in data])
@@ -758,7 +758,7 @@ def parse_java_change_dataset():
                 check_and_remove_example_from_train_data(train_data, example)
             test_data.append(example)
             test_ids.append(idx)
-    atc_file_name = 'atc_scope.bin'
+    atc_file_name = 'atc_method.bin'
 
     train_w = write_all_content_to_file(args, atc_file_name, train_data, 'train')
 

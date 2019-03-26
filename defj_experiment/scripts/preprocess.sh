@@ -21,3 +21,17 @@ for fil in br original; do
             -share_vocab
         done
 done
+
+for project in Chart Lang Math Time Closure Mockito; do
+    for fil in br original; do
+        for kind in token augmented.token; do
+            python preprocess.py \
+            -train_src defj_experiment/data/raw/$fil/train/$project/prev.$kind \
+            -train_tgt defj_experiment/data/raw/$fil/train/$project/next.$kind \
+            -valid_src defj_experiment/data/raw/$fil/valid/$project/prev.$kind \
+            -valid_tgt defj_experiment/data/raw/$fil/valid/$project/next.$kind \
+            -save_data defj_experiment/data/processed/$fil.$kind.$project \
+            -share_vocab
+        done
+    done
+done

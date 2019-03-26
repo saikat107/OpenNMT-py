@@ -56,7 +56,7 @@ class TranslationBuilder(object):
                len(translation_batch["predictions"]))
         batch_size = batch.batch_size
 
-        if "save_attntion" in translation_batch.keys():
+        if "save_attention" in translation_batch.keys():
             preds, pred_score, attn, save_attn, gold_score, indices = list(zip(
                 *sorted(zip(translation_batch["predictions"],
                             translation_batch["scores"],

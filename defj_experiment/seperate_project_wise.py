@@ -1,6 +1,6 @@
 import os
 
-from codit.create_transformation_data import deserialize_from_file
+from codit.create_transformation_data import deserialize_from_file , serialize_to_file
 import numpy as np
 
 
@@ -55,7 +55,7 @@ def create_appropriate_files_in_project_directory(train_dir, valid_dir, test_dir
 
 interesting_files = ['prev.token', 'next.token', 'prev.token.id', 'next.token.id', 'prev.augmented.token',
                      'next.augmented.token', 'files.txt']
-atc_files = ['atc_scope.bin']
+atc_files = ['atc_scope.bin', 'atc_method.bin']
 
 
 def create_appropriate_file(project, _dir):
@@ -91,20 +91,43 @@ def read_data_all(_dir):
     pass
 
 
+def write_regular_data_to_file(_files, _data):
+    for point in _data:
+        for file, content in zip(_files, point):
+            content = content.strip()
+            file.write(content + '\n')
+    pass
+
+
+def write_atcs_to_file(_atc_files , _atcs):
+    for file, atc in zip(_atc_files, _atcs):
+        print(file, len(atc))
+        serialize_to_file(atc, file)
+    pass
+
+
 def write_content_to_file(regular_files, atc_file_paths,
                           train_data, train_atcs,
                           valid_data, valid_atcs,
                           test_data, test_atcs):
-    for fidx, rf in enumerate(regular_files):
-        print(len(rf))
-    for fidx, af in enumerate(atc_file_paths):
-        print(af)
+    
+    train_files, valid_files, test_files = regular_files
+    train_atc_files, valid_atc_files, test_atc_files = atc_file_paths
+    write_regular_data_to_file(train_files, train_data)
+    write_regular_data_to_file(valid_files, valid_data)
+    write_regular_data_to_file(test_files, test_data)
+    train_atcs = np.transpose(np.asarray(train_atcs))
+    valid_atcs = np.transpose(np.asarray(valid_atcs))
+    test_atcs = np.transpose(np.asarray(test_atcs))
+    write_atcs_to_file(train_atc_files, train_atcs)
+    write_atcs_to_file(valid_atc_files, valid_atcs)
+    write_atcs_to_file(test_atc_files, test_atcs)
     pass
 
 
 def main():
-    dataset = 'original'
-    data_dir = 'data/raw/' + dataset
+    dataset = 'br'
+    data_dir = 'defj_experiment/data/raw/' + dataset
     train_dir = data_dir + '/train'
     valid_dir = data_dir + '/valid'
     test_dir = data_dir + '/test'
