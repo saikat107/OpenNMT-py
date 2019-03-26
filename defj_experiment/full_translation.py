@@ -1,14 +1,62 @@
 import pickle
 
 import argparse
-import sys, os
+import sys
+
+import onmt
 from codit.clone_based_model import clone_based_structural_transformation
-from codit.codit_options_parser import get_options
 from codit.grammar import JavaGrammar
 from translate_structure import translate_all as structure_translate
 import os
-from translate_token import main as token_translate
+from defj_experiment.translate_token import main as token_translate
 from util import debug
+
+
+def get_structure_transformation_parser():
+    parser_structure = argparse.ArgumentParser(
+        description='full_translation.py',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    onmt.opts.add_md_help_argument(parser_structure)
+    onmt.opts.translate_opts(parser_structure)
+    parser_structure.add_argument('--grammar', help='Path of the grammar file', required=True)
+    parser_structure.add_argument('--tmp_file', default='tmp/generated_node_types.nt')
+    return parser_structure
+
+
+def get_token_transformation_parser():
+    parser = argparse.ArgumentParser(
+        description='translate_token.py',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    onmt.opts.add_md_help_argument(parser)
+    onmt.opts.translate_opts(parser)
+    parser.add_argument('--name', help='Name of the Experiment')
+    parser.add_argument('--tmp_file', default='')
+    parser.add_argument('--grammar', required=True)
+    parser.add_argument('--atc', default=None)
+    parser.add_argument('--tree_count', type=int, default=2)
+    parser.add_argument('--files_file')
+    parser.add_argument('--parent_tree')
+    parser.add_argument('--child_tree')
+    return parser
+
+
+def get_options(options):
+    structure_options = get_structure_transformation_parser().parse_args(
+        (' -src ' + options.src_struct + ' -batch_size 16'
+         + ' -model ' + options.model_structure + ' -beam_size 20 -n_best 10 -gpu 0 '
+         + ' --grammar ' + options.grammar + ' --tmp_file tmp/' + options.cout
+         # + ' -verbose'
+         ).split())
+    token_options = get_token_transformation_parser().parse_args(
+        ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
+         + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size '
+         + str(options.beam_size) + ' -n_best ' + str(options.n_best) + ' --tmp_file tmp/' + options.cout
+         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + options.tree_count
+         + ' --files_file ' + options.files_file + ' --parent_tree ' + options.parent_tree
+         + ' --child_tree ' + options.child_tree
+         # + ' -verbose '
+         ).split())
+    return structure_options, token_options
 
 
 def transform_structurally(structure_opts):
@@ -32,23 +80,6 @@ def transform_structurally(structure_opts):
         tmp.close()
 
 
-def get_paths(dataset_str):
-    dataset_dir = "/home/saikatc/Research/OpenNMT-py/defj_experiment/data/raw"
-    model_dir = "/home/saikatc/Research/OpenNMT-py/defj_experiment/models"
-    model_prefix = "br" # "original"
-    parts = dataset.split('-')
-    _data = parts[0]
-    _kind = parts[1]  # all, filtered
-    _type = parts[2]  # concrete abstract original
-    _type_m = parts[2]
-    if len(parts) > 3:
-        _type += ('_' + parts[3])
-        _type_m += ('.' + parts[3])
-    _data_path = dataset_dir[_data] + '/' + _kind + '/' + _type
-    _model_base = model_dir[_data] + '/' + model_prefix[_data][_kind] + '.' + _type_m + '.'
-    return _data_path, _model_base
-
-
 if __name__ == '__main__':
     datatype = sys.argv[1]
     tree_count = sys.argv[2]
@@ -61,8 +92,11 @@ if __name__ == '__main__':
     tgt_token = data_path + '/test/next.augmented.token'
     src_struc = data_path + '/test/prev.rule'
     grammar = data_path + '/grammar.bin'
-    tmp_file = datatype
-    name = datatype
+    files_file = data_path + '/test/files.txt'
+    parent_tree = data_path + '/test/prev.tree'
+    child_tree = data_path + '/test/next.tree'
+    tmp_file = 'defects4j-' + datatype
+    name = 'defects4j-' + datatype
     atc_file_path = data_path + '/test/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
@@ -76,8 +110,8 @@ if __name__ == '__main__':
                         default=tgt_token)
     parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
                         default=src_struc)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=50)
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=10)
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=200)
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=200)
     parser.add_argument('--name', '-n', help='Name of the experiment',
                         default=name)
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
@@ -93,6 +127,9 @@ if __name__ == '__main__':
                         default=tmp_file)
     parser.add_argument('--tree_count', default=tree_count)
     parser.add_argument('--atc', default=atc_file_path)
+    parser.add_argument('--files_file', default=files_file)
+    parser.add_argument('--parent_tree', default=parent_tree)
+    parser.add_argument('--child_tree', default=child_tree)
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)
