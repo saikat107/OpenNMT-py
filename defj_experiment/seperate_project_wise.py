@@ -54,7 +54,7 @@ def create_appropriate_files_in_project_directory(train_dir, valid_dir, test_dir
 
 
 interesting_files = ['prev.token', 'next.token', 'prev.token.id', 'next.token.id', 'prev.augmented.token',
-                     'next.augmented.token', 'files.txt', 'prev.rule', 'next.rule']
+                     'next.augmented.token', 'files.txt', 'prev.rule', 'next.rule', 'prev.tree', 'next.tree']
 atc_files = ['atc_scope.bin', 'atc_method.bin']
 
 
