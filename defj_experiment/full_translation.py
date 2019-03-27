@@ -52,8 +52,8 @@ def get_options(options):
     token_options = get_token_transformation_parser().parse_args(
         ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
          + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size '
-         + str(options.beam_size) + ' -n_best ' + str(10) + ' --tmp_file tmp/' + options.cout
-         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + str(20)
+         + str(options.beam_size) + ' -n_best ' + str(4) + ' --tmp_file tmp/' + options.cout
+         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + str(50)
          + ' --files_file ' + options.files_file + ' --parent_tree ' + options.parent_tree
          + ' --child_tree ' + options.child_tree
          # + ' -verbose '
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     child_tree = data_path + '/test/next.tree'
     tmp_file = 'defects4j-' + datatype
     name = 'defects4j-method-' + datatype
-    atc_file_path = data_path + '/test/atc_method.bin'
+    atc_file_path = data_path + '/test/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
