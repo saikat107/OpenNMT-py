@@ -9,7 +9,7 @@ if [[ ! -d defj_experiment/data/processed ]]; then
 fi
 
 
-for fil in br original; do
+for fil in BR_ONE; do
         for kind in rule token augmented.token;do
             echo $fil' '$kind
             python preprocess.py \
@@ -23,7 +23,7 @@ for fil in br original; do
 done
 
 for project in Chart Lang Math Time Closure Mockito; do
-    for fil in br original; do
+    for fil in BR_ONE; do
         for kind in token augmented.token; do
             python preprocess.py \
             -train_src defj_experiment/data/raw/$fil/train/$project/prev.$kind \

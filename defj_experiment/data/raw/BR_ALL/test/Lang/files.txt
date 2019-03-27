@@ -1,0 +1,17 @@
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/61/parent/src_java_org_apache_commons_lang_text_StrBuilder.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/60/parent/src_java_org_apache_commons_lang_text_StrBuilder.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/60/parent/src_java_org_apache_commons_lang_text_StrBuilder.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/59/parent/src_java_org_apache_commons_lang_text_StrBuilder.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/57/parent/src_java_org_apache_commons_lang_LocaleUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/46/parent/src_java_org_apache_commons_lang_StringEscapeUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/46/parent/src_java_org_apache_commons_lang_StringEscapeUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/46/parent/src_java_org_apache_commons_lang_StringEscapeUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/46/parent/src_java_org_apache_commons_lang_StringEscapeUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/35/parent/src_main_java_org_apache_commons_lang3_ArrayUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/34/parent/src_main_java_org_apache_commons_lang3_builder_ToStringStyle.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/30/parent/src_main_java_org_apache_commons_lang3_StringUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/26/parent/src_main_java_org_apache_commons_lang3_time_FastDateFormat.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/24/parent/src_main_java_org_apache_commons_lang3_math_NumberUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/21/parent/src_main_java_org_apache_commons_lang3_time_DateUtils.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/6/parent/src_main_java_org_apache_commons_lang3_text_translate_CharSequenceTranslator.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Lang/4/parent/src_main_java_org_apache_commons_lang3_text_translate_LookupTranslator.java

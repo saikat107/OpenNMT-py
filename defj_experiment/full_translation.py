@@ -41,17 +41,19 @@ def get_token_transformation_parser():
 
 
 def get_options(options):
+
     structure_options = get_structure_transformation_parser().parse_args(
         (' -src ' + options.src_struct + ' -batch_size 16'
-         + ' -model ' + options.model_structure + ' -beam_size 20 -n_best 10 -gpu 0 '
+         + ' -model ' + options.model_structure
+         + ' -beam_size ' + str(options.beam_size) + ' -n_best ' + str(50) + ' -gpu 0 '
          + ' --grammar ' + options.grammar + ' --tmp_file tmp/' + options.cout
-         # + ' -verbose'
+         + ' -verbose'
          ).split())
     token_options = get_token_transformation_parser().parse_args(
         ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
          + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size '
-         + str(options.beam_size) + ' -n_best ' + str(options.n_best) + ' --tmp_file tmp/' + options.cout
-         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + options.tree_count
+         + str(options.beam_size) + ' -n_best ' + str(10) + ' --tmp_file tmp/' + options.cout
+         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + str(20)
          + ' --files_file ' + options.files_file + ' --parent_tree ' + options.parent_tree
          + ' --child_tree ' + options.child_tree
          # + ' -verbose '
@@ -63,26 +65,44 @@ def transform_structurally(structure_opts):
     if os.path.exists(structure_opts.tmp_file):
         debug('Structure Transformation result already exists!\n')
         return
+    tgt = structure_options.src
+    tgt = tgt.replace('prev.rule', 'next.token.id')
+    debug(tgt)
+    inp = open(tgt)
+    golden_rules = [line.strip() for line in inp]
+    inp.close()
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
     debug('Grammar Loaded From : %s' % structure_opts.grammar)
     assert isinstance(grammar, JavaGrammar)
-    all_scores, _, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
+    all_scores, all_rules, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
     if not os.path.exists('tmp'):
         os.mkdir('tmp')
+    correct_rule_count = 0
     with open(structure_opts.tmp_file, 'w') as tmp:
-        for trees, scores in zip(all_trees, all_scores):
-            debug(trees, scores)
+        for trees, rules, scores, golden_rule in zip(all_trees, all_rules, all_scores, golden_rules):
+            # debug(trees, scores)
+
+            node_is_str_list = [' '.join(tree) for tree, score in zip(trees, scores)]
+            debug('Length : ', len(trees))
+            if golden_rule in node_is_str_list:
+                debug('Index : ', node_is_str_list.index(golden_rule))
+                correct_rule_count += 1
+            else:
+                debug('Index : ', -1)
             t_strs = [' '.join(tree) + '/' + str(score) for tree, score in zip(trees, scores)]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
         tmp.close()
+    debug(correct_rule_count)
+    exit()
 
 
 if __name__ == '__main__':
     datatype = sys.argv[1]
     tree_count = sys.argv[2]
+    sz = sys.argv[3]
     prefix = "/home/saikatc/Research/OpenNMT-py/defj_experiment/"
     data_path, model_base = prefix + "data/raw/" + datatype, \
                             prefix + "models/" + datatype + "."
@@ -96,8 +116,8 @@ if __name__ == '__main__':
     parent_tree = data_path + '/test/prev.tree'
     child_tree = data_path + '/test/next.tree'
     tmp_file = 'defects4j-' + datatype
-    name = 'defects4j-' + datatype
-    atc_file_path = data_path + '/test/atc_scope.bin'
+    name = 'defects4j-method-' + datatype
+    atc_file_path = data_path + '/test/atc_method.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
@@ -110,8 +130,8 @@ if __name__ == '__main__':
                         default=tgt_token)
     parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
                         default=src_struc)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=200)
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=200)
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=int(sz))
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=int(sz))
     parser.add_argument('--name', '-n', help='Name of the experiment',
                         default=name)
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',

@@ -223,7 +223,7 @@ class Trainer(object):
                                 ppl_patience_counter += 1
 
                             if min(patience_counter, ppl_patience_counter) > 20 and\
-                                    max(patience_counter, ppl_patience_counter) >= 200:
+                                    max(patience_counter, ppl_patience_counter) >= 100:
                                 train_complete = True
                                 break
 

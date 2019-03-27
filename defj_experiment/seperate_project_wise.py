@@ -54,7 +54,7 @@ def create_appropriate_files_in_project_directory(train_dir, valid_dir, test_dir
 
 
 interesting_files = ['prev.token', 'next.token', 'prev.token.id', 'next.token.id', 'prev.augmented.token',
-                     'next.augmented.token', 'files.txt']
+                     'next.augmented.token', 'files.txt', 'prev.rule', 'next.rule']
 atc_files = ['atc_scope.bin', 'atc_method.bin']
 
 
@@ -126,7 +126,7 @@ def write_content_to_file(regular_files, atc_file_paths,
 
 
 def main():
-    dataset = 'br'
+    dataset = 'BR_ALL'
     data_dir = 'defj_experiment/data/raw/' + dataset
     train_dir = data_dir + '/train'
     valid_dir = data_dir + '/valid'

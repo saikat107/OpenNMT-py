@@ -1,3 +1,4 @@
+import copy
 import sys, os
 
 from codit.grammar import ASTNode, get_grammar
@@ -6,7 +7,7 @@ import numpy
 import argparse
 import pickle
 from util import debug
-
+import numpy as np
 import os
 
 
@@ -586,8 +587,8 @@ def close_all(*files):
 
 
 def get_token_str(example):
-    prev_token_str = ' '.join(example[-5])
-    next_token_str = ' '.join(example[-4])
+    prev_token_str = ' '.join(example[-8])
+    next_token_str = ' '.join(example[-7])
     return prev_token_str + ' ' + next_token_str
     pass
 
@@ -596,15 +597,33 @@ def check_and_remove_example_from_train_data(train_data, example):
     example_str = get_token_str(example)
     found = False
     fid = -1
+    indices = []
+    new_train_data = np.array(train_data)
     for idx, t_ex in enumerate(train_data):
         t_ex_str = get_token_str(t_ex)
         if example_str == t_ex_str:
+            debug(example_str)
+            debug(t_ex_str)
             found = True
+            debug(found)
             fid = idx
-            # debug('Found\t', fid)
+            indices.append(fid)
             break
-    if found:
-        del train_data[fid]
+    all_indices = [i for i in range(len(new_train_data))]
+    debug(len(all_indices))
+    for fid in indices:
+        all_indices.remove(fid)
+    debug(len(all_indices))
+    return new_train_data[all_indices].tolist()
+    # train_data = []
+    # if len(indices) > 0:
+    #     for idx, data in enumerate(new_train_data):
+    #         if idx not in indices:
+    #             train_data.append(data)
+    # else:
+    #     train_data = new_train_data
+    # # if found:
+    # #     del train_data[fid]
     pass
 
 
@@ -656,7 +675,7 @@ def parse_java_change_dataset():
     data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
                                         child_codes=child_codes, child_trees=child_trees,
                                         parent_tree_os=parent_tree_o, type=args.type,
-                                        file_names=file_names, allowed_tokens=allowed_tokens_for_nodes)
+                                        file_names=file_names)
 
     pt = [entry['parent_original_tree'] for entry in data]
     pt.extend([entry['child_tree'] for entry in data])
@@ -747,18 +766,18 @@ def parse_java_change_dataset():
             train_data.append(example)
             train_ids.append(idx)
         elif idx < num_valid_examples:
-            if args.remove_repeat:
-                debug(idx)
-                check_and_remove_example_from_train_data(train_data, example)
+            # if args.remove_repeat:
+            #     debug(idx)
+            #     check_and_remove_example_from_train_data(train_data, example)
             dev_data.append(example)
             dev_ids.append(idx)
         else:
             if args.remove_repeat:
-                # debug(idx)
-                check_and_remove_example_from_train_data(train_data, example)
+                debug(idx)
+                train_data = check_and_remove_example_from_train_data(train_data, example)
             test_data.append(example)
             test_ids.append(idx)
-    atc_file_name = 'atc_method.bin'
+    atc_file_name = 'atc_scope.bin'
 
     train_w = write_all_content_to_file(args, atc_file_name, train_data, 'train')
 

@@ -1,0 +1,9 @@
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/24/parent/source_org_jfree_chart_renderer_GrayPaintScale.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/20/parent/source_org_jfree_chart_plot_ValueMarker.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/18/parent/source_org_jfree_data_DefaultKeyedValues.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/16/parent/source_org_jfree_data_category_DefaultIntervalCategoryDataset.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/12/parent/source_org_jfree_chart_plot_MultiplePiePlot.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/11/parent/source_org_jfree_chart_util_ShapeUtilities.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/10/parent/source_org_jfree_chart_imagemap_StandardToolTipTagFragmentGenerator.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/8/parent/source_org_jfree_data_time_Week.java
+/zf8/sc2nf/CCRecom_exp/Defects4j/Chart/1/parent/source_org_jfree_chart_renderer_category_AbstractCategoryItemRenderer.java

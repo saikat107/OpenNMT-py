@@ -19,6 +19,7 @@ from onmt.translate.translator import build_translator
 
 import onmt.opts
 from translate_structure import get_edit_dist
+from util import debug
 
 
 def get_bleu_score(original_codes, generated_top_result):
@@ -89,7 +90,7 @@ def re_organize_candidates(cands, scores, src, n_best):
         all_scores.append(score)
     sorted_indices = np.argsort(all_scores)
     reformatted = []
-    for i in sorted_indices[:n_best]:
+    for i in sorted_indices:#[:n_best]:
         reformatted.append(cands[sorted_indices[i]])
     return reformatted
     # dists =
@@ -216,7 +217,8 @@ def main(opt):
         found = False
         cands_reformatted = re_organize_candidates(cands, scores, src, opt.n_best)
         decode_res_file.write('Cadidate List Length : ' + str(len(cands_reformatted)) + '\n')
-        print(len(cands_reformatted))
+        debug(idx, 'Cadidate List Length : ' + str(len(cands_reformatted)))
+        # print(len(cands_reformatted))
         for cand in cands_reformatted:
             ed = get_edit_dist(tgt, cand)
             if cand == tgt:
@@ -236,6 +238,9 @@ def main(opt):
         all_file_set.add(project_bug_id)
         if found:
             correct_cand_file_set.add(project_bug_id)
+            print(project_bug_id)
+            print(src)
+            print(tgt)
             decode_res_file.write("Correct\n")
             correct += 1
         else:
