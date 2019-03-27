@@ -1,0 +1,8 @@
+(AST_ROOT_SC2NF (41 (329{val=return}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)})) (227{val=;})))
+(AST_ROOT_SC2NF (41 (329{val=return}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)})) (227{val=;})))
+(AST_ROOT_SC2NF (41 (329{val=return}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)})) (227{val=;})))
+(AST_ROOT_SC2NF (60 (39{val=long}) (59 (800{val=result}) (204{val==}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)}))) (227{val=;})))
+(AST_ROOT_SC2NF (41 (329{val=return}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)})) (227{val=;})))
+(AST_ROOT_SC2NF (41 (329{val=return}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)})) (227{val=;})))
+(AST_ROOT_SC2NF (41 (329{val=return}) (32 (800{val=iZone}) (235{val=.}) (802{val=convertLocalToUTC}) (214{val=(}) (800{val=localInstant}) (234{val=,}) (9{val=false}) (215{val=)})) (227{val=;})))
+(AST_ROOT_SC2NF (60 (43 (801{val=Partial})) (59 (800{val=newPartial}) (204{val==}) (14 (304{val=new}) (43 (801{val=Partial})) (214{val=(}) (800{val=iChronology}) (234{val=,}) (800{val=newTypes}) (234{val=,}) (800{val=newValues}) (215{val=)}))) (227{val=;})))
