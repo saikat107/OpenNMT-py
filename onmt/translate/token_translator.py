@@ -173,7 +173,7 @@ class TokenTranslator(object):
 
         all_scores = []
         all_predictions = []
-        debug(self.option.tree_count)
+        #debug(self.option.tree_count)
 
         def check_correctness(preds, gold):
             for p in preds:
@@ -188,8 +188,8 @@ class TokenTranslator(object):
             #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
             # if bidx % 20 == 0:
-            if bidx % 1 == 0:
-                debug('Current Example : ', example_idx)
+            # if bidx % 1 == 0:
+            #    debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             nt_scores = node_type_scores[example_idx]
             if atc is not None:
@@ -279,7 +279,7 @@ class TokenTranslator(object):
             import json
             json.dump(self.translator.beam_accum,
                       codecs.open(self.dump_beam, 'w', 'utf-8'))
-        debug(total_correct)
+        #debug(total_correct)
         return all_scores, all_predictions
 
     def translate_batch(self, batch, data, node_type_str, fast=False, atc=None):

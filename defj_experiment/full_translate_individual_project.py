@@ -52,7 +52,7 @@ def get_options(options):
     token_options = get_token_transformation_parser().parse_args(
         ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
          + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size '
-         + str(options.beam_size) + ' -n_best ' + str(4) + ' --tmp_file tmp/' + options.cout
+         + str(options.beam_size) + ' -n_best ' + str(10) + ' --tmp_file tmp/' + options.cout
          + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + str(50)
          + ' --files_file ' + options.files_file + ' --parent_tree ' + options.parent_tree
          + ' --child_tree ' + options.child_tree
@@ -63,7 +63,7 @@ def get_options(options):
 
 def transform_structurally(structure_opts):
     if os.path.exists(structure_opts.tmp_file):
-        debug('Structure Transformation result already exists!\n')
+        #debug('Structure Transformation result already exists!\n')
         return
     tgt = structure_options.src
     tgt = tgt.replace('prev.rule', 'next.token.id')
@@ -96,7 +96,7 @@ def transform_structurally(structure_opts):
             tmp.write(wstr + '\n')
         tmp.close()
     debug(correct_rule_count)
-    exit()
+    # exit()
 
 
 if __name__ == '__main__':
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     prefix = "/home/saikatc/Research/OpenNMT-py/defj_experiment/"
     data_path = prefix + "data/raw/" + datatype
     model_base = prefix + "models/" + datatype + "."
-    augmented_token_model = model_base + 'augmented.token' + project + '-best-acc.pt'
+    augmented_token_model = model_base + 'augmented.token.' + project + '-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
     src_token = data_path + '/test/' + project + '/prev.augmented.token'
     tgt_token = data_path + '/test/' + project + '/next.augmented.token'
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     grammar = data_path + '/grammar.bin'
     files_file = data_path + '/test/' + project + '/files.txt'
     parent_tree = data_path + '/test/' + project + '/prev.tree'
-    child_tree = data_path + '/test/next/' + project + '/tree'
+    child_tree = data_path + '/test/' + project + '/next.tree'
     tmp_file = 'defects4j-' + datatype + '-' + project
     name = 'defects4j-method-' + datatype + '-' + project
     atc_file_path = data_path + '/test/' + project + '/atc_scope.bin'

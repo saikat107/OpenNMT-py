@@ -217,7 +217,7 @@ def main(opt):
         found = False
         cands_reformatted = re_organize_candidates(cands, scores, src, opt.n_best)
         decode_res_file.write('Cadidate List Length : ' + str(len(cands_reformatted)) + '\n')
-        debug(idx, 'Cadidate List Length : ' + str(len(cands_reformatted)))
+        #debug(idx, 'Cadidate List Length : ' + str(len(cands_reformatted)))
         # print(len(cands_reformatted))
         for cand in cands_reformatted:
             ed = get_edit_dist(tgt, cand)
@@ -239,8 +239,8 @@ def main(opt):
         if found:
             correct_cand_file_set.add(project_bug_id)
             print(project_bug_id)
-            print(src)
-            print(tgt)
+            #print(src)
+            #print(tgt)
             decode_res_file.write("Correct\n")
             correct += 1
         else:
@@ -262,7 +262,9 @@ def main(opt):
     print_bleu_res_to_file(bleu_file, all_eds)
     decode_res_file.close()
     bleu_file.close()
-    print(correct, no_change, total_example, len(all_file_set), len(correct_cand_file_set))
+    print('Correct : ', correct, '\tTotal : ', total_example, 
+            '\tTotal Bug : ', len(all_file_set), 
+            '\tCorrect bug : ', len(correct_cand_file_set))
 
 
 # if __name__ == "__main__":

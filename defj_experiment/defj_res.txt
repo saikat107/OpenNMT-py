@@ -1,0 +1,30 @@
+GOLD AVG SCORE: -2.6179, GOLD PPL: 13.7072
+Chart 12
+Chart 10
+Correct :  2 	Total :  9 	Total Bug :  9 	Correct bug :  2
+GOLD AVG SCORE: -3.5767, GOLD PPL: 35.7551
+Correct :  0 	Total :  8 	Total Bug :  2 	Correct bug :  0
+GOLD AVG SCORE: -2.0636, GOLD PPL: 7.8741
+Math 98
+Math 98
+Math 59
+Math 57
+Math 49
+Math 49
+Math 49
+Math 49
+Math 6
+Correct :  9 	Total :  28 	Total Bug :  22 	Correct bug :  5
+GOLD AVG SCORE: -2.4866, GOLD PPL: 12.0209
+Lang 30
+Lang 21
+Correct :  2 	Total :  17 	Total Bug :  13 	Correct bug :  2
+GOLD AVG SCORE: -3.5936, GOLD PPL: 36.3631
+Closure 86
+Closure 75
+Correct :  2 	Total :  24 	Total Bug :  23 	Correct bug :  2
+GOLD AVG SCORE: -2.0691, GOLD PPL: 7.9176
+Mockito 30
+Mockito 6
+Mockito 6
+Correct :  3 	Total :  31 	Total Bug :  11 	Correct bug :  2

@@ -52,8 +52,8 @@ def get_options(options):
     token_options = get_token_transformation_parser().parse_args(
         ('-gpu 0 -model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
          + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size '
-         + str(options.beam_size) + ' -n_best ' + str(4) + ' --tmp_file tmp/' + options.cout
-         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + str(50)
+         + str(options.beam_size) + ' -n_best ' + str(token_cand_size) + ' --tmp_file tmp/' + options.cout
+         + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + str(tree_count)
          + ' --files_file ' + options.files_file + ' --parent_tree ' + options.parent_tree
          + ' --child_tree ' + options.child_tree
          # + ' -verbose '
@@ -100,9 +100,11 @@ def transform_structurally(structure_opts):
 
 
 if __name__ == '__main__':
+    # print(sys.argv)
     datatype = sys.argv[1]
-    tree_count = sys.argv[2]
-    sz = sys.argv[3]
+    beam_size = sys.argv[2]
+    tree_count = sys.argv[3]
+    token_cand_size = int(int(beam_size) / int(tree_count))
     prefix = "/home/saikatc/Research/OpenNMT-py/defj_experiment/"
     data_path, model_base = prefix + "data/raw/" + datatype, \
                             prefix + "models/" + datatype + "."
@@ -117,7 +119,7 @@ if __name__ == '__main__':
     child_tree = data_path + '/test/next.tree'
     tmp_file = 'defects4j-' + datatype
     name = 'defects4j-method-' + datatype
-    atc_file_path = data_path + '/test/atc_scope.bin'
+    atc_file_path = data_path + '/test/atc_method.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
@@ -130,8 +132,8 @@ if __name__ == '__main__':
                         default=tgt_token)
     parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
                         default=src_struc)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=int(sz))
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=int(sz))
+    parser.add_argument('--beam_size', '-bs' , help='Beam Size', default=int(beam_size))
+    parser.add_argument('--n_best', '-nb' , help='best K hypothesis', default=int(beam_size))
     parser.add_argument('--name', '-n', help='Name of the experiment',
                         default=name)
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
@@ -151,7 +153,7 @@ if __name__ == '__main__':
     parser.add_argument('--parent_tree', default=parent_tree)
     parser.add_argument('--child_tree', default=child_tree)
     options = parser.parse_args('')
-    options.name = options.name + '_' + str(options.n_best)
+    options.name = options.name + '_' + str(beam_size) + '_' + str(tree_count) + '_' + str(token_cand_size)
     structure_options, token_options = get_options(options)
     # debug(token_options)
     if options.rule_gen == 'nmt':
@@ -159,9 +161,10 @@ if __name__ == '__main__':
     elif options.rule_gen == 'clone':
         assert (options.train_rule_src is not None) and (options.train_rule_tgt is not None), \
             'Train Src and Tgt rules must be provided for clone based structural transformation'
+        tmp_file = tmp_file + '-clone'
         clone_based_structural_transformation(
             options.train_rule_src, options.train_rule_tgt,
-            options.src_struct, 100, options.grammar, 'tmp/' + options.cout)
+            options.src_struct, 100, options.grammar, 'tmp/' + tmp_file)
 
     token_translate(token_options)
 

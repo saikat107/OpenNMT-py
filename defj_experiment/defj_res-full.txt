@@ -1,0 +1,31 @@
+['defj_experiment/full_translation.py', 'BR_ALL', '2', '200']
+defj_experiment/full_translation.py#66 [01:20:27] 	Structure Transformation result already exists!
+ 
+GOLD AVG SCORE: -2.1119, GOLD PPL: 8.2642
+Chart 11
+Chart 10
+Closure 93
+Closure 92
+Closure 86
+Closure 75
+Closure 3
+Lang 30
+Lang 26
+Lang 6
+Lang 4
+Math 98
+Math 98
+Math 70
+Math 59
+Math 57
+Math 49
+Math 49
+Math 49
+Math 49
+Math 46
+Math 30
+Mockito 30
+Mockito 25
+Mockito 6
+Mockito 6
+Correct :  26 	Total :  117 	Total Bug :  80 	Correct bug :  21
