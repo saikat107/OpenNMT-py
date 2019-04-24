@@ -51,7 +51,7 @@ def get_paths(dataset_str):
             'filtered': 'filtered'
         }
     }
-    parts = dataset.split('-')
+    parts = dataset_str.split('-')
     _data = parts[0]
     _kind = parts[1]  # all, filtered
     _type = parts[2]  # concrete abstract original
@@ -66,7 +66,7 @@ def get_paths(dataset_str):
 
 if __name__ == '__main__':
     dataset = sys.argv[1]
-    tree_count = '2'
+    tree_count = '1'
     if len(sys.argv) > 2:
         tree_count = sys.argv[2]
     data_path, model_base = get_paths(dataset)
@@ -91,8 +91,8 @@ if __name__ == '__main__':
                         default=tgt_token)
     parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
                         default=src_struc)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=50)
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=10)
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=2)
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=2)
     parser.add_argument('--name', '-n', help='Name of the experiment',
                         default=name)
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',

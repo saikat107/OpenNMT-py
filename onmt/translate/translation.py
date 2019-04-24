@@ -113,8 +113,8 @@ class TranslationBuilder(object):
                         if pred_sents[beam_position][time_step] == '<unk>':
                             current_attn = save_attn[b][time_step][beam_position].cpu().numpy()
                             idx = sample_roulette_wheel(current_attn)
-                            # max_idx = np.argmax(current_attn)
-                            pred_sents[beam_position][time_step] = src_raw[idx]
+                            max_idx = np.argmax(current_attn)
+                            pred_sents[beam_position][time_step] = src_raw[max_idx]
 
 
             gold_sent = None

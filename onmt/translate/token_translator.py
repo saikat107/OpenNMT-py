@@ -188,8 +188,8 @@ class TokenTranslator(object):
             #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
             # if bidx % 20 == 0:
-            # if bidx % 1 == 0:
-            #    debug('Current Example : ', example_idx)
+            if bidx % 200 == 0:
+               debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             nt_scores = node_type_scores[example_idx]
             if atc is not None:
@@ -569,7 +569,7 @@ class TokenTranslator(object):
             # debug('Source  Shape :\t', memory_bank.size())
             # debug('Probab Shape :\t', log_probs.size())
             #
-            attn_probs = attn['std'].squeeze() # (beam_size, source_length)
+            attn_probs = attn['std'].squeeze()  # (beam_size, source_length)
             # debug('Inside Attn:\t', attn['std'].size())
 
             alpha = self.global_scorer.alpha
@@ -587,7 +587,10 @@ class TokenTranslator(object):
             topk_beam_index = topk_ids.div(vocab_size)
             topk_ids = topk_ids.fmod(vocab_size)
             beam_indices = topk_beam_index.squeeze().cpu().numpy().tolist()
-            attn_to_save = attn_probs[beam_indices, :]
+            if len(attn_probs.shape) == 1:
+                attn_to_save = attn_probs[:]
+            else:
+                attn_to_save = attn_probs[beam_indices , :]
             save_attention[0].append(attn_to_save)
             # Map beam_index to batch_index in the flat representation.
             batch_index = (
