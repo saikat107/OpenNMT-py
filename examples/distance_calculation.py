@@ -10,12 +10,12 @@ if dataname == 'codit':
     complete_split_data_path = \
         '/home/saikatc/Research/codit_data/complete_split_data/10_20_original/test'
     data_raw_path = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test_new'
-    correct_indices_path = 'codit-correct-patch.csv'
+    correct_indices_path = 'whole-data-stats/codit-state.csv'
 else:
     complete_split_data_path = \
         '/home/saikatc/Research/icse_data_concrete/all/small/test'
     data_raw_path = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/test_new'
-    correct_indices_path = 'icse-correct-patch.csv'
+    correct_indices_path = 'whole-data-stats/icse-state.csv'
 
 INDEX = 'INDEX'
 EDIT_DISTANCE = 'EDIT_DISTANCE'
@@ -249,16 +249,16 @@ with open(draw_prev_token_file) as pcfile:
             count += 1
 print(count)
 # correct_classification_file.close()
-f1 = 'edit-size-hist-' + dataname + '.pdf'
-f2 = 'edit-size-hist-edit-dist-' + dataname + '.pdf'
-f3 = 'edit-size-hist-normalized-tree-norm-' + dataname + '.pdf'
+f1 = 'whole-hist-' + dataname + '.pdf'
+f2 = 'whole-hist-edit-dist-' + dataname + '.pdf'
+f3 = 'whole-hist-normalized-tree-norm-' + dataname + '.pdf'
 print(f1, f2, f3)
 
 plt.figure()
 # plt.hist(eds, label='Edit Distance', alpha=0.5, ls='dashed', edgecolor='b', lw=3, color='b')
 # plt.hist(neds, label='Bigram Edit Distance', alpha=0.5, ls='dotted', edgecolor='b', lw=3, color='r')
 plt.hist(tds, label='Tree Distance', alpha=0.5, ls='solid', lw=3, color='g', edgecolor='b')
-plt.legend()
+#plt.legend()
 plt.savefig(fname=f1)
 plt.show()
 
@@ -266,13 +266,13 @@ plt.show()
 plt.figure()
 plt.hist(eds, label='Token Distance', alpha=0.5, ls='solid',  lw=3, color='b', edgecolor='b')
 plt.savefig(fname=f2)
-plt.legend()
+#plt.legend()
 plt.show()
 
 plt.figure()
 plt.hist(ntds, label='Normalized Tree Distance', alpha=0.5, ls='solid', edgecolor='b', lw=3, color='r')
 plt.savefig(fname=f3)
-plt.legend()
+#plt.legend()
 plt.show()
 
 
