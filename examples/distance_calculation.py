@@ -4,7 +4,7 @@ from codit.grammar import ASTNode
 import nltk
 from matplotlib import pyplot as plt
 
-dataname = 'codit'
+dataname = 'icse'
 
 if dataname == 'codit':
     complete_split_data_path = \
@@ -250,7 +250,7 @@ with open(draw_prev_token_file) as pcfile:
 print(count)
 # correct_classification_file.close()
 f1 = 'edit-size-hist-' + dataname + '.pdf'
-f2 = 'edit-size-hist-jaccard-norm-' + dataname + '.pdf'
+f2 = 'edit-size-hist-edit-dist-' + dataname + '.pdf'
 f3 = 'edit-size-hist-normalized-tree-norm-' + dataname + '.pdf'
 print(f1, f2, f3)
 
@@ -264,7 +264,7 @@ plt.show()
 
 
 plt.figure()
-plt.hist(njds, label='Bigram Jaccard Distance', alpha=0.5, ls='solid',  lw=3, color='b', edgecolor='b')
+plt.hist(eds, label='Token Distance', alpha=0.5, ls='solid',  lw=3, color='b', edgecolor='b')
 plt.savefig(fname=f2)
 plt.legend()
 plt.show()
