@@ -9,6 +9,7 @@ from translate_structure import translate_all as structure_translate
 import os
 from translate_token import main as token_translate
 from util import debug
+from clone_based_edit import main as clone_based_token_generate
 
 
 def transform_structurally(structure_opts):
@@ -72,9 +73,9 @@ if __name__ == '__main__':
     data_path, model_base = get_paths(dataset)
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
-    src_token = data_path + '/test_new/prev.augmented.token'
-    tgt_token = data_path + '/test_new/next.augmented.token'
-    src_struc = data_path + '/test_new/prev.rule'
+    src_token = data_path + '/test-declone/prev.augmented.token'
+    tgt_token = data_path + '/test-declone/next.augmented.token'
+    src_struc = data_path + '/test-declone/prev.rule'
     grammar = data_path + '/grammar.bin'
     tmp_file = dataset
     name = dataset
@@ -91,8 +92,8 @@ if __name__ == '__main__':
                         default=tgt_token)
     parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
                         default=src_struc)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=2)
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=2)
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=int(tree_count))
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=int(tree_count))
     parser.add_argument('--name', '-n', help='Name of the experiment',
                         default=name)
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
@@ -104,23 +105,42 @@ if __name__ == '__main__':
                                                             'src file for clone based detection', default=None)
     parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule '
                                                             'src file for clone based detection', default=None)
+
+    parser.add_argument('--token_gen', '-tg', help='Use of Token generation mechanism',
+                        choices=['clone', 'nmt'],
+                        default='nmt')
+
+    train_src_token = data_path + '/train/prev.token'
+    train_tgt_token = data_path + '/train/next.token'
+    parser.add_argument('--train_token_src', '-tt_src', help='Path of train token src file for clone based detection',
+                        default=train_src_token)
+    parser.add_argument('--train_token_tgt', '-tt_tgt', help='Path of train rule src file for clone based detection',
+                        default=train_tgt_token)
+    parser.add_argument('--token_out', '-tout', help='File name to store clone based result',
+                        default=tmp_file+'.clone.jaccard.token')
+
     parser.add_argument('-cout',
                         default=tmp_file)
-    parser.add_argument('--tree_count', default=tree_count)
+    parser.add_argument('--tree_count', default='2')
     parser.add_argument('--atc', default=atc_file_path)
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)
     structure_options, token_options = get_options(options)
     # debug(token_options)
-    if options.rule_gen == 'nmt':
-        transform_structurally(structure_options)
-    elif options.rule_gen == 'clone':
-        assert (options.train_rule_src is not None) and (options.train_rule_tgt is not None), \
-            'Train Src and Tgt rules must be provided for clone based structural transformation'
-        clone_based_structural_transformation(
-            options.train_rule_src, options.train_rule_tgt,
-            options.src_struct, 100, options.grammar, 'tmp/' + options.cout)
+    if options.token_gen == 'nmt':
+        if options.rule_gen == 'nmt':
+            transform_structurally(structure_options)
+        elif options.rule_gen == 'clone':
+            assert (options.train_rule_src is not None) and (options.train_rule_tgt is not None), \
+                'Train Src and Tgt rules must be provided for clone based structural transformation'
+            clone_based_structural_transformation(
+                options.train_rule_src, options.train_rule_tgt,
+                options.src_struct, 100, options.grammar, 'tmp/' + options.cout)
 
-    token_translate(token_options)
+        token_translate(token_options)
+    elif options.token_gen == 'clone':
+        clone_based_token_generate(options.src_token, options.tgt_token, options.train_token_src,
+                                   options.train_token_tgt, int(tree_count),  options.token_out)
+        pass
 
     # print(create_tree_from_candidates(['2018 688 1624 1913 1606 469'], grammar))

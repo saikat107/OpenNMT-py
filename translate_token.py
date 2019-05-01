@@ -48,9 +48,11 @@ def print_bleu_res_to_file(b_file, bls):
     if isinstance(bls, np.ndarray):
         r = bls.shape[0]
         for i in range(r):
-            s = ','.join([str(x) for x in bls[i]])
+            s = str(i) + ','
+            s += ','.join([str(x) for x in bls[i]])
+            s += ',' + str(np.min(bls[i][1:]))
             b_file.write(s + '\n')
-        first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls ]
+        first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls]
         avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
         cand_max_bleus = [np.max(x) if len(x) > 0 else 0.0 for x in bls]
         #print np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
@@ -179,7 +181,7 @@ def main(opt):
         os.mkdir('result_eds')
 
     decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_eds/' + exp_name + '_' + str(beam_size) + '_bleus.csv', 'w')
+
 
     all_eds = []
     total_example = 0
@@ -191,10 +193,13 @@ def main(opt):
         decode_res_file.write(tgt + '\n')
         if src == tgt:
             no_change += 1
+        eds = []
+        o_ed = get_edit_dist(src, tgt)
+        eds.append(o_ed)
         decode_res_file.write('=====================================================================================\n')
         decode_res_file.write('Canditdate Size : ' + str(len(cands)) + '\n')
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
-        eds = []
+
         found = False
         cands_reformatted = re_organize_candidates(cands, scores, src, opt.n_best)
         for cand in cands_reformatted:
@@ -210,10 +215,13 @@ def main(opt):
         decode_res_file.write(str(found) + '\n\n')
         decode_res_file.flush()
 
+    ed_file = open('result_eds/' + exp_name +
+                   '-' + str(correct) + '-' + str(opt.tree_count) + '-' +
+                   '-' + str(opt.n_best) + 'eds.csv', 'w')
     all_eds = np.asarray(all_eds)
-    print_bleu_res_to_file(bleu_file, all_eds)
+    print_bleu_res_to_file(ed_file, all_eds)
     decode_res_file.close()
-    bleu_file.close()
+    ed_file.close()
     print(correct, no_change, total_example)
 
 

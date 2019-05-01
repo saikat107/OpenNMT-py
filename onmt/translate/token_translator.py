@@ -188,7 +188,7 @@ class TokenTranslator(object):
             #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
             # if bidx % 20 == 0:
-            if bidx % 200 == 0:
+            if bidx % 20 == 0:
                debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             nt_scores = node_type_scores[example_idx]

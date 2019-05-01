@@ -1,0 +1,1064 @@
+Example : 3
+public long getLong ( int i ) { if ( ! ( memoryRef.isAccessible ) ) { throw new java.lang.IllegalStateException ( STRING_CONSTANT ) ; } return getLong ( ix ( checkIndex ( i , SizeOf.LONG ) ) ) ; }
+@ java.lang.Override public final long getLong ( int i ) { if ( ! ( memoryRef.isAccessible ) ) { throw new java.lang.IllegalStateException ( STRING_CONSTANT ) ; } return getLong ( ix ( checkIndex ( i , SizeOf.LONG ) ) ) ; }
+3 , 4 , 4 , 0.1388888888888889
+Change Type : change
+=====================================
+
+Example : 18
+float getFloatUnchecked ( int index ) { throw new java.lang.UnsupportedOperationException () ; }
+abstract float getFloatUnchecked ( int index ) ;
+7 , 11 , 8 , 0.6428571428571429
+Change Type : change
+=====================================
+
+Example : 44
+public void copyFrom ( java.lang.Object array ) { android.os.Trace . traceBegin ( RenderScript.TRACE_TAG , STRING_CONSTANT ) ; copyFromUnchecked ( array , validateObjectIsPrimitiveArray ( array , true ) , java.lang.reflect.Array . getLength ( array ) ) ; android.os.Trace . traceEnd ( RenderScript.TRACE_TAG ) ; }
+public void copyFrom ( java.lang.Object array ) { try { android.os.Trace . traceBegin ( RenderScript.TRACE_TAG , STRING_CONSTANT ) ; copyFromUnchecked ( array , validateObjectIsPrimitiveArray ( array , true ) , java.lang.reflect.Array . getLength ( array ) ) ; } finally { android.os.Trace . traceEnd ( RenderScript.TRACE_TAG ) ; } }
+6 , 9 , 7 , 0.15
+Change Type : change
+=====================================
+
+Example : 46
+@ java.lang.Override public void onMediaDescriptionUpdated () { try { callback . mediaDescriptionUpdated () ; } catch ( android.os.RemoteException e ) { onAppCallbackDied ( uid , subscriptionId ) ; } }
+@ java.lang.Override public void onMediaDescriptionUpdated () { try { callback . onMediaDescriptionUpdated () ; } catch ( android.os.RemoteException e ) { onAppCallbackDied ( uid , subscriptionId ) ; } }
+1 , 1 , 2 , 0.10344827586206896
+Change Type : change
+=====================================
+
+Example : 78
+public void test_getOrDefault () { libcore.java.util.MapDefaultMethodTester . test_getOrDefault ( new java.util.HashMap <> () , true , true ) ; }
+public void test_getOrDefault () { libcore.java.util.MapDefaultMethodTester . test_getOrDefault ( new java.util.HashMap <> () , true , true , true ) ; }
+2 , 2 , 2 , 0.0
+Change Type : change
+=====================================
+
+Example : 94
+public void visit ( @ javax.annotation.Nonnull com.android.jack.ir.ast.JSession x , @ javax.annotation.Nonnull com.android.sched.transform.TransformRequest transformRequest ) throws java.lang.Exception { visit ( ( ( com.android.jack.ir.ast.JNode ) ( x ) ) , transformRequest ) ; }
+public void visit ( @ javax.annotation.Nonnull com.android.jack.ir.ast.JSession session , @ javax.annotation.Nonnull com.android.sched.transform.TransformRequest transformRequest ) throws java.lang.Exception { visit ( ( ( com.android.jack.ir.ast.JNode ) ( session ) ) , transformRequest ) ; }
+2 , 2 , 4 , 0.25806451612903225
+Change Type : change
+=====================================
+
+Example : 96
+@ org.junit.Test public void testDataPathInitiatorMacTokenSuccess ( ) throws java.lang.Exception { testDataPathInitiatorUtility ( false , true , true , true ) ; }
+@ org.junit.Test public void testDataPathInitiatorMacTokenSuccess ( ) throws java.lang.Exception { testDataPathInitiatorUtility ( false , true , true , true , false ) ; }
+2 , 2 , 3 , 0.15
+Change Type : change
+=====================================
+
+Example : 105
+@ org.junit.Test public void testDataPathInitiatorDirectMacTokenSuccess ( ) throws java.lang.Exception { testDataPathInitiatorUtility ( true , true , true , true ) ; }
+@ org.junit.Test public void testDataPathInitiatorDirectMacTokenSuccess ( ) throws java.lang.Exception { testDataPathInitiatorUtility ( true , true , true , true , false ) ; }
+2 , 2 , 3 , 0.15789473684210525
+Change Type : change
+=====================================
+
+Example : 111
+public void testConstructor2NPE () { try { int [] a = null ; java.util.concurrent.atomic.AtomicIntegerArray aa = new java.util.concurrent.atomic.AtomicIntegerArray ( a ) ; shouldThrow () ; } catch ( java.lang.NullPointerException success ) {} }
+public void testConstructor2NPE () { try { int [] a = null ; new java.util.concurrent.atomic.AtomicIntegerArray ( a ) ; shouldThrow () ; } catch ( java.lang.NullPointerException success ) {} }
+3 , 5 , 4 , 0.15151515151515152
+Change Type : change
+=====================================
+
+Example : 126
+public void removeSessionCookies ( android.webkit.ValueCallback < java.lang.Boolean > callback ) { throw new android.webkit.MustOverrideException () ; }
+public abstract void removeSessionCookies ( android.webkit.ValueCallback < java.lang.Boolean > callback ) ;
+7 , 11 , 9 , 0.5789473684210527
+Change Type : change
+=====================================
+
+Example : 133
+public void test_getInstance_provider1 ( ) throws java.lang.Exception { test_getInstance ( java.security.Security . getProviders () [ NUMBER_CONSTANT ] ) ; }
+public void test_getInstance_provider1 ( ) throws java.lang.Exception { test_getInstance ( NUMBER_CONSTANT ) ; }
+6 , 8 , 8 , 0.47619047619047616
+Change Type : change
+=====================================
+
+Example : 145
+public java.lang.String getUrl () { throw new android.webkit.MustOverrideException () ; }
+public abstract java.lang.String getUrl ( ) ;
+8 , 12 , 10 , 0.9333333333333333
+Change Type : change
+=====================================
+
+Example : 150
+@ java.lang.Override public void printf ( java.lang.String msgFormat , java.lang.Object . . . args ) { java.lang.System.out . println ( java.lang.String . format ( msgFormat , args ) ) ; }
+@ java.lang.Override public void info ( java.lang.String msgFormat , java.lang.Object . . . args ) { java.lang.System.out . println ( java.lang.String . format ( msgFormat , args ) ) ; }
+1 , 1 , 2 , 0.14285714285714285
+Change Type : change
+=====================================
+
+Example : 159
+public double getDouble () { if ( ! ( memoryRef.isAccessible ) ) { throw new java.lang.IllegalStateException ( STRING_CONSTANT ) ; } return getDouble ( ix ( nextGetIndex ( SizeOf.DOUBLE ) ) ) ; }
+@ java.lang.Override public final double getDouble () { if ( ! ( memoryRef.isAccessible ) ) { throw new java.lang.IllegalStateException ( STRING_CONSTANT ) ; } return getDouble ( ix ( nextGetIndex ( SizeOf.DOUBLE ) ) ) ; }
+3 , 4 , 4 , 0.15151515151515152
+Change Type : change
+=====================================
+
+Example : 162
+@ java.lang.Override protected void visitPrimitive ( int argAndType , int type , int arg , int size ) { constantValue = com.android.jack.tools.merger.MergerTools . createConstant ( in , type , arg ) ; }
+@ java.lang.Override protected void visitPrimitive ( int type , int arg , int size ) { constantValue = com.android.jack.tools.merger.MergerTools . createConstant ( in , type , arg ) ; }
+3 , 4 , 3 , 0.06896551724137931
+Change Type : change
+=====================================
+
+Example : 164
+public synchronized boolean getDatabaseEnabled () { throw new android.webkit.MustOverrideException () ; }
+public abstract boolean getDatabaseEnabled ( ) ;
+8 , 12 , 10 , 0.9375
+Change Type : change
+=====================================
+
+Example : 170
+protected org.bouncycastle.math.ec.ECFieldElement getRawYCoord () { return y ; }
+protected final org.bouncycastle.math.ec.ECFieldElement getRawYCoord () { return y ; }
+1 , 1 , 2 , 0.3
+Change Type : change
+=====================================
+
+Example : 171
+public void setCallAudioState ( android.telecom.CallAudioState state ) { try { if ( mConnected ) { mConnectionService . onCallAudioStateChanged ( mConnectionId , state ) ; } } catch ( android.os.RemoteException ignored ) {} }
+public void setCallAudioState ( android.telecom.CallAudioState state ) { try { if ( mConnected ) { mConnectionService . onCallAudioStateChanged ( mConnectionId , state , null ) ; } } catch ( android.os.RemoteException ignored ) {} }
+2 , 2 , 3 , 0.09090909090909091
+Change Type : change
+=====================================
+
+Example : 187
+public static float FloatRemainder () { float a ; float b ; float c ; a = Main . $inline$float ( NUMBER_CONSTANT ) ; b = Main . $inline$float ( NUMBER_CONSTANT ) ; c = a % b ; return c ; }
+public static float FloatRemainder () { float a ; float b ; float c ; a = NUMBER_CONSTANT ; b = NUMBER_CONSTANT ; c = a % b ; return c ; }
+10 , 12 , 14 , 0.2647058823529412
+Change Type : change
+=====================================
+
+Example : 204
+public void setFocus () { canvas . setFocus () ; }
+@ java.lang.Override public boolean setFocus () { return canvas . setFocus () ; }
+4 , 5 , 6 , 0.6
+Change Type : change
+=====================================
+
+Example : 208
+public void Test04 () { errln ( STRING_CONSTANT ) ; }
+public void Test04 () {}
+7 , 9 , 7 , 0.7272727272727273
+Change Type : change
+=====================================
+
+Example : 209
+@ java.lang.Override public int beforeHandshake ( int context ) throws javax.net.ssl.SSLException { org.apache.harmony.xnet.provider.jsse.NativeCrypto . SSL_CTX_enable_npn ( context ) ; return super . beforeHandshake ( context ) ; }
+@ java.lang.Override public long beforeHandshake ( long context ) throws javax.net.ssl.SSLException { org.apache.harmony.xnet.provider.jsse.NativeCrypto . SSL_CTX_enable_npn ( context ) ; return super . beforeHandshake ( context ) ; }
+2 , 2 , 4 , 0.3076923076923077
+Change Type : change
+=====================================
+
+Example : 210
+public int insert ( java.lang.String name , byte [] item ) throws android.os.RemoteException ;
+public int insert ( java.lang.String name , byte [] item , int uid ) throws android.os.RemoteException ;
+3 , 4 , 4 , 0.29411764705882354
+Change Type : change
+=====================================
+
+Example : 215
+final byte getByte ( int offset ) { return sun.nio.ch.NativeObject.unsafe . getByte$ ( ( offset + ( address ) ) ) ; }
+final byte getByte ( int offset ) { return sun.nio.ch.NativeObject.unsafe . getByte ( ( offset + ( address ) ) ) ; }
+1 , 1 , 2 , 0.13636363636363635
+Change Type : change
+=====================================
+
+Example : 230
+synchronized void nScriptSetVarF ( int id , int slot , float val ) { validate () ; rsnScriptSetVarF ( mContext , id , slot , val ) ; }
+synchronized void nScriptSetVarF ( long id , int slot , float val ) { validate () ; rsnScriptSetVarF ( mContext , id , slot , val ) ; }
+1 , 1 , 2 , 0.14814814814814814
+Change Type : change
+=====================================
+
+Example : 235
+void start ( java.lang.String outcomeName , java.lang.String runnerClass ) ;
+void start ( java.lang.String outcomeName ) ;
+3 , 5 , 4 , 0.5
+Change Type : change
+=====================================
+
+Example : 245
+public static void sort ( short [] a ) { java.util.DualPivotQuicksort . sort ( a ) ; }
+public static void sort ( short [] a ) { java.util.DualPivotQuicksort . sort ( a , NUMBER_CONSTANT , ( ( a.length ) - NUMBER_CONSTANT ) , null , NUMBER_CONSTANT , NUMBER_CONSTANT ) ; }
+16 , 19 , 17 , 0.4642857142857143
+Change Type : change
+=====================================
+
+Example : 246
+public static int ShlIntLong () { int lhs = Main . $inline$int ( NUMBER_CONSTANT ) ; long rhs = Main . $inline$long ( NUMBER_CONSTANT ) ; return lhs < < rhs ; }
+public static int ShlIntLong () { int lhs = NUMBER_CONSTANT ; long rhs = NUMBER_CONSTANT ; return lhs < < rhs ; }
+10 , 12 , 14 , 0.3793103448275862
+Change Type : change
+=====================================
+
+Example : 249
+final void putInt ( int offset , int value ) { sun.nio.ch.NativeObject.unsafe . putInt$ ( ( offset + ( address ) ) , value ) ; }
+final void putInt ( int offset , int value ) { sun.nio.ch.NativeObject.unsafe . putInt ( ( offset + ( address ) ) , value ) ; }
+1 , 1 , 2 , 0.11538461538461539
+Change Type : change
+=====================================
+
+Example : 258
+void putShortUnchecked ( int index , short value ) { throw new java.lang.UnsupportedOperationException () ; }
+abstract void putShortUnchecked ( int index , short value ) ;
+7 , 11 , 8 , 0.5294117647058824
+Change Type : change
+=====================================
+
+Example : 276
+@ java.lang.Override public boolean canThrow () { return false ; }
+@ java.lang.Override public boolean canThrow () { return true ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : change
+=====================================
+
+Example : 277
+public void testIsSupported_EmptyString () { try { java.nio.charset.Charset . isSupported ( STRING_CONSTANT ) ; } catch ( java.lang.IllegalArgumentException e ) {} }
+public void testIsSupported_EmptyString () { try { java.nio.charset.Charset . isSupported ( STRING_CONSTANT ) ; fail () ; } catch ( java.lang.IllegalArgumentException expected ) {} }
+4 , 6 , 5 , 0.2692307692307692
+Change Type : change
+=====================================
+
+Example : 278
+native void rsnScriptGroupExecute ( int con , int group ) ;
+native void rsnScriptGroupExecute ( long con , long group ) ;
+2 , 2 , 4 , 0.5714285714285714
+Change Type : change
+=====================================
+
+Example : 287
+@ java.lang.Override protected void engineInitVerify ( java.security.PublicKey publicKey ) throws java.security.InvalidKeyException { throw new java.lang.UnsupportedOperationException () ; }
+@ java.lang.Override protected void engineInitVerify ( java.security.PublicKey publicKey ) throws java.security.InvalidKeyException {}
+7 , 10 , 7 , 0.4444444444444444
+Change Type : change
+=====================================
+
+Example : 290
+public android.telephony.mbms.DownloadRequest.Builder setSubscriptionId ( int sub ) { this . subscriptionId = sub ; return this ; }
+public android.telephony.mbms.DownloadRequest.Builder setSubscriptionId ( int subscriptionId ) { this . subscriptionId = subscriptionId ; return this ; }
+2 , 2 , 4 , 0.38095238095238093
+Change Type : change
+=====================================
+
+Example : 294
+@ org.junit.Test public void test_SSL_CTX_free ( ) throws java.lang.Exception { try { org.conscrypt.NativeCrypto . SSL_CTX_free ( org.conscrypt.NativeCryptoTest.NULL ) ; org.junit.Assert . fail () ; } catch ( java.lang.NullPointerException expected ) {} org.conscrypt.NativeCrypto . SSL_CTX_free ( org.conscrypt.NativeCrypto . SSL_CTX_new () ) ; }
+@ org.junit.Test public void test_SSL_CTX_free ( ) throws java.lang.Exception { org.conscrypt.NativeCrypto . SSL_CTX_free ( org.conscrypt.NativeCrypto . SSL_CTX_new () ) ; }
+21 , 31 , 21 , 0.45714285714285713
+Change Type : change
+=====================================
+
+Example : 295
+@ android.test.suitebuilder.annotation.MediumTest public void testAndroidStrings () { assertEquals ( mLibTextView1 . getText () , STRING_CONSTANT ) ; }
+@ android.test.suitebuilder.annotation.MediumTest public void testAndroidStrings () { assertEquals ( STRING_CONSTANT , mLibTextView1 . getText () . toString () ) ; }
+5 , 6 , 7 , 0.4583333333333333
+Change Type : change
+=====================================
+
+Example : 297
+public static java.lang.String getEndpointIdentificationAlgorithm ( javax.net.ssl.SSLParameters params ) { return null ; }
+public static java.lang.String getEndpointIdentificationAlgorithm ( javax.net.ssl.SSLParameters params ) { return params . getEndpointIdentificationAlgorithm () ; }
+4 , 5 , 5 , 0.4117647058823529
+Change Type : change
+=====================================
+
+Example : 300
+public static void main ( java.lang.String [] args ) throws java.lang.Exception { java.lang.System . loadLibrary ( args [ NUMBER_CONSTANT ] ) ; Main . doTest () ; }
+public static void main ( java.lang.String [] args ) throws java.lang.Exception { Main . doTest () ; }
+10 , 13 , 11 , 0.42857142857142855
+Change Type : change
+=====================================
+
+Example : 309
+public final java.net.URL getLocation () { return this . location ; }
+public final java.net.URL getLocation () { return null ; }
+3 , 4 , 4 , 0.46153846153846156
+Change Type : change
+=====================================
+
+Example : 335
+public static long AndLongInt () { long lhs = Main . $inline$long ( NUMBER_CONSTANT ) ; int rhs = Main . $inline$int ( NUMBER_CONSTANT ) ; return lhs & rhs ; }
+public static long AndLongInt () { long lhs = NUMBER_CONSTANT ; int rhs = NUMBER_CONSTANT ; return lhs & rhs ; }
+10 , 12 , 14 , 0.39285714285714285
+Change Type : change
+=====================================
+
+Example : 339
+@ java.lang.Override public void endTrace ( @ javax.annotation.Nonnull com.android.jack.ir.ast.JMethod type ) {}
+@ java.lang.Override public void endTrace ( @ javax.annotation.Nonnull com.android.jack.ir.ast.JMethod method ) {}
+1 , 1 , 2 , 0.3076923076923077
+Change Type : change
+=====================================
+
+Example : 344
+@ java.lang.Override public com.android.ims.internal.ImsCallSession createCallSession ( com.android.ims.ImsCallProfile profile , android.telephony.ims.internal.ImsCallSessionListener listener ) { return super . createCallSession ( profile , listener ) ; }
+@ java.lang.Override public com.android.ims.internal.ImsCallSession createCallSession ( com.android.ims.ImsCallProfile profile ) { return super . createCallSession ( profile ) ; }
+5 , 7 , 7 , 0.2857142857142857
+Change Type : change
+=====================================
+
+Example : 352
+public native float getFloat ( java.lang.Object object ) throws java.lang.IllegalAccessException , java.lang.IllegalArgumentException ;
+public native float getFloat ( java.lang.Object obj ) throws java.lang.IllegalAccessException , java.lang.IllegalArgumentException ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : change
+=====================================
+
+Example : 367
+@ java.lang.Deprecated public synchronized void setPluginsPath ( java.lang.String pluginsPath ) {}
+@ java.lang.Deprecated public void setPluginsPath ( java.lang.String pluginsPath ) {}
+1 , 1 , 2 , 0.2727272727272727
+Change Type : change
+=====================================
+
+Example : 368
+public void setMax ( long max ) { this . max = min ; }
+public void setMax ( long max ) { this . max = max ; }
+1 , 1 , 2 , 0.25
+Change Type : change
+=====================================
+
+Example : 376
+public void testAcoshF32 () { script_f32 = new android.renderscript.cts.ScriptC_acosh_f32 ( mRS , mRes , R.raw.acosh_f32 ) ; doF32 ( NUMBER_CONSTANT , NUMBER_CONSTANT ) ; }
+public void testAcoshF32 () { doF32 ( NUMBER_CONSTANT , NUMBER_CONSTANT ) ; }
+12 , 16 , 13 , 0.5416666666666666
+Change Type : change
+=====================================
+
+Example : 378
+public void testGet_NullPointerException () { try { java.util.concurrent.ConcurrentHashMap c = new java.util.concurrent.ConcurrentHashMap ( NUMBER_CONSTANT ) ; c . get ( null ) ; shouldThrow () ; } catch ( java.lang.NullPointerException success ) {} }
+public void testGet_NullPointerException () { java.util.concurrent.ConcurrentHashMap c = new java.util.concurrent.ConcurrentHashMap ( NUMBER_CONSTANT ) ; try { c . get ( null ) ; shouldThrow () ; } catch ( java.lang.NullPointerException success ) {} }
+4 , 8 , 5 , 0.11764705882352941
+Change Type : change
+=====================================
+
+Example : 395
+public static void sleep ( long ms ) { try { java.lang.Thread . sleep ( ms ) ; } catch ( java.lang.InterruptedException e ) { java.lang.System.err . println ( STRING_CONSTANT ) ; } }
+public static void sleep ( long ms ) { try { java.lang.Thread . sleep ( ms ) ; } catch ( java.lang.InterruptedException e ) { java.lang.System.out . println ( STRING_CONSTANT ) ; } }
+1 , 1 , 2 , 0.13333333333333333
+Change Type : change
+=====================================
+
+Example : 396
+public native boolean getBoolean ( java.lang.Object object ) throws java.lang.IllegalAccessException , java.lang.IllegalArgumentException ;
+public native boolean getBoolean ( java.lang.Object obj ) throws java.lang.IllegalAccessException , java.lang.IllegalArgumentException ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : change
+=====================================
+
+Example : 407
+com.google.gerrit.lucene.LuceneChangeIndex create ( com.google.gerrit.server.index.Schema < com.google.gerrit.server.query.change.ChangeData > schema , java.lang.String base ) ;
+com.google.gerrit.lucene.LuceneChangeIndex create ( com.google.gerrit.server.index.Schema < com.google.gerrit.server.query.change.ChangeData > schema ) ;
+3 , 5 , 4 , 0.38461538461538464
+Change Type : change
+=====================================
+
+Example : 416
+public void onSuccess ( final com.google.gerrit.common.data.HostPageData result ) { com.google.gerrit.client.Gerrit.myConfig = result.config ; if ( ( result.account ) != null ) { com.google.gerrit.client.Gerrit.myAccount = result.account ; com.google.gerrit.client.Gerrit . applyUserPreferences () ; } onModuleLoad2 ( gStarting ) ; }
+public void onSuccess ( final com.google.gerrit.common.data.HostPageData result ) { com.google.gerrit.client.Gerrit.myConfig = result.config ; if ( ( result.account ) != null ) { com.google.gerrit.client.Gerrit.myAccount = result.account ; com.google.gerrit.client.Gerrit . applyUserPreferences () ; } onModuleLoad2 () ; }
+3 , 3 , 4 , 0.1388888888888889
+Change Type : change
+=====================================
+
+Example : 437
+java.util.Optional < com.google.gerrit.server.group.InternalGroup > getInternalGroup ( com.google.gerrit.reviewdb.client.AccountGroup.UUID groupUuid ) ;
+java.util.Optional < com.google.gerrit.server.group.InternalGroup > get ( com.google.gerrit.reviewdb.client.AccountGroup.UUID groupUuid ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : change
+=====================================
+
+Example : 439
+private static void h ( final java.lang.StringBuffer r , final com.google.gerrit.client.reviewdb.Branch.NameKey branch ) { com.google.gerrit.client.data.GitwebLink . var ( r , STRING_CONSTANT , branch . get () ) ; }
+private static void h ( final java.lang.StringBuilder r , final com.google.gerrit.client.reviewdb.Branch.NameKey branch ) { com.google.gerrit.client.data.GitwebLink . var ( r , STRING_CONSTANT , branch . get () ) ; }
+1 , 1 , 2 , 0.13793103448275862
+Change Type : change
+=====================================
+
+Example : 449
+@ org.junit.Test public void getCache_NotFound ( ) throws java.lang.Exception { com.google.gerrit.acceptance.RestResponse r = adminSession . get ( STRING_CONSTANT ) ; org.junit.Assert . assertEquals ( HttpStatus.SC_NOT_FOUND , r . getStatusCode () ) ; }
+@ org.junit.Test public void getCache_NotFound ( ) throws java.lang.Exception { com.google.gerrit.acceptance.RestResponse r = adminSession . get ( STRING_CONSTANT ) ; com.google.common.truth.Truth . assertThat ( r . getStatusCode () ) . isEqualTo ( HttpStatus.SC_NOT_FOUND ) ; }
+9 , 10 , 12 , 0.375
+Change Type : change
+=====================================
+
+Example : 461
+public static com.google.gerrit.extensions.common.PathSubject assertThat ( java.nio.file.Path path ) { return com.google.common.truth.Truth . assertAbout ( com.google.gerrit.extensions.common.PathSubject.PATH_SUBJECT_FACTORY ) . that ( path ) ; }
+public static com.google.gerrit.extensions.common.PathSubject assertThat ( java.nio.file.Path path ) { return com.google.common.truth.Truth . assertAbout ( com.google.gerrit.extensions.common.PathSubject : : new ) . that ( path ) ; }
+4 , 6 , 5 , 0.2692307692307692
+Change Type : change
+=====================================
+
+Example : 464
+@ org.junit.Test public void flushCacheWithGerritPrefix ( ) throws java.lang.Exception { com.google.gerrit.acceptance.RestResponse r = adminSession . post ( STRING_CONSTANT ) ; org.junit.Assert . assertEquals ( HttpStatus.SC_OK , r . getStatusCode () ) ; }
+@ org.junit.Test public void flushCacheWithGerritPrefix ( ) throws java.lang.Exception { com.google.gerrit.acceptance.RestResponse r = adminSession . post ( STRING_CONSTANT ) ; com.google.common.truth.Truth . assertThat ( r . getStatusCode () ) . isEqualTo ( HttpStatus.SC_OK ) ; }
+9 , 10 , 12 , 0.375
+Change Type : change
+=====================================
+
+Example : 473
+@ java.lang.Override protected void onInitUI () { super . onInitUI () ; groups = new com.google.gerrit.client.admin.GroupTable ( true ) ; add ( groups ) ; }
+@ java.lang.Override protected void onInitUI () { super . onInitUI () ; groups = new com.google.gerrit.client.admin.GroupTable () ; add ( groups ) ; }
+3 , 3 , 4 , 0.16666666666666666
+Change Type : change
+=====================================
+
+Example : 486
+public void setFile ( final java.lang.String pattern ) { if ( ( pattern != null ) && ( ! ( pattern . isEmpty () ) ) ) { file = pattern ; } }
+public void setFile ( final java.lang.String pattern ) { file = pattern ; }
+20 , 29 , 20 , 0.5666666666666667
+Change Type : change
+=====================================
+
+Example : 487
+@ org.junit.Test public void testEndsOnNewline () { com.google.gerrit.client.diff.CodeMirrorDemo.EditIterator iter = new com.google.gerrit.client.diff.CodeMirrorDemo.EditIterator ( lines , NUMBER_CONSTANT ) ; assertLineChsEqual ( net.codemirror.lib.LineCharacter . create ( NUMBER_CONSTANT , NUMBER_CONSTANT ) , iter . advance ( NUMBER_CONSTANT ) ) ; }
+@ org.junit.Test public void testEndsOnNewline () { com.google.gerrit.client.diff.CodeMirrorDemo.EditIterator iter = new com.google.gerrit.client.diff.CodeMirrorDemo.EditIterator ( lines , NUMBER_CONSTANT ) ; assertLineChsEqual ( net.codemirror.lib.LineCharacter . create ( NUMBER_CONSTANT ) , iter . advance ( NUMBER_CONSTANT ) ) ; }
+2 , 2 , 2 , 0.03125
+Change Type : change
+=====================================
+
+Example : 492
+@ java.lang.Override public void onFailure ( final java.lang.Throwable caught ) { enableButtons ( true ) ; new com.google.gerrit.client.ErrorDialog ( caught . getMessage () ) . center () ; }
+@ java.lang.Override public void onFailure ( final java.lang.Throwable caught ) { enableButtons ( true ) ; super . onFailure ( caught ) ; }
+9 , 12 , 12 , 0.45161290322580644
+Change Type : change
+=====================================
+
+Example : 494
+public static com.google.gerrit.client.rpc.RestApi reviewer ( int id , java.lang.String reviewer ) { return com.google.gerrit.client.changes.ChangeApi . change ( id ) . view ( STRING_CONSTANT ) . id ( reviewer ) ; }
+public static com.google.gerrit.client.rpc.RestApi reviewer ( @ com.google.gerrit.common.Nullable java.lang.String project , int id , java.lang.String reviewer ) { return com.google.gerrit.client.changes.ChangeApi . change ( project , id ) . view ( STRING_CONSTANT ) . id ( reviewer ) ; }
+7 , 10 , 9 , 0.2777777777777778
+Change Type : change
+=====================================
+
+Example : 499
+private static void assertOwner ( java.lang.String ref , com.google.gerrit.server.project.ProjectControl u ) { assertTrue ( ( STRING_CONSTANT + ref ) , u . controlForRef ( ref ) . isOwner () ) ; }
+private static void assertOwner ( java.lang.String ref , com.google.gerrit.server.project.ProjectControl u ) { org.junit.Assert . assertTrue ( ( STRING_CONSTANT + ref ) , u . controlForRef ( ref ) . isOwner () ) ; }
+2 , 2 , 3 , 0.12121212121212122
+Change Type : change
+=====================================
+
+Example : 504
+private void grantForcePush ( ) throws java.lang.Exception { grant ( Permission.PUSH , project , STRING_CONSTANT , true , com.google.gerrit.server.group.SystemGroupBackend.ANONYMOUS_USERS ) ; }
+private void grantForcePush ( ) throws java.lang.Exception { grant ( project , STRING_CONSTANT , Permission.PUSH , true , com.google.gerrit.server.group.SystemGroupBackend.ANONYMOUS_USERS ) ; }
+3 , 3 , 5 , 0.17391304347826086
+Change Type : change
+=====================================
+
+Example : 522
+abstract com.google.gerrit.server.mail.receive.MailMessage.Builder id ( java.lang.String val ) ;
+public abstract com.google.gerrit.server.mail.receive.MailMessage.Builder id ( java.lang.String val ) ;
+1 , 1 , 1 , 0.125
+Change Type : change
+=====================================
+
+Example : 524
+@ java.lang.Override protected java.lang.String getRefName () { return STRING_CONSTANT ; }
+@ java.lang.Override protected java.lang.String getRefName () { return ref ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : change
+=====================================
+
+Example : 530
+public com.google.gerrit.server.CurrentUser getUser () { return user ; }
+private com.google.gerrit.server.CurrentUser getUser () { return user ; }
+1 , 1 , 1 , 0.2222222222222222
+Change Type : change
+=====================================
+
+Example : 535
+public void projectDetail ( final com.google.gerrit.client.reviewdb.Project.Id projectId , final com.google.gwt.user.client.rpc.AsyncCallback < com.google.gerrit.client.admin.ProjectDetail > callback ) { projectDetailFactory . create ( projectId ) . to ( callback ) ; }
+public void projectDetail ( final com.google.gerrit.client.reviewdb.Project.NameKey projectName , final com.google.gwt.user.client.rpc.AsyncCallback < com.google.gerrit.client.admin.ProjectDetail > callback ) { projectDetailFactory . create ( projectName ) . to ( callback ) ; }
+3 , 3 , 5 , 0.3125
+Change Type : change
+=====================================
+
+Example : 542
+@ java.lang.Override public void execute () { com.google.gwt.user.client.Window . scrollTo ( NUMBER_CONSTANT , NUMBER_CONSTANT ) ; message . setFocus ( true ) ; }
+@ java.lang.Override public void execute () { message . setFocus ( true ) ; }
+9 , 11 , 10 , 0.43478260869565216
+Change Type : change
+=====================================
+
+Example : 546
+@ java.lang.Override public com.google.gerrit.extensions.api.projects.Projects projects () { return projects . get () ; }
+@ java.lang.Override public com.google.gerrit.extensions.api.projects.Projects projects () { return projects ; }
+3 , 4 , 4 , 0.35714285714285715
+Change Type : change
+=====================================
+
+Example : 548
+public void testInvalidSchemeWithBackreference () { try { new com.google.gwtexpui.safehtml.client.LinkFindReplace ( STRING_CONSTANT , STRING_CONSTANT ) . replace ( STRING_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( java.lang.IllegalArgumentException expected ) {} }
+@ org.junit.Test public void testInvalidSchemeWithBackreference () { try { new com.google.gwtexpui.safehtml.client.LinkFindReplace ( STRING_CONSTANT , STRING_CONSTANT ) . replace ( STRING_CONSTANT ) ; org.junit.Assert . fail ( STRING_CONSTANT ) ; } catch ( java.lang.IllegalArgumentException expected ) {} }
+4 , 5 , 5 , 0.1875
+Change Type : change
+=====================================
+
+Example : 559
+protected static java.lang.String padTwo ( final int v ) { if ( v < NUMBER_CONSTANT ) { return STRING_CONSTANT + v ; } else { return java.lang.String . valueOf ( v ) ; } }
+protected static java.lang.String padTwo ( final int v ) { if ( v < NUMBER_CONSTANT ) { return STRING_CONSTANT + v ; } return java.lang.String . valueOf ( v ) ; }
+3 , 6 , 4 , 0.13333333333333333
+Change Type : change
+=====================================
+
+Example : 563
+@ java.lang.Override public Project.NameKey getProjectNameKey () { return new com.google.gerrit.reviewdb.client.Project.NameKey ( change.project ) ; }
+@ java.lang.Override public Project.NameKey getProjectNameKey () { return new com.google.gerrit.reviewdb.client.Project.NameKey ( change . get () . project ) ; }
+6 , 8 , 7 , 0.42857142857142855
+Change Type : change
+=====================================
+
+Example : 568
+public void setLinkName ( final java.lang.String name ) { if ( ( name != null ) && ( ! ( name . isEmpty () ) ) ) { this . name = name ; } }
+public void setLinkName ( final java.lang.String name ) { this . name = name ; }
+20 , 29 , 20 , 0.53125
+Change Type : change
+=====================================
+
+Example : 575
+void onLogout () { async . append ( log ( STRING_CONSTANT ) ) ; audit ( context . get () , STRING_CONSTANT , STRING_CONSTANT , new java.lang.String [] {} ) ; }
+void onLogout () { async . append ( log ( STRING_CONSTANT ) ) ; audit ( context . get () , STRING_CONSTANT , STRING_CONSTANT ) ; }
+5 , 8 , 6 , 0.17857142857142858
+Change Type : change
+=====================================
+
+Example : 579
+@ java.lang.Override protected java.lang.String getRefName () { return com.google.gerrit.reviewdb.client.RefNames . refsDraftComments ( author , getChangeId () ) ; }
+@ java.lang.Override protected java.lang.String getRefName () { return com.google.gerrit.reviewdb.client.RefNames . refsDraftComments ( getChangeId () , author ) ; }
+4 , 4 , 5 , 0.36363636363636365
+Change Type : change
+=====================================
+
+Example : 605
+public void testBackreference () { assertEquals ( STRING_CONSTANT , new com.google.gwtexpui.safehtml.client.LinkFindReplace ( STRING_CONSTANT , STRING_CONSTANT ) . replace ( STRING_CONSTANT ) ) ; }
+@ org.junit.Test public void testBackreference () { org.junit.Assert . assertEquals ( STRING_CONSTANT , new com.google.gwtexpui.safehtml.client.LinkFindReplace ( STRING_CONSTANT , STRING_CONSTANT ) . replace ( STRING_CONSTANT ) ) ; }
+4 , 5 , 5 , 0.25
+Change Type : change
+=====================================
+
+Example : 612
+public static void deleteDraft ( com.google.gerrit.reviewdb.client.PatchSet.Id id , java.lang.String draftId , com.google.gwt.user.client.rpc.AsyncCallback < com.google.gwt.core.client.JavaScriptObject > cb ) { com.google.gerrit.client.changes.CommentApi . revision ( id , STRING_CONSTANT ) . id ( draftId ) . delete ( cb ) ; }
+public static void deleteDraft ( @ com.google.gerrit.common.Nullable java.lang.String project , com.google.gerrit.reviewdb.client.PatchSet.Id id , java.lang.String draftId , com.google.gwt.user.client.rpc.AsyncCallback < com.google.gwt.core.client.JavaScriptObject > cb ) { com.google.gerrit.client.changes.CommentApi . revision ( project , id , STRING_CONSTANT ) . id ( draftId ) . delete ( cb ) ; }
+7 , 10 , 9 , 0.23809523809523808
+Change Type : change
+=====================================
+
+Example : 630
+@ org.junit.Test public void getAllForForConnection () { org.ovirt.engine.core.common.businessentities.StorageServerConnections conn = dao . get ( existingConnection . getid () ) ; conn . setid ( STRING_CONSTANT ) ; dao . save ( conn ) ; assertGetAllForConnectionResult ( java.util.Arrays . asList ( existingConnection , conn ) , existingConnection ) ; }
+@ org.junit.Test public void getAllForForConnection () { org.ovirt.engine.core.common.businessentities.StorageServerConnections conn = dao . get ( existingConnection . getId () ) ; conn . setId ( STRING_CONSTANT ) ; dao . save ( conn ) ; assertGetAllForConnectionResult ( java.util.Arrays . asList ( existingConnection , conn ) , existingConnection ) ; }
+2 , 2 , 4 , 0.17391304347826086
+Change Type : change
+=====================================
+
+Example : 637
+public short nextShort () { return ( ( short ) ( super . nextInt () ) ) ; }
+public short nextShort () { return ( ( short ) ( nextInt () ) ) ; }
+2 , 2 , 3 , 0.21052631578947367
+Change Type : change
+=====================================
+
+Example : 643
+@ java.lang.Override public void setEntity ( java.lang.Object value ) { super . setEntity ( value ) ; updateIsHotPlugAvailable () ; }
+@ java.lang.Override public void setEntity ( java.lang.Object value ) { super . setEntity ( value ) ; }
+3 , 5 , 3 , 0.16666666666666666
+Change Type : change
+=====================================
+
+Example : 649
+@ java.lang.Override public void onSuccess ( java.lang.Object model , java.lang.Object ReturnValue ) { setItems ( ( ( java.util.Collection < org.ovirt.engine.core.common.businessentities.VmTemplate > ) ( ( ( org.ovirt.engine.core.common.queries.VdcQueryReturnValue ) ( ReturnValue ) ) . getReturnValue () ) ) ) ; }
+@ java.lang.Override public void onSuccess ( java.lang.Object ReturnValue ) { setItems ( ( ( java.util.Collection < org.ovirt.engine.core.common.businessentities.VmTemplate > ) ( ( ( org.ovirt.engine.core.common.queries.VdcQueryReturnValue ) ( ReturnValue ) ) . getReturnValue () ) ) ) ; }
+3 , 5 , 3 , 0.0967741935483871
+Change Type : change
+=====================================
+
+Example : 650
+@ java.lang.Override protected java.lang.String extractNameFromEntity ( org.ovirt.engine.core.common.businessentities.VM entity ) { return entity . getVmName () ; }
+@ java.lang.Override protected java.lang.String extractNameFromEntity ( org.ovirt.engine.core.common.businessentities.VM entity ) { return entity . getName () ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : change
+=====================================
+
+Example : 652
+@ org.junit.Test public void testGet ( ) throws java.lang.Exception { setUriInfo ( setUpBasicUriExpectations () ) ; setUpGetEntityExpectations () ; control . replay () ; verifyModel ( resource . get () , NUMBER_CONSTANT ) ; }
+@ org.junit.Test public void testGet ( ) throws java.lang.Exception { setUriInfo ( setUpBasicUriExpectations () ) ; setUpGetEntityExpectations () ; verifyModel ( resource . get () , NUMBER_CONSTANT ) ; }
+5 , 7 , 5 , 0.125
+Change Type : change
+=====================================
+
+Example : 670
+@ java.lang.Override protected org.ovirt.engine.ui.uicommonweb.models.ListModel < java.lang.String > createGhostValue () { org.ovirt.engine.ui.uicommonweb.models.ListModel < java.lang.String > value = new org.ovirt.engine.ui.uicommonweb.models.ListModel < java.lang.String > () ; value . setItems ( suggestions ) ; value . setSelectedItem ( STRING_CONSTANT ) ; return value ; }
+@ java.lang.Override protected org.ovirt.engine.ui.uicommonweb.models.ListModel < java.lang.String > createGhostValue () { org.ovirt.engine.ui.uicommonweb.models.ListModel < java.lang.String > value = new org.ovirt.engine.ui.uicommonweb.models.ListModel () ; value . setItems ( suggestions ) ; value . setSelectedItem ( STRING_CONSTANT ) ; return value ; }
+3 , 5 , 4 , 0.0625
+Change Type : change
+=====================================
+
+Example : 675
+public void setSession ( org.ovirt.engine.core.common.businessentities.SessionState value ) { this . vmDynamic . setsession ( value ) ; }
+public void setSession ( org.ovirt.engine.core.common.businessentities.SessionState value ) { this . vmDynamic . setSession ( value ) ; }
+1 , 1 , 2 , 0.17647058823529413
+Change Type : change
+=====================================
+
+Example : 684
+public static < T > T GetValue ( org.ovirt.engine.core.common.config.ConfigValues value ) { return org.ovirt.engine.core.common.config.Config . < T > getValue ( value , ConfigCommon.defaultConfigurationVersion ) ; }
+public static < T > T getValue ( org.ovirt.engine.core.common.config.ConfigValues value ) { return org.ovirt.engine.core.common.config.Config . < T > getValue ( value , ConfigCommon.defaultConfigurationVersion ) ; }
+1 , 1 , 2 , 0.125
+Change Type : change
+=====================================
+
+Example : 694
+public void setmem_shared ( java.lang.Long value ) { this . mVdsStatistics . setmem_shared ( value ) ; OnPropertyChanged ( new org.ovirt.engine.core.compat.PropertyChangedEventArgs ( STRING_CONSTANT ) ) ; OnPropertyChanged ( new org.ovirt.engine.core.compat.PropertyChangedEventArgs ( STRING_CONSTANT ) ) ; }
+public void setmem_shared ( java.lang.Long value ) { this . mVdsStatistics . setmem_shared ( value ) ; }
+18 , 26 , 18 , 0.34782608695652173
+Change Type : change
+=====================================
+
+Example : 703
+public boolean isHibernating () { return ( ( this ) == ( org.ovirt.engine.core.common.businessentities.VMStatus.SavingState ) ) || ( ( this ) == ( org.ovirt.engine.core.common.businessentities.VMStatus.PreparingForHibernate ) ) ; }
+public boolean isHibernating () { return ( this ) == ( org.ovirt.engine.core.common.businessentities.VMStatus.SavingState ) ; }
+11 , 18 , 12 , 0.3
+Change Type : change
+=====================================
+
+Example : 706
+@ java.lang.Override public java.lang.String getValue ( org.ovirt.engine.core.common.businessentities.network object ) { return object . getdescription () ; }
+@ java.lang.Override public java.lang.String getValue ( org.ovirt.engine.core.common.businessentities.Network object ) { return object . getdescription () ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : change
+=====================================
+
+Example : 720
+public void setStorage ( java.lang.String storage ) { getStorageStaticData () . setstorage ( storage ) ; }
+public void setStorage ( java.lang.String storage ) { getStorageStaticData () . setStorage ( storage ) ; }
+1 , 1 , 2 , 0.1875
+Change Type : change
+=====================================
+
+Example : 722
+public void setTotalDiskSize ( java.lang.Integer value ) { if ( ! ( totalDiskSize . equals ( value ) ) ) { totalDiskSize = value ; } }
+public void setTotalDiskSize ( java.lang.Integer value ) { totalDiskSize = value ; }
+14 , 19 , 14 , 0.4782608695652174
+Change Type : change
+=====================================
+
+Example : 725
+@ java.lang.Override public java.lang.String getValue ( org.ovirt.engine.core.common.businessentities.VM object ) { return ( java.lang.String . valueOf ( object . getvm_mem_size_mb () ) ) + STRING_CONSTANT ; }
+@ java.lang.Override public java.lang.String getValue ( java.lang.Object object ) { return ( java.lang.String . valueOf ( ( ( org.ovirt.engine.core.common.businessentities.VM ) ( object ) ) . getvm_mem_size_mb () ) ) + STRING_CONSTANT ; }
+8 , 12 , 10 , 0.25806451612903225
+Change Type : change
+=====================================
+
+Example : 731
+@ java.lang.Override public void postModelEnabled ( boolean enabled ) { messageLabel . setVisible ( ( ! enabled ) ) ; setApplyEnabled ( ( ! enabled ) ) ; }
+@ java.lang.Override public void postModelEnabled ( boolean enabled ) { messageLabel . setVisible ( ( ! enabled ) ) ; }
+8 , 12 , 8 , 0.09523809523809523
+Change Type : change
+=====================================
+
+Example : 732
+public void sethost_name ( java.lang.String value ) { this . mVdsStatic . sethost_name ( value ) ; OnPropertyChanged ( new org.ovirt.engine.core.compat.PropertyChangedEventArgs ( STRING_CONSTANT ) ) ; }
+public void sethost_name ( java.lang.String value ) { this . mVdsStatic . sethost_name ( value ) ; }
+9 , 13 , 9 , 0.34782608695652173
+Change Type : change
+=====================================
+
+Example : 737
+@ java.lang.Override protected org.ovirt.engine.ui.common.widget.action.SubTabTreeActionPanel createActionPanel ( org.ovirt.engine.ui.common.uicommon.model.SearchableDetailModelProvider modelProvider ) { return new org.ovirt.engine.ui.common.widget.action.SubTabTreeActionPanel < org.ovirt.engine.core.common.businessentities.storage.DiskImage > ( modelProvider , org.ovirt.engine.ui.webadmin.gin.ClientGinjectorProvider . getEventBus () ) ; }
+@ java.lang.Override protected org.ovirt.engine.ui.common.widget.action.SubTabTreeActionPanel createActionPanel ( org.ovirt.engine.ui.common.uicommon.model.SearchableDetailModelProvider modelProvider ) { return new org.ovirt.engine.ui.common.widget.action.SubTabTreeActionPanel ( modelProvider , org.ovirt.engine.ui.webadmin.gin.ClientGinjectorProvider . getEventBus () ) ; }
+3 , 5 , 4 , 0.19230769230769232
+Change Type : change
+=====================================
+
+Example : 739
+@ java.lang.Override public java.lang.Object convert ( java.lang.Object source , org.ovirt.engine.ui.frontend.AsyncQuery _asyncQuery ) { return source != null ? ( ( java.lang.Integer ) ( source ) ) . intValue () : NUMBER_CONSTANT ; }
+@ java.lang.Override public java.lang.Object convert ( java.lang.Object source , org.ovirt.engine.ui.frontend.AsyncQuery _asyncQuery ) { return source != null ? ( ( java.lang.Integer ) ( source ) ) : NUMBER_CONSTANT ; }
+3 , 4 , 4 , 0.15151515151515152
+Change Type : change
+=====================================
+
+Example : 740
+public java.lang.Object call ( ) throws java.lang.Exception { _parser . cliInstall () ; return null ; }
+public java.lang.Boolean call ( ) throws java.lang.Exception { _parser . cliInstall () ; return true ; }
+2 , 2 , 4 , 0.4
+Change Type : change
+=====================================
+
+Example : 752
+@ java.lang.Deprecated public static void RunPublicQuery ( final org.ovirt.engine.core.common.queries.VdcQueryType queryType , final org.ovirt.engine.core.common.queries.VdcQueryParametersBase parameters , final org.ovirt.engine.ui.frontend.AsyncQuery callback ) { org.ovirt.engine.ui.frontend.Frontend . getInstance () . runPublicQuery ( queryType , parameters , callback ) ; }
+public void runQuery ( final org.ovirt.engine.core.common.queries.VdcQueryType queryType , final org.ovirt.engine.core.common.queries.VdcQueryParametersBase parameters , final org.ovirt.engine.ui.frontend.AsyncQuery callback ) { runQuery ( queryType , parameters , callback , false ) ; }
+12 , 14 , 16 , 0.5405405405405406
+Change Type : change
+=====================================
+
+Example : 770
+private org.ovirt.engine.core.common.businessentities.VdsNetworkInterface createBond ( java.lang.String name , java.lang.String networkName ) { return createVdsInterface ( org.ovirt.engine.core.compat.Guid . NewGuid () , name , true , null , null , networkName ) ; }
+private org.ovirt.engine.core.common.businessentities.VdsNetworkInterface createBond ( java.lang.String name , java.lang.String networkName ) { return createVdsInterface ( org.ovirt.engine.core.compat.Guid . NewGuid () , name , true , null , null , networkName , true ) ; }
+2 , 2 , 3 , 0.07142857142857142
+Change Type : change
+=====================================
+
+Example : 776
+private org.ovirt.engine.core.common.businessentities.network.VdsNetworkInterface createBond ( java.lang.String name , java.lang.String networkName ) { return createVdsInterface ( org.ovirt.engine.core.compat.Guid . newGuid () , name , true , null , null , networkName , true , null , false , null ) ; }
+private org.ovirt.engine.core.common.businessentities.network.VdsNetworkInterface createBond ( java.lang.String name , java.lang.String networkName ) { return createVdsInterface ( org.ovirt.engine.core.compat.Guid . newGuid () , name , true , null , null , null , networkName , true , null , false , null ) ; }
+2 , 2 , 2 , 0.0
+Change Type : change
+=====================================
+
+Example : 778
+@ java.lang.Override public int compare ( org.ovirt.engine.core.common.businessentities.network.Network x , org.ovirt.engine.core.common.businessentities.network.Network y ) { return x . getname () . compareTo ( y . getname () ) ; }
+@ java.lang.Override public int compare ( org.ovirt.engine.core.common.businessentities.network.Network x , org.ovirt.engine.core.common.businessentities.network.Network y ) { return x . getName () . compareTo ( y . getName () ) ; }
+2 , 2 , 4 , 0.14814814814814814
+Change Type : change
+=====================================
+
+Example : 787
+@ org.junit.Test public void testGet ( ) throws java.lang.Exception { setUriInfo ( org.ovirt.engine.api.restapi.resource.AbstractBackendNetworkAttachmentResourceTest . setUpBasicUriExpectations () ) ; setUpEntityQueryExpectations ( NUMBER_CONSTANT , NUMBER_CONSTANT , false ) ; control . replay () ; verifyModel ( resource . get () , NUMBER_CONSTANT ) ; }
+@ org.junit.Test public void testGet ( ) throws java.lang.Exception { setUriInfo ( org.ovirt.engine.api.restapi.resource.AbstractBackendNetworkAttachmentResourceTest . setUpBasicUriExpectations () ) ; setUpEntityQueryExpectations ( NUMBER_CONSTANT , NUMBER_CONSTANT , false ) ; verifyModel ( resource . get () , NUMBER_CONSTANT ) ; }
+5 , 7 , 5 , 0.13157894736842105
+Change Type : change
+=====================================
+
+Example : 793
+@ java.lang.Override protected void failedToRunVm () { if ( ( org.ovirt.engine.core.bll.MigrateVmCommand . getVm () . getstatus () ) != ( org.ovirt.engine.core.common.businessentities.VMStatus.Up ) ) { super . failedToRunVm () ; } }
+@ java.lang.Override protected void failedToRunVm () { if ( ( org.ovirt.engine.core.bll.MigrateVmCommand . getVm () . getStatus () ) != ( org.ovirt.engine.core.common.businessentities.VMStatus.Up ) ) { super . failedToRunVm () ; } }
+1 , 1 , 2 , 0.12903225806451613
+Change Type : change
+=====================================
+
+Example : 795
+@ java.lang.Override public java.util.List < org.ovirt.engine.core.common.businessentities.DbUser > getAllWithQuery ( java.lang.String query ) { return new org.springframework.jdbc.core.simple.SimpleJdbcTemplate ( jdbcTemplate ) . query ( query , org.ovirt.engine.core.dao.DbUserDAODbFacadeImpl.DbUserRowMapper.instance ) ; }
+@ java.lang.Override public java.util.List < org.ovirt.engine.core.common.businessentities.DbUser > getAllWithQuery ( java.lang.String query ) { return jdbcTemplate . query ( query , org.ovirt.engine.core.dao.DbUserDAODbFacadeImpl.DbUserRowMapper.instance ) ; }
+4 , 6 , 6 , 0.27586206896551724
+Change Type : change
+=====================================
+
+Example : 796
+@ org.junit.Test public void testGetByNameForPrivilegedUser () { org.ovirt.engine.core.common.businessentities.VDSGroup result = dao . getByName ( existingVdsGroup . getname () , org.ovirt.engine.core.dao.PRIVILEGED_USER_ID , false ) ; assertCorrectVDSGroup ( result ) ; }
+@ org.junit.Test public void testGetByNameForPrivilegedUser () { org.ovirt.engine.core.common.businessentities.VDSGroup result = dao . getByName ( existingVdsGroup . getName () , org.ovirt.engine.core.dao.PRIVILEGED_USER_ID , false ) ; assertCorrectVDSGroup ( result ) ; }
+1 , 1 , 2 , 0.13333333333333333
+Change Type : change
+=====================================
+
+Example : 799
+@ java.lang.Override public long getsize () { return getImage () . getSize () ; }
+@ java.lang.Override public long getSize () { return getImage () . getSize () ; }
+1 , 1 , 2 , 0.2
+Change Type : change
+=====================================
+
+Example : 807
+@ java.lang.Override public void update ( int index , org.ovirt.engine.core.common.businessentities.Quota quota , java.lang.String value ) { transitionHandler . handlePlaceTransition () ; }
+@ java.lang.Override public void update ( int index , org.ovirt.engine.core.common.businessentities.Quota quota , java.lang.String value ) { transitionHandler . handlePlaceTransition ( true ) ; }
+3 , 3 , 4 , 0.24
+Change Type : change
+=====================================
+
+Example : 813
+public boolean isOvfTemplate ( java.lang.String ovfstring ) throws org.ovirt.engine.core.utils.ovf.OvfReaderException { return ovfManager . IsOvfTemplate ( ovfstring ) ; }
+public boolean isOvfTemplate ( java.lang.String ovfstring ) throws org.ovirt.engine.core.utils.ovf.OvfReaderException { return ovfManager . isOvfTemplate ( ovfstring ) ; }
+1 , 1 , 2 , 0.16666666666666666
+Change Type : change
+=====================================
+
+Example : 814
+@ org.junit.Test public void areAllVfsFreeFalseAttachedToVm () { freeVfCommon ( NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT ) ; org.junit.Assert . assertFalse ( networkDeviceHelper . areAllVfsFree ( nic ) ) ; }
+@ org.junit.Test public void areAllVfsFreeFalseAttachedToVm () { freeVfCommon ( NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT ) ; org.junit.Assert . assertFalse ( networkDeviceHelper . areAllVfsFree ( nic ) ) ; }
+2 , 2 , 2 , 0.0
+Change Type : change
+=====================================
+
+Example : 815
+@ java.lang.Override public com.google.gwt.safehtml.shared.SafeHtml getTooltip ( org.ovirt.engine.core.common.businessentities.VM object ) { return null ; }
+@ java.lang.Override public org.ovirt.engine.core.common.businessentities.VM getValue ( org.ovirt.engine.core.common.businessentities.VM object ) { return object ; }
+3 , 3 , 5 , 0.5555555555555556
+Change Type : change
+=====================================
+
+Example : 820
+@ org.junit.Test public void testGetManagedInterfaceForVdsFilteredForPriviligedUser () { org.ovirt.engine.core.common.businessentities.VdsNetworkInterface result = dao . getManagedInterfaceForVds ( org.ovirt.engine.core.dao.InterfaceDAOTest.VDS_ID , org.ovirt.engine.core.dao.PRIVILEGED_USER_ID , true ) ; org.ovirt.engine.core.dao.InterfaceDAOTest . assertCorrectGetManagedInterfaceForVdsResult ( result ) ; }
+@ org.junit.Test public void testGetManagedInterfaceForVdsFilteredForPriviligedUser () { org.ovirt.engine.core.common.businessentities.network.VdsNetworkInterface result = dao . getManagedInterfaceForVds ( org.ovirt.engine.core.dao.InterfaceDAOTest.VDS_ID , org.ovirt.engine.core.dao.PRIVILEGED_USER_ID , true ) ; org.ovirt.engine.core.dao.InterfaceDAOTest . assertCorrectGetManagedInterfaceForVdsResult ( result ) ; }
+1 , 1 , 2 , 0.13793103448275862
+Change Type : change
+=====================================
+
+Example : 829
+public void setName ( java.lang.String value ) { if ( ! ( org.ovirt.engine.core.common.utils.ObjectUtils . objectsEqual ( name , value ) ) ) { name = value ; onPropertyChanged ( new org.ovirt.engine.ui.uicompat.PropertyChangedEventArgs ( STRING_CONSTANT ) ) ; } }
+public void setName ( java.lang.String value ) { name = value ; }
+25 , 34 , 25 , 0.6363636363636364
+Change Type : change
+=====================================
+
+Example : 841
+private org.ovirt.engine.core.common.businessentities.network map ( org.ovirt.engine.api.model.Network network , org.ovirt.engine.core.common.businessentities.network template ) { return getMapper ( org.ovirt.engine.api.model.Network . class , org.ovirt.engine.core.common.businessentities.network . class ) . map ( network , template ) ; }
+private org.ovirt.engine.api.model.Network map ( org.ovirt.engine.api.model.Network network , org.ovirt.engine.api.model.Network template ) { return getMapper ( org.ovirt.engine.api.model.Network . class , org.ovirt.engine.api.model.Network . class ) . map ( network , template ) ; }
+3 , 3 , 6 , 0.32142857142857145
+Change Type : change
+=====================================
+
+Example : 844
+public static org.ovirt.engine.core.common.businessentities.storage_domains getStorageById ( org.ovirt.engine.core.compat.Guid storageId , java.util.ArrayList < org.ovirt.engine.core.common.businessentities.storage_domains > storageDomains ) { for ( org.ovirt.engine.core.common.businessentities.storage_domains storage : storageDomains ) { if ( storage . getId () . equals ( storageId ) ) { return storage ; } } return null ; }
+public static org.ovirt.engine.core.common.businessentities.StorageDomain getStorageById ( org.ovirt.engine.core.compat.Guid storageId , java.util.ArrayList < org.ovirt.engine.core.common.businessentities.StorageDomain > storageDomains ) { for ( org.ovirt.engine.core.common.businessentities.StorageDomain storage : storageDomains ) { if ( storage . getId () . equals ( storageId ) ) { return storage ; } } return null ; }
+3 , 3 , 6 , 0.2608695652173913
+Change Type : change
+=====================================
+
+Example : 854
+public void setKsmState ( java.lang.Boolean value ) { this . ksmState = value ; }
+public void setKsmState ( java.lang.Boolean value ) { ksmState = value ; }
+2 , 3 , 3 , 0.26666666666666666
+Change Type : change
+=====================================
+
+Example : 861
+@ org.junit.Test public void formatStringTest2 () { testMessages . addFallback ( DynamicMessageKey.APPLICATION_TITLE , STRING_CONSTANT ) ; java.lang.String result = testMessages . formatString ( DynamicMessageKey.APPLICATION_TITLE , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ; org.junit.Assert . assertEquals ( STRING_CONSTANT , STRING_CONSTANT , result ) ; }
+@ org.junit.Test public void formatStringTest2 () { testMessages . addFallback ( DynamicMessageKey.APPLICATION_TITLE , STRING_CONSTANT ) ; java.lang.String result = testMessages . formatString ( DynamicMessageKey.APPLICATION_TITLE , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ; org.junit.Assert . assertEquals ( STRING_CONSTANT , result ) ; }
+2 , 2 , 2 , 0.0
+Change Type : change
+=====================================
+
+Example : 862
+private org.ovirt.engine.core.common.businessentities.VdsNetworkInterface enslaveOrReleaseNIC ( org.ovirt.engine.core.common.businessentities.VdsNetworkInterface iface , java.lang.String bondName ) { return createVdsInterface ( iface . getId () , iface . getName () , false , bondName , null , null ) ; }
+private org.ovirt.engine.core.common.businessentities.VdsNetworkInterface enslaveOrReleaseNIC ( org.ovirt.engine.core.common.businessentities.VdsNetworkInterface iface , java.lang.String bondName ) { return createVdsInterface ( iface . getId () , iface . getName () , false , bondName , null , null , true ) ; }
+2 , 2 , 3 , 0.09375
+Change Type : change
+=====================================
+
+Example : 876
+public java.lang.String getDomain () { return isLoggedIn () ? loggedUser . getDomainControler () : null ; }
+public java.lang.String getDomain () { return isLoggedIn () ? loggedUser . getDomain () : null ; }
+1 , 1 , 2 , 0.17647058823529413
+Change Type : change
+=====================================
+
+Example : 884
+@ java.lang.Override public java.lang.String renderNullSafe ( java.lang.Object object ) { return ( ( org.ovirt.engine.core.common.businessentities.VDS ) ( object ) ) . getVdsName () ; }
+@ java.lang.Override public java.lang.String renderNullSafe ( java.lang.Object object ) { return ( ( org.ovirt.engine.core.common.businessentities.VDS ) ( object ) ) . getName () ; }
+1 , 1 , 2 , 0.16666666666666666
+Change Type : change
+=====================================
+
+Example : 887
+public boolean checkIfCpusExist ( java.lang.String cpuName , org.ovirt.engine.core.compat.Version ver ) { final org.ovirt.engine.core.bll.CpuFlagsManagerHandler.CpuFlagsManager cpuFlagsManager = org.ovirt.engine.core.bll.CpuFlagsManagerHandler._managersDictionary . get ( ver ) ; if ( cpuFlagsManager != null ) { return cpuFlagsManager . CheckIfCpusExist ( cpuName ) ; } return false ; }
+public boolean checkIfCpusExist ( java.lang.String cpuName , org.ovirt.engine.core.compat.Version ver ) { final org.ovirt.engine.core.bll.CpuFlagsManagerHandler.CpuFlagsManager cpuFlagsManager = org.ovirt.engine.core.bll.CpuFlagsManagerHandler._managersDictionary . get ( ver ) ; if ( cpuFlagsManager != null ) { return cpuFlagsManager . checkIfCpusExist ( cpuName ) ; } return false ; }
+1 , 1 , 2 , 0.07894736842105263
+Change Type : change
+=====================================
+
+Example : 889
+@ org.junit.Test public void testGetForStoragePoolWithInvalidPool () { org.ovirt.engine.core.common.businessentities.storage_domains result = dao . getForStoragePool ( existingDomain . getId () , org.ovirt.engine.core.compat.NGuid . NewGuid () ) ; org.junit.Assert . assertNull ( result ) ; }
+@ org.junit.Test public void testGetForStoragePoolWithInvalidPool () { org.ovirt.engine.core.common.businessentities.StorageDomain result = dao . getForStoragePool ( existingDomain . getId () , org.ovirt.engine.core.compat.NGuid . NewGuid () ) ; org.junit.Assert . assertNull ( result ) ; }
+1 , 1 , 2 , 0.12121212121212122
+Change Type : change
+=====================================
+
+Example : 896
+protected org.ovirt.engine.core.dal.dbbroker.DbFacade getDbFacade () { return org.ovirt.engine.core.dal.dbbroker.DbFacade . getInstance () ; }
+public org.ovirt.engine.core.dal.dbbroker.DbFacade getDbFacade () { return org.ovirt.engine.core.dal.dbbroker.DbFacade . getInstance () ; }
+1 , 1 , 1 , 0.16666666666666666
+Change Type : change
+=====================================
+
+Example : 914
+@ org.junit.Test public void testEmptyDisksUsages () { java.lang.Object [] disksUsages = new java.lang.Object [ NUMBER_CONSTANT ] ; java.util.Map < java.lang.String , java.lang.Object > xml = org.ovirt.engine.core.vdsbroker.vdsbroker.VdsBrokerObjectBuilderTest . setDisksUsageInXmlRpc ( disksUsages ) ; org.ovirt.engine.core.vdsbroker.vdsbroker.VdsBrokerObjectBuilderTest . validateDisksUsagesList ( getVmStatistics () , disksUsages , xml ) ; }
+@ org.junit.Test public void testEmptyDisksUsages () { java.lang.Object [] disksUsages = new java.lang.Object [ NUMBER_CONSTANT ] ; java.util.Map < java.lang.String , java.lang.Object > xml = org.ovirt.engine.core.vdsbroker.vdsbroker.VdsBrokerObjectBuilderTest . setDisksUsageInXmlRpc ( disksUsages ) ; org.ovirt.engine.core.vdsbroker.vdsbroker.VdsBrokerObjectBuilderTest . validateDisksUsagesList ( org.ovirt.engine.core.vdsbroker.vdsbroker.VdsBrokerObjectBuilderTest . getVmStatistics () , disksUsages , xml ) ; }
+2 , 2 , 3 , 0.06818181818181818
+Change Type : change
+=====================================
+
+Example : 922
+@ java.lang.Override public void saveJob ( final org.ovirt.engine.core.common.job.Job job ) { org.ovirt.engine.core.utils.transaction.TransactionSupport . executeInNewTransaction ( new org.ovirt.engine.core.utils.transaction.TransactionMethod < java.lang.Void > () { @ java.lang.Override public java.lang.Void runInTransaction () { jobDao . save ( job ) ; return null ; } } ) ; }
+@ java.lang.Override public void saveJob ( final org.ovirt.engine.core.common.job.Job job ) { jobDao . save ( job ) ; }
+25 , 37 , 25 , 0.5405405405405406
+Change Type : change
+=====================================
+
+Example : 923
+protected java.lang.String getDiskAlias () { if ( ( getDisk () ) != null ) { return getDisk () . getDiskAlias () ; } return org.apache.commons.lang.StringUtils.EMPTY ; }
+public java.lang.String getDiskAlias () { if ( ( getDisk () ) != null ) { return getDisk () . getDiskAlias () ; } return org.apache.commons.lang.StringUtils.EMPTY ; }
+1 , 1 , 1 , 0.08333333333333333
+Change Type : change
+=====================================
+
+Example : 924
+@ java.lang.Override protected void syncSearch () { if ( ( getEntity () ) == null ) { return; } super . syncSearch ( VdcQueryType.GetVmTemplatesDisks , new org.ovirt.engine.core.common.queries.IdQueryParameters ( getEntityStronglyTyped () . getId () ) ) ; }
+@ java.lang.Override protected void syncSearch () { if ( ( getEntity () ) == null ) { return; } super . syncSearch ( VdcQueryType.GetVmTemplatesDisks , new org.ovirt.engine.core.common.queries.IdQueryParameters ( getEntity () . getId () ) ) ; }
+1 , 1 , 2 , 0.05714285714285714
+Change Type : change
+=====================================
+
+Example : 929
+private void stubDaos () { mockVmDynamic () ; mockVmStatic ( true ) ; mockVdsDao () ; }
+private void stubDaos () { mockVmStatic ( true ) ; mockVdsDao () ; }
+3 , 5 , 4 , 0.25
+Change Type : change
+=====================================
+
+Example : 935
+public int getMaxPciDevices ( int osId , org.ovirt.engine.core.compat.Version Version ) ;
+public int getMaxPciDevices ( int osId , org.ovirt.engine.core.compat.Version version ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : change
+=====================================
+
+Example : 939
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.network.Network n ) { return iface . getNetworkName () . equals ( n . getname () ) ; }
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.network.Network n ) { return iface . getNetworkName () . equals ( n . getName () ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : change
+=====================================
+
+Example : 941
+@ java.lang.Override public void onSuccess ( java.lang.Object model , java.lang.Object returnValue ) { defaultOSes = ( ( org.ovirt.engine.core.common.queries.VdcQueryReturnValue ) ( returnValue ) ) . getReturnValue () ; }
+@ java.lang.Override public void onSuccess ( org.ovirt.engine.core.common.queries.VdcQueryReturnValue returnValue ) { defaultOSes = returnValue . getReturnValue () ; }
+11 , 17 , 14 , 0.5172413793103449
+Change Type : change
+=====================================
+
+Example : 945
+public java.lang.Boolean getKvmEnabled () { return this . mVdsDynamic . getkvm_enabled () ; }
+public java.lang.Boolean getKvmEnabled () { return this . mVdsDynamic . getKvmEnabled () ; }
+1 , 1 , 2 , 0.21428571428571427
+Change Type : change
+=====================================
+
+Example : 960
+void setTooltipText ( java.lang.String tooltipText ) { tooltip . setText ( tooltipText ) ; tooltip . reconfigure () ; }
+void setTooltipText ( java.lang.String tooltipText ) { tooltip . setText ( tooltipText ) ; }
+5 , 7 , 5 , 0.23529411764705882
+Change Type : change
+=====================================
+
+Example : 975
+@ java.lang.Override public void cleanup () { driver . cleanup () ; }
+@ java.lang.Override public void cleanup () {}
+7 , 9 , 7 , 0.5833333333333334
+Change Type : change
+=====================================
+
+Example : 979
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.storage_domains domain ) { return ( domain . getstorage_domain_type () ) == ( org.ovirt.engine.core.common.businessentities.StorageDomainType.ISO ) ; }
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.StorageDomain domain ) { return ( domain . getstorage_domain_type () ) == ( org.ovirt.engine.core.common.businessentities.StorageDomainType.ISO ) ; }
+1 , 1 , 2 , 0.16666666666666666
+Change Type : change
+=====================================
+
+Example : 980
+public void showStatus ( java.lang.String status ) { if ( refreshManager . getModelTimer () . isActive () ) { setTitle ( status ) ; } }
+public void showStatus ( java.lang.String status ) { setTitle ( status ) ; }
+12 , 16 , 12 , 0.4782608695652174
+Change Type : change
+=====================================
+
+Example : 987
+private static org.ovirt.engine.core.common.businessentities.storage_pool createBasicPool () { org.ovirt.engine.core.common.businessentities.storage_pool pool = new org.ovirt.engine.core.common.businessentities.storage_pool () ; pool . setId ( org.ovirt.engine.core.compat.Guid . NewGuid () ) ; pool . setname ( STRING_CONSTANT ) ; return pool ; }
+private static org.ovirt.engine.core.common.businessentities.StoragePool createBasicPool () { org.ovirt.engine.core.common.businessentities.StoragePool pool = new org.ovirt.engine.core.common.businessentities.StoragePool () ; pool . setId ( org.ovirt.engine.core.compat.Guid . NewGuid () ) ; pool . setname ( STRING_CONSTANT ) ; return pool ; }
+3 , 3 , 6 , 0.3333333333333333
+Change Type : change
+=====================================
+
+Example : 988
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.network n ) { return iface . getNetworkName () . equals ( n . getname () ) ; }
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.Network n ) { return iface . getNetworkName () . equals ( n . getname () ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : change
+=====================================
+
+Example : 990
+@ org.junit.Test public void diskImagesAlreadyExistBothDoesntExist () { org.mockito.Mockito . doReturn ( null ) . when ( validator ) . getExistingDisk ( org.mockito.ArgumentMatchers . any ( org.ovirt.engine.core.compat.Guid . class ) ) ; org.junit.Assert . assertThat ( validator . diskImagesAlreadyExist () , org.ovirt.engine.core.bll.validator.ValidationResultMatchers . isValid () ) ; }
+@ org.junit.Test public void diskImagesAlreadyExistBothDoesntExist () { org.mockito.Mockito . doReturn ( null ) . when ( validator ) . getExistingDisk ( org.mockito.ArgumentMatchers . any () ) ; org.junit.Assert . assertThat ( validator . diskImagesAlreadyExist () , org.ovirt.engine.core.bll.validator.ValidationResultMatchers . isValid () ) ; }
+5 , 7 , 6 , 0.1590909090909091
+Change Type : change
+=====================================
+
+Example : 997
+@ java.lang.Override public java.util.Set < java.lang.String > getAllNetworkLabelsForDataCenter ( org.ovirt.engine.core.compat.Guid id ) { return new java.util.HashSet ( getCallsHandler () . executeReadList ( STRING_CONSTANT , new org.springframework.jdbc.core.SingleColumnRowMapper < java.lang.String > () , createIdParameterMapper ( id ) ) ) ; }
+@ java.lang.Override public java.util.Set < java.lang.String > getAllNetworkLabelsForDataCenter ( org.ovirt.engine.core.compat.Guid id ) { return new java.util.HashSet ( getCallsHandler () . executeReadList ( STRING_CONSTANT , new org.springframework.jdbc.core.SingleColumnRowMapper () , createIdParameterMapper ( id ) ) ) ; }
+3 , 5 , 4 , 0.08571428571428572
+Change Type : change
+=====================================
+
+Example : 1002
+@ org.junit.Test public void getClusterNameDefault () { final org.ovirt.engine.core.dal.dbbroker.auditloghandling.AuditLogableBase b = new org.ovirt.engine.core.dal.dbbroker.auditloghandling.AuditLogableBaseTest.TestAuditLogableBase () ; final java.lang.String n = b . getClusterName () ; org.junit.Assert . assertEquals ( STRING_CONSTANT , n ) ; }
+@ org.junit.Test public void getClusterNameDefault () { final java.lang.String n = b . getClusterName () ; org.junit.Assert . assertEquals ( STRING_CONSTANT , n ) ; }
+8 , 13 , 8 , 0.21875
+Change Type : change
+=====================================
+
+Example : 1009
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.Network network ) { return network . getId () . equals ( nc . getnetwork_id () ) ; }
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.network.Network network ) { return network . getId () . equals ( nc . getnetwork_id () ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : change
+=====================================
+
+Example : 1013
+protected void setVm ( final org.ovirt.engine.core.common.businessentities.VM value ) { vm = value ; }
+public void setVm ( final org.ovirt.engine.core.common.businessentities.VM value ) { vm = value ; }
+1 , 1 , 1 , 0.14285714285714285
+Change Type : change
+=====================================
+
+Example : 1017
+public void setParameters ( java.lang.String value ) { switch ( getVmPoolType () ) { case TimeLease : { initializeTimeLeasedDefaultData ( value ) ; break; } default: { parameters = value ; break; } } }
+public void setParameters ( java.lang.String value ) { parameters = value ; }
+22 , 29 , 23 , 0.6333333333333333
+Change Type : change
+=====================================
+
+Example : 1021
+@ java.lang.Override public void onSuccess ( java.lang.Object target , java.lang.Object returnValue ) { spmDefaultPriorityValue = ( ( java.lang.Integer ) ( returnValue ) ) ; updateSpmPriorityValues () ; updateSpmPriority () ; }
+@ java.lang.Override public void onSuccess ( java.lang.Integer returnValue ) { spmDefaultPriorityValue = returnValue ; updateSpmPriorityValues () ; updateSpmPriority () ; }
+11 , 17 , 14 , 0.4838709677419355
+Change Type : change
+=====================================
+
+Example : 1031
+@ java.lang.Override public org.ovirt.engine.core.common.businessentities.async_tasks get ( org.ovirt.engine.core.compat.Guid id ) { org.springframework.jdbc.core.namedparam.MapSqlParameterSource parameterSource = getCustomMapSqlParameterSource () . addValue ( STRING_CONSTANT , id ) ; org.ovirt.engine.core.dao.AsyncTaskDAODbFacadeImpl.AsyncTaskRowMapper mapper = new org.ovirt.engine.core.dao.AsyncTaskDAODbFacadeImpl.AsyncTaskRowMapper () ; return getCallsHandler () . executeRead ( STRING_CONSTANT , mapper , parameterSource ) ; }
+@ java.lang.Override public org.ovirt.engine.core.common.businessentities.async_tasks get ( org.ovirt.engine.core.compat.Guid id ) { org.springframework.jdbc.core.namedparam.MapSqlParameterSource parameterSource = getCustomMapSqlParameterSource () . addValue ( STRING_CONSTANT , id ) ; return getCallsHandler () . executeRead ( STRING_CONSTANT , org.ovirt.engine.core.dao.AsyncTaskDAODbFacadeImpl.AsyncTaskRowMapper.instance , parameterSource ) ; }
+8 , 13 , 9 , 0.275
+Change Type : change
+=====================================
+
+Example : 1033
+@ java.lang.Override public void onSuccess ( java.lang.Object returnValue ) { this . setItems ( ( ( java.util.List < P > ) ( ( ( org.ovirt.engine.core.common.queries.VdcQueryReturnValue ) ( returnValue ) ) . getReturnValue () ) ) ) ; }
+@ java.lang.Override public void onSuccess ( org.ovirt.engine.core.common.queries.VdcQueryReturnValue returnValue ) { setItems ( ( ( java.util.List < P > ) ( returnValue . getReturnValue () ) ) ) ; }
+10 , 14 , 13 , 0.30303030303030304
+Change Type : change
+=====================================
+
+Example : 1034
+@ java.lang.Override public void update ( int index , org.ovirt.engine.core.common.businessentities.StorageDomain storageDomain , java.lang.String value ) { transitionHandler . handlePlaceTransition () ; }
+@ java.lang.Override public void update ( int index , org.ovirt.engine.core.common.businessentities.StorageDomain storageDomain , java.lang.String value ) { transitionHandler . handlePlaceTransition ( true ) ; }
+3 , 3 , 4 , 0.24
+Change Type : change
+=====================================
+
+Example : 1038
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.network n ) { return n . getname () . equals ( bond . getName () ) ; }
+@ java.lang.Override public boolean eval ( org.ovirt.engine.core.common.businessentities.Network n ) { return n . getname () . equals ( bond . getName () ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : change
+=====================================
+
+Example : 1041
+private org.ovirt.vdsm.jsonrpc.client.reactors.ReactorClient getClient ( ) throws org.ovirt.vdsm.jsonrpc.client.ClientConnectionException { if ( this . client . isOpen () ) { return this . client ; } this . client . connect () ; return this . client ; }
+public org.ovirt.vdsm.jsonrpc.client.reactors.ReactorClient getClient ( ) throws org.ovirt.vdsm.jsonrpc.client.ClientConnectionException { if ( this . client . isOpen () ) { return this . client ; } this . client . connect () ; return this . client ; }
+1 , 1 , 1 , 0.07407407407407407
+Change Type : change
+=====================================
+
+Example : 1044
+private void createCommand () { cmd . init () ; org.mockito.Mockito . doReturn ( storagePoolDao ) . when ( cmd ) . getStoragePoolDao () ; org.mockito.Mockito . doReturn ( vdsDao ) . when ( cmd ) . getVdsDao () ; }
+private void createCommand () { cmd . init () ; org.mockito.Mockito . doReturn ( vdsDao ) . when ( cmd ) . getVdsDao () ; }
+15 , 19 , 15 , 0.14814814814814814
+Change Type : change
+=====================================
+
+Example : 1047
+public void rollbackQuotaByVmId ( org.ovirt.engine.core.compat.Guid vmId ) { org.ovirt.engine.core.common.businessentities.VM vm = org.ovirt.engine.core.dal.dbbroker.DbFacade . getInstance () . getVmDao () . get ( vmId ) ; if ( vm != null ) { removeQuotaFromCache ( vm . getstorage_pool_id () , vm . getQuotaId () ) ; } }
+public void rollbackQuotaByVmId ( org.ovirt.engine.core.compat.Guid vmId ) { org.ovirt.engine.core.common.businessentities.VM vm = org.ovirt.engine.core.dal.dbbroker.DbFacade . getInstance () . getVmDao () . get ( vmId ) ; if ( vm != null ) { removeQuotaFromCache ( vm . getStoragePoolId () , vm . getQuotaId () ) ; } }
+1 , 1 , 2 , 0.0975609756097561
+Change Type : change
+=====================================
+

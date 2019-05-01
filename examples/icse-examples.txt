@@ -1,0 +1,66 @@
+Example:1
+public void copyFrom ( java.lang.Object array ) { 
+	android.os.Trace . traceBegin ( RenderScript.TRACE_TAG , STRING_CONSTANT ) ; 
+	copyFromUnchecked ( array , validateObjectIsPrimitiveArray ( array , true ) , java.lang.reflect.Array . getLength ( array ) ) ; 
+	android.os.Trace . traceEnd ( RenderScript.TRACE_TAG ) ; 
+}
+-------------------------------------------------------------------------------------
+public void copyFrom ( java.lang.Object array ) { 
+	try { 
+		android.os.Trace . traceBegin ( RenderScript.TRACE_TAG , STRING_CONSTANT ) ; 			
+		copyFromUnchecked ( array , validateObjectIsPrimitiveArray ( array , true ) , java.lang.reflect.Array . getLength ( array ) ) ; 
+	} finally { 
+		android.os.Trace . traceEnd ( RenderScript.TRACE_TAG ) ; 
+	} 
+}
+=====================================================================================================================================================
+
+
+Example:2
+public void test_getOrDefault () { 
+	libcore.java.util.MapDefaultMethodTester . test_getOrDefault ( new java.util.HashMap <> () , true , true ) ; 
+}
+-------------------------------------------------------------------------------------
+public void test_getOrDefault () { 
+	libcore.java.util.MapDefaultMethodTester . test_getOrDefault ( new java.util.HashMap <> () , true , true , true ) ; 
+}
+=====================================================================================================================================================
+
+
+Example:3
+@ org.junit.Test public void testDataPathInitiatorMacTokenSuccess ( ) throws java.lang.Exception { 
+	testDataPathInitiatorUtility ( false , true , true , true ) ; 
+}
+-------------------------------------------------------------------------------------
+@ org.junit.Test public void testDataPathInitiatorMacTokenSuccess ( ) throws java.lang.Exception { 
+	testDataPathInitiatorUtility ( false , true , true , true , false ) ; 
+}
+=====================================================================================================================================================
+
+
+Example:
+public void testConstructor2NPE () { 
+	try { 
+		int [] a = null ; 
+		java.util.concurrent.atomic.AtomicIntegerArray aa = new java.util.concurrent.atomic.AtomicIntegerArray ( a ) ; 
+		shouldThrow () ; 
+	} catch ( java.lang.NullPointerException success ) {} 
+}
+
+-------------------------------------------------------------------------------------
+public void testConstructor2NPE () { 
+	try { 
+		int [] a = null ; 
+		new java.util.concurrent.atomic.AtomicIntegerArray ( a ) ; 
+		shouldThrow () ; 
+	} catch ( java.lang.NullPointerException success ) {} 
+}
+
+
+public void test_getInstance_provider1 ( ) throws java.lang.Exception { test_getInstance ( java.security.Security . getProviders () [ NUMBER_CONSTANT ] ) ; }
+-------------------------------------------------------------------------------------
+public void test_getInstance_provider1 ( ) throws java.lang.Exception { test_getInstance ( NUMBER_CONSTANT ) ; }
+
+
+
+

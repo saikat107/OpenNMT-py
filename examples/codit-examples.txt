@@ -1,0 +1,95 @@
+Example : 1
+
+Preconditions . checkNotNull ( predicate , STRING_CONSTANT ) ;
+-------------------------------------------------------------------------------------
+checkNotNull ( predicate , STRING_CONSTANT ) ;
+==========================================================================================
+
+Example : 2
+GuavaAsserts . assertEquals ( object . getClass () , copy . getClass () ) ;
+-------------------------------------------------------------------------------------
+Assert . assertEquals ( object . getClass () , copy . GetClass () ) ;
+==========================================================================================
+
+Example : 3
+{ interruptenator . shutdown () ; }
+-------------------------------------------------------------------------------------
+{ interruptenator . shutdown () ; Thread . interrupted () ; }
+==========================================================================================
+
+Example : 4
+final Callable < V > valueLoader
+-------------------------------------------------------------------------------------
+final Callable < ? extends V > valueLoader
+==========================================================================================
+
+Example : 5
+! parameterIsPrimitiveOrNullable ( func , indexOfParamToSetToNull )
+-------------------------------------------------------------------------------------
+! parameterIsPrimitiveOrNullable ( func , i )
+==========================================================================================
+
+Example : 6
+assertNotificationEnqueued ( map , key , value , hash ) ;
+-------------------------------------------------------------------------------------
+assertNotificationEnqueued ( map , key , value ) ;
+==========================================================================================
+
+Example : 7
+public String print ( ReadableInstant instant ) { 
+	return mPrinter . print ( instant ) ; 
+}
+-------------------------------------------------------------------------------------
+public String print ( final ReadableInstant instant ) { 
+	return mPrinter . print ( instant ) ; 
+}
+
+==========================================================================================
+
+Example : 8
+{ 
+	DateOnly instant = iInstant ; 
+	return ( DateOnly ) instant . toCopy ( iField . roundHalfEven ( instant . getMillis () ) ) ; 
+}
+-------------------------------------------------------------------------------------
+{ 
+	DateOnly instant = iInstant ; 
+	return ( DateOnly ) instant . withMillis ( iField . roundHalfEven ( instant . getMillis () ) ) ; 
+}
+==========================================================================================
+
+Example : 9
+{ 
+	return instant . toCopy ( addTo ( instant . getMillis () , scalar ) ) ; 
+}
+-------------------------------------------------------------------------------------
+{ 
+	return instant . withMillis ( addTo ( instant . getMillis () , scalar ) ) ; 
+}
+==========================================================================================
+
+Example : 10
+return ( DateTime ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+-------------------------------------------------------------------------------------
+return ( DateTime ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+==========================================================================================
+
+Example : 11
+return ( DateOnly ) instant . toCopy ( iField . set ( instant . getMillis () , value ) ) ;
+-------------------------------------------------------------------------------------
+return ( DateOnly ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
