@@ -17,8 +17,8 @@ BIGRAM_EDIT = 'BIGRAM_EDIT_DISTANCE'
 TYPE_OF_CHANGE = 'TYPE_OF_CHANGE'
 NORMALIZED_TREE_DISTANCE = 'NORMALIZED_TREE_DIST'
 
-dataname = 'icse'
-intended_class = 'only-s2s'
+dataname = 'codit'
+intended_class = 'only-t2t'
 
 if dataname == 'codit':
     complete_split_data_path = \
@@ -106,9 +106,10 @@ with open(draw_prev_token_file) as pcfile:
                 float(correct_data[idx][TREE_DISTANCE]) / count_number_of_nodes(correct_data[idx][PREV_TREE])
             # if correct_data[idx][BIGRAM_EDIT] == 0:
             #     print(pcs, '   ---->   ',  ccs)
+            print(idx)
             print(correct_data[idx][EDIT_DISTANCE], correct_data[idx][TREE_DISTANCE],
                   correct_data[idx][BIGRAM_EDIT], correct_data[idx][BIGRAM_JACCARD])
-            if key in all_keys:
+            if False: #key in all_keys:
                 continue
             else:
                 all_keys.append(key)

@@ -1,0 +1,5502 @@
+Example : 1
+ImmutableSet < Object > valueSet = ImmutableSet . of ( array ) ;
+ImmutableSet < Object > valueSet = ImmutableSet . copyOf ( array ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 2
+builder . put ( key , ImmutableList . of ( array ) ) ;
+builder . put ( key , ImmutableList . copyOf ( array ) ) ;
+1 , 1 , 2 , 0.26666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 91
+{ return new ListenableFutureTask < T > ( callable ) ; }
+{ return ListenableFutureTask . create ( callable ) ; }
+4 , 7 , 6 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 101
+public UncheckedExecutionException ( Exception cause ) { super ( cause ) ; }
+public UncheckedExecutionException ( Throwable cause ) { super ( cause ) ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 102
+public UncheckedExecutionException ( String message , Exception cause ) { super ( message , cause ) ; }
+public UncheckedExecutionException ( String message , Throwable cause ) { super ( message , cause ) ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 106
+final long timeout = TimeUnit.MINUTES . toNanos ( NUMBER_CONSTANT ) ;
+final long timeout = TimeUnit.SECONDS . toNanos ( NUMBER_CONSTANT ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 118
+int initialSize = cache . size () ;
+long initialSize = cache . size () ;
+1 , 1 , 1 , 0.25
+Change Type : Type-Change
+=====================================
+
+Example : 133
+GuavaAsserts . assertEquals ( object . getClass () , copy . getClass () ) ;
+Assert . assertEquals ( object . getClass () , copy . getClass () ) ;
+1 , 1 , 1 , 0.15384615384615385
+Change Type : Type-Change
+=====================================
+
+Example : 134
+{ interruptenator . shutdown () ; }
+{ interruptenator . shutdown () ; Thread . interrupted () ; }
+5 , 7 , 5 , 0.4
+Change Type : Statement-Add
+=====================================
+
+Example : 135
+{ interruptenator . shutdown () ; }
+{ interruptenator . shutdown () ; Thread . interrupted () ; }
+5 , 7 , 5 , 0.4
+Change Type : Statement-Add
+=====================================
+
+Example : 136
+{ interruptenator . shutdown () ; }
+{ interruptenator . shutdown () ; Thread . interrupted () ; }
+5 , 7 , 5 , 0.4
+Change Type : Statement-Add
+=====================================
+
+Example : 137
+{ interruptenator . shutdown () ; }
+{ interruptenator . shutdown () ; Thread . interrupted () ; }
+5 , 7 , 5 , 0.4
+Change Type : Statement-Add
+=====================================
+
+Example : 144
+final Callable < V > valueLoader
+final Callable < ? extends V > valueLoader
+2 , 3 , 3 , 0.5
+Change Type : Generics-Change-add
+=====================================
+
+Example : 147
+! parameterIsPrimitiveOrNullable ( func , indexOfParamToSetToNull )
+! parameterIsPrimitiveOrNullable ( func , i )
+1 , 1 , 2 , 0.5
+Change Type : Method-Param-Change
+=====================================
+
+Example : 150
+public void funnel ( CharSequence from , Sink into ) { into . putString ( from ) ; }
+public void funnel ( CharSequence from , PrimitiveSink into ) { into . putString ( from ) ; }
+1 , 1 , 2 , 0.2
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 164
+assertNotificationEnqueued ( map , key , value , hash ) ;
+assertNotificationEnqueued ( map , key , value ) ;
+2 , 2 , 3 , 0.36363636363636365
+Change Type : Method-Param-Remove
+=====================================
+
+Example : 165
+@ Override @ Nullable public V getIfPresent ( K key ) { return localCache . get ( key ) ; }
+@ Override @ Nullable public V getIfPresent ( Object key ) { return localCache . get ( key ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 167
+K key
+Object key
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 168
+@ Override public Integer getIfPresent ( Integer key ) { throw new UnsupportedOperationException () ; }
+@ Override public Integer getIfPresent ( Object key ) { throw new UnsupportedOperationException () ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 170
+K key
+Object key
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 239
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.SUNG_BY , ComparisonFilterPipe.Filter.EQUALS ) ;
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.SUNG_BY , ComparisonFilterPipe.Filter.NOT_EQUAL ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 240
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.SUNG_BY , ComparisonFilterPipe.Filter.EQUALS ) ;
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.SUNG_BY , ComparisonFilterPipe.Filter.NOT_EQUAL ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Method-Param-Change
+=====================================
+
+Example : 241
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.WRITTEN_BY , ComparisonFilterPipe.Filter.EQUALS ) ;
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.WRITTEN_BY , ComparisonFilterPipe.Filter.NOT_EQUAL ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 243
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.FOLLOWED_BY , ComparisonFilterPipe.Filter.EQUALS ) ;
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.FOLLOWED_BY , ComparisonFilterPipe.Filter.NOT_EQUAL ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 244
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.FOLLOWED_BY , ComparisonFilterPipe.Filter.EQUALS ) ;
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.FOLLOWED_BY , ComparisonFilterPipe.Filter.NOT_EQUAL ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Method-Param-Change
+=====================================
+
+Example : 245
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.WRITTEN_BY , ComparisonFilterPipe.Filter.EQUALS ) ;
+Pipe pipe2 = new LabelFilterPipe ( GratefulDeadTokens.WRITTEN_BY , ComparisonFilterPipe.Filter.NOT_EQUAL ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Method-Param-Change
+=====================================
+
+Example : 291
+int value
+long value
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 294
+ReadableInstant instant
+DateTime instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 295
+public int get ( long millis ) { return BuddhistChronology.BE ; }
+public int get ( long instant ) { return BuddhistChronology.BE ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 305
+public AbstractInstant () { super(); }
+protected AbstractInstant () { super(); }
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Access- Type-Change
+=====================================
+
+Example : 306
+catch ( ParseException pe ) { pe . printStackTrace () ; }
+catch ( IllegalArgumentException pe ) { pe . printStackTrace () ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Catched- Throw-Statement-Change
+=====================================
+
+Example : 309
+int value
+long value
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 312
+int value
+long value
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 314
+public String print ( long millisUTC ) { throw unsupported () ; }
+public String print ( final long instant ) { throw unsupported () ; }
+2 , 2 , 4 , 0.4375
+Change Type : Final-Keyword-Add-param
+=====================================
+
+Example : 316
+public String print ( ReadableInstant instant ) { return mPrinter . print ( instant ) ; }
+public String print ( final ReadableInstant instant ) { return mPrinter . print ( instant ) ; }
+1 , 1 , 2 , 0.1875
+Change Type : Final-Keyword-Add-param
+=====================================
+
+Example : 324
+iDurationConverters = new ConverterSet ( new Converter [] { ReadableDurationConverter.INSTANCE , LongConverter.INSTANCE , } ) ;
+iDurationConverters = new ConverterSet ( new Converter [] { ReadableDurationConverter.INSTANCE , StringConverter.INSTANCE , LongConverter.INSTANCE , } ) ;
+2 , 2 , 2 , 0.11764705882352941
+Change Type : Method-Param-Add
+=====================================
+
+Example : 328
+public int getMinimumValue ( ) ;
+int getMinimumValue ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 372
+return ( DateTime ) instant . toCopy ( iField . set ( instant . getMillis () , value ) ) ;
+return ( DateTime ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 374
+return ( DateTime ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+return ( DateTime ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 375
+return ( DateTime ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+return ( DateTime ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Api-Change
+=====================================
+
+Example : 376
+{ return instant . toCopy ( addTo ( instant . getMillis () , scalar ) ) ; }
+{ return instant . withMillis ( addTo ( instant . getMillis () , scalar ) ) ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : API-Change
+=====================================
+
+Example : 377
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 378
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 379
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 380
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundCeiling ( instant . getMillis () ) ) ; }
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundCeiling ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 381
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundFloor ( instant . getMillis () ) ) ; }
+{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundFloor ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 382
+return ( DateOnly ) instant . toCopy ( iField . set ( instant . getMillis () , value ) ) ;
+return ( DateOnly ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 383
+return ( DateOnly ) instant . toCopy ( iField . addWrapped ( instant . getMillis () , value ) ) ;
+return ( DateOnly ) instant . withMillis ( iField . addWrapped ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 384
+return ( DateOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+return ( DateOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 385
+return ( DateOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+return ( DateOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Api-Change
+=====================================
+
+Example : 386
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 387
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 388
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 389
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundCeiling ( instant . getMillis () ) ) ; }
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundCeiling ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 390
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundFloor ( instant . getMillis () ) ) ; }
+{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundFloor ( instant . getMillis () ) ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 391
+return ( TimeOnly ) instant . toCopy ( iField . set ( instant . getMillis () , value ) ) ;
+return ( TimeOnly ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 392
+return ( TimeOnly ) instant . toCopy ( iField . addWrapped ( instant . getMillis () , value ) ) ;
+return ( TimeOnly ) instant . withMillis ( iField . addWrapped ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 393
+return ( TimeOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+return ( TimeOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 394
+return ( TimeOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
+return ( TimeOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Api-Change
+=====================================
+
+Example : 407
+{ return DurationType . getAverageYearMonthType () ; }
+{ return DurationType . getMillisType () ; }
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 415
+getDateTimeZone () == DateTimeZone.UTC
+getZone () == DateTimeZone.UTC
+1 , 1 , 1 , 0.5
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 416
+if ( ! UTC . equals ( provider . getDateTimeZone ( STRING_CONSTANT ) ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+if ( ! UTC . equals ( provider . getZone ( STRING_CONSTANT ) ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : API-Change
+=====================================
+
+Example : 417
+DateTimeZone zone = cProvider . getDateTimeZone ( id ) ;
+DateTimeZone zone = cProvider . getZone ( id ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 418
+DateTimeZone getDateTimeZone ( ) ;
+DateTimeZone getZone ( ) ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Method-Name-Change
+=====================================
+
+Example : 419
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 420
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change
+=====================================
+
+Example : 423
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change
+=====================================
+
+Example : 426
+if ( this instanceof DateTime && getDateTimeZone () == zone ) { return ( DateTime ) this ; }
+if ( this instanceof DateTime && getZone () == zone ) { return ( DateTime ) this ; }
+1 , 1 , 2 , 0.2
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 429
+public Chronology withUTC () { return withDateTimeZone ( DateTimeZone.UTC ) ; }
+public Chronology withUTC () { return withZone ( DateTimeZone.UTC ) ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 430
+getDateTimeZone () == DateTimeZone.UTC
+getZone () == DateTimeZone.UTC
+1 , 1 , 1 , 0.5
+Change Type : Method-Call-Change
+=====================================
+
+Example : 433
+assertSame ( zone , BuddhistChronology . getInstance ( zone ) . getDateTimeZone () ) ;
+assertSame ( zone , BuddhistChronology . getInstance ( zone ) . getZone () ) ;
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 435
+public DateTimeZone getDateTimeZone () { return null ; }
+public DateTimeZone getZone () { return null ; }
+1 , 1 , 2 , 0.4
+Change Type : Method-Name-Change
+=====================================
+
+Example : 436
+assertEquals ( msg + STRING_CONSTANT , z , dt . getDateTimeZone () ) ;
+assertEquals ( msg + STRING_CONSTANT , z , dt . getZone () ) ;
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 438
+getBase () . getDateTimeZone () == DateTimeZone.UTC
+getBase () . getZone () == DateTimeZone.UTC
+1 , 1 , 2 , 0.5
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 439
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change
+=====================================
+
+Example : 440
+if ( chrono != null && chrono . getDateTimeZone () == zone ) { return chrono ; }
+if ( chrono != null && chrono . getZone () == zone ) { return chrono ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 441
+return chrono . withDateTimeZone ( DateTimeZone . getDefault () ) ;
+return chrono . withZone ( DateTimeZone . getDefault () ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 442
+if ( chrono == null ) { zone = DateTimeZone . getDefault () ; } else { zone = chrono . getDateTimeZone () ; }
+if ( chrono == null ) { zone = DateTimeZone . getDefault () ; } else { zone = chrono . getZone () ; }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : API-Change
+=====================================
+
+Example : 443
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change
+=====================================
+
+Example : 444
+DateTimeZone getDateTimeZone ( ) ;
+DateTimeZone getZone ( ) ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : <pre>Method-Name-Change[D[D[D[D
+=====================================
+
+Example : 445
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change
+=====================================
+
+Example : 447
+if ( zone == null ) { zone = getDateTimeZone () ; }
+if ( zone == null ) { zone = getZone () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 448
+if ( zone == null ) { zone = getDateTimeZone () ; }
+if ( zone == null ) { zone = getZone () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Method-Call-Change
+=====================================
+
+Example : 449
+if ( zone == null ) { zone = getDateTimeZone () ; }
+if ( zone == null ) { zone = getZone () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Method-Call-Change
+=====================================
+
+Example : 450
+DateTimeZone zone = chrono . getDateTimeZone () ;
+DateTimeZone zone = chrono . getZone () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 451
+DateTimeZone baseZone = base . getDateTimeZone () ;
+DateTimeZone baseZone = base . getZone () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 453
+DateTimeZone zone = chronology . getDateTimeZone () ;
+DateTimeZone zone = chronology . getZone () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 454
+DateTimeZone zone = original . getDateTimeZone () ;
+DateTimeZone zone = original . getZone () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 455
+public Chronology withUTC () { return withDateTimeZone ( DateTimeZone.UTC ) ; }
+public Chronology withUTC () { return withZone ( DateTimeZone.UTC ) ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method-Call-Change
+=====================================
+
+Example : 456
+DateTimeZone zone = instant . getDateTimeZone () ;
+DateTimeZone zone = instant . getZone () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 457
+DateTimeZone zone = chrono . getDateTimeZone () ;
+DateTimeZone zone = chrono . getZone () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : Method-Call-Change
+=====================================
+
+Example : 458
+if ( zone == null ) { zone = getDateTimeZone () ; }
+if ( zone == null ) { zone = getZone () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Method-Call-Change
+=====================================
+
+Example : 459
+{ return print ( millisUTC , chrono . getDateTimeZone () ) ; }
+{ return print ( millisUTC , chrono . getZone () ) ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 460
+if ( zone == null ) { zone = getDateTimeZone () ; }
+if ( zone == null ) { zone = getZone () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Method-Call-Change
+=====================================
+
+Example : 461
+if ( zone == null ) { zone = getDateTimeZone () ; }
+if ( zone == null ) { zone = getZone () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Method-Call-Change
+=====================================
+
+Example : 462
+{ printTo ( out , millisUTC , chrono . getDateTimeZone () ) ; }
+{ printTo ( out , millisUTC , chrono . getZone () ) ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 463
+{ printTo ( buf , millisUTC , chrono . getDateTimeZone () ) ; }
+{ printTo ( buf , millisUTC , chrono . getZone () ) ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 464
+getDateTimeZone ()
+getZone ()
+1 , 1 , 1 , 1.0
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 466
+DateTimeZone zone = getDateTimeZone () ;
+DateTimeZone zone = getZone () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Call-Change
+=====================================
+
+Example : 469
+if ( sm != null ) { sm . checkPermission ( new DateTimeZonePermission ( STRING_CONSTANT ) ) ; }
+if ( sm != null ) { sm . checkPermission ( new JodaTimePermission ( STRING_CONSTANT ) ) ; }
+1 , 1 , 2 , 0.2
+Change Type : Method- Method-Param-Change-object-init
+=====================================
+
+Example : 470
+if ( sm != null ) { sm . checkPermission ( new DateTimeZonePermission ( STRING_CONSTANT ) ) ; }
+if ( sm != null ) { sm . checkPermission ( new JodaTimePermission ( STRING_CONSTANT ) ) ; }
+1 , 1 , 2 , 0.2
+Change Type : Method-Param-Change
+=====================================
+
+Example : 471
+if ( sm != null ) { sm . checkPermission ( new DateTimeZonePermission ( STRING_CONSTANT ) ) ; }
+if ( sm != null ) { sm . checkPermission ( new JodaTimePermission ( STRING_CONSTANT ) ) ; }
+1 , 1 , 2 , 0.2
+Change Type : Method-Param-Change
+=====================================
+
+Example : 482
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 484
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 486
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 487
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 488
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 489
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 490
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 491
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 492
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 493
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 495
+{ return getField () . getMaximumValue ( getPartialInstant () ) ; }
+{ return getField () . getMaximumValue ( getReadablePartial () ) ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 496
+{ return getField () . getMinimumValue ( getPartialInstant () ) ; }
+{ return getField () . getMinimumValue ( getReadablePartial () ) ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 497
+{ return getField () . getAsShortText ( getPartialInstant () , get () , locale ) ; }
+{ return getField () . getAsShortText ( getReadablePartial () , get () , locale ) ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 498
+{ return getField () . getAsText ( getPartialInstant () , get () , locale ) ; }
+{ return getField () . getAsText ( getReadablePartial () , get () , locale ) ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 499
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 500
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 501
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 502
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 503
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 504
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 505
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 506
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 507
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 508
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 509
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 510
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 511
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 512
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 513
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 514
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 515
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 516
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 517
+public int getMaximumValue ( PartialInstant instant ) { throw unsupported () ; }
+public int getMaximumValue ( ReadablePartial instant ) { throw unsupported () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 518
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 519
+public int getMinimumValue ( PartialInstant instant ) { throw unsupported () ; }
+public int getMinimumValue ( ReadablePartial instant ) { throw unsupported () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 520
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 521
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 522
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 523
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 524
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 525
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 535
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 536
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 537
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 538
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 539
+public int getMinimumValue ( PartialInstant instant ) { return NUMBER_CONSTANT ; }
+public int getMinimumValue ( ReadablePartial instant ) { return NUMBER_CONSTANT ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 540
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 541
+void validate ( PartialInstant instant ) ;
+void validate ( ReadablePartial instant ) ;
+1 , 1 , 2 , 0.5
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 543
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 544
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 552
+public int getMaximumValue ( PartialInstant instant , int [] values ) { return iField . getMaximumValue ( instant , values ) ; }
+public int getMaximumValue ( ReadablePartial instant , int [] values ) { return iField . getMaximumValue ( instant , values ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 553
+public int getMaximumValue ( PartialInstant instant ) { return iField . getMaximumValue ( instant ) ; }
+public int getMaximumValue ( ReadablePartial instant ) { return iField . getMaximumValue ( instant ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 554
+public int getMinimumValue ( PartialInstant instant , int [] values ) { return iField . getMinimumValue ( instant , values ) ; }
+public int getMinimumValue ( ReadablePartial instant , int [] values ) { return iField . getMinimumValue ( instant , values ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 555
+public int getMinimumValue ( PartialInstant instant ) { return iField . getMinimumValue ( instant ) ; }
+public int getMinimumValue ( ReadablePartial instant ) { return iField . getMinimumValue ( instant ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 556
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 557
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 558
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 559
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 561
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 563
+PartialInstant partial
+ReadablePartial partial
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 564
+PartialInstant instant
+ReadablePartial instant
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 568
+assertEquals ( SparseMatrix . print1DArray ( dm ) , STRING_CONSTANT ) ;
+assertEquals ( ArrayUtils . print1DArray ( dm ) , STRING_CONSTANT ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : API-Change
+=====================================
+
+Example : 574
+int [] coordinates
+int . . . coordinates
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 575
+int [] coordinates
+int . . . coordinates
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 628
+void setActiveTheme ( Theme theme ) ;
+void setActiveTheme ( ITheme theme ) ;
+1 , 1 , 2 , 0.5
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 634
+@ Nullable AbstractLink button
+AbstractLink button
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 651
+final String unit = abbrev ( meter . scaleUnit () ) ;
+final String unit = abbrev ( meter . rateUnit () ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : API-Change
+=====================================
+
+Example : 676
+Throwable throwables [] = this . getThrowables () ;
+Throwable [] throwables = this . getThrowables () ;
+2 , 3 , 3 , 0.5454545454545454
+Change Type : Refactor
+=====================================
+
+Example : 710
+catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getCause () instanceof IllegalArgumentException ) ; }
+catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getException () instanceof IllegalArgumentException ) ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : API-Change
+=====================================
+
+Example : 711
+catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getCause () instanceof IllegalArgumentException ) ; }
+catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getException () instanceof IllegalArgumentException ) ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : Misc
+=====================================
+
+Example : 712
+catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getCause () instanceof IllegalArgumentException ) ; }
+catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getException () instanceof IllegalArgumentException ) ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : Misc
+=====================================
+
+Example : 715
+{ if ( member == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; } return Modifier . isStatic ( member . getModifiers () ) ; }
+{ if ( member == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; } return Modifier . isPublic ( member . getModifiers () ) ; }
+1 , 1 , 2 , 0.15384615384615385
+Change Type : API-Change
+=====================================
+
+Example : 717
+! ReflectionUtils . isCompatable ( parameterTypes [ n ] , methodsParams [ n ] )
+! ReflectionUtils . isCompatible ( parameterTypes [ n ] , methodsParams [ n ] )
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 718
+methods [ i ] . getName () . equals ( methodName ) && ReflectionUtils . isCompatable ( paramTypes , methods [ i ] . getParameterTypes () )
+methods [ i ] . getName () . equals ( methodName ) && ReflectionUtils . isCompatible ( paramTypes , methods [ i ] . getParameterTypes () )
+1 , 1 , 2 , 0.16666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 730
+this . clss = clss ;
+this . clss = listener ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Object-reference-Change
+=====================================
+
+Example : 744
+Entry entry = ( Entry ) cEnumClasses . get ( Enum . getEnumClassName ( getClass () ) ) ;
+Entry entry = ( Entry ) cEnumClasses . get ( Enum . getEnumClass ( getClass () ) ) ;
+1 , 1 , 2 , 0.2
+Change Type : API-Change
+=====================================
+
+Example : 748
+ArrayUtils . reverseArray ( strs ) ;
+ArrayUtils . reverse ( strs ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 761
+assertTrue ( ToStringBuilder . getReflectionRegistry () . isEmpty () ) ;
+assertTrue ( ReflectionToStringBuilder . getRegistry () . isEmpty () ) ;
+2 , 2 , 4 , 0.5714285714285714
+Change Type : API-Change
+=====================================
+
+Example : 790
+assertEquals ( false , StringUtils . isNotEmptyTrimmed ( null ) ) ;
+assertEquals ( true , StringUtils . isNotEmptyTrimmed ( null ) ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method- Method-Param-Change
+=====================================
+
+Example : 791
+assertEquals ( true , StringUtils . isEmptyTrimmed ( null ) ) ;
+assertEquals ( false , StringUtils . isEmptyTrimmed ( null ) ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method- Method-Param-Change
+=====================================
+
+Example : 792
+assertEquals ( false , StringUtils . isNotEmpty ( null ) ) ;
+assertEquals ( true , StringUtils . isNotEmpty ( null ) ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method- Method-Param-Change
+=====================================
+
+Example : 795
+Field . setAccessible ( fields , true ) ;
+AccessibleObject . setAccessible ( fields , true ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : API-Change
+=====================================
+
+Example : 796
+try { SerializationUtils . deserialize ( ( byte [] ) null ) ; } catch ( NullPointerException ex ) { return; }
+try { SerializationUtils . deserialize ( ( byte [] ) null ) ; } catch ( IllegalArgumentException ex ) { return; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Catched- Throw-Statement-Change
+=====================================
+
+Example : 800
+if ( StringUtils . isEmptyOrNull ( className ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+if ( StringUtils . isEmpty ( className ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 801
+if ( StringUtils . isEmptyOrNull ( className ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+if ( StringUtils . isEmpty ( className ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : Api-Change
+=====================================
+
+Example : 802
+if ( StringUtils . isEmptyOrNull ( name ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+if ( StringUtils . isEmpty ( name ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 803
+if ( StringUtils . isEmptyOrNull ( className ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+if ( StringUtils . isEmpty ( className ) ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : Api-Change
+=====================================
+
+Example : 804
+Field . setAccessible ( fields , true ) ;
+AccessibleObject . setAccessible ( fields , true ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Type-Change
+=====================================
+
+Example : 805
+Field . setAccessible ( fields , true ) ;
+AccessibleObject . setAccessible ( fields , true ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Type-Change
+=====================================
+
+Example : 806
+Field . setAccessible ( fields , true ) ;
+AccessibleObject . setAccessible ( fields , true ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Type-Change
+=====================================
+
+Example : 808
+{ try { RandomUtils.JVM_RANDOM . setSeed ( NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( UnsupportedOperationException ex ) { ; } }
+{ try { RandomUtils.JVM_RANDOM . setSeed ( NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( UnsupportedOperationException ex ) {} }
+3 , 3 , 4 , 0.20833333333333334
+Change Type : Refactoring
+=====================================
+
+Example : 809
+catch ( NumberFormatException ex ) { ; }
+catch ( NumberFormatException ex ) {}
+3 , 3 , 3 , 0.5
+Change Type : Refactoring
+=====================================
+
+Example : 810
+catch ( NumberFormatException ex ) { ; }
+catch ( NumberFormatException ex ) {}
+3 , 3 , 3 , 0.5
+Change Type : Refactoring
+=====================================
+
+Example : 811
+catch ( NumberFormatException ex ) { ; }
+catch ( NumberFormatException ex ) {}
+3 , 3 , 3 , 0.5
+Change Type : Refactoring
+=====================================
+
+Example : 812
+catch ( NumberFormatException ex ) { ; }
+catch ( NumberFormatException ex ) {}
+3 , 3 , 3 , 0.5
+Change Type : Refactoring
+=====================================
+
+Example : 813
+catch ( NumberFormatException ex ) { ; }
+catch ( NumberFormatException ex ) {}
+3 , 3 , 3 , 0.5
+Change Type : Refactoring
+=====================================
+
+Example : 814
+catch ( NumberFormatException ex ) { ; }
+catch ( NumberFormatException ex ) {}
+3 , 3 , 3 , 0.5
+Change Type : Refactoring
+=====================================
+
+Example : 815
+{ if ( comparison != NUMBER_CONSTANT ) { return this ; } comparison = superHashCode ; return this ; }
+{ if ( comparison != NUMBER_CONSTANT ) { return this ; } comparison = superCompareTo ; return this ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : Object-reference-Change
+=====================================
+
+Example : 836
+if ( out == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( out == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 837
+if ( out == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( out == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 840
+if ( writer == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( writer == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 841
+if ( stream == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( stream == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 842
+if ( objectData == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( objectData == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 843
+if ( inputStream == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( inputStream == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 844
+if ( outputStream == null ) { throw new NullArgumentException ( STRING_CONSTANT ) ; }
+if ( outputStream == null ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.25
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 850
+text = DateFormatUtils.ISO_DATETIME_TIMEZONE_FORMAT . format ( cal ) ;
+text = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT . format ( cal ) ;
+1 , 1 , 2 , 0.4
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 874
+int gcd = greatestCommonDenominator ( Math . abs ( numerator ) , denominator ) ;
+int gcd = greatestCommonDivisor ( Math . abs ( numerator ) , denominator ) ;
+1 , 1 , 2 , 0.25
+Change Type : Method-Call-Change
+=====================================
+
+Example : 875
+int gcd = greatestCommonDenominator ( Math . abs ( numerator ) , denominator ) ;
+int gcd = greatestCommonDivisor ( Math . abs ( numerator ) , denominator ) ;
+1 , 1 , 2 , 0.25
+Change Type : Method-Call-Change
+=====================================
+
+Example : 878
+int at = differenceAt ( str1 , str2 ) ;
+int at = indexOfDifference ( str1 , str2 ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : Method-Call-Change
+=====================================
+
+Example : 880
+if ( insertAt > NUMBER_CONSTANT ) return;
+if ( insertAt > NUMBER_CONSTANT ) { return; }
+2 , 3 , 3 , 0.4444444444444444
+Change Type : Refactor
+=====================================
+
+Example : 897
+if ( isASCIINumeric ( ch ) == false ) { throw new IllegalArgumentException ( STRING_CONSTANT + ch + STRING_CONSTANT ) ; }
+if ( isAsciiNumeric ( ch ) == false ) { throw new IllegalArgumentException ( STRING_CONSTANT + ch + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Method-Name-Change
+=====================================
+
+Example : 917
+final short holder
+short holder
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 920
+final short holder
+short holder
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-remove
+=====================================
+
+Example : 924
+final short holder
+short holder
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-remove
+=====================================
+
+Example : 926
+final short holder
+short holder
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-remove
+=====================================
+
+Example : 938
+final Object [] array
+Object [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 942
+final Float [] array
+Float [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 944
+final Double [] array
+Double [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 946
+final Byte [] array
+Byte [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 950
+final Integer [] array
+Integer [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 952
+final Long [] array
+Long [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 961
+final Object [] array
+Object [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 971
+final Object [] array
+Object [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 972
+final Object [] array
+Object [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 986
+public Class getThrowableClass () { return Exception . class ; }
+public Class getThrowableClass () { return EOFException . class ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 987
+{ return new Exception ( msg ) ; }
+{ return new EOFException ( msg ) ; }
+1 , 1 , 2 , 0.4
+Change Type : API-Change
+=====================================
+
+Example : 988
+public Class getThrowableClass () { return Error . class ; }
+public Class getThrowableClass () { return EOFException . class ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Value-Change
+=====================================
+
+Example : 989
+{ return new Error ( msg ) ; }
+{ return new EOFException ( msg ) ; }
+1 , 1 , 2 , 0.4
+Change Type : API-Change
+=====================================
+
+Example : 991
+{ return new RuntimeException ( msg ) ; }
+{ return new EOFException ( msg ) ; }
+1 , 1 , 2 , 0.4
+Change Type : API-Change
+=====================================
+
+Example : 1015
+public int previousIndex () { return ( tokenPos - NUMBER_CONSTANT ) ; }
+public int previousIndex () { return tokenPos - NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Refactor
+=====================================
+
+Example : 1016
+public boolean hasPrevious () { tokenize () ; return ( tokenPos > NUMBER_CONSTANT ) ; }
+public boolean hasPrevious () { tokenize () ; return tokenPos > NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Refactor
+=====================================
+
+Example : 1020
+return ( min == range.min && max == range.max ) ;
+return min == range.min && max == range.max ;
+2 , 3 , 4 , 0.5
+Change Type : Refactor
+=====================================
+
+Example : 1023
+return ( min == range.min && max == range.max ) ;
+return min == range.min && max == range.max ;
+2 , 3 , 4 , 0.5
+Change Type : Brackting
+=====================================
+
+Example : 1028
+return ( date1 . getTime () == date2 . getTime () ) ;
+return date1 . getTime () == date2 . getTime () ;
+2 , 3 , 4 , 0.5
+Change Type : Refactor
+=====================================
+
+Example : 1047
+{ if ( isAsciiNumeric ( ch ) == false ) { return defaultValue ; } return ( ch - NUMBER_CONSTANT ) ; }
+{ if ( isAsciiNumeric ( ch ) == false ) { return defaultValue ; } return ch - NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.22727272727272727
+Change Type : Refactor
+=====================================
+
+Example : 1054
+return ( compareMin <= NUMBER_CONSTANT && compareMax >= NUMBER_CONSTANT ) ;
+return compareMin <= NUMBER_CONSTANT && compareMax >= NUMBER_CONSTANT ;
+2 , 3 , 4 , 0.5
+Change Type : Refactor
+=====================================
+
+Example : 1055
+return ( compareMin <= NUMBER_CONSTANT && compareMax >= NUMBER_CONSTANT ) ;
+return compareMin <= NUMBER_CONSTANT && compareMax >= NUMBER_CONSTANT ;
+2 , 3 , 4 , 0.5
+Change Type : Brackting
+=====================================
+
+Example : 1056
+public static boolean isThrowableNested () { return ( THROWABLE_CAUSE_METHOD != null ) ; }
+public static boolean isThrowableNested () { return THROWABLE_CAUSE_METHOD != null ; }
+2 , 3 , 4 , 0.4
+Change Type : Refactor
+=====================================
+
+Example : 1076
+{ return ( JAVA_VERSION_INT >= requiredVersion ) ; }
+{ return JAVA_VERSION_INT >= requiredVersion ; }
+2 , 3 , 4 , 0.6
+Change Type : Refactor
+=====================================
+
+Example : 1077
+{ return ( JAVA_VERSION_FLOAT >= requiredVersion ) ; }
+{ return JAVA_VERSION_FLOAT >= requiredVersion ; }
+2 , 3 , 4 , 0.6
+Change Type : Refactor
+=====================================
+
+Example : 1078
+return ( compareMin <= NUMBER_CONSTANT && compareMax >= NUMBER_CONSTANT ) ;
+return compareMin <= NUMBER_CONSTANT && compareMax >= NUMBER_CONSTANT ;
+2 , 3 , 4 , 0.5
+Change Type : Brackting
+=====================================
+
+Example : 1080
+return ( set . equals ( other.set ) ) ;
+return set . equals ( other.set ) ;
+2 , 3 , 3 , 0.4
+Change Type : Refactor
+=====================================
+
+Example : 1102
+public RandomStringUtils () { ; }
+public RandomStringUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1103
+public StringEscapeUtils () { ; }
+public StringEscapeUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1104
+public WordUtils () { ; }
+public WordUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1105
+public CharSetUtils () { ; }
+public CharSetUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1106
+public CharUtils () { ; }
+public CharUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1107
+public NumberUtils () { ; }
+public NumberUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1108
+public EnumUtils () { ; }
+public EnumUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1109
+public ObjectUtils () { ; }
+public ObjectUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1110
+public BooleanUtils () { ; }
+public BooleanUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1111
+public ArrayUtils () { ; }
+public ArrayUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1112
+public ClassUtils () { ; }
+public ClassUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1120
+{ try { if ( in != null ) { in . close () ; } } catch ( IOException ex ) { ; } }
+{ try { if ( in != null ) { in . close () ; } } catch ( IOException ex ) {} }
+3 , 3 , 4 , 0.125
+Change Type : Refactor
+=====================================
+
+Example : 1121
+{ try { if ( out != null ) { out . close () ; } } catch ( IOException ex ) { ; } }
+{ try { if ( out != null ) { out . close () ; } } catch ( IOException ex ) {} }
+3 , 3 , 4 , 0.125
+Change Type : Refactor
+=====================================
+
+Example : 1122
+public DateFormatUtils () { ; }
+public DateFormatUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1123
+Null () { ; }
+Null () { super(); }
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1124
+public DateUtils () { ; }
+public DateUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1125
+TwoDigitMonthField () { ; }
+TwoDigitMonthField () { super(); }
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1126
+TwoDigitYearField () { ; }
+TwoDigitYearField () { super(); }
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1127
+UnpaddedMonthField () { ; }
+UnpaddedMonthField () { super(); }
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1128
+public ExceptionUtils () { ; }
+public ExceptionUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add-Add
+=====================================
+
+Example : 1129
+public NumberUtils () { ; }
+public NumberUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add
+=====================================
+
+Example : 1130
+public EnumUtils () { ; }
+public EnumUtils () { super(); }
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Super-Call-Add
+=====================================
+
+Example : 1157
+char [] thisBuf = buf ;
+char [] thisBuf = buffer ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Value-Change
+=====================================
+
+Example : 1158
+char [] thisBuf = buf ;
+char [] thisBuf = buffer ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Value-Change
+=====================================
+
+Example : 1159
+char [] thisBuf = buf ;
+char [] thisBuf = buffer ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Value-Change
+=====================================
+
+Example : 1161
+{ if ( buf [ pos ] != str . charAt ( i ) ) { return false ; } }
+{ if ( buffer [ pos ] != str . charAt ( i ) ) { return false ; } }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : Value-Change
+=====================================
+
+Example : 1162
+{ if ( buf [ i ] != str . charAt ( i ) ) { return false ; } }
+{ if ( buffer [ i ] != str . charAt ( i ) ) { return false ; } }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : Value-Change
+=====================================
+
+Example : 1182
+try { sb . setLength ( - NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( StringIndexOutOfBoundsException e ) {}
+try { sb . setLength ( - NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( IndexOutOfBoundsException e ) {}
+1 , 1 , 2 , 0.18181818181818182
+Change Type : Catched- Throw-Statement-Change
+=====================================
+
+Example : 1183
+try { sb . setLength ( - NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( StringIndexOutOfBoundsException e ) {}
+try { sb . setLength ( - NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( IndexOutOfBoundsException e ) {}
+1 , 1 , 2 , 0.18181818181818182
+Change Type : Catch-Exception-Change
+=====================================
+
+Example : 1184
+try { sb . deleteCharAt ( NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( StringIndexOutOfBoundsException e ) {}
+try { sb . deleteCharAt ( NUMBER_CONSTANT ) ; fail ( STRING_CONSTANT ) ; } catch ( IndexOutOfBoundsException e ) {}
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Catched- Throw-Statement-Change
+=====================================
+
+Example : 1190
+Matcher trimmer
+StrMatcher trimmer
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1192
+Matcher ignored
+StrMatcher ignored
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1194
+Matcher quote
+StrMatcher quote
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1196
+Matcher delim
+StrMatcher delim
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1197
+Matcher delim
+StrMatcher delim
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1198
+tok . setIgnoredMatcher ( StrTokenizer.TRIM_MATCHER ) ;
+tok . setIgnoredMatcher ( StrMatcher . trimMatcher () ) ;
+4 , 5 , 5 , 0.6363636363636364
+Change Type : API-Change
+=====================================
+
+Example : 1199
+tok . setIgnoredMatcher ( StrTokenizer.TRIM_MATCHER ) ;
+tok . setIgnoredMatcher ( StrMatcher . trimMatcher () ) ;
+4 , 5 , 5 , 0.6363636363636364
+Change Type : Api-Change
+=====================================
+
+Example : 1200
+tok . setIgnoredMatcher ( StrTokenizer.TRIM_MATCHER ) ;
+tok . setIgnoredMatcher ( StrMatcher . trimMatcher () ) ;
+4 , 5 , 5 , 0.6363636363636364
+Change Type : Api-Change
+=====================================
+
+Example : 1201
+tok . setIgnoredMatcher ( StrTokenizer.NONE_MATCHER ) ;
+tok . setIgnoredMatcher ( StrMatcher . noneMatcher () ) ;
+4 , 5 , 5 , 0.6363636363636364
+Change Type : API-Change
+=====================================
+
+Example : 1202
+tok . setIgnoredMatcher ( StrTokenizer.NONE_MATCHER ) ;
+tok . setIgnoredMatcher ( StrMatcher . noneMatcher () ) ;
+4 , 5 , 5 , 0.6363636363636364
+Change Type : Api-Change
+=====================================
+
+Example : 1203
+tok . setIgnoredMatcher ( StrTokenizer.TRIM_MATCHER ) ;
+tok . setIgnoredMatcher ( StrMatcher . trimMatcher () ) ;
+4 , 5 , 5 , 0.6363636363636364
+Change Type : Api-Change
+=====================================
+
+Example : 1232
+List list = new LinkedList () ;
+List list = new ArrayList () ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 1233
+List list = new LinkedList () ;
+List list = new ArrayList () ;
+1 , 1 , 2 , 0.5
+Change Type : Type-Change
+=====================================
+
+Example : 1276
+assertSame ( input , tok . getContent () ) ;
+assertEquals ( input , tok . getContent () ) ;
+1 , 1 , 1 , 0.2
+Change Type : API-Change
+=====================================
+
+Example : 1281
+{ if ( NASTY_SMALL_DOUBLE . equals ( numStr ) ) { return Double.MIN_NORMAL ; } return Double . parseDouble ( numStr ) ; }
+{ if ( NASTY_SMALL_DOUBLE . equals ( numStr ) ) { return Double.MIN_VALUE ; } return Double . parseDouble ( numStr ) ; }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 1289
+public T createInstance ( ) ;
+T createInstance ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 1290
+public boolean isInline ( ) ;
+boolean isInline ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 1299
+JsonGenerator jgen = jf . createJsonGenerator ( writer ) ;
+JsonGenerator jgen = jf . createGenerator ( writer ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 1308
+response . setHeader ( HttpHeaders.SERVER , HandlerHelper . constructHeaderServerName () ) ;
+response . setHeader ( HttpHeaders.SERVER , HandlerUtils . constructHeaderServerName () ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method- Method-Param-Change
+=====================================
+
+Example : 1313
+final String value
+final Object value
+1 , 1 , 2 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1329
+response . getWriter () . println ( foundStubResponse . getBody () ) ;
+response . getWriter () . println ( foundStubResponse . getResponseBody () ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 1330
+when ( mockStubResponse . getBody () ) . thenReturn ( someResultsMessage ) ;
+when ( mockStubResponse . getResponseBody () ) . thenReturn ( someResultsMessage ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 1331
+when ( mockStubResponse . getBody () ) . thenReturn ( someResultsMessage ) ;
+when ( mockStubResponse . getResponseBody () ) . thenReturn ( someResultsMessage ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Api-Change
+=====================================
+
+Example : 1333
+HandlerUtils . logIncomingRequest ( request , NAME ) ;
+ConsoleUtils . logIncomingRequest ( request , NAME ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : API-Change
+=====================================
+
+Example : 1342
+@ Override public SinkReply sinksItem ( ItemIdentifier item ) { return null ; }
+@ Override public SinkReply sinksItem ( ItemStack item ) { return null ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 1344
+@ Override public SinkReply sinksItem ( ItemIdentifier item ) { return null ; }
+@ Override public SinkReply sinksItem ( ItemStack item ) { return null ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Method-Param-Change
+=====================================
+
+Example : 1345
+@ Override public SinkReply sinksItem ( ItemIdentifier item ) { return null ; }
+@ Override public SinkReply sinksItem ( ItemStack item ) { return null ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Method-Param-Change
+=====================================
+
+Example : 1346
+@ Override public SinkReply sinksItem ( ItemIdentifier item ) { return null ; }
+@ Override public SinkReply sinksItem ( ItemStack item ) { return null ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Method-Param-Change
+=====================================
+
+Example : 1348
+public PipeItemsRequestLogisticsMK2 ( int itemID ) { super ( itemID ) ; }
+public PipeItemsRequestLogisticsMk2 ( int itemID ) { super ( itemID ) ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : API-Change
+=====================================
+
+Example : 1353
+PipeItemsRequestLogistics pipe
+CoreRoutedPipe pipe
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1361
+String pipeName = ItemIdentifier . get ( _router . getPipe () . itemID , NUMBER_CONSTANT ) . getFriendlyName () ;
+String pipeName = ItemIdentifier . get ( _router . getPipe () . itemID , NUMBER_CONSTANT , null ) . getFriendlyName () ;
+2 , 2 , 3 , 0.18181818181818182
+Change Type : Method-Param-Add
+=====================================
+
+Example : 1362
+PipeItemsRequestLogistics pipe
+CoreRoutedPipe pipe
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1369
+TriggerParameter parameter
+ITriggerParameter parameter
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1373
+EntityPassiveItem item
+IPipedItem item
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1374
+@ Override public IRoutedItem GetRoutedItem ( EntityPassiveItem item ) { return ( IRoutedItem ) item ; }
+@ Override public IRoutedItem GetRoutedItem ( IPipedItem item ) { return ( IRoutedItem ) item ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 1377
+tile.tile instanceof TileAutoWorkbench
+tile.tile instanceof ISidedInventory
+1 , 1 , 1 , 0.6666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 1438
+MainProxy . isServer ( player.worldObj )
+MainProxy . isClient ( player.worldObj )
+1 , 1 , 2 , 0.5714285714285714
+Change Type : API-Change
+=====================================
+
+Example : 1442
+Router table
+IRouter table
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1445
+Router router
+IRouter router
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1446
+public void sendRoutedItem ( ItemStack item , Router destination , Position origin ) ;
+public void sendRoutedItem ( ItemStack item , IRouter destination , Position origin ) ;
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 1487
+public PipeItemsCraftingLogistics ( int itemID ) { super ( new CraftingPipeTransport () , new BaseLogicCrafting () , itemID ) ; }
+public PipeItemsCraftingLogistics ( int itemID ) { super ( new BaseLogicCrafting () , itemID ) ; }
+4 , 6 , 4 , 0.16666666666666666
+Change Type : Method-Param-Remove
+=====================================
+
+Example : 1501
+IComputerAccess computer
+Object computer
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 1512
+public Orientations getExitFor ( UUID id ) ;
+public ForgeDirection getExitFor ( UUID id ) ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : Return- Type-Change
+=====================================
+
+Example : 1523
+public void addLaser ( World worldObj , Position start , Orientations o ) ;
+public void addLaser ( World worldObj , Position start , ForgeDirection o ) ;
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 1527
+LiquidStack liquidId = LiquidManager . getLiquidForFilledItem ( data.item . getItemStack () ) ;
+LiquidStack liquidId = LiquidContainerRegistry . getLiquidForFilledItem ( data.item . getItemStack () ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 1533
+PacketDispatcher . sendPacketToPlayer ( new PacketBufferTransfer ( compressed ) . getPacket () , player ) ;
+MainProxy . sendPacketToPlayer ( new PacketBufferTransfer ( compressed ) . getPacket () , player ) ;
+1 , 1 , 1 , 0.125
+Change Type : API-Change
+=====================================
+
+Example : 1538
+public PacketRouterInformation () { super(); }
+private PacketRouterInformation () { super(); }
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Access- Type-Change
+=====================================
+
+Example : 1583
+Set < IRouter > validDestinations
+List < IRouter > validDestinations
+1 , 1 , 1 , 0.4
+Change Type : Type-Change
+=====================================
+
+Example : 1584
+Set < IRouter > validDestinations
+List < IRouter > validDestinations
+1 , 1 , 1 , 0.4
+Change Type : Type-Change
+=====================================
+
+Example : 1598
+return itemd . getFriendlyName () ;
+return itemd . getFriendlyNameCC () ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : API-Change
+=====================================
+
+Example : 1609
+this . noClip = false ;
+this . noClip = true ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Boolean- Value-Change
+=====================================
+
+Example : 1611
+InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1612
+InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( targetInventory ) ;
+IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( targetInventory ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1613
+InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1614
+InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1615
+InventoryUtil targetUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( targetInventory ) ;
+IInventoryUtil targetUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( targetInventory ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1616
+InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1619
+IInventory inv = Utils . getInventory ( inventory ) ;
+IInventory inv = InventoryHelper . getInventory ( inventory ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 1621
+ItemStack added = Transactor . getTransactorFor ( tile ) . add ( data.item . getItemStack () , insertion , true ) ;
+ItemStack added = InventoryHelper . getTransactorFor ( tile ) . add ( data.item . getItemStack () , insertion , true ) ;
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Type-Change
+=====================================
+
+Example : 1626
+IInventory inv = Utils . getInventory ( ( IInventory ) tile.tile ) ;
+IInventory inv = InventoryHelper . getInventory ( ( IInventory ) tile.tile ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Type-Change
+=====================================
+
+Example : 1627
+InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 1628
+IInventory inv = Utils . getInventory ( ( IInventory ) tile.tile ) ;
+IInventory inv = InventoryHelper . getInventory ( ( IInventory ) tile.tile ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Api-Change
+=====================================
+
+Example : 1632
+ItemStack added = Transactor . getTransactorFor ( tile ) . add ( data.item . getItemStack () , insertion , true ) ;
+ItemStack added = InventoryHelper . getTransactorFor ( tile ) . add ( data.item . getItemStack () , insertion , true ) ;
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Api-Change
+=====================================
+
+Example : 1640
+entityplayer . getCurrentEquippedItem () . itemID == LogisticsPipes.ModuleItem.shiftedIndex
+entityplayer . getCurrentEquippedItem () . itemID == LogisticsPipes.ModuleItem.itemID
+1 , 1 , 1 , 0.25
+Change Type : Value-Change
+=====================================
+
+Example : 1643
+{ super ( iinventory , i , j , k , LogisticsPipes.ModuleItem.shiftedIndex ) ; _pipe = pipe ; _moduleIndex = i ; }
+{ super ( iinventory , i , j , k , LogisticsPipes.ModuleItem.itemID ) ; _pipe = pipe ; _moduleIndex = i ; }
+1 , 1 , 2 , 0.16666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 1645
+if ( player.inventoryContainer != null ) { player.inventoryContainer . updateCraftingResults () ; }
+if ( player.inventoryContainer != null ) { player.inventoryContainer . detectAndSendChanges () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : API-Change
+=====================================
+
+Example : 1681
+final BitArray row
+BitArray row
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 1682
+final String display
+String display
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 1686
+if ( rawCodewordsOffset != rawCodewords.length ) { throw new IllegalStateException () ; }
+if ( rawCodewordsOffset != rawCodewords.length ) { throw new IllegalArgumentException () ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1701
+type . equals ( ParsedResultType.UPC )
+type . equals ( ParsedResultType.PRODUCT )
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method- Method-Param-Change
+=====================================
+
+Example : 1706
+{ rsDecoder . decode ( codewordsInts , numECCodewords , true ) ; }
+{ rsDecoder . decode ( codewordsInts , numECCodewords ) ; }
+2 , 2 , 3 , 0.3076923076923077
+Change Type : Method-Param-Remove
+=====================================
+
+Example : 1707
+{ rsDecoder . decode ( codewordsInts , numECCodewords , false ) ; }
+{ rsDecoder . decode ( codewordsInts , numECCodewords ) ; }
+2 , 2 , 3 , 0.3076923076923077
+Change Type : Method-Param-Remove
+=====================================
+
+Example : 1713
+{ throw new ReaderException ( STRING_CONSTANT ) ; }
+{ throw ReaderException . getInstance () ; }
+4 , 5 , 6 , 0.8461538461538461
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1719
+throw new ReaderException ( STRING_CONSTANT ) ;
+throw ReaderException . getInstance () ;
+4 , 5 , 6 , 1.0
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1724
+throw new ReaderException ( STRING_CONSTANT ) ;
+throw ReaderException . getInstance () ;
+4 , 5 , 6 , 1.0
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1727
+throw new ReaderException ( STRING_CONSTANT ) ;
+throw ReaderException . getInstance () ;
+4 , 5 , 6 , 1.0
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1728
+throw new ReaderException ( STRING_CONSTANT ) ;
+throw ReaderException . getInstance () ;
+4 , 5 , 6 , 1.0
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1729
+throw new ReaderException ( STRING_CONSTANT ) ;
+throw ReaderException . getInstance () ;
+4 , 5 , 6 , 1.0
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 1749
+assertEquals ( table . get ( STRING_CONSTANT ) , STRING_CONSTANT ) ;
+assertEquals ( STRING_CONSTANT , table . get ( STRING_CONSTANT ) ) ;
+4 , 4 , 6 , 0.46153846153846156
+Change Type : Method-Param-Reorder
+=====================================
+
+Example : 1756
+@ Override public String getSystemId () { return STRING_CONSTANT ; }
+public String getSystemId () { return STRING_CONSTANT ; }
+2 , 3 , 2 , 0.2
+Change Type : Override-Add
+=====================================
+
+Example : 1757
+@ Override public String getPublicId () { return STRING_CONSTANT ; }
+public String getPublicId () { return STRING_CONSTANT ; }
+2 , 3 , 2 , 0.2
+Change Type : Override-Remove
+=====================================
+
+Example : 1764
+byte [] bytes = null ;
+byte [] bytes ;
+2 , 2 , 3 , 0.6666666666666666
+Change Type : MISC
+=====================================
+
+Example : 1765
+parser = XMLReaderFactory . createXMLReader () ;
+parser = StringUtils . getXMLReader () ;
+2 , 2 , 4 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 1766
+reader = XMLReaderFactory . createXMLReader () ;
+reader = StringUtils . getXMLReader () ;
+2 , 2 , 4 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 1768
+parser = XMLReaderFactory . createXMLReader () ;
+parser = StringUtils . getXMLReader () ;
+2 , 2 , 4 , 0.8
+Change Type : Object-reference-Change
+=====================================
+
+Example : 1776
+final DITAOTJavaLogger logger = new DITAOTJavaLogger () ;
+final DITAOTLogger logger = new DITAOTJavaLogger () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : Type-Change
+=====================================
+
+Example : 1778
+{ Random generator = new Random () ; return generator . nextLong () ; }
+{ final Random generator = new Random () ; return generator . nextLong () ; }
+1 , 1 , 2 , 0.2
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1781
+fileWriter . setLogger ( fileLogger ) ;
+fileWriter . setLogger ( logger ) ;
+1 , 1 , 2 , 0.5
+Change Type : Method-Param-Change
+=====================================
+
+Example : 1793
+if ( attValue != null ) { attValue = attValue . replaceAll ( DOUBLE_BACK_SLASH , SLASH ) ; } else { return null ; }
+if ( attValue != null ) { attValue = attValue . replaceAll ( DOUBLE_BACK_SLASH , UNIX_SEPARATOR ) ; } else { return null ; }
+1 , 1 , 2 , 0.16
+Change Type : Method-Param-Change
+=====================================
+
+Example : 1798
+int i = f . lastIndexOf ( TEMPLATE_PREFIX ) ;
+final int i = f . lastIndexOf ( TEMPLATE_PREFIX ) ;
+1 , 1 , 1 , 0.1
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1800
+int index = attributes . getIndex ( STRING_CONSTANT ) ;
+final int index = attributes . getIndex ( STRING_CONSTANT ) ;
+1 , 1 , 1 , 0.1
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1805
+public void setPipelineHashIO ( PipelineHashIO hashIO ) { pipelineHashMap = hashIO ; }
+public void setPipelineHashIO ( final PipelineHashIO hashIO ) { pipelineHashMap = hashIO ; }
+1 , 1 , 2 , 0.21428571428571427
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1826
+{ LightweightThread c = new LightweightThread ( new MergeTest () ) ; c . exec1 () ; }
+{ LightweightThread c = new LightweightThread ( new MergeTest () ) ; c . exec () ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 1827
+{ LightweightThread c = new LightweightThread ( new Merge3Test () ) ; c . exec1 () ; }
+{ LightweightThread c = new LightweightThread ( new Merge3Test () ) ; c . exec () ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 1837
+{ double temp = Math . cos ( NUMBER_CONSTANT ) ; LightweightThread . suspend () ; this . result = temp ; }
+{ double temp = Math . cos ( NUMBER_CONSTANT ) ; LightweightThread . park () ; this . result = temp ; }
+1 , 1 , 2 , 0.16666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 1839
+private Object getProperty ( String string ) throws SuspendExecution { LightweightThread . suspend () ; return string ; }
+private Object getProperty ( String string ) throws SuspendExecution { LightweightThread . park () ; return string ; }
+1 , 1 , 2 , 0.2
+Change Type : API-Change
+=====================================
+
+Example : 1865
+boolean process ( Message message ) ;
+boolean process ( Message m ) ;
+1 , 1 , 2 , 0.5
+Change Type : Method-Param-Rename
+=====================================
+
+Example : 1881
+void enq ( double item ) ;
+boolean enq ( double item ) ;
+1 , 1 , 1 , 0.2857142857142857
+Change Type : Return- Type-Change
+=====================================
+
+Example : 1882
+void enq ( int item ) ;
+boolean enq ( int item ) ;
+1 , 1 , 1 , 0.2857142857142857
+Change Type : Return- Type-Change
+=====================================
+
+Example : 1883
+void enq ( float item ) ;
+boolean enq ( float item ) ;
+1 , 1 , 1 , 0.2857142857142857
+Change Type : Return- Type-Change
+=====================================
+
+Example : 1884
+void enq ( long item ) ;
+boolean enq ( long item ) ;
+1 , 1 , 1 , 0.2857142857142857
+Change Type : Return- Type-Change
+=====================================
+
+Example : 1888
+{ logger . error ( STRING_CONSTANT ) ; response . setStatusCode ( HttpStatus.SC_OK ) ; setStringEntity ( response , uuid ) ; }
+{ logger . info ( STRING_CONSTANT ) ; response . setStatusCode ( HttpStatus.SC_OK ) ; setStringEntity ( response , uuid ) ; }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : API-Change
+=====================================
+
+Example : 1894
+ViewObservable . assertUiThread () ;
+Assertions . assertUiThread () ;
+1 , 1 , 1 , 0.4
+Change Type : Type-Change
+=====================================
+
+Example : 1895
+ViewObservable . assertUiThread () ;
+Assertions . assertUiThread () ;
+1 , 1 , 1 , 0.4
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 1896
+ViewObservable . assertUiThread () ;
+Assertions . assertUiThread () ;
+1 , 1 , 1 , 0.4
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 1897
+String viewName = controllerClass . getViewName ( closurePropertyName ) ;
+String viewName = controllerClass . getViewName ( uri ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : Method-Param-Change
+=====================================
+
+Example : 1974
+String propertyName = name . substring ( NUMBER_CONSTANT , NUMBER_CONSTANT ) . toLowerCase () + name . substring ( NUMBER_CONSTANT ) ;
+String propertyName = name . substring ( NUMBER_CONSTANT , NUMBER_CONSTANT ) . toLowerCase ( Locale.ENGLISH ) + name . substring ( NUMBER_CONSTANT ) ;
+3 , 3 , 4 , 0.3
+Change Type : Method- Method-Param-Add
+=====================================
+
+Example : 1988
+assertFalse ( constraints . isEmpty () ) ;
+assertTrue ( constraints . isEmpty () ) ;
+1 , 1 , 1 , 0.25
+Change Type : Method-Call-Change
+=====================================
+
+Example : 1989
+assertTrue ( constraints . isEmpty () ) ;
+assertFalse ( constraints . isEmpty () ) ;
+1 , 1 , 1 , 0.25
+Change Type : Method-Call-Change
+=====================================
+
+Example : 1993
+GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , ga ) ;
+GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
+1 , 1 , 2 , 0.4
+Change Type : Method- Method-Param-Change
+=====================================
+
+Example : 1994
+GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , ga ) ;
+GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
+1 , 1 , 2 , 0.4
+Change Type : Method-Parameter-Change
+=====================================
+
+Example : 1995
+GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , ga ) ;
+GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
+1 , 1 , 2 , 0.4
+Change Type : Method-Parameter-Change
+=====================================
+
+Example : 1998
+pmc . initialise () ;
+pmc . initialize () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Refactor
+=====================================
+
+Example : 1999
+m . initialise () ;
+m . initialize () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : Refactor
+=====================================
+
+Example : 2004
+{ if ( domainClass . getMappedBy () . equalsIgnoreCase ( GrailsDomainClass.GORM ) ) { this . domainClasses . add ( domainClass ) ; } return this ; }
+{ if ( domainClass . getMappingStrategy () . equalsIgnoreCase ( GrailsDomainClass.GORM ) ) { this . domainClasses . add ( domainClass ) ; } return this ; }
+1 , 1 , 2 , 0.14814814814814814
+Change Type : Method-Call-Change
+=====================================
+
+Example : 2005
+public String getMappedBy ( ) ;
+public String getMappingStrategy ( ) ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Name-Change
+=====================================
+
+Example : 2007
+{ if ( domainClass . getMappedBy () . equalsIgnoreCase ( GrailsDomainClass.GORM ) ) { this . domainClasses . add ( domainClass ) ; } return this ; }
+{ if ( domainClass . getMappingStrategy () . equalsIgnoreCase ( GrailsDomainClass.GORM ) ) { this . domainClasses . add ( domainClass ) ; } return this ; }
+1 , 1 , 2 , 0.14814814814814814
+Change Type : Method-Call-Change
+=====================================
+
+Example : 2012
+GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
+GrailsHibernateUtil . configureDynamicMethods ( applicationContext , ga ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Type-Change
+=====================================
+
+Example : 2013
+GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
+GrailsHibernateUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Type-Change
+=====================================
+
+Example : 2014
+GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
+GrailsHibernateUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 2016
+GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
+GrailsHibernateUtil . configureDynamicMethods ( applicationContext , ga ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 2017
+GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
+GrailsHibernateUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 2019
+GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
+GrailsHibernateUtil . configureDynamicMethods ( applicationContext , ga ) ;
+1 , 1 , 1 , 0.2222222222222222
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 2021
+assertNotNull ( gdo . getSessionFactory () ) ;
+assertNotNull ( gdo . getApplication () ) ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 2026
+BigDecimal getVersion ( ) ;
+String getVersion ( ) ;
+1 , 1 , 1 , 0.4
+Change Type : Return- Type-Change
+=====================================
+
+Example : 2048
+Set . class . isAssignableFrom ( this . type ) && this . referencedPropertyType != null
+Collection . class . isAssignableFrom ( this . type ) && this . referencedPropertyType != null
+1 , 1 , 1 , 0.13333333333333333
+Change Type : Type-Change
+=====================================
+
+Example : 2059
+GrailsClassUtils . getProperyType ( constraintOwningClass , propertyName ) == null
+GrailsClassUtils . getPropertyType ( constraintOwningClass , propertyName ) == null
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 2069
+GrailsHttpServletRequest request = webRequest . getCurrentRequest () ;
+HttpServletRequest request = webRequest . getCurrentRequest () ;
+1 , 1 , 1 , 0.25
+Change Type : Type-Change
+=====================================
+
+Example : 2077
+GrailsHttpServletResponse response = webRequest . getCurrentResponse () ;
+HttpServletResponse response = webRequest . getCurrentResponse () ;
+1 , 1 , 1 , 0.25
+Change Type : Type-Change
+=====================================
+
+Example : 2088
+List classes = finder . getPluginClasses () ;
+Set classes = finder . getPluginClasses () ;
+1 , 1 , 1 , 0.25
+Change Type : Type-Change
+=====================================
+
+Example : 2094
+this . propertyMap = new HashMap () ;
+this . propertyMap = new TreeMap () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 2100
+WebApplicationContext ctx = springConfig . getUnrefreshedApplicationContext () ;
+WebApplicationContext ctx = springConfig . getApplicationContext () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 2104
+GrailsUtil . sanitize ( exception ) ;
+GrailsUtil . deepSanitize ( exception ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 2105
+GrailsUtil . sanitize ( exception ) ;
+GrailsUtil . deepSanitize ( exception ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 2115
+{ cancelTeleport () ; lastLocation = getLocation () ; getBase () . teleportTo ( entity ) ; }
+{ cancelTeleport () ; lastLocation = getLocation () ; getBase () . teleport ( entity ) ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : API-Change
+=====================================
+
+Example : 2117
+if ( command . matches ( STRING_CONSTANT ) ) { user . sendMessage ( STRING_CONSTANT ) ; return; }
+if ( command . matches ( STRING_CONSTANT ) ) { return; }
+7 , 9 , 8 , 0.4117647058823529
+Change Type : Statement-Remove
+=====================================
+
+Example : 2118
+if ( ! first ) { sb . append ( STRING_CONSTANT ) ; first = true ; }
+if ( ! first ) { sb . append ( STRING_CONSTANT ) ; first = false ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : Boolean- Value-Change
+=====================================
+
+Example : 2196
+Essentials . getJail () . setJail ( user . getLocation () , args [ NUMBER_CONSTANT ] ) ;
+ess . getJail () . setJail ( user . getLocation () , args [ NUMBER_CONSTANT ] ) ;
+1 , 1 , 1 , 0.1111111111111111
+Change Type : MISC
+=====================================
+
+Example : 2206
+Essentials . getJail () . getJails ()
+ess . getJail () . getJails ()
+1 , 1 , 1 , 0.2857142857142857
+Change Type : MISC
+=====================================
+
+Example : 2213
+Essentials . getJail () . delJail ( args [ NUMBER_CONSTANT ] ) ;
+ess . getJail () . delJail ( args [ NUMBER_CONSTANT ] ) ;
+1 , 1 , 1 , 0.15384615384615385
+Change Type : MISC
+=====================================
+
+Example : 2214
+catch ( Exception ex ) { throw new NotEnoughArgumentsException () ; }
+catch ( Exception ex ) { throw new NotEnoughArgumentsException ( ex ) ; }
+3 , 3 , 4 , 0.35714285714285715
+Change Type : Throw-Statement-Change
+=====================================
+
+Example : 2218
+Essentials . getWarps () . delWarp ( args [ NUMBER_CONSTANT ] ) ;
+ess . getWarps () . delWarp ( args [ NUMBER_CONSTANT ] ) ;
+1 , 1 , 1 , 0.15384615384615385
+Change Type : MISC
+=====================================
+
+Example : 2222
+boolean toggleSpy ( final Player user ) throws Exception ;
+boolean toggleSpy ( final Player user ) ;
+2 , 3 , 3 , 0.4
+Change Type : Exception-Remove
+=====================================
+
+Example : 2230
+current instanceof SemicolonExprToken
+current instanceof SemicolonToken
+1 , 1 , 1 , 0.6666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 2233
+{ name = new ExprStmtToken ( next ) ; iterator . next () ; }
+{ name = new ExprStmtToken ( next ) ; nextToken ( iterator ) ; }
+4 , 4 , 5 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 2235
+PHPObject self
+Object self
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2266
+{ passed [ i ] = converter . run ( arguments [ i ] ) ; j ++ ; }
+{ passed [ i ] = converter . run ( arguments [ j ] ) ; j ++ ; }
+1 , 1 , 2 , 0.10526315789473684
+Change Type : Refactor
+=====================================
+
+Example : 2275
+FunctionEntity function = env.scope.functionMap . get ( sign ) ;
+FunctionEntity function = env.functionMap . get ( sign ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : remove reference
+=====================================
+
+Example : 2276
+FunctionEntity functionEntity = env.scope.functionMap . get ( name . toLowerCase () ) ;
+FunctionEntity functionEntity = env.functionMap . get ( name . toLowerCase () ) ;
+1 , 1 , 2 , 0.2857142857142857
+Change Type : Object-Reference-Remove
+=====================================
+
+Example : 2277
+Assert . assertNull ( func . getBody () ) ;
+Assert . assertNotNull ( func . getBody () ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 2278
+Assert . assertNull ( token . getBody () ) ;
+Assert . assertNotNull ( token . getBody () ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 2280
+public CharsetDeclaration ( CommonTree token , String charset ) { super ( token ) ; this . charset = charset ; }
+public CharsetDeclaration ( HiddenTokenAwareTree token , String charset ) { super ( token ) ; this . charset = charset ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Type-Change
+=====================================
+
+Example : 2281
+CommonTree tree = compiler . parseSelector ( selector ) ;
+HiddenTokenAwareTree tree = compiler . parseSelector ( selector ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 2282
+public CssString ( CommonTree token , String value ) { super ( token ) ; this . value = value ; }
+public CssString ( HiddenTokenAwareTree token , String value ) { super ( token ) ; this . value = value ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Type-Change
+=====================================
+
+Example : 2283
+CommonTree tree = compiler . parse ( css ) ;
+HiddenTokenAwareTree tree = compiler . parse ( css ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 2284
+public IdSelector ( CommonTree token , String name ) { super ( token ) ; this . name = name ; }
+public IdSelector ( HiddenTokenAwareTree token , String name ) { super ( token ) ; this . name = name ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 2285
+public CssClass ( CommonTree token , String name ) { super ( token ) ; this . name = name ; }
+public CssClass ( HiddenTokenAwareTree token , String name ) { super ( token ) ; this . name = name ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Type-Change
+=====================================
+
+Example : 2286
+CommonTree tree
+HiddenTokenAwareTree tree
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2287
+CommonTree tree = compiler . parse ( crashingSelector ) ;
+HiddenTokenAwareTree tree = compiler . parse ( crashingSelector ) ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 2288
+public ColorExpression ( CommonTree token , String value ) { super ( token ) ; this . value = value ; }
+public ColorExpression ( HiddenTokenAwareTree token , String value ) { super ( token ) ; this . value = value ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Parameter-Declaration-Change
+=====================================
+
+Example : 2289
+CommonTree token
+HiddenTokenAwareTree token
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2290
+CommonTree token
+HiddenTokenAwareTree token
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2293
+result . addDeclarations ( declarations ) ;
+result . addMembers ( declarations ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 2385
+JsonStreamer writer
+JsonStream writer
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2533
+catch ( IllegalArgumentException e ) { assertEquals ( STRING_CONSTANT , e . getMessage () ) ; }
+catch ( MockitoException e ) { assertEquals ( STRING_CONSTANT , e . getMessage () ) ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : Catched- Throw-Statement-Change
+=====================================
+
+Example : 2570
+{ verifyNoMoreInteractions ( mock ) ; }
+{ verifyNoMoreInteractions ( mock ) ; fail () ; }
+3 , 5 , 3 , 0.3333333333333333
+Change Type : Statement-Add
+=====================================
+
+Example : 2679
+MockitoState . instance () . checkForUnfinishedVerification () ;
+MockitoState . instance () . validateState () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 2684
+boolean simpleMethod ( String argument ) ;
+String simpleMethod ( String argument ) ;
+1 , 2 , 1 , 0.2857142857142857
+Change Type : Return- Type-Change
+=====================================
+
+Example : 2738
+MockitoStackTraceFilter filter = new MockitoStackTraceFilter () ;
+StackTraceFilter filter = new StackTraceFilter () ;
+2 , 2 , 3 , 0.6666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 2762
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2763
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2764
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2765
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2776
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2777
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2778
+ExpectedInvocation wanted
+InvocationMatcher wanted
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2817
+mockitoState . validateState () ;
+mockingProgress . validateState () ;
+1 , 1 , 1 , 0.4
+Change Type : Value-Change
+=====================================
+
+Example : 2818
+mockitoState . validateState () ;
+mockingProgress . validateState () ;
+1 , 1 , 1 , 0.4
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 2825
+assertThat ( methodsOnTraceAfterRemoving , collectionIsExactlyInOrder ( STRING_CONSTANT ) ) ;
+assertThat ( methodsOnTraceAfterRemoving , collectionHasExactlyInOrder ( STRING_CONSTANT ) ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : Method-Call-Change-cal
+=====================================
+
+Example : 2826
+assertThat ( methodsOnTraceAfterRemoving , collectionIsExactlyInOrder ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ) ;
+assertThat ( methodsOnTraceAfterRemoving , collectionHasExactlyInOrder ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 2827
+assertThat ( methodsOnTraceAfterRemoving , collectionIsExactlyInOrder ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ) ;
+assertThat ( methodsOnTraceAfterRemoving , collectionHasExactlyInOrder ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Method-Parameter-Change
+=====================================
+
+Example : 2850
+InvocationsCalculator calculator1 = new InvocationsCalculator ( getInvocationsForEvaluation ( OngoingVerifyingMode . times ( NUMBER_CONSTANT ) ) ) ;
+InvocationsCalculator calculator1 = new InvocationsCalculator ( getInvocationsForEvaluation ( VerificationMode . times ( NUMBER_CONSTANT ) ) ) ;
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Type-Change
+=====================================
+
+Example : 2852
+OngoingVerifyingMode mode
+VerificationMode mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2853
+OngoingVerifyingMode mode
+VerificationMode mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2854
+OngoingVerifyingMode mode
+VerificationMode mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2856
+OngoingVerifyingMode mode = OngoingVerifyingMode . atLeastOnce () ;
+VerificationMode mode = VerificationMode . atLeastOnce () ;
+2 , 2 , 3 , 0.6
+Change Type : Type-Change
+=====================================
+
+Example : 2858
+OngoingVerifyingMode mode
+VerificationMode mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2861
+OngoingVerifyingMode mode
+VerificationMode mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2865
+{ calculator . getFirstUndesiredInvocationStackTrace ( new InvocationMatcher ( simpleMethodInvocation ) , OngoingVerifyingMode . times ( NUMBER_CONSTANT ) ) ; }
+{ calculator . getFirstUndesiredInvocationStackTrace ( new InvocationMatcher ( simpleMethodInvocation ) , VerificationMode . times ( NUMBER_CONSTANT ) ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Type-Change
+=====================================
+
+Example : 2918
+if ( mode . isExplicit () ) { return; }
+if ( mode . explicitMode () ) { return; }
+1 , 1 , 2 , 0.36363636363636365
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 2977
+VerificationMode mode = new VerificationModeBuilder () . strict () ;
+VerificationModeImpl mode = new VerificationModeBuilder () . strict () ;
+1 , 1 , 1 , 0.2
+Change Type : Type-Change
+=====================================
+
+Example : 2978
+VerificationMode mode
+VerificationModeImpl mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2991
+HasStackTrace firstUndesired = analyzer . findFirstUndesiredInvocationTrace ( invocations , new InvocationMatcher ( simpleMethodInvocation ) , VerificationMode . times ( NUMBER_CONSTANT ) ) ;
+HasStackTrace firstUndesired = analyzer . findFirstUndesiredInvocationTrace ( invocations , new InvocationMatcher ( simpleMethodInvocation ) , VerificationModeImpl . times ( NUMBER_CONSTANT ) ) ;
+1 , 1 , 2 , 0.16666666666666666
+Change Type : Value-Change
+=====================================
+
+Example : 2993
+VerificationMode mode
+VerificationModeImpl mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2995
+VerificationMode mode = times ( NUMBER_CONSTANT ) ;
+VerificationModeImpl mode = times ( NUMBER_CONSTANT ) ;
+1 , 1 , 1 , 0.25
+Change Type : Type-Change
+=====================================
+
+Example : 2996
+VerificationMode mode = times ( NUMBER_CONSTANT ) ;
+VerificationModeImpl mode = times ( NUMBER_CONSTANT ) ;
+1 , 1 , 1 , 0.25
+Change Type : Type-Change
+=====================================
+
+Example : 2997
+VerificationMode mode
+VerificationModeImpl mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2998
+VerificationMode mode
+VerificationModeImpl mode
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 3019
+{ return toObservable ( Schedulers . threadPoolForComputation () ) ; }
+{ return toObservable ( Schedulers . computation () ) ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : API-Change
+=====================================
+
+Example : 3020
+{ return toObservable ( Schedulers . threadPoolForComputation () ) ; }
+{ return toObservable ( Schedulers . computation () ) ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Api-Change
+=====================================
+
+Example : 3097
+public abstract LinkedList < Trigger > getTriggers ( ) ;
+LinkedList < ITrigger > getTriggers ( ) ;
+3 , 3 , 4 , 0.5454545454545454
+Change Type : Access- Type-Change
+=====================================
+
+Example : 3182
+! ProxyCore.proxy . isClient ( worldObj )
+! ProxyCore.proxy . isRemote ( worldObj )
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 3225
+! ProxyCore.proxy . isRemote ( worldObj )
+! CoreProxy.proxy . isRemote ( worldObj )
+1 , 1 , 2 , 0.5
+Change Type : Type-Change
+=====================================
+
+Example : 3258
+if ( CoreProxy.proxy . isRemote ( worldObj ) ) { return; }
+if ( CoreProxy.proxy . isRenderWorld ( worldObj ) ) { return; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : API-Change
+=====================================
+
+Example : 3261
+! CoreProxy.proxy . isRemote ( worldObj )
+! CoreProxy.proxy . isRenderWorld ( worldObj )
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 3276
+if ( CoreProxy.proxy . isRemote ( worldObj ) ) return;
+if ( CoreProxy.proxy . isRenderWorld ( worldObj ) ) return;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 3277
+if ( CoreProxy.proxy . isRemote ( worldObj ) ) return;
+if ( CoreProxy.proxy . isRenderWorld ( worldObj ) ) return;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : Api-Change
+=====================================
+
+Example : 3278
+if ( CoreProxy.proxy . isRemote ( worldObj ) ) { return; }
+if ( CoreProxy.proxy . isRenderWorld ( worldObj ) ) { return; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Api-Change
+=====================================
+
+Example : 3299
+setTabToDisplayOn ( CreativeTabs.tabRedstone ) ;
+setCreativeTab ( CreativeTabs.tabRedstone ) ;
+1 , 1 , 1 , 0.4
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 3367
+slot.meta = ForgeDirection . values () [ orientation ] . getLeftRotation () . ordinal () + others ;
+slot.meta = ForgeDirection . values () [ orientation ] . getRotation ( ForgeDirection.DOWN ) . ordinal () + others ;
+4 , 4 , 5 , 0.36363636363636365
+Change Type : MISC
+=====================================
+
+Example : 3380
+if ( CoreProxy.proxy . isSimulating ( worldObj ) ) worldObj . markBlockNeedsUpdate ( xCoord , yCoord , zCoord ) ;
+if ( CoreProxy.proxy . isSimulating ( worldObj ) ) worldObj . markBlockForUpdate ( xCoord , yCoord , zCoord ) ;
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 3381
+worldObj . markBlockNeedsUpdate ( xCoord , yCoord , zCoord ) ;
+worldObj . markBlockForUpdate ( xCoord , yCoord , zCoord ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : API-Change
+=====================================
+
+Example : 3385
+worldObj . markBlockNeedsUpdate ( xCoord , yCoord , zCoord ) ;
+worldObj . markBlockForUpdate ( xCoord , yCoord , zCoord ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Api-Change
+=====================================
+
+Example : 3422
+ItemStack mineable = entity . func_92014_d () ;
+ItemStack mineable = entity . getEntityItem () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 3521
+@ Override @ SideOnly ( Side.CLIENT ) public void updateIcons ( IconRegister par1IconRegister ) { par1IconRegister . registerIcons ( STRING_CONSTANT ) ; }
+@ Override @ SideOnly ( Side.CLIENT ) public void updateIcons ( IconRegister par1IconRegister ) { par1IconRegister . registerIcon ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.16666666666666666
+Change Type : Method-Call-Change-call
+=====================================
+
+Example : 3527
+IPipe pipe
+Object extractor
+2 , 2 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 3593
+RuleFactory ruleFactory = new RuleFactoryImpl () ;
+RuleFactory ruleFactory = new RuleFactory () ;
+1 , 1 , 2 , 0.5
+Change Type : Type-Change
+=====================================
+
+Example : 3684
+AbstractService < HelloWorldConfiguration > service
+Service < HelloWorldConfiguration > service
+1 , 1 , 1 , 0.4
+Change Type : Type-Change
+=====================================
+
+Example : 3685
+AbstractService < HelloWorldConfiguration > service
+Service < HelloWorldConfiguration > service
+1 , 1 , 1 , 0.4
+Change Type : Type-Change
+=====================================
+
+Example : 3693
+protected void setUp ( ) throws Exception { eDA = new ExpandableDoubleArray () ; }
+protected void setUp ( ) throws Exception { da = new ExpandableDoubleArray () ; }
+1 , 1 , 2 , 0.25
+Change Type : Value-Change
+=====================================
+
+Example : 3720
+public boolean isSquare ( ) ;
+boolean isSquare ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 3854
+public AbstractDescriptiveStatistics () { super(); }
+public AbstractDescriptiveStatistics () {}
+3 , 3 , 3 , 0.6666666666666666
+Change Type : Super-Call-Add
+=====================================
+
+Example : 3948
+public double getFunctionValueAccuracy ( ) ;
+double getFunctionValueAccuracy ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 3967
+Random rand = getRan () ;
+RandomGenerator rand = getRan () ;
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Type-Change
+=====================================
+
+Example : 3968
+Random rand = getRan () ;
+RandomGenerator rand = getRan () ;
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Type-Change
+=====================================
+
+Example : 3969
+Random rand = getRan () ;
+RandomGenerator rand = getRan () ;
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Type-Change
+=====================================
+
+Example : 3970
+Random rand = getRan () ;
+RandomGenerator rand = getRan () ;
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Type-Change
+=====================================
+
+Example : 3987
+FastSineTransformer () { super(); }
+public FastSineTransformer () { super(); }
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 4036
+throw new ConvergenceException ( STRING_CONSTANT ) ;
+throw new ConvergenceException () ;
+3 , 3 , 4 , 0.75
+Change Type : Method- Method-Param-Add
+=====================================
+
+Example : 4086
+public double getCurrentStepsize () { return stepSize ; }
+public double getCurrentSignedStepsize () { return stepSize ; }
+1 , 1 , 2 , 0.4
+Change Type : Method-Name-Change
+=====================================
+
+Example : 4092
+integ . addSwitchingFunction ( stepProblem , NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+integ . addSwitchingFunction ( stepProblem , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+2 , 2 , 2 , 0.0
+Change Type : Method- Method-Param-Add
+=====================================
+
+Example : 4093
+integ . addSwitchingFunction ( stepProblem , NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+integ . addSwitchingFunction ( stepProblem , NUMBER_CONSTANT , NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+2 , 2 , 2 , 0.0
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 4111
+String [] parts
+Object [] parts
+1 , 1 , 1 , 0.6666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 4198
+{ return getCumPct ( new Long ( v ) ) ; }
+{ return getCumPct ( Long . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : API-Change
+=====================================
+
+Example : 4200
+{ return getCumFreq ( new Long ( v ) ) ; }
+{ return getCumFreq ( Long . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : API-Change
+=====================================
+
+Example : 4201
+{ return getPct ( new Long ( v ) ) ; }
+{ return getPct ( Long . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : API-Change
+=====================================
+
+Example : 4202
+{ return getPct ( new Long ( v ) ) ; }
+{ return getPct ( Long . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : Method-Parameter-Change
+=====================================
+
+Example : 4209
+Object [] arguments = { new Double ( NUMBER_CONSTANT ) } ;
+Object [] arguments = { Double . valueOf ( NUMBER_CONSTANT ) } ;
+3 , 4 , 4 , 0.4666666666666667
+Change Type : API-Change
+=====================================
+
+Example : 4218
+return new Double ( newA ) ;
+return Double . valueOf ( newA ) ;
+3 , 4 , 4 , 0.7
+Change Type : API-Change
+=====================================
+
+Example : 4219
+return new Double ( newA ) ;
+return Double . valueOf ( newA ) ;
+3 , 4 , 4 , 0.7
+Change Type : Api-Change
+=====================================
+
+Example : 4220
+return new Double ( newA ) ;
+return Double . valueOf ( newA ) ;
+3 , 4 , 4 , 0.7
+Change Type : Api-Change
+=====================================
+
+Example : 4230
+{ return getPct ( new Character ( v ) ) ; }
+{ return getPct ( Character . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : API-Change
+=====================================
+
+Example : 4233
+final BigDecimal [] out = new BigDecimal [ v.length ] ;
+final BigDecimal [] out = new BigDecimal [ nRows ] ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Method-Param-Change
+=====================================
+
+Example : 4247
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : MISC
+=====================================
+
+Example : 4248
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4249
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4253
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4254
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4255
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4256
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4257
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4260
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4263
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4264
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4267
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4268
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4273
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4277
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4280
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4281
+integ . setStepHandler ( handler ) ;
+integ . addStepHandler ( handler ) ;
+1 , 1 , 2 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4386
+ds = null ;
+lu = null ;
+1 , 1 , 1 , 0.5
+Change Type : MISC
+=====================================
+
+Example : 4388
+ds = null ;
+lu = null ;
+1 , 1 , 1 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 4561
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4563
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4564
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4566
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4570
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4573
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4574
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4575
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4576
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4579
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4580
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4581
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4583
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4584
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4585
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4586
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4587
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4591
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4595
+expr . getType ()
+expr . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4607
+value . getType ()
+value . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4610
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4615
+val . getType ()
+val . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4620
+expr . getType ()
+expr . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4624
+node . getType ()
+node . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4626
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4627
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4633
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4637
+anc . getType ()
+anc . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4642
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4646
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4650
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4651
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4660
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4661
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4665
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4667
+value . getType ()
+value . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4674
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4681
+assertEquals ( Token.GETPROP , refs . get ( NUMBER_CONSTANT ) . getNode () . getType () ) ;
+assertEquals ( Token.GETPROP , refs . get ( NUMBER_CONSTANT ) . getNode () . getToken () ) ;
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 4682
+assertEquals ( Token.NAME , refs . get ( NUMBER_CONSTANT ) . getNode () . getType () ) ;
+assertEquals ( Token.NAME , refs . get ( NUMBER_CONSTANT ) . getNode () . getToken () ) ;
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 4684
+if ( ! propName . isString () ) { throw new IllegalStateException ( STRING_CONSTANT + propName . getType () ) ; }
+if ( ! propName . isString () ) { throw new IllegalStateException ( STRING_CONSTANT + propName . getToken () ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : API-Change
+=====================================
+
+Example : 4686
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4698
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4699
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4701
+expr . getType ()
+expr . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4702
+expr . getType ()
+expr . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4718
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4720
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4724
+cArg . getType ()
+cArg . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4727
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4729
+left . getType ()
+left . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4732
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4733
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4734
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4736
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4737
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4751
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4765
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4766
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4767
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4775
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4777
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4778
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4779
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4786
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4788
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4789
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4791
+subtree . getType ()
+subtree . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4797
+key . getType ()
+key . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4802
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4803
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4806
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4810
+blockChild . getType ()
+blockChild . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 4811
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4816
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4817
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4818
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4820
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4823
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4824
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4825
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4835
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4836
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4839
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 4862
+rhs . detachFromParent () ;
+rhs . detach () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 4865
+assignmentValue . detachFromParent () ;
+assignmentValue . detach () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 4885
+node . detachFromParent () ;
+node . detach () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 4889
+returnStatementNode . detachFromParent () ;
+returnStatementNode . detach () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 4896
+{ if ( value != null ) { value . detachFromParent () ; } varNode = parent ; }
+{ if ( value != null ) { value . detach () ; } varNode = parent ; }
+1 , 1 , 2 , 0.21052631578947367
+Change Type : API-Change
+=====================================
+
+Example : 4911
+member . detachFromParent () ;
+member . detach () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 4925
+potentialCallee . detachFromParent () ;
+potentialCallee . detach () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : API-Change
+=====================================
+
+Example : 4954
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Type-Change
+=====================================
+
+Example : 4960
+if ( J2clSourceFileChecker . shouldSkipExecution ( compiler ) ) { return; }
+if ( ! J2clSourceFileChecker . shouldRunJ2clPasses ( compiler ) ) { return; }
+2 , 3 , 4 , 0.4666666666666667
+Change Type : Boolean-Stmt-Change
+=====================================
+
+Example : 4962
+if ( J2clSourceFileChecker . shouldSkipExecution ( compiler ) ) { return; }
+if ( ! J2clSourceFileChecker . shouldRunJ2clPasses ( compiler ) ) { return; }
+2 , 3 , 4 , 0.4666666666666667
+Change Type : Boolean-Statement-Change
+=====================================
+
+Example : 5068
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5069
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5070
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5071
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5104
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5105
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5106
+{ NodeTraversal . traverseEs6 ( compiler , scriptRoot , this ) ; }
+{ TranspilationPasses . hotSwapTranspile ( compiler , scriptRoot , this ) ; }
+2 , 2 , 4 , 0.5
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 5116
+Node methodName = member . getFirstChild () . getFirstChild () ;
+Node methodName = member . getFirstFirstChild () ;
+4 , 5 , 5 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 5128
+options . setWarningLevel ( DiagnosticGroups.LINT_CHECKS , CheckLevel.WARNING ) ;
+options . setWarningLevel ( DiagnosticGroups.ANALYZER_CHECKS , CheckLevel.WARNING ) ;
+1 , 1 , 2 , 0.4
+Change Type : Method-Param-Change
+=====================================
+
+Example : 5132
+public String toJSIdentifier () { return ModuleNames . toJSIdentifier ( uri ) ; }
+public String toJSIdentifier () { return ModuleNames . toJSIdentifier ( path ) ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Method-Param-Change
+=====================================
+
+Example : 5167
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5168
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5182
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5183
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5186
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5190
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5191
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5192
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5193
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5194
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5195
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5197
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5198
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5205
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5207
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5209
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5210
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5211
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5215
+Token parentType = parent . getType () ;
+Token parentType = parent . getToken () ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : API-Change
+=====================================
+
+Example : 5217
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5225
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5232
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5233
+n . getType ()
+n . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5237
+parent . getType ()
+parent . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : Api-Change
+=====================================
+
+Example : 5248
+jsdoc . getType ()
+jsdoc . getToken ()
+1 , 1 , 2 , 0.8
+Change Type : API-Change
+=====================================
+
+Example : 5254
+key . setType ( Token.SETTER_DEF ) ;
+key . setToken ( Token.SETTER_DEF ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 5255
+key . setType ( Token.GETTER_DEF ) ;
+key . setToken ( Token.GETTER_DEF ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 5260
+n . setType ( TEMPLATE_TYPE_PARAM ) ;
+n . setToken ( TEMPLATE_TYPE_PARAM ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 5262
+keyNode . setType ( Token.STRING_KEY ) ;
+keyNode . setToken ( Token.STRING_KEY ) ;
+1 , 1 , 2 , 0.5
+Change Type : API-Change
+=====================================
+
+Example : 5419
+String exportedNamespace = rewriteState . getExportedNamespace ( legacyNamespace ) ;
+String exportedNamespace = rewriteState . getExportedNamespaceOrScript ( legacyNamespace ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : API-Change
+=====================================
+
+Example : 5551
+{ return new InMemoryGraphDB ( true ) ; }
+{ return new InMemoryGraphDB () ; }
+3 , 3 , 4 , 0.6
+Change Type : Method-Param-Remove
+=====================================
+
+Example : 5552
+@ Override public void open () { tx = new InMemoryGraphDB ( true ) ; }
+@ Override public void open () { tx = new InMemoryGraphDB () ; }
+3 , 3 , 4 , 0.35294117647058826
+Change Type : Method-Param-Remove
+=====================================
+
+Example : 5586
+InternalEdge newEdge
+InternalRelation newEdge
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 5691
+features.supportsEdgeRetrieval = false ;
+features.supportsEdgeRetrieval = true ;
+1 , 1 , 2 , 0.8
+Change Type : Boolean- Value-Change
+=====================================
+
+Example : 5696
+config . setStrings ( VertexPropertyFilter.KEY , STRING_CONSTANT ) ;
+config . set ( VertexPropertyFilter.KEY , STRING_CONSTANT ) ;
+1 , 1 , 2 , 0.4
+Change Type : API-Change
+=====================================
+
+Example : 5697
+config . setStrings ( EdgePropertyFilter.KEY , STRING_CONSTANT ) ;
+config . set ( EdgePropertyFilter.KEY , STRING_CONSTANT ) ;
+1 , 1 , 2 , 0.4
+Change Type : API-Change
+=====================================
+
+Example : 5698
+config . setStrings ( EdgePropertyFilter.KEY , STRING_CONSTANT ) ;
+config . set ( EdgePropertyFilter.KEY , STRING_CONSTANT ) ;
+1 , 1 , 2 , 0.4
+Change Type : Api-Change
+=====================================
+
+Example : 5813
+this . drawBarOutline = true ;
+this . drawBarOutline = false ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Boolean- Value-Change
+=====================================
+
+Example : 5817
+String name
+Comparable name
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 5818
+String name
+Comparable name
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 5835
+{ this . legendItemToolTipGenerator = generator ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . legendItemToolTipGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5836
+{ this . baseToolTipGenerator = generator ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . baseToolTipGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5846
+{ this . renderAsPercentages = asPercentages ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . renderAsPercentages = asPercentages ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5853
+{ this . legendItemURLGenerator = generator ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . legendItemURLGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5856
+{ this . fillBox = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . fillBox = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5860
+{ this . useFillPaint = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . useFillPaint = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5861
+{ this . baseShapesFilled = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . baseShapesFilled = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5864
+{ this . useOutlinePaint = use ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . useOutlinePaint = use ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5865
+{ this . drawOutlines = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawOutlines = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5866
+{ this . baseShapesVisible = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . baseShapesVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5874
+{ this . xOffset = xOffset ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . xOffset = xOffset ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5875
+{ this . maxItemWidth = percent ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . maxItemWidth = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5878
+{ this . negativeItemLabelPositionFallback = position ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . negativeItemLabelPositionFallback = position ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5879
+{ this . positiveItemLabelPositionFallback = position ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . positiveItemLabelPositionFallback = position ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5880
+{ this . gradientPaintTransformer = transformer ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . gradientPaintTransformer = transformer ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5882
+{ this . maximumBarWidth = percent ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . maximumBarWidth = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5883
+{ this . drawBarOutline = draw ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawBarOutline = draw ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5884
+{ this . itemMargin = percent ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . itemMargin = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5890
+{ this . drawOutlines = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawOutlines = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5893
+{ this . renderAsPercentages = asPercentages ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . renderAsPercentages = asPercentages ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change 
+=====================================
+
+Example : 5895
+{ this . useOutlinePaint = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . useOutlinePaint = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5896
+{ this . useFillPaint = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . useFillPaint = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5897
+{ this . drawOutlines = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawOutlines = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5898
+{ this . baseShapesFilled = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . baseShapesFilled = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5901
+{ this . baseShapesVisible = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . baseShapesVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5908
+{ this . yOffset = yOffset ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . yOffset = yOffset ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5909
+{ this . xOffset = xOffset ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . xOffset = xOffset ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5914
+{ this . positiveItemLabelPositionFallback = position ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . positiveItemLabelPositionFallback = position ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5916
+{ this . gradientPaintTransformer = transformer ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . gradientPaintTransformer = transformer ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5927
+{ this . downPaint = paint ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . downPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5929
+if ( this . autoWidthFactor != autoWidthFactor ) { this . autoWidthFactor = autoWidthFactor ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+if ( this . autoWidthFactor != autoWidthFactor ) { this . autoWidthFactor = autoWidthFactor ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Statement-Change
+=====================================
+
+Example : 5930
+{ this . legendItemURLGenerator = generator ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . legendItemURLGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5931
+{ this . legendItemToolTipGenerator = generator ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . legendItemToolTipGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5941
+{ this . fillBox = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . fillBox = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5942
+{ this . boxPaint = paint ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . boxPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5948
+{ this . roundXCoordinates = round ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . roundXCoordinates = round ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5952
+{ this . openTickPaint = paint ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . openTickPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5953
+{ this . drawCloseTicks = draw ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawCloseTicks = draw ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5954
+{ this . drawOpenTicks = draw ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawOpenTicks = draw ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 5955
+{ this . roundXCoordinates = round ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . roundXCoordinates = round ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5958
+if ( this . drawYError != draw ) { this . drawYError = draw ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+if ( this . drawYError != draw ) { this . drawYError = draw ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Statement-Change
+=====================================
+
+Example : 5959
+{ this . drawXError = draw ; this . notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . drawXError = draw ; fireChangeEvent () ; }
+10 , 12 , 11 , 0.65
+Change Type : Statement-Change
+=====================================
+
+Example : 5996
+{ this . fixedRangeAxisSpace = space ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . fixedRangeAxisSpace = space ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : Statement-Change
+=====================================
+
+Example : 5997
+{ this . fixedDomainAxisSpace = space ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . fixedDomainAxisSpace = space ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : Statement-Change
+=====================================
+
+Example : 6002
+if ( this . rangeCrosshairVisible != flag ) { this . rangeCrosshairVisible = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . rangeCrosshairVisible != flag ) { this . rangeCrosshairVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Statement-Change
+=====================================
+
+Example : 6007
+if ( this . domainCrosshairVisible != flag ) { this . domainCrosshairVisible = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . domainCrosshairVisible != flag ) { this . domainCrosshairVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Statement-Change
+=====================================
+
+Example : 6023
+{ this . domainTickBandPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . domainTickBandPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6036
+{ this . weight = weight ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . weight = weight ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6055
+{ this . outlineVisible = visible ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . outlineVisible = visible ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6057
+if ( this . backgroundImageAlignment != alignment ) { this . backgroundImageAlignment = alignment ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . backgroundImageAlignment != alignment ) { this . backgroundImageAlignment = alignment ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Statement-Change
+=====================================
+
+Example : 6059
+{ this . drawingSupplier = supplier ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . drawingSupplier = supplier ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6065
+{ this . anchorValue = value ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . anchorValue = value ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : Statement-Change
+=====================================
+
+Example : 6066
+{ this . drawSharedDomainAxis = draw ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . drawSharedDomainAxis = draw ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6067
+{ this . fixedRangeAxisSpace = space ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . fixedRangeAxisSpace = space ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6068
+{ this . fixedDomainAxisSpace = space ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . fixedDomainAxisSpace = space ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6077
+if ( this . rangeCrosshairVisible != flag ) { this . rangeCrosshairVisible = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . rangeCrosshairVisible != flag ) { this . rangeCrosshairVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6116
+{ this . radiusGridlineStroke = stroke ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . radiusGridlineStroke = stroke ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6118
+{ this . angleGridlinePaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . angleGridlinePaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6119
+{ this . angleGridlineStroke = stroke ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . angleGridlineStroke = stroke ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6129
+this . notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+10 , 12 , 10 , 1.0
+Change Type : Statement-Change
+=====================================
+
+Example : 6131
+{ this . outerSeparatorExtension = percent ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . outerSeparatorExtension = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6150
+{ this . drawBorder = draw ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . drawBorder = draw ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6151
+{ this . dialBackgroundPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . dialBackgroundPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6166
+{ this . legendLabelToolTipGenerator = generator ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . legendLabelToolTipGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6170
+{ this . toolTipGenerator = generator ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . toolTipGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6176
+{ this . labelOutlineStroke = stroke ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . labelOutlineStroke = stroke ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6178
+{ this . labelBackgroundPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . labelBackgroundPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6184
+{ this . labelLinksVisible = visible ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . labelLinksVisible = visible ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6185
+{ this . maximumLabelWidth = width ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . maximumLabelWidth = width ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6186
+{ this . labelGap = gap ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . labelGap = gap ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6194
+{ this . sectionOutlineStroke = stroke ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . sectionOutlineStroke = stroke ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6197
+{ this . sectionOutlinePaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . sectionOutlinePaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6198
+{ this . sectionOutlinesVisible = visible ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . sectionOutlinesVisible = visible ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6201
+{ this . sectionPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . sectionPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6202
+{ this . ignoreZeroValues = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . ignoreZeroValues = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6203
+{ this . ignoreNullValues = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . ignoreNullValues = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6204
+{ this . circular = circular ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . circular = circular ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : Statement-Change
+=====================================
+
+Example : 6205
+if ( this . interiorGap != percent ) { this . interiorGap = percent ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . interiorGap != percent ) { this . interiorGap = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Statement-Change
+=====================================
+
+Example : 6212
+if ( this . rangeCrosshairVisible != flag ) { this . rangeCrosshairVisible = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . rangeCrosshairVisible != flag ) { this . rangeCrosshairVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6217
+if ( this . domainCrosshairVisible != flag ) { this . domainCrosshairVisible = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . domainCrosshairVisible != flag ) { this . domainCrosshairVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6235
+{ this . toolTipGenerator = generator ; this . notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . toolTipGenerator = generator ; fireChangeEvent () ; }
+10 , 12 , 11 , 0.65
+Change Type : Statement-Change
+=====================================
+
+Example : 6241
+{ this . seriesOutlineStroke = stroke ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . seriesOutlineStroke = stroke ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6244
+{ this . seriesOutlinePaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . seriesOutlinePaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6247
+{ this . seriesPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . seriesPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6251
+if ( this . interiorGap != percent ) { this . interiorGap = percent ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . interiorGap != percent ) { this . interiorGap = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6254
+{ this . startAngle = angle ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . startAngle = angle ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6255
+{ this . headPercent = percent ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . headPercent = percent ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6258
+{ this . darkerSides = darker ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . darkerSides = darker ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6259
+{ this . depthFactor = factor ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . depthFactor = factor ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6260
+{ this . gap = gap ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . gap = gap ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6262
+{ this . bulbRadius = r ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . bulbRadius = r ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6263
+{ this . useSubrangePaint = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . useSubrangePaint = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6264
+{ this . followDataInSubranges = flag ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . followDataInSubranges = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6270
+{ this . valuePaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . valuePaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Statement-Change
+=====================================
+
+Example : 6314
+public boolean succeeded ( ) ;
+boolean succeeded ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access- Type-Change
+=====================================
+
+Example : 6482
+public String getServerId ( ) ;
+public String getNodeId ( ) ;
+1 , 1 , 2 , 0.5714285714285714
+Change Type : Method-Name-Change
+=====================================
+
+Example : 6483
+entry . put ( STRING_CONSTANT , server . getServerId () ) ;
+entry . put ( STRING_CONSTANT , server . getNodeId () ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : API-Change
+=====================================
+
+Example : 6487
+result . put ( STRING_CONSTANT , core . getServerId () ) ;
+result . put ( STRING_CONSTANT , core . getNodeId () ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : API-Change
+=====================================
+
+Example : 6497
+String sourceInputId
+MessageInput sourceInput
+2 , 2 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 6498
+String sourceInputId
+MessageInput sourceInput
+2 , 2 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 6570
+DeserializationConfig config
+DeserializationContext ctxt
+2 , 2 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 6571
+DeserializationConfig config
+DeserializationContext ctxt
+2 , 2 , 1 , 1.0
+Change Type : Variable-Name-Change
+=====================================
+
+Example : 6572
+DeserializationConfig config
+DeserializationContext ctxt
+2 , 2 , 1 , 1.0
+Change Type : Variable-Name-Change
+=====================================
+
+Example : 6585
+if ( factory . getParameterType ( NUMBER_CONSTANT ) != String . class ) { throw new IllegalArgumentException ( STRING_CONSTANT + factory + STRING_CONSTANT ) ; }
+if ( factory . getGenericParameterType ( NUMBER_CONSTANT ) != String . class ) { throw new IllegalArgumentException ( STRING_CONSTANT + factory + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.14814814814814814
+Change Type : API-Change
+=====================================
+
+Example : 6703
+SearchingScanner scanner
+Scanner scanner
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 6705
+RefactoringVisitorState state
+VisitorState state
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 6789
+public String getDocumentation () { return documentation ; }
+@ Override public String getDocumentation () { return documentation ; }
+2 , 3 , 2 , 0.2
+Change Type : Override-Add
+=====================================
+

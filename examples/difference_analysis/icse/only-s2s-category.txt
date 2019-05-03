@@ -1,0 +1,18 @@
+Example : 8
+@ java.lang.Override public java.lang.String getProperty ( java.lang.String name ) { return null ; }
+@ java.lang.Override public java.lang.String getProperty ( java.lang.String name ) { return this . getProperty ( name ) ; }
+6 , 7 , 7 , 0.3888888888888889
+Change Type : Statement-Change
+=====================================
+
+Example : 31
+native void rsnAllocationData2D ( int con , int id , int xoff , int yoff , int mip , int face , android.graphics.Bitmap b ) ;
+native void rsnAllocationData2D ( long con , long id , int xoff , int yoff , int mip , int face , android.graphics.Bitmap b ) ;
+2 , 2 , 4 , 0.28
+Change Type : Param-Type-Change
+=====================================
+
+Example : 110
+@ java.lang.Override public void ignore ( @ com.android.annotations.NonNull com.android.tools.lint.detector.api.Context context , @ com.android.annotations.NonNull com.android.tools.lint.detector.api.Issue issue , @ com.android.annotations.Nullable com.android.tools.lint.detector.api.Location location , @ com.android.annotations.NonNull java.lang.String message , @ com.android.annotations.Nullable java.lang.Object data ) { throw new java.lang.UnsupportedOperationException ( STRING_CONSTANT ) ; }
+@ java.lang.Override public void ignore ( @ com.android.annotations.NonNull com.android.tools.lint.detector.api.Context context , @ com.android.annotations.NonNull com.android.tools.lint.detector.api.Issue issue , @ com.android.annotations.Nullable com.android.tools.lint.detector.api.Location location , @ com.android.annotations.NonNull java.lang.String message ) { throw new java.lang.UnsupportedOperationException ( STRING_CONSTANT ) ; }
+5 , 8 , 6 , 0.14705882352941177
