@@ -99,12 +99,11 @@ if __name__ == '__main__':
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
                         default=grammar)
     parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
-                        choices=['clone', 'nmt', 'none'],
-                        default='nmt')
-    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule '
-                                                            'src file for clone based detection', default=None)
-    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule '
-                                                            'src file for clone based detection', default=None)
+                        choices=['clone', 'nmt', 'none'], default='none')
+    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
+    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
+    parser.add_argument('-cout', default=None)
+    options = parser.parse_args()
 
     parser.add_argument('--token_gen', '-tg', help='Use of Token generation mechanism',
                         choices=['clone', 'nmt'],
