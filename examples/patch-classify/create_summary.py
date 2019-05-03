@@ -1,4 +1,4 @@
-p_file = 'Correctly-predicted-patch.txt'
+p_file = 'Correctly-predicted-patch-codit.txt'
 type_stat = {}
 with open(p_file) as f:
     for ln, line in enumerate(f):
@@ -10,4 +10,4 @@ with open(p_file) as f:
             type_stat[change_type] += 1
 
 for key in type_stat:
-    print(key, ' : ', type_stat[key])
+    print(key, ' , ', type_stat[key])

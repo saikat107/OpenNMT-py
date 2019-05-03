@@ -1,21 +1,7 @@
-from apted import APTED, Config
-
-from codit.grammar import ASTNode
-import nltk
 from matplotlib import pyplot as plt
 
-dataname = 'icse'
-
-if dataname == 'codit':
-    complete_split_data_path = \
-        '/home/saikatc/Research/codit_data/complete_split_data/10_20_original/test'
-    data_raw_path = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test_new'
-    correct_indices_path = 'whole-data-stats/codit-state.csv'
-else:
-    complete_split_data_path = \
-        '/home/saikatc/Research/icse_data_concrete/all/small/test'
-    data_raw_path = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/test_new'
-    correct_indices_path = 'whole-data-stats/icse-state.csv'
+from examples.util import bigram_edit_distance, bigram_jaccard_distance, calculate_edit_distance, \
+    create_tree_from_string, read_patch_category, count_number_of_nodes
 
 INDEX = 'INDEX'
 EDIT_DISTANCE = 'EDIT_DISTANCE'
@@ -31,106 +17,24 @@ BIGRAM_EDIT = 'BIGRAM_EDIT_DISTANCE'
 TYPE_OF_CHANGE = 'TYPE_OF_CHANGE'
 NORMALIZED_TREE_DISTANCE = 'NORMALIZED_TREE_DIST'
 
+dataname = 'icse'
+intended_class = 'only-s2s'
 
-def transform_to_ngram(code, n=2):
-    if len(code) <= n:
-        return [' '.join(code)]
-    n_grams = []
-    for i in range(len(code) - n + 1):
-        ng = []
-        for j in range(n):
-            ng.append(code[i+j])
-        n_grams.append(' '.join(ng))
-    return n_grams
+if dataname == 'codit':
+    complete_split_data_path = \
+        '/home/saikatc/Research/codit_data/complete_split_data/10_20_original/test'
+    data_raw_path = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test_new'
+    correct_indices_path = 'whole-data-stats/codit-state.csv'
+else:
+    complete_split_data_path = \
+        '/home/saikatc/Research/icse_data_concrete/all/small/test'
+    data_raw_path = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/test_new'
+    correct_indices_path = 'whole-data-stats/icse-state.csv'
 
+correct_indices_path = 'difference_analysis/' + dataname + '/' + intended_class + '.csv'
+patch_classification_file = 'patch-classify/Correctly-predicted-patch-' + dataname + '.txt'
+patch_category_dictionary, patch_to_category_dict = read_patch_category(patch_classification_file)
 
-def bigram_edit_distance(code1, code2):
-    bigram1 = transform_to_ngram(code1.split(), n=2)
-    bigram2 = transform_to_ngram(code2.split(), n=2)
-    dist = nltk.edit_distance(bigram1 , bigram2)
-    if dist == 0:
-        print(bigram1, '   ----->  ', bigram2)
-    return dist
-    # return 0
-
-
-def bigram_jaccard_distance(code1, code2):
-    bigram1 = transform_to_ngram(code1.split() , n=2)
-    bigram2 = transform_to_ngram(code2.split() , n=2)
-    return nltk.jaccard_distance(set(bigram1), set(bigram2))
-
-
-class TreeEditDistanceConfig(Config):
-    def __init__(self):
-        pass
-
-    def rename(self, node1, node2):
-        '''
-        A node is considered renamed when its value is changed, if the type is changed it is not considered renaming
-        For considering that,
-        return 1 if (node1.type != node2.type) or (node1.value != node2.value) else 0
-        :param node1:
-        :param node2:
-        :return:
-        '''
-        return 1 if node1.value != node2.value else 0
-
-    def children(self, node):
-        return [x for x in node.children]
-
-
-def calculate_edit_distance(tree1, tree2):
-    apted = APTED(tree1, tree2, TreeEditDistanceConfig())
-    ed = apted.compute_edit_distance()
-    return ed
-
-
-def fix_ast(root):
-    if isinstance(root, ASTNode):
-        if root.is_leaf:
-            return
-        elif len(root.children) == 1 and root.children[0].is_leaf:
-            child_value = root.children[0].type
-            # if child_value == '<EMPTY>':
-            #     root.children[0].value = child_value
-            #     return
-            # if child_value == '?':
-            #     root.children[0].value = child_value
-            #     return
-            root.value = child_value
-            root.children = []
-        else:
-            for child in root.children:
-                fix_ast(child)
-
-
-def create_tree_from_string(line):
-    tokens = line.strip().split(' ')
-    # print line
-    stack = []
-    for token in tokens:
-        token = token.strip()
-        if token == '':
-            continue
-        if token == '`':
-            stack.append(token)
-        elif token == '``':
-            children = []
-            top_of_stack = stack.pop()
-            while top_of_stack != '`' and len(stack) != 0:
-                children.append(top_of_stack)
-                top_of_stack = stack.pop()
-            top_of_stack = stack.pop()
-            if isinstance(top_of_stack, ASTNode):
-                for child in children:
-                    top_of_stack.add_child(child)
-            stack.append(top_of_stack)
-        else:
-            node = ASTNode(token)
-            stack.append(node)
-    root = stack.pop()
-    fix_ast(root)
-    return root
 
 correct_data = {}
 with open(correct_indices_path) as cip:
@@ -173,18 +77,9 @@ neds = []
 all_keys = []
 ntds = []
 
-# correct_classification_file = open('Correctly-predicted-patch.txt', 'w')
+correct_classification_file = open('difference_analysis/' +
+                                   dataname + '/' + intended_class + '-category.txt', 'w')
 change_type_map = {}
-
-
-def count_number_of_nodes(tree):
-    assert isinstance(tree, ASTNode)
-    count = 0
-    for child in tree.children:
-        count += count_number_of_nodes(child)
-    return 1 + count
-    pass
-
 
 with open(draw_prev_token_file) as pcfile:
     with open(draw_next_token_file) as ncfile:
@@ -217,30 +112,37 @@ with open(draw_prev_token_file) as pcfile:
                 continue
             else:
                 all_keys.append(key)
-            # correct_classification_file.write('Example : ' + str(idx) + '\n')
-            # correct_classification_file.write(pcs + '\n')
-            # correct_classification_file.write(ccs + '\n')
-            # correct_classification_file.write(str(correct_data[idx][EDIT_DISTANCE]) +
-            #                                   ' , ' +
-            #                                   str(correct_data[idx][TREE_DISTANCE]) +
-            #                                   ' , ' +
-            #                                   str(correct_data[idx][BIGRAM_EDIT]) +
-            #                                   ' , ' +
-            #                                   str(correct_data[idx][BIGRAM_JACCARD]) +
-            #                                   '\n'
-            #                                   )
+            correct_classification_file.write('Example : ' + str(idx) + '\n')
+            correct_classification_file.write(pcs + '\n')
+            correct_classification_file.write(ccs + '\n')
+            correct_classification_file.write(str(correct_data[idx][EDIT_DISTANCE]) +
+                                              ' , ' +
+                                              str(correct_data[idx][TREE_DISTANCE]) +
+                                              ' , ' +
+                                              str(correct_data[idx][BIGRAM_EDIT]) +
+                                              ' , ' +
+                                              str(correct_data[idx][BIGRAM_JACCARD]) +
+                                              '\n'
+                                              )
             print('Previous Version:\t', pcs)
             print('Next Version:   \t', ccs)
             print(',\t'.join(change_type_map.keys()))
-            # change_type = input('Enter Change Type: ')
-            # change_type = change_type.lower()
-            # correct_data[idx][TYPE_OF_CHANGE] = change_type
-            # if change_type in change_type_map.keys():
-            #     change_type_map[change_type] += 1
-            # else:
-            #     change_type_map[change_type] = 1
-            # correct_classification_file.write('Change Type : ' + change_type + '\n')
-            # correct_classification_file.write('=====================================\n\n')
+            patch_key = pcs + ccs
+            if idx in patch_category_dictionary.keys():
+                change_type = patch_category_dictionary[idx]
+            else:
+                if patch_key in patch_category_dictionary.keys():
+                    change_type = patch_category_dictionary[patch_key]
+                else:
+                    change_type = input('Enter Change Type: ')
+                    patch_category_dictionary[patch_key] = change_type
+            correct_data[idx][TYPE_OF_CHANGE] = change_type
+            if change_type in change_type_map.keys():
+                change_type_map[change_type] += 1
+            else:
+                change_type_map[change_type] = 1
+            correct_classification_file.write('Change Type : ' + change_type + '\n')
+            correct_classification_file.write('=====================================\n\n')
             eds.append(correct_data[idx][EDIT_DISTANCE])
             tds.append(correct_data[idx][TREE_DISTANCE])
             neds.append(correct_data[idx][BIGRAM_EDIT])
@@ -249,10 +151,10 @@ with open(draw_prev_token_file) as pcfile:
             count += 1
 print(count)
 # correct_classification_file.close()
-f1 = 'whole-hist-' + dataname + '.pdf'
-f2 = 'whole-hist-edit-dist-' + dataname + '.pdf'
-f3 = 'whole-hist-normalized-tree-norm-' + dataname + '.pdf'
-print(f1, f2, f3)
+f1 = 'difference_analysis/' + dataname + '/tree-hist-' + intended_class + '.pdf'
+f2 = 'difference_analysis/' + dataname + '/token-hist-' + intended_class + '.pdf'
+f3 = 'difference_analysis/' + dataname + '/normal-td-hist-' + intended_class + '.pdf'
+
 
 plt.figure()
 # plt.hist(eds, label='Edit Distance', alpha=0.5, ls='dashed', edgecolor='b', lw=3, color='b')
@@ -260,20 +162,20 @@ plt.figure()
 plt.hist(tds, label='Tree Distance', alpha=0.5, ls='solid', lw=3, color='g', edgecolor='b')
 #plt.legend()
 plt.savefig(fname=f1)
-plt.show()
+# plt.show()
 
 
 plt.figure()
 plt.hist(eds, label='Token Distance', alpha=0.5, ls='solid',  lw=3, color='b', edgecolor='b')
 plt.savefig(fname=f2)
 #plt.legend()
-plt.show()
+# plt.show()
 
 plt.figure()
 plt.hist(ntds, label='Normalized Tree Distance', alpha=0.5, ls='solid', edgecolor='b', lw=3, color='r')
 plt.savefig(fname=f3)
 #plt.legend()
-plt.show()
+# plt.show()
 
 
 
