@@ -62,7 +62,9 @@ def print_bleu_res_to_file(b_file, bls):
     if isinstance(bls, np.ndarray):
         r = bls.shape[0]
         for i in range(r):
-            s = ','.join([str(x) for x in bls[i]])
+            min_ed = min(bls[i][1:])
+            s = str(i) + ',' + ','.join([str(x) for x in bls[i]]) + ',' + str(min_ed)
+
             b_file.write(s + '\n')
         #first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls ]
         #avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
@@ -125,7 +127,7 @@ def main(opt):
     correct = 0
     no_change = 0
     decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_bleus/' + exp_name + '_'+ str(beam_size) + '_bleus.csv', 'w')
+    bleu_file = open('result_final/' + exp_name + '_'+ str(beam_size) + '_s2s.csv', 'w')
     correct_id_file = open('correct_ids/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
 
     all_bleus = []
@@ -148,6 +150,7 @@ def main(opt):
         decode_res_file.write('-------------------------------------------------------------------------------------\n')
         bleus = []
         found = False
+        bleus.append(get_edit_dist(src, tgt))
         for cand in cands:
             ed = get_edit_dist(tgt, cand)
             if ed == 0:
