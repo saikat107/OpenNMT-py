@@ -1,0 +1,2044 @@
+Example : 13
+Preconditions . checkNotNull ( predicate , STRING_CONSTANT ) ;
+checkNotNull ( predicate , STRING_CONSTANT ) ;
+2 , 2 , 2 , 0.25
+Change Type : 
+=====================================
+
+Example : 49
+public T get () { return instance ; }
+@ Override public T get () { return instance ; }
+2 , 3 , 2 , 0.2
+Change Type : 
+=====================================
+
+Example : 50
+String toString ( ) ;
+@ Override String toString ( ) ;
+2 , 3 , 2 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 51
+String toString ( ) ;
+@ Override String toString ( ) ;
+2 , 3 , 2 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 277
+char c
+final char c
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 292
+long millis
+final long millis
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 317
+char c
+final char c
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 318
+char style
+final char style
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 319
+char style
+final char style
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 326
+public String toString ( ) ;
+String toString ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 327
+public int getMaximumValue ( ) ;
+int getMaximumValue ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 330
+public boolean isSupported ( ) ;
+boolean isSupported ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 331
+public String getName ( ) ;
+String getName ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 332
+public String toString ( ) ;
+String toString ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 333
+public boolean isSupported ( ) ;
+boolean isSupported ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 334
+public String getName ( ) ;
+String getName ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 586
+@ SuppressWarnings ( { STRING_CONSTANT , STRING_CONSTANT } )
+@ SuppressWarnings ( STRING_CONSTANT )
+4 , 5 , 6 , 0.8
+Change Type : 
+=====================================
+
+Example : 616
+{ super . onComponentTag ( component , tag ) ; Components . assertTag ( component , tag , STRING_CONSTANT , STRING_CONSTANT ) ; }
+{ super . onComponentTag ( component , tag ) ; Components . assertTag ( component , tag , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ; }
+2 , 2 , 2 , 0.0
+Change Type : 
+=====================================
+
+Example : 793
+assertEquals ( true , StringUtils . isEmpty ( null ) ) ;
+assertEquals ( false , StringUtils . isEmpty ( null ) ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : 
+=====================================
+
+Example : 797
+try { SerializationUtils . deserialize ( ( InputStream ) null ) ; } catch ( NullPointerException ex ) { return; }
+try { SerializationUtils . deserialize ( ( InputStream ) null ) ; } catch ( IllegalArgumentException ex ) { return; }
+1 , 1 , 2 , 0.18181818181818182
+Change Type : 
+=====================================
+
+Example : 798
+try { SerializationUtils . serialize ( null , null ) ; } catch ( NullPointerException ex ) { return; }
+try { SerializationUtils . serialize ( null , null ) ; } catch ( IllegalArgumentException ex ) { return; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : 
+=====================================
+
+Example : 799
+try { SerializationUtils . serialize ( iMap , null ) ; } catch ( NullPointerException ex ) { return; }
+try { SerializationUtils . serialize ( iMap , null ) ; } catch ( IllegalArgumentException ex ) { return; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : 
+=====================================
+
+Example : 864
+if ( separator == null ) { separator = STRING_CONSTANT ; }
+if ( separator == null ) { separator = EMPTY ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : 
+=====================================
+
+Example : 928
+final int mask
+int mask
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 929
+final Object array
+Object array
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 940
+final Boolean [] array
+Boolean [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 948
+final Short [] array
+Short [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 962
+final Object array
+Object array
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 963
+final Object array
+Object array
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 973
+final Object array
+Object array
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 974
+final Object array
+Object array
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 977
+{ this . value = value ; ; }
+{ this . value = value ; }
+1 , 1 , 1 , 0.125
+Change Type : 
+=====================================
+
+Example : 1018
+{ return ( indexOf ( str , NUMBER_CONSTANT ) >= NUMBER_CONSTANT ) ; }
+{ return indexOf ( str , NUMBER_CONSTANT ) >= NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.35714285714285715
+Change Type : 
+=====================================
+
+Example : 1026
+{ if ( isEmpty ( str ) ) { return false ; } return ( str . indexOf ( searchChar ) >= NUMBER_CONSTANT ) ; }
+{ if ( isEmpty ( str ) ) { return false ; } return str . indexOf ( searchChar ) >= NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.2
+Change Type : 
+=====================================
+
+Example : 1045
+{ return ( ch >= NUMBER_CONSTANT && ch < NUMBER_CONSTANT ) ; }
+{ return ch >= NUMBER_CONSTANT && ch < NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : 
+=====================================
+
+Example : 1048
+return ( ch - NUMBER_CONSTANT ) ;
+return ch - NUMBER_CONSTANT ;
+2 , 3 , 4 , 0.75
+Change Type : 
+=====================================
+
+Example : 1066
+{ return ( bool ? NUMBER_CONSTANT : NUMBER_CONSTANT ) ; }
+{ return bool ? NUMBER_CONSTANT : NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.5
+Change Type : 
+=====================================
+
+Example : 1238
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1239
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1240
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1241
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1242
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1243
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1244
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1245
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1246
+if ( index == - NUMBER_CONSTANT ) { return clone ( array ) ; }
+if ( index == INDEX_NOT_FOUND ) { return clone ( array ) ; }
+2 , 3 , 3 , 0.3125
+Change Type : 
+=====================================
+
+Example : 1291
+JsonGenerator jgen = f . createJsonGenerator ( sw ) ;
+JsonGenerator jgen = f . createGenerator ( sw ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : 
+=====================================
+
+Example : 1292
+JsonParser jp = new JsonFactory () . createJsonParser ( new ByteArrayInputStream ( data ) ) ;
+JsonParser jp = new JsonFactory () . createParser ( new ByteArrayInputStream ( data ) ) ;
+1 , 1 , 2 , 0.23529411764705882
+Change Type : 
+=====================================
+
+Example : 1293
+JsonGenerator jg = new JsonFactory () . createJsonGenerator ( sw ) ;
+JsonGenerator jg = new JsonFactory () . createGenerator ( sw ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : 
+=====================================
+
+Example : 1294
+JsonParser jp = new JsonFactory () . createJsonParser ( STRING_CONSTANT ) ;
+JsonParser jp = new JsonFactory () . createParser ( STRING_CONSTANT ) ;
+1 , 1 , 2 , 0.3076923076923077
+Change Type : 
+=====================================
+
+Example : 1296
+JsonParser jp = f . createJsonParser ( json ) ;
+JsonParser jp = f . createParser ( json ) ;
+1 , 1 , 2 , 0.36363636363636365
+Change Type : 
+=====================================
+
+Example : 1297
+return f . createJsonParser ( is ) ;
+return f . createParser ( is ) ;
+1 , 1 , 2 , 0.4444444444444444
+Change Type : 
+=====================================
+
+Example : 1298
+{ return f . createJsonParser ( new StringReader ( input ) ) ; }
+{ return f . createParser ( new StringReader ( input ) ) ; }
+1 , 1 , 2 , 0.26666666666666666
+Change Type : 
+=====================================
+
+Example : 1695
+if ( length == NUMBER_CONSTANT ) return false ;
+if ( length == NUMBER_CONSTANT ) { return false ; }
+2 , 3 , 3 , 0.36363636363636365
+Change Type : 
+=====================================
+
+Example : 1771
+final String location
+final File location
+1 , 1 , 2 , 1.0
+Change Type : 
+=====================================
+
+Example : 1780
+String [] args
+final String [] args
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 1823
+for ( int i = NUMBER_CONSTANT ; i < NUMBER_CONSTANT ; i ++ ) { c . exec1 () ; }
+for ( int i = NUMBER_CONSTANT ; i < NUMBER_CONSTANT ; i ++ ) { c . exec () ; }
+1 , 1 , 2 , 0.2
+Change Type : 
+=====================================
+
+Example : 1825
+c . exec1 () ;
+c . exec () ;
+1 , 1 , 2 , 0.6666666666666666
+Change Type : 
+=====================================
+
+Example : 2064
+{ LOG . info ( STRING_CONSTANT + clazz + STRING_CONSTANT ) ; }
+{ LOG . debug ( STRING_CONSTANT + clazz + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.2857142857142857
+Change Type : 
+=====================================
+
+Example : 2232
+Token next = iterator . next () ;
+Token next = nextToken ( iterator ) ;
+4 , 4 , 5 , 0.8333333333333334
+Change Type : 
+=====================================
+
+Example : 2426
+public ExceptionMeteredAnnotationBeanPostProcessor ( MetricsRegistry metrics ) { this . metrics = metrics ; }
+public ExceptionMeteredAnnotationBeanPostProcessor ( final MetricsRegistry metrics ) { this . metrics = metrics ; }
+1 , 1 , 2 , 0.2
+Change Type : 
+=====================================
+
+Example : 2696
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2697
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2700
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2701
+void appendTo ( StringBuffer buffer ) ;
+void appendTo ( StringBuilder buffer ) ;
+1 , 1 , 2 , 0.5
+Change Type : 
+=====================================
+
+Example : 2703
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2710
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2711
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2712
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2713
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 2714
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 3536
+@ SuppressWarnings ( STRING_CONSTANT )
+@ SuppressWarnings ( { STRING_CONSTANT , STRING_CONSTANT } )
+4 , 5 , 6 , 0.8
+Change Type : 
+=====================================
+
+Example : 3552
+fontRenderer . drawString ( StringUtil . localize ( STRING_CONSTANT ) , NUMBER_CONSTANT , ySize - NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+fontRenderer . drawString ( StringUtils . localize ( STRING_CONSTANT ) , NUMBER_CONSTANT , ySize - NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+1 , 1 , 2 , 0.21052631578947367
+Change Type : 
+=====================================
+
+Example : 3699
+public abstract void clear ( ) ;
+void clear ( ) ;
+2 , 2 , 2 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 3717
+public int getColumnDimension ( ) ;
+int getColumnDimension ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 3737
+abstract void clear ( ) ;
+void clear ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 3739
+abstract double getSum ( ) ;
+double getSum ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 3760
+public void clear ( ) ;
+void clear ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 3774
+int n
+final int n
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 3775
+int n
+final int n
+1 , 1 , 1 , 0.5
+Change Type : 
+=====================================
+
+Example : 3788
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 3789
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 3790
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 3791
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 3792
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 3920
+{ throw new IllegalArgumentException ( STRING_CONSTANT + STRING_CONSTANT ) ; }
+{ throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+2 , 3 , 2 , 0.2
+Change Type : 
+=====================================
+
+Example : 3949
+public void resetRelativeAccuracy ( ) ;
+void resetRelativeAccuracy ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 4176
+int nRows = v.length ;
+final int nRows = v.length ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 4195
+new Object [] { new Double ( NUMBER_CONSTANT ) }
+new Object [] { Double . valueOf ( NUMBER_CONSTANT ) }
+3 , 4 , 4 , 0.5384615384615384
+Change Type : 
+=====================================
+
+Example : 4204
+{ return getCount ( new Long ( v ) ) ; }
+{ return getCount ( Long . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : 
+=====================================
+
+Example : 4406
+double [] v
+final double [] v
+1 , 1 , 1 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 4505
+final Object [] parts
+final Object . . . parts
+3 , 4 , 4 , 0.8333333333333334
+Change Type : 
+=====================================
+
+Example : 4543
+final Object [] parts
+final Object . . . parts
+3 , 4 , 4 , 0.8333333333333334
+Change Type : 
+=====================================
+
+Example : 4931
+List < Node > nodes = new ArrayList < Node > () ;
+List < Node > nodes = new ArrayList <> () ;
+3 , 4 , 4 , 0.3333333333333333
+Change Type : 
+=====================================
+
+Example : 5345
+JSType jsType
+TypeI jsType
+1 , 1 , 1 , 1.0
+Change Type : 
+=====================================
+
+Example : 5766
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : 
+=====================================
+
+Example : 5778
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : 
+=====================================
+
+Example : 5779
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : 
+=====================================
+
+Example : 5841
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5842
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5847
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5848
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5849
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5850
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5851
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5854
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5857
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5858
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5868
+{ this . shapesVisible = visible ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . shapesVisible = visible ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 5872
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5876
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5886
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5887
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5891
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5903
+{ this . shapesVisible = visible ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . shapesVisible = visible ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 5904
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5910
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5911
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5912
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5915
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5918
+{ this . margin = margin ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . margin = margin ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 5922
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5924
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5925
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5932
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5934
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5944
+{ this . shapesVisible = flag ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . shapesVisible = flag ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 5946
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5949
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5950
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5956
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5968
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : 
+=====================================
+
+Example : 5974
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : 
+=====================================
+
+Example : 5975
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : 
+=====================================
+
+Example : 5986
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5988
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5989
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5991
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5992
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5993
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5994
+{ this . data = data ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . data = data ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 5998
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 5999
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6003
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6004
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6008
+{ notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ fireChangeEvent () ; }
+8 , 10 , 9 , 0.9230769230769231
+Change Type : 
+=====================================
+
+Example : 6011
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6013
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6014
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6015
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6017
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6018
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6019
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6020
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6021
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6024
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6025
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6027
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6028
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6030
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6031
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6033
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6034
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6037
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6038
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6039
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6040
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6041
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6042
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6043
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6044
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6045
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6046
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6047
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6048
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6049
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6050
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6052
+{ notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ fireChangeEvent () ; }
+8 , 10 , 9 , 0.9230769230769231
+Change Type : 
+=====================================
+
+Example : 6053
+{ notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ fireChangeEvent () ; }
+8 , 10 , 9 , 0.9230769230769231
+Change Type : 
+=====================================
+
+Example : 6061
+{ this . insets = insets ; if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; } }
+{ this . insets = insets ; if ( notify ) { fireChangeEvent () ; } }
+8 , 10 , 9 , 0.48
+Change Type : 
+=====================================
+
+Example : 6062
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6063
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6072
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6073
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6074
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6079
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6080
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6081
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6083
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6084
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6085
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6087
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6088
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6090
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6091
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6092
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6094
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6095
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6096
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6097
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6098
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6099
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6100
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6101
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6102
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6103
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6104
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6105
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6106
+if ( notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.7058823529411765
+Change Type : 
+=====================================
+
+Example : 6107
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6108
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6109
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6110
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6112
+{ notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ fireChangeEvent () ; }
+8 , 10 , 9 , 0.9230769230769231
+Change Type : 
+=====================================
+
+Example : 6113
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6114
+{ notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ fireChangeEvent () ; }
+8 , 10 , 9 , 0.9230769230769231
+Change Type : 
+=====================================
+
+Example : 6121
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6122
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6124
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6125
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6126
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6133
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6134
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6136
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6138
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6139
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6140
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6141
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6144
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6145
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6148
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6152
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6153
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6154
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6155
+{ this . tickLabelPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . tickLabelPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 6158
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6160
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6161
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6162
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6163
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6164
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6167
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6168
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6171
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6172
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6174
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6179
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6180
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6181
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6182
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6187
+{ this . labelGenerator = generator ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . labelGenerator = generator ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 6188
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6192
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6195
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6199
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6206
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6208
+{ this . rangeCrosshairPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . rangeCrosshairPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 6213
+{ this . domainCrosshairPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . domainCrosshairPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : 
+=====================================
+
+Example : 6218
+{ notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ fireChangeEvent () ; }
+8 , 10 , 9 , 0.9230769230769231
+Change Type : 
+=====================================
+
+Example : 6220
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6222
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6224
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6226
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6227
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6229
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6230
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6232
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6233
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6236
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6237
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6238
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6239
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6242
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6245
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6248
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6249
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6252
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6256
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6266
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6268
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6269
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6277
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6278
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6279
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6280
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6282
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6283
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : 
+=====================================
+
+Example : 6292
+verify ( reporter , times ( NUMBER_CONSTANT ) )
+verify ( reporter )
+5 , 6 , 6 , 0.7777777777777778
+Change Type : 
+=====================================
+
+Example : 6315
+public boolean handle ( ) ;
+boolean handle ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 6369
+public String getName ( ) ;
+String getName ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 6370
+public String getName ( ) ;
+String getName ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : 
+=====================================
+
+Example : 6770
+String [] args
+String . . . args
+3 , 4 , 4 , 1.0
+Change Type : 
+=====================================
+
