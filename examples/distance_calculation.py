@@ -18,7 +18,7 @@ TYPE_OF_CHANGE = 'TYPE_OF_CHANGE'
 NORMALIZED_TREE_DISTANCE = 'NORMALIZED_TREE_DIST'
 
 dataname = 'codit'
-intended_class = 'only-t2t'
+intended_class = 'common'
 
 if dataname == 'codit':
     complete_split_data_path = \
@@ -129,15 +129,16 @@ with open(draw_prev_token_file) as pcfile:
             print('Next Version:   \t', ccs)
             print(',\t'.join(change_type_map.keys()))
             patch_key = pcs + ccs
-            if idx in patch_category_dictionary.keys():
-                change_type = patch_category_dictionary[idx]
-            else:
-                if patch_key in patch_category_dictionary.keys():
-                    change_type = patch_category_dictionary[patch_key]
-                else:
-                    change_type = input('Enter Change Type: ')
-                    patch_category_dictionary[patch_key] = change_type
-            correct_data[idx][TYPE_OF_CHANGE] = change_type
+            # if idx in patch_category_dictionary.keys():
+            #     change_type = patch_category_dictionary[idx]
+            # else:
+            #     if patch_key in patch_category_dictionary.keys():
+            #         change_type = patch_category_dictionary[patch_key]
+            #     else:
+            #         change_type = input('Enter Change Type: ')
+            #         patch_category_dictionary[patch_key] = change_type
+            # correct_data[idx][TYPE_OF_CHANGE] = change_type
+            change_type = ''
             if change_type in change_type_map.keys():
                 change_type_map[change_type] += 1
             else:

@@ -1,4 +1,4 @@
-p_file = 'Correctly-predicted-patch-codit.txt'
+p_file = '/home/sc2nf/Research/OpenNMT-py/examples/difference_analysis/codit/only-t2t-category.txt'
 type_stat = {}
 with open(p_file) as f:
     for ln, line in enumerate(f):

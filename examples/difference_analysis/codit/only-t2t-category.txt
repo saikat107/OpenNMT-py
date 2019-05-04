@@ -16,7 +16,7 @@ Example : 91
 { return new ListenableFutureTask < T > ( callable ) ; }
 { return ListenableFutureTask . create ( callable ) ; }
 4 , 7 , 6 , 0.6666666666666666
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 101
@@ -51,7 +51,7 @@ Example : 133
 GuavaAsserts . assertEquals ( object . getClass () , copy . getClass () ) ;
 Assert . assertEquals ( object . getClass () , copy . getClass () ) ;
 1 , 1 , 1 , 0.15384615384615385
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 134
@@ -205,7 +205,7 @@ Example : 305
 public AbstractInstant () { super(); }
 protected AbstractInstant () { super(); }
 1 , 1 , 1 , 0.3333333333333333
-Change Type : Access- Type-Change
+Change Type : Access-Type-Change
 =====================================
 
 Example : 306
@@ -254,7 +254,7 @@ Example : 328
 public int getMinimumValue ( ) ;
 int getMinimumValue ( ) ;
 1 , 1 , 1 , 0.2
-Change Type : Access- Type-Change
+Change Type : Access-Type-Change
 =====================================
 
 Example : 372
@@ -262,20 +262,6 @@ return ( DateTime ) instant . toCopy ( iField . set ( instant . getMillis () , v
 return ( DateTime ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
 1 , 1 , 2 , 0.19047619047619047
 Change Type : API-Change
-=====================================
-
-Example : 374
-return ( DateTime ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
-return ( DateTime ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : API-Change
-=====================================
-
-Example : 375
-return ( DateTime ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
-return ( DateTime ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : Api-Change
 =====================================
 
 Example : 376
@@ -288,20 +274,6 @@ Change Type : API-Change
 Example : 377
 { DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
 { DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 378
-{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
-{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 379
-{ DateOnly instant = iInstant ; return ( DateOnly ) instant . toCopy ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
-{ DateOnly instant = iInstant ; return ( DateOnly ) instant . withMillis ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
 1 , 1 , 2 , 0.15384615384615385
 Change Type : API-Change
 =====================================
@@ -325,90 +297,6 @@ return ( DateOnly ) instant . toCopy ( iField . set ( instant . getMillis () , v
 return ( DateOnly ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
 1 , 1 , 2 , 0.19047619047619047
 Change Type : API-Change
-=====================================
-
-Example : 383
-return ( DateOnly ) instant . toCopy ( iField . addWrapped ( instant . getMillis () , value ) ) ;
-return ( DateOnly ) instant . withMillis ( iField . addWrapped ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : API-Change
-=====================================
-
-Example : 384
-return ( DateOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
-return ( DateOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : API-Change
-=====================================
-
-Example : 385
-return ( DateOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
-return ( DateOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : Api-Change
-=====================================
-
-Example : 386
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundHalfEven ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 387
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundHalfCeiling ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 388
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundHalfFloor ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 389
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundCeiling ( instant . getMillis () ) ) ; }
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundCeiling ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 390
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . toCopy ( iField . roundFloor ( instant . getMillis () ) ) ; }
-{ TimeOnly instant = iInstant ; return ( TimeOnly ) instant . withMillis ( iField . roundFloor ( instant . getMillis () ) ) ; }
-1 , 1 , 2 , 0.15384615384615385
-Change Type : API-Change
-=====================================
-
-Example : 391
-return ( TimeOnly ) instant . toCopy ( iField . set ( instant . getMillis () , value ) ) ;
-return ( TimeOnly ) instant . withMillis ( iField . set ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : API-Change
-=====================================
-
-Example : 392
-return ( TimeOnly ) instant . toCopy ( iField . addWrapped ( instant . getMillis () , value ) ) ;
-return ( TimeOnly ) instant . withMillis ( iField . addWrapped ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : API-Change
-=====================================
-
-Example : 393
-return ( TimeOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
-return ( TimeOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : API-Change
-=====================================
-
-Example : 394
-return ( TimeOnly ) instant . toCopy ( iField . add ( instant . getMillis () , value ) ) ;
-return ( TimeOnly ) instant . withMillis ( iField . add ( instant . getMillis () , value ) ) ;
-1 , 1 , 2 , 0.19047619047619047
-Change Type : Api-Change
 =====================================
 
 Example : 407
@@ -555,14 +443,7 @@ Example : 444
 DateTimeZone getDateTimeZone ( ) ;
 DateTimeZone getZone ( ) ;
 1 , 1 , 2 , 0.6666666666666666
-Change Type : <pre>Method-Name-Change[D[D[D[D
-=====================================
-
-Example : 445
-DateTimeZone zone = getDateTimeZone () ;
-DateTimeZone zone = getZone () ;
-1 , 1 , 2 , 0.5714285714285714
-Change Type : Method-Call-Change
+Change Type : Method-Name-Change
 =====================================
 
 Example : 447
@@ -584,13 +465,6 @@ if ( zone == null ) { zone = getDateTimeZone () ; }
 if ( zone == null ) { zone = getZone () ; }
 1 , 1 , 2 , 0.2857142857142857
 Change Type : Method-Call-Change
-=====================================
-
-Example : 450
-DateTimeZone zone = chrono . getDateTimeZone () ;
-DateTimeZone zone = chrono . getZone () ;
-1 , 1 , 2 , 0.4444444444444444
-Change Type : API-Change
 =====================================
 
 Example : 451
@@ -642,13 +516,6 @@ if ( zone == null ) { zone = getZone () ; }
 Change Type : Method-Call-Change
 =====================================
 
-Example : 459
-{ return print ( millisUTC , chrono . getDateTimeZone () ) ; }
-{ return print ( millisUTC , chrono . getZone () ) ; }
-1 , 1 , 2 , 0.2857142857142857
-Change Type : API-Change
-=====================================
-
 Example : 460
 if ( zone == null ) { zone = getDateTimeZone () ; }
 if ( zone == null ) { zone = getZone () ; }
@@ -661,20 +528,6 @@ if ( zone == null ) { zone = getDateTimeZone () ; }
 if ( zone == null ) { zone = getZone () ; }
 1 , 1 , 2 , 0.2857142857142857
 Change Type : Method-Call-Change
-=====================================
-
-Example : 462
-{ printTo ( out , millisUTC , chrono . getDateTimeZone () ) ; }
-{ printTo ( out , millisUTC , chrono . getZone () ) ; }
-1 , 1 , 2 , 0.26666666666666666
-Change Type : API-Change
-=====================================
-
-Example : 463
-{ printTo ( buf , millisUTC , chrono . getDateTimeZone () ) ; }
-{ printTo ( buf , millisUTC , chrono . getZone () ) ; }
-1 , 1 , 2 , 0.26666666666666666
-Change Type : API-Change
 =====================================
 
 Example : 464
@@ -719,63 +572,7 @@ ReadablePartial instant
 Change Type : Type-Change
 =====================================
 
-Example : 484
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 486
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 487
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 488
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 489
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
 Example : 490
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 491
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 492
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 493
 PartialInstant partial
 ReadablePartial partial
 1 , 1 , 1 , 1.0
@@ -810,144 +607,12 @@ Example : 498
 Change Type : Method-Call-Change-call
 =====================================
 
-Example : 499
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 500
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 501
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 502
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 503
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 504
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 505
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 506
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 507
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 508
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 509
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 510
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 511
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 512
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 513
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 514
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 515
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 516
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
 
 Example : 517
 public int getMaximumValue ( PartialInstant instant ) { throw unsupported () ; }
 public int getMaximumValue ( ReadablePartial instant ) { throw unsupported () ; }
 1 , 1 , 2 , 0.2857142857142857
 Change Type : Parameter-Declaration-Change
-=====================================
-
-Example : 518
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
 =====================================
 
 Example : 519
@@ -957,109 +622,11 @@ public int getMinimumValue ( ReadablePartial instant ) { throw unsupported () ; 
 Change Type : Parameter-Declaration-Change
 =====================================
 
-Example : 520
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 521
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 522
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 523
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 524
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 525
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 535
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 536
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 537
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 538
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
 Example : 539
 public int getMinimumValue ( PartialInstant instant ) { return NUMBER_CONSTANT ; }
 public int getMinimumValue ( ReadablePartial instant ) { return NUMBER_CONSTANT ; }
 1 , 1 , 2 , 0.3076923076923077
 Change Type : Parameter-Declaration-Change
-=====================================
-
-Example : 540
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 541
-void validate ( PartialInstant instant ) ;
-void validate ( ReadablePartial instant ) ;
-1 , 1 , 2 , 0.5
-Change Type : Parameter-Declaration-Change
-=====================================
-
-Example : 543
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 544
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
 =====================================
 
 Example : 552
@@ -1090,60 +657,11 @@ public int getMinimumValue ( ReadablePartial instant ) { return iField . getMini
 Change Type : Parameter-Declaration-Change
 =====================================
 
-Example : 556
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 557
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 558
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 559
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 561
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 563
-PartialInstant partial
-ReadablePartial partial
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 564
-PartialInstant instant
-ReadablePartial instant
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
 Example : 568
 assertEquals ( SparseMatrix . print1DArray ( dm ) , STRING_CONSTANT ) ;
 assertEquals ( ArrayUtils . print1DArray ( dm ) , STRING_CONSTANT ) ;
 1 , 1 , 2 , 0.3076923076923077
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 574
@@ -1192,7 +710,7 @@ Example : 710
 catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getCause () instanceof IllegalArgumentException ) ; }
 catch ( ExceptionInInitializerError ex ) { assertTrue ( ex . getException () instanceof IllegalArgumentException ) ; }
 1 , 1 , 2 , 0.2222222222222222
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 711
@@ -1255,7 +773,7 @@ Example : 761
 assertTrue ( ToStringBuilder . getReflectionRegistry () . isEmpty () ) ;
 assertTrue ( ReflectionToStringBuilder . getRegistry () . isEmpty () ) ;
 2 , 2 , 4 , 0.5714285714285714
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 790
@@ -1322,20 +840,6 @@ Change Type : Api-Change
 =====================================
 
 Example : 804
-Field . setAccessible ( fields , true ) ;
-AccessibleObject . setAccessible ( fields , true ) ;
-1 , 1 , 1 , 0.2222222222222222
-Change Type : Type-Change
-=====================================
-
-Example : 805
-Field . setAccessible ( fields , true ) ;
-AccessibleObject . setAccessible ( fields , true ) ;
-1 , 1 , 1 , 0.2222222222222222
-Change Type : Type-Change
-=====================================
-
-Example : 806
 Field . setAccessible ( fields , true ) ;
 AccessibleObject . setAccessible ( fields , true ) ;
 1 , 1 , 1 , 0.2222222222222222
@@ -1612,7 +1116,7 @@ Example : 991
 { return new RuntimeException ( msg ) ; }
 { return new EOFException ( msg ) ; }
 1 , 1 , 2 , 0.4
-Change Type : API-Change
+Change Type : Exception-Change
 =====================================
 
 Example : 1015
@@ -1944,13 +1448,6 @@ StrMatcher delim
 Change Type : Type-Change
 =====================================
 
-Example : 1197
-Matcher delim
-StrMatcher delim
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
 Example : 1198
 tok . setIgnoredMatcher ( StrTokenizer.TRIM_MATCHER ) ;
 tok . setIgnoredMatcher ( StrMatcher . trimMatcher () ) ;
@@ -2004,14 +1501,14 @@ Example : 1233
 List list = new LinkedList () ;
 List list = new ArrayList () ;
 1 , 1 , 2 , 0.5
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 1276
 assertSame ( input , tok . getContent () ) ;
 assertEquals ( input , tok . getContent () ) ;
 1 , 1 , 1 , 0.2
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 1281
@@ -2088,7 +1585,7 @@ Example : 1342
 @ Override public SinkReply sinksItem ( ItemIdentifier item ) { return null ; }
 @ Override public SinkReply sinksItem ( ItemStack item ) { return null ; }
 1 , 1 , 2 , 0.26666666666666666
-Change Type : Type-Change
+Change Type : Method-Param-Change
 =====================================
 
 Example : 1344
@@ -2133,13 +1630,6 @@ String pipeName = ItemIdentifier . get ( _router . getPipe () . itemID , NUMBER_
 Change Type : Method-Param-Add
 =====================================
 
-Example : 1362
-PipeItemsRequestLogistics pipe
-CoreRoutedPipe pipe
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
 Example : 1369
 TriggerParameter parameter
 ITriggerParameter parameter
@@ -2178,13 +1668,6 @@ Change Type : API-Change
 Example : 1442
 Router table
 IRouter table
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 1445
-Router router
-IRouter router
 1 , 1 , 1 , 1.0
 Change Type : Type-Change
 =====================================
@@ -2228,14 +1711,14 @@ Example : 1527
 LiquidStack liquidId = LiquidManager . getLiquidForFilledItem ( data.item . getItemStack () ) ;
 LiquidStack liquidId = LiquidContainerRegistry . getLiquidForFilledItem ( data.item . getItemStack () ) ;
 1 , 1 , 2 , 0.2857142857142857
-Change Type : API-Change
+Change Type : MIsc
 =====================================
 
 Example : 1533
 PacketDispatcher . sendPacketToPlayer ( new PacketBufferTransfer ( compressed ) . getPacket () , player ) ;
 MainProxy . sendPacketToPlayer ( new PacketBufferTransfer ( compressed ) . getPacket () , player ) ;
 1 , 1 , 1 , 0.125
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 1538
@@ -2287,39 +1770,11 @@ IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventor
 Change Type : Type-Change
 =====================================
 
-Example : 1613
-InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
-IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
-1 , 1 , 1 , 0.2
-Change Type : Type-Change
-=====================================
-
-Example : 1614
-InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
-IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
-1 , 1 , 1 , 0.2
-Change Type : Type-Change
-=====================================
-
-Example : 1615
-InventoryUtil targetUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( targetInventory ) ;
-IInventoryUtil targetUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( targetInventory ) ;
-1 , 1 , 1 , 0.2
-Change Type : Type-Change
-=====================================
-
-Example : 1616
-InventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
-IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory . getInventoryUtil ( inv ) ;
-1 , 1 , 1 , 0.2
-Change Type : Type-Change
-=====================================
-
 Example : 1619
 IInventory inv = Utils . getInventory ( inventory ) ;
 IInventory inv = InventoryHelper . getInventory ( inventory ) ;
 1 , 1 , 2 , 0.36363636363636365
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 1621
@@ -2333,7 +1788,7 @@ Example : 1626
 IInventory inv = Utils . getInventory ( ( IInventory ) tile.tile ) ;
 IInventory inv = InventoryHelper . getInventory ( ( IInventory ) tile.tile ) ;
 1 , 1 , 2 , 0.2857142857142857
-Change Type : Type-Change
+Change Type : Object-Reference-Change
 =====================================
 
 Example : 1627
@@ -2354,7 +1809,7 @@ Example : 1632
 ItemStack added = Transactor . getTransactorFor ( tile ) . add ( data.item . getItemStack () , insertion , true ) ;
 ItemStack added = InventoryHelper . getTransactorFor ( tile ) . add ( data.item . getItemStack () , insertion , true ) ;
 1 , 1 , 2 , 0.17391304347826086
-Change Type : Api-Change
+Change Type : MIsc
 =====================================
 
 Example : 1640
@@ -2368,7 +1823,7 @@ Example : 1643
 { super ( iinventory , i , j , k , LogisticsPipes.ModuleItem.shiftedIndex ) ; _pipe = pipe ; _moduleIndex = i ; }
 { super ( iinventory , i , j , k , LogisticsPipes.ModuleItem.itemID ) ; _pipe = pipe ; _moduleIndex = i ; }
 1 , 1 , 2 , 0.16666666666666666
-Change Type : API-Change
+Change Type : Misc
 =====================================
 
 Example : 1645
@@ -2494,7 +1949,7 @@ Example : 1765
 parser = XMLReaderFactory . createXMLReader () ;
 parser = StringUtils . getXMLReader () ;
 2 , 2 , 4 , 0.8
-Change Type : API-Change
+Change Type : MIsc
 =====================================
 
 Example : 1766
@@ -2515,7 +1970,7 @@ Example : 1776
 final DITAOTJavaLogger logger = new DITAOTJavaLogger () ;
 final DITAOTLogger logger = new DITAOTJavaLogger () ;
 1 , 1 , 2 , 0.4444444444444444
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 1778
@@ -2634,7 +2089,7 @@ Example : 1894
 ViewObservable . assertUiThread () ;
 Assertions . assertUiThread () ;
 1 , 1 , 1 , 0.4
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 1895
@@ -2735,20 +2190,6 @@ Example : 2007
 Change Type : Method-Call-Change
 =====================================
 
-Example : 2012
-GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
-GrailsHibernateUtil . configureDynamicMethods ( applicationContext , ga ) ;
-1 , 1 , 1 , 0.2222222222222222
-Change Type : Type-Change
-=====================================
-
-Example : 2013
-GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
-GrailsHibernateUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
-1 , 1 , 1 , 0.2222222222222222
-Change Type : Type-Change
-=====================================
-
 Example : 2014
 GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
 GrailsHibernateUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
@@ -2757,20 +2198,6 @@ Change Type : Object-Reference-Change
 =====================================
 
 Example : 2016
-GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
-GrailsHibernateUtil . configureDynamicMethods ( applicationContext , ga ) ;
-1 , 1 , 1 , 0.2222222222222222
-Change Type : Object-Reference-Change
-=====================================
-
-Example : 2017
-GrailsDomainConfigurationUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
-GrailsHibernateUtil . configureDynamicMethods ( sessionFactory , grailsApplication ) ;
-1 , 1 , 1 , 0.2222222222222222
-Change Type : Object-Reference-Change
-=====================================
-
-Example : 2019
 GrailsDomainConfigurationUtil . configureDynamicMethods ( applicationContext , ga ) ;
 GrailsHibernateUtil . configureDynamicMethods ( applicationContext , ga ) ;
 1 , 1 , 1 , 0.2222222222222222
@@ -2788,7 +2215,7 @@ Example : 2026
 BigDecimal getVersion ( ) ;
 String getVersion ( ) ;
 1 , 1 , 1 , 0.4
-Change Type : Return- Type-Change
+Change Type : Return-Type-Change
 =====================================
 
 Example : 2048
@@ -2809,21 +2236,14 @@ Example : 2069
 GrailsHttpServletRequest request = webRequest . getCurrentRequest () ;
 HttpServletRequest request = webRequest . getCurrentRequest () ;
 1 , 1 , 1 , 0.25
-Change Type : Type-Change
-=====================================
-
-Example : 2077
-GrailsHttpServletResponse response = webRequest . getCurrentResponse () ;
-HttpServletResponse response = webRequest . getCurrentResponse () ;
-1 , 1 , 1 , 0.25
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2088
 List classes = finder . getPluginClasses () ;
 Set classes = finder . getPluginClasses () ;
 1 , 1 , 1 , 0.25
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2094
@@ -2921,7 +2341,7 @@ Example : 2230
 current instanceof SemicolonExprToken
 current instanceof SemicolonToken
 1 , 1 , 1 , 0.6666666666666666
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2233
@@ -2984,21 +2404,21 @@ Example : 2281
 CommonTree tree = compiler . parseSelector ( selector ) ;
 HiddenTokenAwareTree tree = compiler . parseSelector ( selector ) ;
 1 , 1 , 1 , 0.2
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2282
 public CssString ( CommonTree token , String value ) { super ( token ) ; this . value = value ; }
 public CssString ( HiddenTokenAwareTree token , String value ) { super ( token ) ; this . value = value ; }
 1 , 1 , 2 , 0.17391304347826086
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2283
 CommonTree tree = compiler . parse ( css ) ;
 HiddenTokenAwareTree tree = compiler . parse ( css ) ;
 1 , 1 , 1 , 0.2
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2284
@@ -3012,20 +2432,13 @@ Example : 2285
 public CssClass ( CommonTree token , String name ) { super ( token ) ; this . name = name ; }
 public CssClass ( HiddenTokenAwareTree token , String name ) { super ( token ) ; this . name = name ; }
 1 , 1 , 2 , 0.17391304347826086
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2286
 CommonTree tree
 HiddenTokenAwareTree tree
 1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 2287
-CommonTree tree = compiler . parse ( crashingSelector ) ;
-HiddenTokenAwareTree tree = compiler . parse ( crashingSelector ) ;
-1 , 1 , 1 , 0.2
 Change Type : Type-Change
 =====================================
 
@@ -3037,13 +2450,6 @@ Change Type : Parameter-Declaration-Change
 =====================================
 
 Example : 2289
-CommonTree token
-HiddenTokenAwareTree token
-1 , 1 , 1 , 1.0
-Change Type : Type-Change
-=====================================
-
-Example : 2290
 CommonTree token
 HiddenTokenAwareTree token
 1 , 1 , 1 , 1.0
@@ -3187,7 +2593,7 @@ Example : 2850
 InvocationsCalculator calculator1 = new InvocationsCalculator ( getInvocationsForEvaluation ( OngoingVerifyingMode . times ( NUMBER_CONSTANT ) ) ) ;
 InvocationsCalculator calculator1 = new InvocationsCalculator ( getInvocationsForEvaluation ( VerificationMode . times ( NUMBER_CONSTANT ) ) ) ;
 1 , 1 , 2 , 0.23529411764705882
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2852
@@ -3236,7 +2642,7 @@ Example : 2865
 { calculator . getFirstUndesiredInvocationStackTrace ( new InvocationMatcher ( simpleMethodInvocation ) , OngoingVerifyingMode . times ( NUMBER_CONSTANT ) ) ; }
 { calculator . getFirstUndesiredInvocationStackTrace ( new InvocationMatcher ( simpleMethodInvocation ) , VerificationMode . times ( NUMBER_CONSTANT ) ) ; }
 1 , 1 , 2 , 0.19047619047619047
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2918
@@ -3278,14 +2684,14 @@ Example : 2995
 VerificationMode mode = times ( NUMBER_CONSTANT ) ;
 VerificationModeImpl mode = times ( NUMBER_CONSTANT ) ;
 1 , 1 , 1 , 0.25
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2996
 VerificationMode mode = times ( NUMBER_CONSTANT ) ;
 VerificationModeImpl mode = times ( NUMBER_CONSTANT ) ;
 1 , 1 , 1 , 0.25
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 2997
@@ -3334,7 +2740,7 @@ Example : 3225
 ! ProxyCore.proxy . isRemote ( worldObj )
 ! CoreProxy.proxy . isRemote ( worldObj )
 1 , 1 , 2 , 0.5
-Change Type : Type-Change
+Change Type : Object-Reference-Change
 =====================================
 
 Example : 3258
@@ -3481,28 +2887,28 @@ Example : 3967
 Random rand = getRan () ;
 RandomGenerator rand = getRan () ;
 1 , 1 , 1 , 0.3333333333333333
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 3968
 Random rand = getRan () ;
 RandomGenerator rand = getRan () ;
 1 , 1 , 1 , 0.3333333333333333
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 3969
 Random rand = getRan () ;
 RandomGenerator rand = getRan () ;
 1 , 1 , 1 , 0.3333333333333333
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 3970
 Random rand = getRan () ;
 RandomGenerator rand = getRan () ;
 1 , 1 , 1 , 0.3333333333333333
-Change Type : Type-Change
+Change Type : Misc
 =====================================
 
 Example : 3987

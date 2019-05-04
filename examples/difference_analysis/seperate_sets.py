@@ -21,7 +21,7 @@ def write_data(data, path):
         f.close()
 
 if __name__ == '__main__':
-    data_type = 'icse' # sys.argv[1]
+    data_type = 'codit' # sys.argv[1]
     s2s_correct_file = data_type + '-s2s-correct-ids.csv'
     s2s_data = read_file(s2s_correct_file)
     t2t_correct_file = data_type + '-t2t-correct-ids.csv'
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     print(len(s2s_only_data))
     print(len(t2t_only_data))
     print(len(common_data))
-    write_data(s2s_only_data, data_type + '/only-s2s.csv')
-    write_data(t2t_only_data, data_type + '/only-t2t.csv')
-    write_data(common_data, data_type + '/common.csv')
+    # write_data(s2s_only_data, data_type + '/only-s2s.csv')
+    # write_data(t2t_only_data, data_type + '/only-t2t.csv')
+    # write_data(common_data, data_type + '/common.csv')
 
