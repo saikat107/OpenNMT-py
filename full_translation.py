@@ -77,9 +77,9 @@ if __name__ == '__main__':
     tgt_token = data_path + '/test-declone/next.augmented.token'
     src_struc = data_path + '/test-declone/prev.rule'
     grammar = data_path + '/grammar.bin'
-    tmp_file = dataset
-    name = dataset
-    atc_file_path = data_path + '/test_new/atc_scope.bin'
+    tmp_file = dataset + '-decloned'
+    name = dataset + '-declone'
+    atc_file_path = data_path + '/test_declone/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
