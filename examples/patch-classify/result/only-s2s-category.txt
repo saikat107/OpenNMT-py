@@ -1,0 +1,1637 @@
+Example : 4
+V value
+@ Nullable V value
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 9
+V get ( ) throws ExecutionException ;
+@ Override V get ( ) throws ExecutionException ;
+2 , 3 , 2 , 0.25
+Change Type : Override-Add
+=====================================
+
+Example : 15
+Object obj
+@ Nullable Object obj
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 25
+V v
+@ Nullable V v
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 33
+Object . . . objects
+@ Nullable Object . . . objects
+2 , 3 , 2 , 0.4
+Change Type : Annotation-Add
+=====================================
+
+Example : 77
+Object value
+@ Nullable Object value
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 78
+Object key
+@ Nullable Object key
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 80
+@ Override int indexOf ( Object target ) { return - NUMBER_CONSTANT ; }
+@ Override int indexOf ( @ Nullable Object target ) { return - NUMBER_CONSTANT ; }
+2 , 3 , 3 , 0.25
+Change Type : Annotation-Add
+=====================================
+
+Example : 81
+Object target
+@ Nullable Object target
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 82
+@ Override public int lastIndexOf ( Object target ) { return - NUMBER_CONSTANT ; }
+@ Override public int lastIndexOf ( @ Nullable Object target ) { return - NUMBER_CONSTANT ; }
+2 , 3 , 3 , 0.23529411764705882
+Change Type : Annotation-Add
+=====================================
+
+Example : 83
+@ Override public int indexOf ( Object target ) { return - NUMBER_CONSTANT ; }
+@ Override public int indexOf ( @ Nullable Object target ) { return - NUMBER_CONSTANT ; }
+2 , 3 , 3 , 0.23529411764705882
+Change Type : Annotation-Add
+=====================================
+
+Example : 85
+Object obj
+@ Nullable Object obj
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 87
+@ Override public void invalidate ( Object key ) { map . remove ( key ) ; }
+@ Override public void invalidate ( @ Nullable Object key ) { map . remove ( key ) ; }
+2 , 3 , 3 , 0.21052631578947367
+Change Type : Annotation-Add
+=====================================
+
+Example : 93
+T value
+@ Nullable T value
+2 , 3 , 2 , 0.6666666666666666
+Change Type : Annotation-Add
+=====================================
+
+Example : 214
+Iterator < ? extends Element > iterator
+final Iterator < ? extends Element > iterator
+1 , 1 , 1 , 0.14285714285714285
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 249
+this . resultObject . put ( RESULTS , results ) ;
+this . resultObject . put ( Tokens.RESULTS , results ) ;
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 257
+Object f
+final Object f
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 258
+Object f
+final Object f
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 259
+Object f
+final Object f
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 278
+Object element
+final Object element
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 282
+DateTimeFormatter formatter
+final DateTimeFormatter formatter
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 570
+int sum = NUMBER_CONSTANT ;
+double sum = NUMBER_CONSTANT ;
+1 , 1 , 1 , 0.4
+Change Type : Type-Change
+=====================================
+
+Example : 629
+{ this . icon = icon . invert () ; return this ; }
+{ this . icon = icon ; return this ; }
+3 , 4 , 4 , 0.35714285714285715
+Change Type : Statement-Remove
+=====================================
+
+Example : 666
+super ( metricsRegistry , STRING_CONSTANT ) ;
+super ( metricsRegistry ) ;
+2 , 2 , 3 , 0.5714285714285714
+Change Type : Parameter-Remove
+=====================================
+
+Example : 775
+Object array
+final Object array
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 776
+Object array
+final Object array
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 845
+{ Validate . notNull ( null ) ; }
+{ Validate . notNull ( null ) ; fail ( STRING_CONSTANT ) ; }
+5 , 7 , 5 , 0.3333333333333333
+Change Type : Statement-Add
+=====================================
+
+Example : 855
+if ( at == - NUMBER_CONSTANT ) { return STRING_CONSTANT ; }
+if ( at == - NUMBER_CONSTANT ) { return EMPTY ; }
+1 , 1 , 2 , 0.3076923076923077
+Change Type : Object-Reference-Change/Return-value-change
+=====================================
+
+Example : 867
+if ( len < NUMBER_CONSTANT ) { return STRING_CONSTANT ; }
+if ( len < NUMBER_CONSTANT ) { return EMPTY ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change/Return-value-change
+=====================================
+
+Example : 868
+if ( len < NUMBER_CONSTANT ) { return STRING_CONSTANT ; }
+if ( len < NUMBER_CONSTANT ) { return EMPTY ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change/Return-value-change
+=====================================
+
+Example : 869
+if ( start > end ) { return STRING_CONSTANT ; }
+if ( start > end ) { return EMPTY ; }
+1 , 1 , 2 , 0.3333333333333333
+Change Type : Object-Reference-Change/Return-value-change
+=====================================
+
+Example : 881
+if ( value == null ) return - NUMBER_CONSTANT ;
+if ( value == null ) { return - NUMBER_CONSTANT ; }
+2 , 3 , 3 , 0.3333333333333333
+Change Type : Brackting
+=====================================
+
+Example : 882
+if ( value == null ) return - NUMBER_CONSTANT ;
+if ( value == null ) { return - NUMBER_CONSTANT ; }
+2 , 3 , 3 , 0.3333333333333333
+Change Type : Brackting
+=====================================
+
+Example : 908
+{ return this . value . equals ( obj ) ; }
+{ return super . equals ( obj ) ; }
+3 , 4 , 4 , 0.46153846153846156
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 916
+final byte holder
+byte holder
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 919
+final byte holder
+byte holder
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 933
+final byte [] array
+byte [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 937
+final long [] array
+long [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 945
+final byte [] array
+byte [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 951
+final long [] array
+long [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 956
+final byte [] array
+byte [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 960
+final long [] array
+long [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 967
+final byte [] array
+byte [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 970
+final long [] array
+long [] array
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 1007
+{ return ( str == null ? defaultStr : str ) ; }
+{ return str == null ? defaultStr : str ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1008
+{ return ( str == null ? EMPTY : str ) ; }
+{ return str == null ? EMPTY : str ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1009
+{ return ( str == null ? EMPTY : str . trim () ) ; }
+{ return str == null ? EMPTY : str . trim () ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Brackting
+=====================================
+
+Example : 1011
+{ return ( str == null ? null : str . trim () ) ; }
+{ return str == null ? null : str . trim () ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Brackting
+=====================================
+
+Example : 1012
+{ return ( str == null ? EMPTY : str . trim () ) ; }
+{ return str == null ? EMPTY : str . trim () ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Brackting
+=====================================
+
+Example : 1013
+{ return ( text [ pos ] <= NUMBER_CONSTANT ? NUMBER_CONSTANT : NUMBER_CONSTANT ) ; }
+{ return text [ pos ] <= NUMBER_CONSTANT ? NUMBER_CONSTANT : NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Brackting
+=====================================
+
+Example : 1014
+{ return ( ch == text [ pos ] ? NUMBER_CONSTANT : NUMBER_CONSTANT ) ; }
+{ return ch == text [ pos ] ? NUMBER_CONSTANT : NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Brackting
+=====================================
+
+Example : 1021
+{ return ( value >= min && value <= max ) ; }
+{ return value >= min && value <= max ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1024
+{ return ( value >= min && value <= max ) ; }
+{ return value >= min && value <= max ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1027
+return ( str . length () == NUMBER_CONSTANT ? null : str ) ;
+return str . length () == NUMBER_CONSTANT ? null : str ;
+2 , 3 , 4 , 0.4
+Change Type : Brackting
+=====================================
+
+Example : 1039
+{ return ( obj == null ? STRING_CONSTANT : obj . toString () ) ; }
+{ return obj == null ? STRING_CONSTANT : obj . toString () ; }
+2 , 3 , 4 , 0.35294117647058826
+Change Type : Brackting
+=====================================
+
+Example : 1041
+{ return ( ch >= CHAR_CONS && ch <= CHAR_CONS ) ; }
+{ return ch >= CHAR_CONS && ch <= CHAR_CONS ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1042
+{ return ( ch >= CHAR_CONS && ch <= CHAR_CONS ) ; }
+{ return ch >= CHAR_CONS && ch <= CHAR_CONS ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1043
+{ return ( ch >= CHAR_CONS && ch <= CHAR_CONS ) ; }
+{ return ch >= CHAR_CONS && ch <= CHAR_CONS ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1046
+{ return ( ch < NUMBER_CONSTANT ) ; }
+{ return ch < NUMBER_CONSTANT ; }
+2 , 3 , 4 , 0.6
+Change Type : Brackting
+=====================================
+
+Example : 1053
+{ return ( value >= min && value <= max ) ; }
+{ return value >= min && value <= max ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1068
+{ return ( value == NUMBER_CONSTANT ? Boolean.FALSE : Boolean.TRUE ) ; }
+{ return value == NUMBER_CONSTANT ? Boolean.FALSE : Boolean.TRUE ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1069
+{ return ( value == NUMBER_CONSTANT ? false : true ) ; }
+{ return value == NUMBER_CONSTANT ? false : true ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1070
+{ if ( bool == null ) { return valueIfNull ; } return ( bool . booleanValue () ? true : false ) ; }
+{ if ( bool == null ) { return valueIfNull ; } return bool . booleanValue () ? true : false ; }
+2 , 3 , 4 , 0.20833333333333334
+Change Type : Brackting
+=====================================
+
+Example : 1071
+{ if ( bool == null ) { return false ; } return ( bool . booleanValue () ? true : false ) ; }
+{ if ( bool == null ) { return false ; } return bool . booleanValue () ? true : false ; }
+2 , 3 , 4 , 0.17391304347826086
+Change Type : Brackting
+=====================================
+
+Example : 1072
+{ return ( bool ? Boolean.TRUE : Boolean.FALSE ) ; }
+{ return bool ? Boolean.TRUE : Boolean.FALSE ; }
+2 , 3 , 4 , 0.5
+Change Type : Brackting
+=====================================
+
+Example : 1073
+{ if ( bool == null ) { return false ; } return ( bool . booleanValue () ? false : true ) ; }
+{ if ( bool == null ) { return false ; } return bool . booleanValue () ? false : true ; }
+2 , 3 , 4 , 0.20833333333333334
+Change Type : Brackting
+=====================================
+
+Example : 1074
+{ if ( bool == null ) { return false ; } return ( bool . booleanValue () ? true : false ) ; }
+{ if ( bool == null ) { return false ; } return bool . booleanValue () ? true : false ; }
+2 , 3 , 4 , 0.17391304347826086
+Change Type : Brackting
+=====================================
+
+Example : 1075
+{ return ( value >= min && value <= max ) ; }
+{ return value >= min && value <= max ; }
+2 , 3 , 4 , 0.42857142857142855
+Change Type : Brackting
+=====================================
+
+Example : 1260
+{ return reflectionCompare ( lhs , rhs , compareTransients , null ) ; }
+{ return reflectionCompare ( lhs , rhs , compareTransients , null , null ) ; }
+2 , 2 , 2 , 0.07142857142857142
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 1287
+if ( value instanceof Boolean ) { return ( ( Boolean ) value ) . booleanValue () ; }
+if ( value instanceof Boolean ) { return ( Boolean ) value ; }
+5 , 7 , 6 , 0.3888888888888889
+Change Type : Method-Call-Remove
+=====================================
+
+Example : 1458
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel ) ;
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel , true ) ;
+2 , 2 , 3 , 0.21052631578947367
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 1459
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel ) ;
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel , true ) ;
+2 , 2 , 3 , 0.21052631578947367
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 1460
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel ) ;
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel , true ) ;
+2 , 2 , 3 , 0.21052631578947367
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 1461
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel ) ;
+BasicGuiHelper . drawGuiBackGround ( mc , guiLeft , guiTop , right , bottom , zLevel , true ) ;
+2 , 2 , 3 , 0.21052631578947367
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 1769
+Object obj
+final Object obj
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1803
+String basedir
+final String basedir
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1807
+String filename
+final String filename
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 1902
+this . cl = new GroovyClassLoader ( getClass () . getClassLoader () ) ;
+this . cl = new GroovyClassLoader () ;
+6 , 8 , 8 , 0.6666666666666666
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 1916
+super ( controller ) ;
+super ( controller , false ) ;
+2 , 2 , 3 , 0.5714285714285714
+Change Type : Method-Parameter-Add
+=====================================
+
+Example : 2066
+catch ( IOException e ) { LOG . warn ( STRING_CONSTANT + e . getMessage () , e ) ; }
+catch ( IOException e ) { LOG . debug ( STRING_CONSTANT + e . getMessage () , e ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Api-Change
+=====================================
+
+Example : 2231
+List < Token > names
+List < ? extends Token > names
+2 , 3 , 3 , 0.5714285714285714
+Change Type : Generics
+=====================================
+
+Example : 2372
+final int offset
+final long offset
+1 , 1 , 2 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2394
+@ Override public void onDestroy () { super . onDestroy () ; mHandler . post ( mDisplayMessages ) ; }
+@ Override public void onDestroy () { super . onDestroy () ; }
+7 , 9 , 7 , 0.3888888888888889
+Change Type : Statement-Remove
+=====================================
+
+Example : 2427
+final Object bean
+Object bean
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 2548
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT ;
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ;
+4 , 4 , 4 , 0.0
+Change Type : Statement-Change
+=====================================
+
+Example : 2549
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT ;
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ;
+4 , 4 , 4 , 0.0
+Change Type : Statement-Change
+=====================================
+
+Example : 2551
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ;
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ;
+4 , 4 , 4 , 0.0
+Change Type : Statement-Change
+=====================================
+
+Example : 2552
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ;
+String expectedMessage = STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ;
+4 , 4 , 4 , 0.0
+Change Type : Statement-Change
+=====================================
+
+Example : 2693
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2694
+StringBuffer result = new StringBuffer () ;
+StringBuilder result = new StringBuilder () ;
+2 , 2 , 3 , 0.6666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 2695
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2698
+StringBuffer sb = new StringBuffer () ;
+StringBuilder sb = new StringBuilder () ;
+2 , 2 , 3 , 0.6666666666666666
+Change Type : Type-Change
+=====================================
+
+Example : 2699
+StringBuffer buffer
+StringBuilder buffer
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 2702
+public void appendTo ( StringBuffer buffer ) { buffer . append ( STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 2704
+public void appendTo ( StringBuffer buffer ) { buffer . append ( STRING_CONSTANT + suffix + STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( STRING_CONSTANT + suffix + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 2705
+public void appendTo ( StringBuffer buffer ) { buffer . append ( STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 2707
+public void appendTo ( StringBuffer buffer ) { buffer . append ( STRING_CONSTANT + prefix + STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( STRING_CONSTANT + prefix + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 2709
+public void appendTo ( StringBuffer buffer ) { buffer . append ( getName () + STRING_CONSTANT + wanted + STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( getName () + STRING_CONSTANT + wanted + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.17391304347826086
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 2715
+public void appendTo ( StringBuffer buffer ) { buffer . append ( STRING_CONSTANT + substring + STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( STRING_CONSTANT + substring + STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 2716
+public void appendTo ( StringBuffer buffer ) { buffer . append ( STRING_CONSTANT ) ; }
+public void appendTo ( StringBuilder buffer ) { buffer . append ( STRING_CONSTANT ) ; }
+1 , 1 , 2 , 0.23529411764705882
+Change Type : Parameter-Type-Change
+=====================================
+
+Example : 3004
+public T read ( ) ;
+T read ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access-Type-Change
+=====================================
+
+Example : 3420
+if ( item . func_92014_d () . stackSize <= NUMBER_CONSTANT ) return false ;
+if ( item . getEntityItem () . stackSize <= NUMBER_CONSTANT ) return false ;
+1 , 1 , 2 , 0.26666666666666666
+Change Type : Api-Change
+=====================================
+
+Example : 3547
+@ Override public boolean isStackValidForSlot ( int i , ItemStack itemstack ) { return false ; }
+@ Override public boolean isStackValidForSlot ( int i , ItemStack itemstack ) { return true ; }
+1 , 1 , 2 , 0.2222222222222222
+Change Type : Boolean-Value-Change/ Return-Value-Change
+=====================================
+
+Example : 3548
+fontRenderer . drawString ( StringUtil . localize ( STRING_CONSTANT ) , NUMBER_CONSTANT , ySize - NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+fontRenderer . drawString ( StringUtils . localize ( STRING_CONSTANT ) , NUMBER_CONSTANT , ySize - NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+1 , 1 , 2 , 0.21052631578947367
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 3551
+fontRenderer . drawString ( StringUtil . localize ( STRING_CONSTANT ) , NUMBER_CONSTANT , ySize - NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+fontRenderer . drawString ( StringUtils . localize ( STRING_CONSTANT ) , NUMBER_CONSTANT , ySize - NUMBER_CONSTANT , NUMBER_CONSTANT ) ;
+1 , 1 , 2 , 0.21052631578947367
+Change Type : Object-Reference-Change
+=====================================
+
+Example : 3718
+public int getRowDimension ( ) ;
+int getRowDimension ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access-Type-Change
+=====================================
+
+Example : 3740
+abstract int getN ( ) ;
+int getN ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Abstract-Keyword-Remove
+=====================================
+
+Example : 3741
+abstract double getMin ( ) ;
+double getMin ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Abstract-Keyword-Remove
+=====================================
+
+Example : 3742
+abstract double getMax ( ) ;
+double getMax ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Abstract-Keyword-Remove
+=====================================
+
+Example : 3745
+abstract double getMean ( ) ;
+double getMean ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Abstract-Keyword-Remove
+=====================================
+
+Example : 3757
+public void clear () { super . clear () ; std = Double.NaN ; }
+public void clear () { super . clear () ; }
+4 , 6 , 4 , 0.3076923076923077
+Change Type : Statement-Remove
+=====================================
+
+Example : 3767
+Object o
+final Object o
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3769
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3770
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3773
+int n
+final int n
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3776
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3777
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3778
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3779
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3780
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3781
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3782
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3783
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3784
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3785
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3786
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3787
+double [] values
+final double [] values
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3795
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3796
+double d
+final double d
+1 , 1 , 1 , 0.5
+Change Type : Final-Keyword-Add
+=====================================
+
+Example : 3938
+public void clear () { super . clear () ; lastVar = NUMBER_CONSTANT ; }
+public void clear () { super . clear () ; }
+4 , 6 , 4 , 0.3076923076923077
+Change Type : Statement-Remove
+=====================================
+
+Example : 3950
+public double getRelativeAccuracy ( ) ;
+double getRelativeAccuracy ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access-Type-Change
+=====================================
+
+Example : 3951
+public void resetAbsoluteAccuracy ( ) ;
+void resetAbsoluteAccuracy ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access-Type-Change
+=====================================
+
+Example : 3952
+public double getAbsoluteAccuracy ( ) ;
+double getAbsoluteAccuracy ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access-Type-Change
+=====================================
+
+Example : 3953
+public int getMaximalIterationCount ( ) ;
+int getMaximalIterationCount ( ) ;
+1 , 1 , 1 , 0.2
+Change Type : Access-Type-Change
+=====================================
+
+Example : 4157
+List list
+List < Object > list
+3 , 5 , 4 , 1.0
+Change Type : Generics
+=====================================
+
+Example : 4158
+List list
+List < Object > list
+3 , 5 , 4 , 1.0
+Change Type : Generics
+=====================================
+
+Example : 4191
+Integer input = new Integer ( NUMBER_CONSTANT ) ;
+Integer input = Integer . valueOf ( NUMBER_CONSTANT ) ;
+3 , 4 , 4 , 0.5833333333333334
+Change Type : API-Change
+=====================================
+
+Example : 4193
+{ return new Double ( o . toString () ) . doubleValue () ; }
+{ return Double . valueOf ( o . toString () ) . doubleValue () ; }
+3 , 4 , 4 , 0.3888888888888889
+Change Type : Api-Change
+=====================================
+
+Example : 4194
+list . add ( new Double ( one ) ) ;
+list . add ( Double . valueOf ( one ) ) ;
+3 , 4 , 4 , 0.5
+Change Type : Api-Change
+=====================================
+
+Example : 4196
+new Object [] { new Double ( p ) }
+new Object [] { Double . valueOf ( p ) }
+3 , 4 , 4 , 0.5384615384615384
+Change Type : Api-Change
+=====================================
+
+Example : 4203
+{ return getCount ( new Long ( v ) ) ; }
+{ return getCount ( Long . valueOf ( v ) ) ; }
+3 , 4 , 4 , 0.4666666666666667
+Change Type : Api-Change
+=====================================
+
+Example : 4216
+assertFalse ( u . equals ( new Double ( NUMBER_CONSTANT ) ) ) ;
+assertFalse ( u . equals ( Double . valueOf ( NUMBER_CONSTANT ) ) ) ;
+3 , 4 , 4 , 0.4375
+Change Type : Api-Change
+=====================================
+
+Example : 4221
+assertFalse ( STRING_CONSTANT , u . equals ( new Double ( NUMBER_CONSTANT ) ) ) ;
+assertFalse ( STRING_CONSTANT , u . equals ( Double . valueOf ( NUMBER_CONSTANT ) ) ) ;
+3 , 4 , 4 , 0.3888888888888889
+Change Type : Api-Change
+=====================================
+
+Example : 4224
+assertFalse ( STRING_CONSTANT , u . equals ( new Double ( NUMBER_CONSTANT ) ) ) ;
+assertFalse ( STRING_CONSTANT , u . equals ( Double . valueOf ( NUMBER_CONSTANT ) ) ) ;
+3 , 4 , 4 , 0.3888888888888889
+Change Type : Api-Change
+=====================================
+
+Example : 4226
+double delta = ( max - min ) / ( new Double ( binCount ) ) . doubleValue () ;
+double delta = ( max - min ) / ( Double . valueOf ( binCount ) ) . doubleValue () ;
+3 , 4 , 4 , 0.30434782608695654
+Change Type : Api-Change
+=====================================
+
+Example : 4227
+{ val = new Double ( str ) . doubleValue () ; sampleStats . addValue ( val ) ; }
+{ val = Double . valueOf ( str ) . doubleValue () ; sampleStats . addValue ( val ) ; }
+3 , 4 , 4 , 0.30434782608695654
+Change Type : Api-Change
+=====================================
+
+Example : 4404
+double [] [] in
+final double [] [] in
+1 , 1 , 1 , 0.25
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 4410
+double [] v
+final double [] v
+1 , 1 , 1 , 0.3333333333333333
+Change Type : Final-Keyword-Remove
+=====================================
+
+Example : 4513
+Object [] arguments
+Object . . . arguments
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 4516
+Object [] parts
+Object . . . parts
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 4519
+Object [] arguments
+Object . . . arguments
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 4520
+Object [] parts
+Object . . . parts
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 4528
+final Object [] arguments
+final Object . . . arguments
+3 , 4 , 4 , 0.8333333333333334
+Change Type : []-to-...
+=====================================
+
+Example : 4534
+Object [] arguments
+Object . . . arguments
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 4538
+Object [] arguments
+Object . . . arguments
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 4544
+final Object [] arguments
+final Object . . . arguments
+3 , 4 , 4 , 0.8333333333333334
+Change Type : []-to-...
+=====================================
+
+Example : 4548
+final Object [] parts
+final Object . . . parts
+3 , 4 , 4 , 0.8333333333333334
+Change Type : []-to-...
+=====================================
+
+Example : 5114
+Node lhs = node . getFirstChild () . getFirstChild () ;
+Node lhs = node . getFirstFirstChild () ;
+4 , 5 , 5 , 0.5
+Change Type : Method-Call-Removed
+=====================================
+
+Example : 5118
+public void disable_testClassMethodUnused2 () { this . disableTypeCheck () ; unused ( STRING_CONSTANT ) ; used ( STRING_CONSTANT ) ; }
+public void disable_testClassMethodUnused2 () { this . mode = TypeInferenceMode.NEITHER ; unused ( STRING_CONSTANT ) ; used ( STRING_CONSTANT ) ; }
+3 , 4 , 4 , 0.3333333333333333
+Change Type : API-Change
+=====================================
+
+Example : 5119
+public void testClassMethodUnused1 () { this . disableTypeCheck () ; unused ( STRING_CONSTANT ) ; used ( STRING_CONSTANT ) ; }
+public void testClassMethodUnused1 () { this . mode = TypeInferenceMode.NEITHER ; unused ( STRING_CONSTANT ) ; used ( STRING_CONSTANT ) ; }
+3 , 4 , 4 , 0.3333333333333333
+Change Type : Api-Change
+=====================================
+
+Example : 5121
+@ Override protected CompilerPass create ( AbstractCompiler compiler ) { return new UnreachableCodeElimination ( compiler , true ) ; }
+@ Override protected CompilerPass create ( AbstractCompiler compiler ) { return new UnreachableCodeElimination ( compiler , false ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Boolean-Value-Change/Parameter-Value-Change
+=====================================
+
+Example : 5124
+@ Override protected CompilerPass create ( AbstractCompiler compiler ) { return new UnreachableCodeElimination ( compiler , false ) ; }
+@ Override protected CompilerPass create ( AbstractCompiler compiler ) { return new UnreachableCodeElimination ( compiler , true ) ; }
+1 , 1 , 2 , 0.19047619047619047
+Change Type : Boolean-Value-Change/Parameter-Value-Change
+=====================================
+
+Example : 5152
+test ( options , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT ) ) ;
+test ( options , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ) ;
+2 , 2 , 2 , 0.0
+Change Type : MISC/Method-Parameter-Add
+=====================================
+
+Example : 5156
+test ( options , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) ) ;
+test ( options , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT ) , LINE_JOINER . join ( STRING_CONSTANT , STRING_CONSTANT ) ) ;
+2 , 2 , 2 , 0.0
+Change Type : MISc/Method-Parameter-Remove
+=====================================
+
+Example : 5271
+@ Override protected CompilerPass getProcessor ( Compiler compiler ) { return new J2clClinitPrunerPass ( compiler , null ) ; }
+@ Override protected CompilerPass getProcessor ( Compiler compiler ) { return new J2clClinitPrunerPass ( compiler ) ; }
+2 , 2 , 3 , 0.15789473684210525
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 5293
+resultPair = analyzeCastFwd ( expr , inEnv , specializedType ) ;
+resultPair = analyzeCastFwd ( expr , inEnv ) ;
+2 , 2 , 3 , 0.36363636363636365
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 5309
+n . getChildCount () == NUMBER_CONSTANT && t . inGlobalScope ()
+n . hasOneChild () && t . inGlobalScope ()
+3 , 4 , 5 , 0.6153846153846154
+Change Type : Api-Change
+=====================================
+
+Example : 5330
+test ( STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT , STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ) ;
+test ( STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT , STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ) ;
+2 , 2 , 2 , 0.0
+Change Type : Misc/Parameter-Value-Change
+=====================================
+
+Example : 5332
+test ( STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT , STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ) ;
+test ( STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT , STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ) ;
+2 , 2 , 2 , 0.0
+Change Type : Misc/Parameter-Value-Change
+=====================================
+
+Example : 5337
+test ( STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT , STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ) ;
+test ( STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT , STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT + STRING_CONSTANT ) ;
+2 , 2 , 2 , 0.0
+Change Type : Misc/Parameter-Value-Change
+=====================================
+
+Example : 5344
+JSType jsType
+TypeI jsType
+1 , 1 , 1 , 1.0
+Change Type : Type-Change
+=====================================
+
+Example : 5466
+if ( nameNode == null ) return;
+if ( nameNode == null ) { return; }
+2 , 3 , 3 , 0.4444444444444444
+Change Type : Brackting
+=====================================
+
+Example : 5541
+Node n = t . getScope () . getRootNode () ;
+Node n = t . getScopeRoot () ;
+4 , 5 , 5 , 0.5833333333333334
+Change Type : Api-Change
+=====================================
+
+Example : 5542
+@ Override public void remove () { throw new UnsupportedOperationException ( STRING_CONSTANT ) ; }
+@ Override public void remove () { throw new UnsupportedOperationException () ; }
+3 , 3 , 4 , 0.375
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 5543
+@ Override public void remove () { throw new UnsupportedOperationException ( STRING_CONSTANT ) ; }
+@ Override public void remove () { throw new UnsupportedOperationException () ; }
+3 , 3 , 4 , 0.375
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 5546
+@ Override public void remove () { throw new UnsupportedOperationException ( STRING_CONSTANT ) ; }
+@ Override public void remove () { throw new UnsupportedOperationException () ; }
+3 , 3 , 4 , 0.375
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 5547
+@ Override public void remove () { throw new UnsupportedOperationException ( STRING_CONSTANT ) ; }
+@ Override public void remove () { throw new UnsupportedOperationException () ; }
+3 , 3 , 4 , 0.375
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 5760
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5761
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5762
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5765
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5767
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5769
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5775
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5776
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5777
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5826
+if ( radius <= NUMBER_CONSTANT ) { throw new IllegalArgumentException ( STRING_CONSTANT + STRING_CONSTANT ) ; }
+if ( radius <= NUMBER_CONSTANT ) { throw new IllegalArgumentException ( STRING_CONSTANT ) ; }
+2 , 3 , 2 , 0.125
+Change Type : Misc/Parameter-Value-Change
+=====================================
+
+Example : 5827
+if ( p == null ) return NUMBER_CONSTANT ;
+if ( p == null ) { return NUMBER_CONSTANT ; }
+2 , 3 , 3 , 0.36363636363636365
+Change Type : Brackting
+=====================================
+
+Example : 5828
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5829
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/Parameter-Value-Change
+=====================================
+
+Example : 5833
+notifyListeners ( new RendererChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : Method-call-Change
+=====================================
+
+Example : 5862
+{ this . seriesShapesFilled . setBoolean ( series , filled ) ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . seriesShapesFilled . setBoolean ( series , filled ) ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4782608695652174
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5885
+{ this . base = base ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . base = base ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5899
+{ this . seriesShapesFilled . setBoolean ( series , flag ) ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . seriesShapesFilled . setBoolean ( series , flag ) ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4782608695652174
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5920
+{ this . base = base ; notifyListeners ( new RendererChangeEvent ( this ) ) ; }
+{ this . base = base ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 5967
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-Change
+=====================================
+
+Example : 5969
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5972
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5973
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5980
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5983
+catch ( Exception e ) { System.out . println ( e . toString () ) ; }
+catch ( Exception e ) { e . printStackTrace () ; }
+6 , 7 , 9 , 0.65
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5984
+catch ( CloneNotSupportedException e ) { System.err . println ( STRING_CONSTANT ) ; }
+catch ( CloneNotSupportedException e ) { e . printStackTrace () ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Statement-Change/API-change
+=====================================
+
+Example : 5985
+notifyListeners ( new PlotChangeEvent ( this ) ) ;
+fireChangeEvent () ;
+8 , 10 , 8 , 1.0
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6009
+{ this . annotations . clear () ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . annotations . clear () ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.5789473684210527
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6010
+if ( removed && notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( removed && notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6012
+if ( removed && notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( removed && notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6016
+if ( removed && notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( removed && notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6051
+if ( orientation != this . orientation ) { this . orientation = orientation ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( orientation != this . orientation ) { this . orientation = orientation ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.48
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6070
+{ this . annotations . clear () ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . annotations . clear () ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.5789473684210527
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6071
+if ( removed && notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( removed && notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6078
+if ( removed && notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( removed && notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6082
+if ( removed && notify ) { notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( removed && notify ) { fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6156
+{ this . tickLabelFont = font ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . tickLabelFont = font ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6157
+if ( this . tickLabelsVisible != visible ) { this . tickLabelsVisible = visible ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+if ( this . tickLabelsVisible != visible ) { this . tickLabelsVisible = visible ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.4583333333333333
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6191
+{ this . shadowPaint = paint ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . shadowPaint = paint ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6214
+{ this . domainCrosshairStroke = stroke ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . domainCrosshairStroke = stroke ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6281
+{ this . limit = limit ; notifyListeners ( new PlotChangeEvent ( this ) ) ; }
+{ this . limit = limit ; fireChangeEvent () ; }
+8 , 10 , 9 , 0.631578947368421
+Change Type : Method-Call-Change
+=====================================
+
+Example : 6284
+verify ( reporter , atLeastOnce () )
+verify ( reporter )
+3 , 4 , 4 , 0.7142857142857143
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6287
+verify ( reporter , times ( NUMBER_CONSTANT ) )
+verify ( reporter )
+5 , 6 , 6 , 0.7777777777777778
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6467
+return json ( result , prettyPrint ) ;
+return json ( result ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6468
+return json ( result , prettyPrint ) ;
+return json ( result ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6471
+return json ( result , prettyPrint ) ;
+return json ( result ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6473
+return json ( result , prettyPrint ) ;
+return json ( result ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6474
+return json ( m , prettyPrint ) ;
+return json ( m ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6475
+return json ( result , prettyPrint ) ;
+return json ( result ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6476
+return json ( result , prettyPrint ) ;
+return json ( result ) ;
+2 , 2 , 3 , 0.5
+Change Type : Method-Parameter-Remove
+=====================================
+
+Example : 6754
+catch ( Exception e ) { e . printStackTrace () ; }
+catch ( Exception e ) { System.out . println ( STRING_CONSTANT ) ; }
+5 , 5 , 7 , 0.6666666666666666
+Change Type : Misc
+=====================================
+
+Example : 6769
+String [] args
+String . . . args
+3 , 4 , 4 , 1.0
+Change Type : []-to-...
+=====================================
+
+Example : 6783
+String [] outputs = { STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT } ;
+String [] outputs = { STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT } ;
+2 , 2 , 2 , 0.0
+Change Type : Misc/Parameter_added
+=====================================
+
+Example : 6810
+String [] outputs = { STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT } ;
+String [] outputs = { STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT , STRING_CONSTANT } ;
+2 , 2 , 2 , 0.0
+Change Type : Misc/Parameter_added
+=====================================
+
+Example : 6814
+Set < String > names = new LinkedHashSet < String > () ;
+Set < String > names = new LinkedHashSet <> () ;
+3 , 4 , 4 , 0.3333333333333333
+Change Type : Generics
+=====================================
+
+Example : 6816
+Map < String , Object > result = new LinkedHashMap < String , Object > () ;
+Map < String , Object > result = new LinkedHashMap <> () ;
+5 , 7 , 6 , 0.2857142857142857
+Change Type : Generics
+=====================================
+
+Example : 6822
+javaWriter . statement ( STRING_CONSTANT , STRING_CONSTANT ) ;
+javaWriter . statement ( STRING_CONSTANT ) ;
+2 , 2 , 2 , 0.25
+Change Type : Misc/Method_parameter_add
+=====================================
+
+Example : 6825
+parameters [ i ] = linker . requestBinding ( key , method , false ) ;
+parameters [ i ] = linker . requestBinding ( key , method ) ;
+2 , 2 , 3 , 0.25
+Change Type : Method-Parameter-Remove
+=====================================
