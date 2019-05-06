@@ -77,8 +77,8 @@ neds = []
 all_keys = []
 ntds = []
 
-correct_classification_file = open('difference_analysis/' +
-                                   dataname + '/' + intended_class + '-category.txt', 'w')
+# correct_classification_file = open('difference_analysis/' +
+#                                    dataname + '/' + intended_class + '-category.txt', 'w')
 change_type_map = {}
 
 with open(draw_prev_token_file) as pcfile:
@@ -113,18 +113,18 @@ with open(draw_prev_token_file) as pcfile:
                 continue
             else:
                 all_keys.append(key)
-            correct_classification_file.write('Example : ' + str(idx) + '\n')
-            correct_classification_file.write(pcs + '\n')
-            correct_classification_file.write(ccs + '\n')
-            correct_classification_file.write(str(correct_data[idx][EDIT_DISTANCE]) +
-                                              ' , ' +
-                                              str(correct_data[idx][TREE_DISTANCE]) +
-                                              ' , ' +
-                                              str(correct_data[idx][BIGRAM_EDIT]) +
-                                              ' , ' +
-                                              str(correct_data[idx][BIGRAM_JACCARD]) +
-                                              '\n'
-                                              )
+            # correct_classification_file.write('Example : ' + str(idx) + '\n')
+            # correct_classification_file.write(pcs + '\n')
+            # correct_classification_file.write(ccs + '\n')
+            # correct_classification_file.write(str(correct_data[idx][EDIT_DISTANCE]) +
+            #                                   ' , ' +
+            #                                   str(correct_data[idx][TREE_DISTANCE]) +
+            #                                   ' , ' +
+            #                                   str(correct_data[idx][BIGRAM_EDIT]) +
+            #                                   ' , ' +
+            #                                   str(correct_data[idx][BIGRAM_JACCARD]) +
+            #                                   '\n'
+            #                                   )
             print('Previous Version:\t', pcs)
             print('Next Version:   \t', ccs)
             print(',\t'.join(change_type_map.keys()))
@@ -143,8 +143,8 @@ with open(draw_prev_token_file) as pcfile:
                 change_type_map[change_type] += 1
             else:
                 change_type_map[change_type] = 1
-            correct_classification_file.write('Change Type : ' + change_type + '\n')
-            correct_classification_file.write('=====================================\n\n')
+            # correct_classification_file.write('Change Type : ' + change_type + '\n')
+            # correct_classification_file.write('=====================================\n\n')
             eds.append(correct_data[idx][EDIT_DISTANCE])
             tds.append(correct_data[idx][TREE_DISTANCE])
             neds.append(correct_data[idx][BIGRAM_EDIT])
@@ -153,10 +153,11 @@ with open(draw_prev_token_file) as pcfile:
             count += 1
 print(count)
 # correct_classification_file.close()
-f1 = 'difference_analysis/' + dataname + '/tree-hist-' + intended_class + '.pdf'
-f2 = 'difference_analysis/' + dataname + '/token-hist-' + intended_class + '.pdf'
-f3 = 'difference_analysis/' + dataname + '/normal-td-hist-' + intended_class + '.pdf'
+f1 = 'difference_analysis/' + dataname + '/pddfs/tree-' + intended_class + '.pdf'
+f2 = 'difference_analysis/' + dataname + '/pddfs/token-' + intended_class + '.pdf'
+f3 = 'difference_analysis/' + dataname + '/pddfs/normal-td-' + intended_class + '.pdf'
 
+plt.rcParams.update({'font.size': 16})
 
 plt.figure()
 # plt.hist(eds, label='Edit Distance', alpha=0.5, ls='dashed', edgecolor='b', lw=3, color='b')
