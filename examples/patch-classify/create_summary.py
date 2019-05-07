@@ -1,4 +1,4 @@
-p_file = '/home/sc2nf/Research/OpenNMT-py/examples/patch-classify/result/'
+p_file = 'result/'
 t2t = p_file + 'only-t2t-category.txt'
 s2s = p_file + 'only-s2s-category.txt'
 common = p_file + 'common-category.txt'
@@ -37,7 +37,7 @@ for tidx, p_file in enumerate(files):
         f.close()
 
 for tidx, p_file in enumerate(files):
-    b_stat = type_stat_misc[tidx]
+    b_stat = type_stat_from_baishakhi[tidx]
     print('=================================================================')
     print(p_file)
     for key in b_stat.keys():

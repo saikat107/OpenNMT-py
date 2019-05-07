@@ -17,8 +17,8 @@ BIGRAM_EDIT = 'BIGRAM_EDIT_DISTANCE'
 TYPE_OF_CHANGE = 'TYPE_OF_CHANGE'
 NORMALIZED_TREE_DISTANCE = 'NORMALIZED_TREE_DIST'
 
-dataname = 'codit'
-intended_class = 'common'
+dataname = 'icse'
+intended_class = 'only-t2t'
 
 if dataname == 'codit':
     complete_split_data_path = \
