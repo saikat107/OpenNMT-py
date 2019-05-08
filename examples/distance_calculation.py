@@ -287,8 +287,8 @@ print(count)
 
 
 # correct_classification_file.close()
-f1 = 'difference_analysis/' + dataname + '/pddfs/tree-complete' + sys.argv[2] + '.pdf'
-f2 = 'difference_analysis/' + dataname + '/pddfs/token-complete' + sys.argv[2] + '.pdf'
+f1 = 'difference_analysis/' + dataname + '/final.tree-dist-' + sys.argv[2] + '.pdf'
+f2 = 'difference_analysis/' + dataname + '/final.token-dist' + sys.argv[2] + '.pdf'
 f3 = 'difference_analysis/' + dataname + '/pddfs/normal-td-complete' + sys.argv[2] + '.pdf'
 
 plt.rcParams.update({'font.size': 16})
@@ -297,6 +297,8 @@ plt.figure()
 # plt.hist(eds, label='Edit Distance', alpha=0.5, ls='dashed', edgecolor='b', lw=3, color='b')
 # plt.hist(neds, label='Bigram Edit Distance', alpha=0.5, ls='dotted', edgecolor='b', lw=3, color='r')
 plt.hist(tds, label='Tree Distance', alpha=0.5, ls='solid', lw=3, color='g', edgecolor='b')
+plt.xlabel('Tree Edit Distance')
+plt.ylabel('Number of Pathces')
 #plt.legend()
 plt.savefig(fname=f1)
 # plt.show()
@@ -304,13 +306,15 @@ plt.savefig(fname=f1)
 
 plt.figure()
 plt.hist(eds, label='Token Distance', alpha=0.5, ls='solid',  lw=3, color='b', edgecolor='b')
+plt.xlabel('Token Edit Distance')
+plt.ylabel('Number of Pathces')
 plt.savefig(fname=f2)
 #plt.legend()
 # plt.show()
 
-plt.figure()
-plt.hist(ntds, label='Normalized Tree Distance', alpha=0.5, ls='solid', edgecolor='b', lw=3, color='r')
-plt.savefig(fname=f3)
+#plt.figure()
+#plt.hist(ntds, label='Normalized Tree Distance', alpha=0.5, ls='solid', edgecolor='b', lw=3, color='r')
+#plt.savefig(fname=f3)
 #plt.legend()
 # plt.show()
 
