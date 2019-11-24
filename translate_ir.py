@@ -72,10 +72,12 @@ def find_similar_matches(train_examples, test_examples):
     total_correct_5 = 0
     total_correct_10 = 0
     for i in range(len(test_examples)):
-        if i%10 == 0:
-            util.debug(i, total_correct_10)
+
         ti, to = test_examples[i]
         similarity_scores = calculate_sim(train_examples, ti, to)
+        if i % 100 == 0:
+            util.debug(i, total_correct_10)
+            # util.debug(similarity_scores)
         # print(similarity_scores)
         if similarity_scores[0] > 0.999:
             total_correct_1 += 1
@@ -90,10 +92,10 @@ def find_similar_matches(train_examples, test_examples):
 
 
 if __name__ == '__main__':
-    train_src = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/train/prev.token'
-    train_tgt = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/train/next.token'
-    test_src = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/test/prev.token'
-    test_tgt = '/home/saikatc/Research/OpenNMT-py/icse_data/raw/all/concrete_small/test/next.token'
+    train_src = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/train/prev.token'
+    train_tgt = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/train/next.token'
+    test_src = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test/prev.token'
+    test_tgt = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test/next.token'
 
     train_examples = read_examples(train_src, train_tgt)
     test_examples = read_examples(test_src, test_tgt)
