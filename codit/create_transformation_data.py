@@ -173,6 +173,7 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
     if file_names is None:
         file_names = [''] * len(parent_codes)
 
+    new_token_introduced = False
     for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o, file_name) in \
             enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os, file_names)):
         if parent_tree is None or len(parent_tree) < 5:
@@ -209,16 +210,25 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
 
         c_nodes = child_tree.get_leaves()
         for node_c in c_nodes:
+            child_value = node_c.value.strip()
             if node_c.type.strip() == '42':
                 ident_type = get_identifier_type(node_c, child_tree, child_code)
                 if ident_type == 'method':
-                    method_names.add(node_c.value.strip())
+                    if child_value not in method_names:
+                        new_token_introduced = True
+                    method_names.add(child_value)
                 elif ident_type == 'type':
-                    type_names.add(node_c.value.strip())
+                    if child_value not in type_names:
+                        new_token_introduced = True
+                    type_names.add(child_value)
                 else:
-                    variables.add(node_c.value.strip())
+                    if child_value not in variables:
+                        new_token_introduced = True
+                    variables.add(child_value)
             elif node_c.type.strip() == '40':
-                packages.add(node_c.value.strip())
+                if child_value not in packages:
+                    new_token_introduced =True
+                packages.add(child_value)
 
         variable_map = {}
         for id1, v in enumerate(variables):
@@ -264,10 +274,23 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                         atc['40'].remove(v)
                     atc['40'].append(np.value)
 
-                # parent_code = parent_code.replace(v, np.value)
         if type == 'abstract':
             parent_code = ' '.join([str(pn.value) for pn in parent_tree_o.get_leaves()])
-            # debug(parent_code)
+            parent_code_abstract = parent_code
+        else:
+            _code_abstract = []
+            for pn in parent_tree_o.get_leaves():
+                if pn.value in variable_map.keys():
+                    _code_abstract.append(variable_map[pn.value])
+                elif pn.value in type_map.keys():
+                    _code_abstract.append(type_map[pn.value])
+                elif pn.value in method_name_map.keys():
+                    _code_abstract.append(method_name_map[pn.value])
+                elif pn.value in package_map.keys():
+                    _code_abstract.append(package_map[pn.value])
+                else:
+                    _code_abstract.append(pn.value)
+            parent_code_abstract = ' '.join(_code_abstract)
 
         for nc in c_nodes:
             if nc.type.strip() == '40' or nc.type.strip() == '42':
@@ -291,10 +314,25 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                     if type == 'abstract':
                         nc.value = package_map[v]
                     atc['40'].append(nc.value)
-                # child_code = child_code.replace(v, nc.value)
+
         if type == 'abstract':
             child_code = ' '.join([str(cn.value) for cn in child_tree.get_leaves()])
-            # debug(child_code)
+            child_code_abstract = child_code
+        else:
+            _code_abstract = []
+            for pn in child_tree.get_leaves():
+                if pn.value in variable_map.keys():
+                    _code_abstract.append(variable_map[pn.value])
+                elif pn.value in type_map.keys():
+                    _code_abstract.append(type_map[pn.value])
+                elif pn.value in method_name_map.keys():
+                    _code_abstract.append(method_name_map[pn.value])
+                elif pn.value in package_map.keys():
+                    _code_abstract.append(package_map[pn.value])
+                else:
+                    _code_abstract.append(pn.value)
+            child_code_abstract = ' '.join(_code_abstract)
+
         nodes = ['40', '800', '801', '802']
         for node in nodes:
             atc[node] = list(set(atc[node]))
@@ -302,7 +340,8 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
         example = {'id': idx, 'query_tokens': parent_code.split(), 'code': child_code,
                    'parent_tree': parent_tree, 'child_tree': child_tree,
                    'parent_original_tree': parent_tree_o, 'atc': atc,
-                   'file_name': file_name
+                   'file_name': file_name, 'parent_code_abstract': parent_code_abstract,
+                   'child_code_abstract': child_code_abstract
                    }
 
         data.append(example)
@@ -550,10 +589,10 @@ def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_r
     prev_token_file.write(' '.join([str(x) for x in prev_token]) + '\n')
     next_token_file.write(' '.join([str(x) for x in next_token]) + '\n')
     ############### Do the alighment #######################
-    prev_token_node_id.append(-1)
-    next_token_node_id.append(-1)
-    prev_token_node_id = prev_token_node_id[1:]
-    next_token_node_id = next_token_node_id[1:]
+    # prev_token_node_id.append(-1)
+    # next_token_node_id.append(-1)
+    # prev_token_node_id = prev_token_node_id[1:]
+    # next_token_node_id = next_token_node_id[1:]
     #######################################################
     prev_augmented_token_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(prev_token, prev_token_node_id)]) + '\n'
     next_augmented_token_str = ' '.join([str(x) + u"|" + str(y) for x, y in zip(next_token, next_token_node_id)]) + '\n'
@@ -602,18 +641,18 @@ def check_and_remove_example_from_train_data(train_data, example):
     for idx, t_ex in enumerate(train_data):
         t_ex_str = get_token_str(t_ex)
         if example_str == t_ex_str:
-            debug(example_str)
-            debug(t_ex_str)
-            found = True
-            debug(found)
+            # debug(example_str)
+            # debug(t_ex_str)
+            # found = True
+            # debug(found)
             fid = idx
             indices.append(fid)
             break
     all_indices = [i for i in range(len(new_train_data))]
-    debug(len(all_indices))
+    # debug(len(all_indices))
     for fid in indices:
         all_indices.remove(fid)
-    debug(len(all_indices))
+    # debug(len(all_indices))
     return new_train_data[all_indices].tolist()
     # train_data = []
     # if len(indices) > 0:
@@ -627,21 +666,31 @@ def check_and_remove_example_from_train_data(train_data, example):
     pass
 
 
+def already_exists(_data, example):
+    examples_str = set([get_token_str(ex) for ex in _data])
+    ex_str = get_token_str(example)
+    return ex_str in examples_str
+    pass
+
+
 def parse_java_change_dataset():
     import os
     parser = argparse.ArgumentParser()
-    parser.add_argument('-data', help='Main Data Directory', default='/home/saikatc/Research/codit_data')
+    # '/home/saikatc/Research/codit_data/complete_split_data/10_20_original'
+    # '/home/saikatc/Research/icse_data_concrete/all/small'
+
+    parser.add_argument('-data', help='Main Data Directory', default='/home/saikatc/Research/codit_data/')
     parser.add_argument('-source', help='Relative path of the data source', default='complete_split_data')
     parser.add_argument('-train', help='Train Folder Name(s)', nargs='+', default=['train'])
     parser.add_argument('-valid', help='Train Folder Name', default='valid')
     parser.add_argument('-test', help='Train Folder Name(s)', default='test')
 
     parser.add_argument('-output', help='name of the output folder',
-                        default='/home/saikatc/Research/codit_data/rule_based_data/concrete')
+                        default='/home/saikatc/data_hdd/Codit/CoditData')
     parser.add_argument('-name', help='name of the data file', default='10_20_original')
     parser.add_argument('-exclude_no_structure_change', action='store_true')
     parser.add_argument('-type', help='Type of the Data given', default='concrete')
-    parser.add_argument('-remove_repeat', action='store_true')
+    parser.add_argument('-remove_repeat', action='store_false')
 
     # parser.set_defaults(exclude_string_change=True)
     args = parser.parse_args()
@@ -681,6 +730,8 @@ def parse_java_change_dataset():
     pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
     debug('Total rules : ' + str((len(grammar.rules))))
+    # new_tokens = sum([1 if entry['new_token_introduced'] else 0 for entry in data])
+    # debug('Total %d New Token introduced in %d' % (len(data), new_tokens))
     debug(grammar.terminal_nodes)
     value_nodes = grammar.value_node_rules.keys()
     debug('Total Value Nodes : ', len(value_nodes))
@@ -756,27 +807,32 @@ def parse_java_change_dataset():
         if args.exclude_no_structure_change and prev_rule == next_rule:
             continue
         atc = entry['atc']
-        example = [prev_rule, next_rule, prev_rule_parent, next_rule_parent,
+        example = [entry['parent_code_abstract'], entry['child_code_abstract'],
+                   prev_rule, next_rule, prev_rule_parent, next_rule_parent,
                    prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
                    next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier,
-                   parent_original_tree, parse_tree, atc, entry['file_name']]
+                   parent_original_tree, parse_tree, atc, entry['file_name'],
+                   ]
         all_examples.append(example)
 
         if idx < num_train_examples:
-            train_data.append(example)
-            train_ids.append(idx)
+            if not already_exists(train_data, example):
+                train_data.append(example)
+                train_ids.append(idx)
         elif idx < num_valid_examples:
-            # if args.remove_repeat:
-            #     debug(idx)
-            #     check_and_remove_example_from_train_data(train_data, example)
-            dev_data.append(example)
-            dev_ids.append(idx)
+            if args.remove_repeat:
+                # debug(idx)
+                check_and_remove_example_from_train_data(train_data, example)
+            if not already_exists(dev_data, example):
+                dev_data.append(example)
+                dev_ids.append(idx)
         else:
             if args.remove_repeat:
-                debug(idx)
+                # debug(idx)
                 train_data = check_and_remove_example_from_train_data(train_data, example)
-            test_data.append(example)
-            test_ids.append(idx)
+            if not already_exists(test_data, example):
+                test_data.append(example)
+                test_ids.append(idx)
     atc_file_name = 'atc_scope.bin'
 
     train_w = write_all_content_to_file(args, atc_file_name, train_data, 'train')
@@ -787,6 +843,7 @@ def parse_java_change_dataset():
 
     debug(train_w, valid_w, test_w)
     serialize_to_file(grammar, os.path.join(args.output, 'grammar.bin'))
+    # print(len(train_data), len(dev_data), len(test_data))
     return train_data, dev_data, test_data
 
 
@@ -795,16 +852,22 @@ def write_all_content_to_file(args, atc_file_name, _data, name):
     train_w = 0
     _atc = []
     file_names_file = open(os.path.join(args.output, name + '/files.txt'), 'w')
+    parent_abstract_file = open(os.path.join(args.output, name + '/prev.abstract.code'), 'w')
+    child_abstract_file = open(os.path.join(args.output, name + '/next.abstract.code'), 'w')
     for ex in _data:
         af = [f for f in _file_all]
-        af.extend(ex[:-2])
+        af.extend(ex[2:-2])
         _atc.append(ex[-2])
         success = write_contents(*af)
         train_w += success
         flush_all(*_file_all)
         if success == 1:
             file_names_file.write(ex[-1].strip() + '\n')
+            parent_abstract_file.write(ex[0] + '\n')
+            child_abstract_file.write(ex[1] + '\n')
     file_names_file.close()
+    parent_abstract_file.close()
+    child_abstract_file.close()
     atc_file = os.path.join(args.output, name + '/' + atc_file_name)
     serialize_to_file(_atc, atc_file)
     close_all(*_file_all)
@@ -812,6 +875,8 @@ def write_all_content_to_file(args, atc_file_name, _data, name):
 
 
 if __name__ == '__main__':
-    numpy.random.seed(1000)
-    tra, dev, tes = parse_java_change_dataset()
+    # st = '{"type":"CODIT_ROOT","children":[{"type":"ObjectCreationExpr","children":[{"type":"ClassOrInterfaceType","children":[{"type":"ClassOrInterfaceType","value":"Range"}]},{"type":"DoubleLiteralExpr","value":"0.0","children":[]},{"type":"BinaryExpr","children":[{"type":"BinaryOperator","value":"MINUS","children":[]},{"type":"MethodCallExpr","children":[{"type":"NameExpr","children":[{"type":"VariableName","value":"constraint","children":[]}]},{"type":"MethodNameFromVarOrOtherClass","value":"getWidth","children":[]}]},{"type":"ArrayAccessExpr","children":[{"type":"NameExpr","children":[{"type":"VariableName","value":"w","children":[]}]},{"type":"IntegerLiteralExpr","value":"2","children":[]}]}]}]}]}'
+    # print(create_tree_from_string(st)[0].pretty_print())
+    # numpy.random.seed(1000)
+    parse_java_change_dataset()
     # print tra.get_prob_func_inputs([0])

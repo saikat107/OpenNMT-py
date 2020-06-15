@@ -1,4 +1,5 @@
 Fil-Trans*
+.ipynb_checkpoints/
 *Trans_result*
 icse_data/*
 icse_models/*
@@ -55,6 +56,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+analyze_clones.ipynb
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

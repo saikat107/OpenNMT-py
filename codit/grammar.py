@@ -1,3 +1,4 @@
+import json
 from io import StringIO
 from collections import OrderedDict, defaultdict, Iterable
 
@@ -150,24 +151,32 @@ class ASTNode(object):
         """return an ASTNode with type information only"""
         return ASTNode(self.type)
 
+    def get_property_dict(self):
+        pro_dict = {
+            'type': self.type,
+            'value': self.value,
+            'children': []
+        }
+        for child in self.children:
+            pro_dict['children'].append(child.get_property_dict())
+        return pro_dict
+
     def __repr__(self):
+        return json.dumps(self.get_property_dict())
+
+    def representation(self):
         repr_str = ''
         # if not self.is_leaf:
         repr_str += '('
-
         repr_str += str(self.type)
-
         if self.label is not None:
             repr_str += '{%s}' % self.label
-
         if self.value is not None:
             repr_str += '{val=%s}' % self.value
-
         # if not self.is_leaf:
         for child in self.children:
             repr_str += ' ' + child.__repr__()
         repr_str += ')'
-
         return repr_str
 
     def __hash__(self):
