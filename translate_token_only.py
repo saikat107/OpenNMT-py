@@ -2,19 +2,17 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import division, unicode_literals
+
 import argparse
-import pickle
 
 import numpy as np
 from nltk.translate import bleu_score
 
-from codit.grammar import JavaGrammar
-from onmt.utils.logging import init_logger
-from onmt.translate.translator import build_translator
-
 import onmt.opts
-from util import debug
+from codit.grammar import JavaGrammar
 from codit.hypothesis import Hypothesis
+from onmt.translate.translator import build_translator
+from onmt.utils.logging import init_logger
 
 
 def get_edit_dist(org_code, cand_code):
@@ -52,7 +50,7 @@ def get_bleu_score(original_codes, generated_top_result):
             if x.strip() != '':
                 hyp.append(x.strip())
 
-        blue = bleu_score.sentence_bleu([ref], hyp ,
+        blue = bleu_score.sentence_bleu([ref], hyp,
                                         smoothing_function=bleu_score.SmoothingFunction().method3)
         blue_scores.append(blue)
     return blue_scores
@@ -66,11 +64,11 @@ def print_bleu_res_to_file(b_file, bls):
             s = str(i) + ',' + ','.join([str(x) for x in bls[i]]) + ',' + str(min_ed)
 
             b_file.write(s + '\n')
-        #first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls ]
-        #avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
-        #cand_max_bleus = [np.max(x) if len(x) > 0 else 0.0 for x in bls]
-        #print np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
-        #return np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
+        # first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls ]
+        # avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
+        # cand_max_bleus = [np.max(x) if len(x) > 0 else 0.0 for x in bls]
+        # print np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
+        # return np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
     pass
 
 
@@ -92,6 +90,15 @@ def create_tree_from_candidates(cands, grammar):
     pass
 
 
+java_keywords = ["abstract", "continue", "for", "new", "switch", "assert", "default", "goto", "package", "synchronized",
+                 "boolean", "do", "if", "private", "this", "break", "double", "implements", "protected", "throw",
+                 "byte", "else", "import", "public", "throws", "case", "enum", "instanceof", "return", "transient",
+                 "catch", "extends", "int", "short", "try", "char", "final", "interface", "static", "void", "class",
+                 "finally", "long", "strictfp", "volatile", "const", "float", "native", "super", "while"]
+java_keywords.extend([t for t in '~`!@#$%^&*()-+={[}]|\\:;\"\'<,>.?'])
+import re
+identifier = re.compile('[A-Za-z_]+[A-Za-z0-9]*')
+
 def is_there_new_token_in_tgt(src, tgt):
     src = src.strip()
     tgt = tgt.strip()
@@ -100,7 +107,9 @@ def is_there_new_token_in_tgt(src, tgt):
     t_parts = set(tgt.split())
     for tt in t_parts:
         tt = tt.strip()
-        if '_' in tt and tt not in s_parts:
+        if tt in s_parts or tt in java_keywords:
+            continue
+        elif re.match(identifier, tt):
             return True
     return False
     pass
@@ -113,7 +122,7 @@ def main(opt):
                                                  src_dir=opt.src_dir,
                                                  batch_size=opt.batch_size,
                                                  attn_debug=opt.attn_debug)
-    beam_size = actual_n_best#len(all_scores[0])
+    beam_size = actual_n_best  # len(all_scores[0])
     exp_name = opt.name
     all_sources = []
     all_targets = []
@@ -126,9 +135,9 @@ def main(opt):
     src_file.close()
     correct = 0
     no_change = 0
-    decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_final/' + exp_name + '_'+ str(beam_size) + '_s2s.csv', 'w')
-    correct_id_file = open('correct_ids/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
+    decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '_s2s.txt', 'w')
+    bleu_file = open('full_report/bleu_scores/' + exp_name + '_' + str(beam_size) + '_s2s.csv', 'w')
+    correct_id_file = open('full_report/correct_ids/' + exp_name + '_' + str(beam_size) + 's2s.txt', 'w')
 
     all_bleus = []
     total_example = 0
@@ -171,10 +180,19 @@ def main(opt):
     decode_res_file.close()
     bleu_file.close()
     correct_id_file.close()
-    print(correct, no_change, total_example, new_token_added_of_correct_examples, new_token_added_total_count)
+    print({
+        'Correct': correct,
+        'NoChange': no_change,
+        'Total': total_example,
+        'correct-where-new-tokens-added': new_token_added_of_correct_examples,
+        'total-where-new-tokens-added': new_token_added_total_count
+    })
 
 
 if __name__ == "__main__":
+    import warnings
+
+    warnings.filterwarnings('ignore')
     parser = argparse.ArgumentParser(
         description='translate_token.py',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)

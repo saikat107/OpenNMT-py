@@ -7,15 +7,15 @@ if [[ ! -d rule_based_data/processed/all ]]; then
     mkdir rule_based_data/processed/all
 fi
 
-if [[ ! -d rule_based_data/processed/filtered ]]; then
-    mkdir rule_based_data/processed/filtered
-fi
+#if [[ ! -d rule_based_data/processed/filtered ]]; then
+#    mkdir rule_based_data/processed/filtered
+#fi
 
-for fil in all filtered; do
-    for type in original;
+for fil in all; do
+    for type in concrete;
     do
         for size in small;do
-            for kind in rule token augmented.token augmented.rule;do
+            for kind in rule token augmented.token abstract.code;do
                 echo $type' '$size' '$kind
                 python preprocess.py -train_src rule_based_data/raw/$fil/$type'_'$size/train/prev.$kind \
                       -train_tgt rule_based_data/raw/$fil/$type'_'$size/train/next.$kind \

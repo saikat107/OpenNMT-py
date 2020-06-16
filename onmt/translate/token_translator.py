@@ -258,22 +258,22 @@ class TokenTranslator(object):
             if tgt_path is not None:
                 msg = self._report_score('GOLD', gold_score_total,
                                          gold_words_total)
-                if self.logger:
-                    self.logger.info(msg)
-                else:
-                    print(msg)
+                # if self.logger:
+                #     self.logger.info(msg)
+                # else:
+                #     print(msg)
                 if self.report_bleu:
                     msg = self._report_bleu(tgt_path)
-                    if self.logger:
-                        self.logger.info(msg)
-                    else:
-                        print(msg)
+                    # if self.logger:
+                    #     self.logger.info(msg)
+                    # else:
+                    #     print(msg)
                 if self.report_rouge:
                     msg = self._report_rouge(tgt_path)
-                    if self.logger:
-                        self.logger.info(msg)
-                    else:
-                        print(msg)
+                    # if self.logger:
+                    #     self.logger.info(msg)
+                    # else:
+                    #     print(msg)
 
         if self.dump_beam:
             import json

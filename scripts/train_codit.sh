@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-for d_type in all filtered; do
-    for type in concrete_unique abstract_unique; do
-        for kind in token rule augmented.token; do
+for d_type in all; do
+    for type in concrete; do
+        for kind in token; do
             echo "Training On Codit "$d_type" "$type" "$kind
             echo "============================================================================"
             echo ""

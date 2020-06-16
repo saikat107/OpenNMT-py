@@ -152,9 +152,9 @@ def main(opt, grammar, actual_n_best):
     src_file.close()
     correct = 0
     no_change = 0
-    decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
-    bleu_file = open('result_bleus/' + exp_name + '_'+ str(beam_size) + '_bleus.csv', 'w')
-    correct_id_file = open('correct_ids/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
+    decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
+    bleu_file = open('full_report/bleu_scores/' + exp_name + '_'+ str(beam_size) + '.csv', 'w')
+    correct_id_file = open('full_report/correct_ids/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
 
     all_bleus = []
     total_example = 0

@@ -174,13 +174,13 @@ def main(opt):
     src_file.close()
     correct = 0
     no_change = 0
-    if not os.path.exists('results'):
-        os.mkdir('results')
+    # if not os.path.exists('full_report/details/' + exp_name):
+    #     os.mkdir('results')
+    #
+    # if not os.path.exists('result_eds'):
+    #     os.mkdir('result_eds')
 
-    if not os.path.exists('result_eds'):
-        os.mkdir('result_eds')
-
-    decode_res_file = open('results/' + exp_name + '_' + str(beam_size) + '_decode_res.txt', 'w')
+    decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '_codit_result.txt', 'w')
 
 
     all_eds = []
@@ -215,7 +215,7 @@ def main(opt):
         decode_res_file.write(str(found) + '\n\n')
         decode_res_file.flush()
 
-    ed_file = open('result_eds/' + exp_name +
+    ed_file = open('full_report/edit_distances/' + exp_name +
                    '-' + str(correct) + '-' + str(opt.tree_count) + '-' +
                    '-' + str(opt.n_best) + 'eds.csv', 'w')
     all_eds = np.asarray(all_eds)
@@ -231,13 +231,19 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
-    parser.add_argument('--name', help='Name of the Experiment')
-    parser.add_argument('--tmp_file', default='')
-    parser.add_argument('--grammar', required=True)
-    parser.add_argument('--atc', default=None)
-    parser.add_argument('--tree_count', type=int, default=2)
+    parser.add_argument('--name', help='Name of the Experiment', default='pull_request_data/golden_types')
+    parser.add_argument('--tmp_file', default='/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/next.token.id')
+    parser.add_argument('--grammar', default='/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/grammar.bin')
+    parser.add_argument('--atc', default='/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/atc_scope.bin')
+    parser.add_argument('--tree_count', type=int, default=10)
 
     opt = parser.parse_args()
     opt.batch_size = 1
+    opt.model = '/home/saikatc/Research/OpenNMT-py/models/pull_request_data/augmented.token-best-acc.pt'
+    opt.src = '/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/prev.augmented.token'
+    opt.tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/next.augmented.token'
+    opt.beam_size = 10
+    opt.n_best = 10
+    print(opt)
     logger = init_logger(opt.log_file)
     main(opt)

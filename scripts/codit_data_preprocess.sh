@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-if [[ ! -d c_data/processed ]]; then
-    mkdir c_data/processed
-fi
+#if [[ ! -d c_data/processed ]]; then
+#    mkdir c_data/processed
+#fi
+#
+#if [[ ! -d c_data/processed/all ]]; then
+#    mkdir c_data/processed/all
+#fi
 
-if [[ ! -d c_data/processed/all ]]; then
-    mkdir c_data/processed/all
-fi
+#if [[ ! -d c_data/processed/filtered ]]; then
+#    mkdir c_data/processed/filtered
+#fi
 
-if [[ ! -d c_data/processed/filtered ]]; then
-    mkdir c_data/processed/filtered
-fi
-
-for fil in all filtered; do
-    for type in concrete_unique abstract_unique;
+for fil in all; do
+    for type in concrete;
     do
         for kind in rule token augmented.token augmented.rule;do
             echo $type' '$kind

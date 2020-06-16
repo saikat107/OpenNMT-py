@@ -34,35 +34,37 @@ def transform_structurally(structure_opts):
 
 
 def get_paths(dataset_str):
-    dataset_dir = {
-        'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_data/raw',
-        'codit': '/home/saikatc/Research/OpenNMT-py/c_data/raw'
-    }
-    model_dir = {
-        'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_models',
-        'codit': '/home/saikatc/Research/OpenNMT-py/c_models'
-    }
-    model_prefix = {
-        'icse': {
-            'all': 'all',
-            'filtered': 'filtered'
-        },
-        'codit': {
-            'all': 'all',
-            'filtered': 'filtered'
-        }
-    }
-    parts = dataset_str.split('-')
-    _data = parts[0]
-    _kind = parts[1]  # all, filtered
-    _type = parts[2]  # concrete abstract original
-    _type_m = parts[2]
-    if len(parts) > 3:
-        _type += ('_' + parts[3])
-        _type_m += ('.' + parts[3])
-    _data_path = dataset_dir[_data] + '/' + _kind + '/' + _type
-    _model_base = model_dir[_data] + '/' + model_prefix[_data][_kind] + '.' + _type_m + '.'
-    return _data_path, _model_base
+    # dataset_dir = {
+    #     'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_data/raw',
+    #     'codit': '/home/saikatc/Research/OpenNMT-py/c_data/raw'
+    # }
+    # model_dir = {
+    #     'icse': '/home/saikatc/Research/OpenNMT-py/rule_based_model',
+    #     'codit': '/home/saikatc/Research/OpenNMT-py/c_models'
+    # }
+    # model_prefix = {
+    #     'icse': {
+    #         'all': 'all',
+    #         'filtered': 'filtered'
+    #     },
+    #     'codit': {
+    #         'all': 'all',
+    #         'filtered': 'filtered'
+    #     }
+    # }
+    # parts = dataset_str.split('-')
+    # _data = parts[0]
+    # _kind = parts[1]  # all, filtered
+    # _type = parts[2]  # concrete abstract original
+    # _type_m = parts[2]
+    # if len(parts) > 3:
+    #     _type += ('_' + parts[3])
+    #     _type_m += ('.' + parts[3])
+    # _data_path = dataset_dir[_data] + '/' + _kind + '/' + _type
+    # _model_base = model_dir[_data] + '/' + model_prefix[_data][_kind] + '.' + _type_m + '.'
+    # return _data_path, _model_base
+    return "/home/saikatc/Research/OpenNMT-py/data/raw/" + dataset_str + '/', \
+           '/home/saikatc/Research/OpenNMT-py/models/' + dataset_str + '/'
 
 
 if __name__ == '__main__':
@@ -73,13 +75,13 @@ if __name__ == '__main__':
     data_path, model_base = get_paths(dataset)
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
-    src_token = data_path + '/test-declone/prev.augmented.token'
-    tgt_token = data_path + '/test-declone/next.augmented.token'
-    src_struc = data_path + '/test-declone/prev.rule'
+    src_token = data_path + '/test/prev.augmented.token'
+    tgt_token = data_path + '/test/next.augmented.token'
+    src_struc = data_path + '/test/prev.rule'
     grammar = data_path + '/grammar.bin'
-    tmp_file = dataset + '-decloned'
-    name = dataset + '-declone'
-    atc_file_path = data_path + '/test-declone/atc_scope.bin'
+    tmp_file = dataset
+    name = dataset
+    atc_file_path = data_path + '/test/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
@@ -99,7 +101,7 @@ if __name__ == '__main__':
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
                         default=grammar)
     parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
-                        choices=['clone', 'nmt', 'none'], default='none')
+                        choices=['clone', 'nmt', 'none'], default='nmt')
     parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
     parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
     # parser.add_argument('-cout', default=None)

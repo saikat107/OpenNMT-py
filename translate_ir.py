@@ -92,13 +92,19 @@ def find_similar_matches(train_examples, test_examples):
 
 
 if __name__ == '__main__':
-    train_src = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/train/prev.token'
-    train_tgt = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/train/next.token'
-    test_src = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test/prev.token'
-    test_tgt = '/home/saikatc/Research/OpenNMT-py/c_data/raw/all/concrete/test/next.token'
+    ir_output_file = open('full_report/ir_result.tsv', 'a')
+    for data_source in ['pull_request_data', 'code_change_data']:
+        train_src = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/train/prev.token'
+        train_tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/train/next.token'
+        test_src = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/test/prev.token'
+        test_tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/test/next.token'
 
-    train_examples = read_examples(train_src, train_tgt)
-    test_examples = read_examples(test_src, test_tgt)
-    exact_match = find_similar_matches(train_examples, test_examples)
-    print(exact_match)
+        train_examples = read_examples(train_src, train_tgt)
+        test_examples = read_examples(test_src, test_tgt)
+        exact_match = [data_source]
+        exact_match.extend([str(r) for r in list(find_similar_matches(train_examples, test_examples))])
+        result = '\t'.join(exact_match)
+        ir_output_file.write(result + '\n')
+    ir_output_file.close()
+
 

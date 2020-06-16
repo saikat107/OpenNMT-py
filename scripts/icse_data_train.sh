@@ -1,6 +1,6 @@
 for type in concrete; do
-	for size in small medium; do
-		for kind in token rule augmented.token; do
+	for size in small; do
+		for kind in abstract.code; do
 			for tr in all; do
 				echo $tr' '$type' '$size' '$kind
 			        python train.py -data rule_based_data/processed/$tr/$type.$size.$kind \

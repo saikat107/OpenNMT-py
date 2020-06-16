@@ -222,8 +222,8 @@ class Trainer(object):
                                             % (ppl_patience_counter, valid_ppl, min_ppl))
                                 ppl_patience_counter += 1
 
-                            if min(patience_counter, ppl_patience_counter) > 20 and\
-                                    max(patience_counter, ppl_patience_counter) >= 100:
+                            if min(patience_counter, ppl_patience_counter) > 10 and\
+                                    max(patience_counter, ppl_patience_counter) >= 20:
                                 train_complete = True
                                 break
 
@@ -232,7 +232,7 @@ class Trainer(object):
                         step += 1
                         if step > train_steps:
                             break
-            debug(train_complete)
+            # debug(train_complete)
 
             if train_complete:
                 break

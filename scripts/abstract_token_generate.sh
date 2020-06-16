@@ -10,7 +10,7 @@ dataset=$1 # icse, codit
 #datatype=$3 # concrete, abstract, concrete_small, abstract_small, concrete_unique, abstract_unique
 bs=$2
 input_base_path="/home/saikatc/Research/OpenNMT-py/data/raw/${dataset}/test/";
-model_path="/home/saikatc/Research/OpenNMT-py/models/${dataset}/token-best-acc.pt"
+model_path="/home/saikatc/Research/OpenNMT-py/models/${dataset}/abstract.code-best-acc.pt"
 #if [[ $dataset == 'icse' ]]; then
 ##    arr=(${datatype//_/ })
 ##    type=${arr[0]}
@@ -25,8 +25,8 @@ model_path="/home/saikatc/Research/OpenNMT-py/models/${dataset}/token-best-acc.p
 echo $input_base_path
 echo $model_path
 command='python translate_token_only.py -model '$model_path'
-        -src '$input_base_path'prev.token -tgt '$input_base_path'next.token
-        --name '$dataset'/token-only -gpu 0 -beam_size '$bs' -n_best '$bs' -replace_unk -verbose -batch_size 100'
+        -src '$input_base_path'prev.abstract.code -tgt '$input_base_path'next.abstract.code
+        --name '$dataset'/abstract.code -gpu 0 -beam_size '$bs' -n_best '$bs' -replace_unk -verbose -batch_size 64'
 #        -verbose
 echo $command
 $command

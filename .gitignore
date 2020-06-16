@@ -23,6 +23,12 @@ available_models/*
 old_data_and_model/*
 defj_rule_based_data/*
 rdt/*
+data/
+data/raw/code_change_data/*
+data/raw/pull_request_data/*
+models/
+available_models/
+full_report/
 # repo-specific stuff
 pred.txt
 multi-bleu.perl
