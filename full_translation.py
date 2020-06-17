@@ -26,7 +26,7 @@ def transform_structurally(structure_opts):
         os.mkdir('tmp')
     with open(structure_opts.tmp_file, 'w') as tmp:
         for trees, scores in zip(all_trees, all_scores):
-            debug(trees, scores)
+            # debug(trees, scores)
             t_strs = [' '.join(tree) + '/' + str(score) for tree, score in zip(trees, scores)]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
@@ -72,6 +72,9 @@ if __name__ == '__main__':
     tree_count = '1'
     if len(sys.argv) > 2:
         tree_count = sys.argv[2]
+    token_beam_size = 10
+    if len(sys.argv) > 3:
+        token_beam_size = int(sys.argv[3])
     data_path, model_base = get_paths(dataset)
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
@@ -94,8 +97,8 @@ if __name__ == '__main__':
                         default=tgt_token)
     parser.add_argument('--src_struct', '-ss', help='Source version file(rules)',
                         default=src_struc)
-    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=int(tree_count))
-    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=int(tree_count))
+    parser.add_argument('--beam_size', '-bs', help='Beam Size', default=int(token_beam_size))
+    parser.add_argument('--n_best', '-nb', help='best K hypothesis', default=int(token_beam_size))
     parser.add_argument('--name', '-n', help='Name of the experiment',
                         default=name)
     parser.add_argument('--grammar', '-g', help='Path of the Grammar file',
@@ -123,7 +126,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-cout',
                         default=tmp_file)
-    parser.add_argument('--tree_count', default='2')
+    parser.add_argument('--tree_count', default=tree_count)
     parser.add_argument('--atc', default=atc_file_path)
     options = parser.parse_args('')
     options.name = options.name + '_' + str(options.n_best)

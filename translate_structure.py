@@ -101,6 +101,13 @@ def generate_all_tree_candidates(all_cands, all_scores, grammar, actual_n_best, 
         filtered_trees, filtered_cands, filtered_scores = [], [], []
         trees = create_tree_from_candidates(cands, grammar)
         actual_src_tree = create_tree_from_candidates([line], grammar)[0]
+        filtered_cands.append(line)
+        if actual_src_tree is None:
+            debug('Original Tree Cannot be generated from this source', line)
+            actual_src_tree = '83 39 42 214 42 230 42 231 42 234 39 42 234 39 42 234 42 230 40 231 42 215 301 42 ' \
+                              '227'.split()
+        filtered_trees.append(actual_src_tree)
+        filtered_scores.append(-1e20)
         for tree, cand, score in zip(trees, cands, scores):
             if tree is not None:
                 filtered_cands.append(cand)
@@ -109,12 +116,10 @@ def generate_all_tree_candidates(all_cands, all_scores, grammar, actual_n_best, 
                     filtered_scores.append(float(score.item()))
                 else:
                     filtered_scores.append(score)
-
-        filtered_cands.append(line)
-        if actual_src_tree is None:
-            actual_src_tree = '83 39 42 214 42 230 42 231 42 234 39 42 234 39 42 234 42 230 40 231 42 215 301 42 227'.split()
-        filtered_trees.append(actual_src_tree)
-        filtered_scores.append(-1e20)
+        if len(filtered_scores) < 2:
+            debug('No Tree generated from example ', i)
+        else:
+            filtered_scores[0] = filtered_scores[1]
         all_filtered_cands.append(filtered_cands[:actual_n_best])
         all_filtered_trees.append(filtered_trees[:actual_n_best])
         all_filtered_scores.append(filtered_scores[:actual_n_best])

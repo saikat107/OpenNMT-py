@@ -39,7 +39,7 @@ def write_dummy_generated_node_types(input_file, output_file):
                 line = line.strip()
                 words = line.split()
                 seq_str = []
-                for word in words[:-1]:
+                for word in words:
                     parts = word.split(u"|")
                     seq_str.append(parts[1])
                 wstr = ' '.join(seq_str)

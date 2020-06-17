@@ -1,5 +1,5 @@
 for data_name in pull_request_data code_change_data; do
-  for kind in rule token augmented.token abstract.code; do
+  for kind in rule augmented.token; do
     echo "Training on ${data_name}-${kind}"
     python train.py \
           -data data/processed/${data_name}/$kind \
@@ -9,6 +9,6 @@ for data_name in pull_request_data code_change_data; do
           -gpuid 0 \
           --type token \
           -report_every 500 \
-          -train_steps 20000;
+          -train_steps 100000;
   done
 done

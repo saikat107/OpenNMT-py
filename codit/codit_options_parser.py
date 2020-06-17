@@ -31,11 +31,15 @@ def get_token_transformation_parser():
 def get_options(options):
     if options.cout is None:
         options.cout = 'tmp/' + options.name + '.gen.rule'
+    if 'prev' in options.src_struct:
+        tgt_struct = options.src_struct.replace('prev', 'next')
+    else:
+        tgt_struct = None
     structure_options = get_structure_transformation_parser().parse_args(
-        (' -src ' + options.src_struct + ' -batch_size 16'
-         + ' -model ' + options.model_structure + ' -beam_size 20 -n_best 10 -gpu 0 '
+        (' -src ' + options.src_struct + ' -batch_size 32'
+         + ' -model ' + options.model_structure + ' -beam_size 50 -n_best 50 -gpu 0 -verbose'
          + ' --grammar ' + options.grammar + ' --tmp_file tmp/' + options.cout
-         + ' -verbose'
+         + ((' -tgt ' + tgt_struct) if tgt_struct is not None else '')
          ).split())
 
     token_options = get_token_transformation_parser().parse_args(

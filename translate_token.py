@@ -3,27 +3,19 @@
 
 from __future__ import division, unicode_literals
 
-import copy
-import os
-
 import argparse
+import copy
 import pickle
 
 import numpy as np
 from nltk.translate import bleu_score
 
-from codit.grammar import JavaGrammar
-from onmt.utils.logging import init_logger
-from onmt.translate.translator import build_translator
-
-import onmt.inputters
-import onmt.translate
-import onmt
-import onmt.model_builder
-import onmt.modules
 import onmt.opts
+from codit.grammar import JavaGrammar
+from onmt.translate.translator import build_translator
+from onmt.utils.logging import init_logger
 from translate_structure import get_edit_dist
-from util import write_dummy_generated_node_types, debug
+from util import write_dummy_generated_node_types
 
 
 def get_bleu_score(original_codes, generated_top_result):
@@ -37,9 +29,7 @@ def get_bleu_score(original_codes, generated_top_result):
         for x in hypothesis.split(' '):
             if x.strip() != '':
                 hyp.append(x.strip())
-
-        blue = bleu_score.sentence_bleu([ref], hyp,
-                                        smoothing_function=bleu_score.SmoothingFunction().method3)
+        blue = bleu_score.sentence_bleu([ref], hyp, smoothing_function=bleu_score.SmoothingFunction().method3)
         blue_scores.append(blue)
     return blue_scores
 
@@ -55,7 +45,6 @@ def print_bleu_res_to_file(b_file, bls):
         first_cand_bleus = [x[0] if len(x) > 0 else 0.0 for x in bls]
         avg_cand_bleus = [np.mean(x) if len(x) > 0 else 0.0 for x in bls]
         cand_max_bleus = [np.max(x) if len(x) > 0 else 0.0 for x in bls]
-        #print np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
         return np.mean(first_cand_bleus), np.mean(avg_cand_bleus), np.mean(cand_max_bleus)
     pass
 
@@ -120,14 +109,11 @@ def refine_atc(all_atcs, atc_file):
     new_atcs = []
     for i in range(len(all_atcs)):
         atc = copy.copy(all_atcs[i])
-        # debug(len(atc['40']))
         atc['40'] = [token for token in code_atcs[i]['40']]
         atc['800'] = [token for token in code_atcs[i]['800']]
         atc['801'] = [token for token in code_atcs[i]['801']]
         atc['802'] = [token for token in code_atcs[i]['802']]
-        # debug(len(atc['40']))
         new_atcs.append(atc)
-        # debug('')
     return new_atcs
     pass
 
@@ -137,30 +123,18 @@ def main(opt):
     # # TODO this needs to be fixed
     # write_dummy_generated_node_types(opt.tgt, 'tmp/generated_node_types.nt')
     # ####################################################################################
-    #TODO 1. Extract grammar and build initial atc
-    #TODO 2. Extract atc_file and enhance atc
-
+    # TODO 1. Extract grammar and build initial atc
+    # TODO 2. Extract atc_file and enhance atc
     grammar_atc = extract_atc_from_grammar(opt.grammar)
     all_node_type_seq_str, node_seq_scores = get_all_node_type_str(opt.tmp_file)
     total_number_of_test_examples = len(all_node_type_seq_str)
     all_atcs = [grammar_atc for _ in range(total_number_of_test_examples)]
     if opt.atc is not None:
         all_atcs = refine_atc(all_atcs, opt.atc)
-    # exit()
-    # for i, atc in enumerate(all_atcs):
-    #     for key in atc.keys():
-    #         debug(i, key, len(atc[key]))
-    #     exit()
-    #     debug('')
-
     translator = build_translator(opt, report_score=True, multi_feature_translator=True)
-    all_scores, all_cands = translator.translate(src_path=opt.src,
-                                             tgt_path=opt.tgt,
-                                             src_dir=opt.src_dir,
-                                             batch_size=opt.batch_size,
-                                             attn_debug=opt.attn_debug,
-                                             node_type_seq=[all_node_type_seq_str, node_seq_scores],
-                                             atc=all_atcs)
+    all_scores, all_cands = translator.translate(
+        src_path=opt.src, tgt_path=opt.tgt, src_dir=opt.src_dir, batch_size=opt.batch_size, attn_debug=opt.attn_debug,
+        node_type_seq=[all_node_type_seq_str, node_seq_scores], atc=all_atcs)
     beam_size = len(all_scores[0])
     exp_name = opt.name
     all_sources = []
@@ -174,15 +148,7 @@ def main(opt):
     src_file.close()
     correct = 0
     no_change = 0
-    # if not os.path.exists('full_report/details/' + exp_name):
-    #     os.mkdir('results')
-    #
-    # if not os.path.exists('result_eds'):
-    #     os.mkdir('result_eds')
-
     decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '_codit_result.txt', 'w')
-
-
     all_eds = []
     total_example = 0
     for idx, (src, tgt, cands, scores) in enumerate(zip(all_sources, all_targets, all_cands, all_scores)):
@@ -226,17 +192,15 @@ def main(opt):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='translate_token.py',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(description='translate_token.py',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
     parser.add_argument('--name', help='Name of the Experiment', default='pull_request_data/golden_types')
-    parser.add_argument('--tmp_file', default='/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/next.token.id')
-    parser.add_argument('--grammar', default='/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/grammar.bin')
-    parser.add_argument('--atc', default='/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/atc_scope.bin')
+    parser.add_argument('--tmp_file', default='data/raw/pull_request_data/test/next.token.id')
+    parser.add_argument('--grammar', default='data/raw/pull_request_data/grammar.bin')
+    parser.add_argument('--atc', default='data/raw/pull_request_data/test/atc_scope.bin')
     parser.add_argument('--tree_count', type=int, default=10)
-
     opt = parser.parse_args()
     opt.batch_size = 1
     opt.model = '/home/saikatc/Research/OpenNMT-py/models/pull_request_data/augmented.token-best-acc.pt'
