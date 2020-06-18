@@ -3,7 +3,6 @@ from io import StringIO
 from collections import OrderedDict, defaultdict, Iterable
 
 
-
 class Grammar(object):
     def __init__(self, rules):
         """
@@ -250,9 +249,9 @@ class ASTNode(object):
         if new_line:
             sb.write('\n')
             for i in range(depth):
-                sb.write(' ')
+                sb.write('\t')
 
-        sb.write('(')
+        # sb.write('(')
         sb.write(str(self.type))
         if self.label is not None:
             sb.write('{%s}' % self.label)
@@ -261,18 +260,18 @@ class ASTNode(object):
             sb.write('{val=%s}' % self.value)
 
         if len(self.children) == 0:
-            sb.write(')')
+            # sb.write(')')
             return
 
-        sb.write(' ')
+        sb.write('\t')
         new_line = True
         for child in self.children:
             child.pretty_print_helper(sb, depth + 2, new_line)
 
-        sb.write('\n')
+        # sb.write('\n')
         for i in range(depth):
-            sb.write(' ')
-        sb.write(')')
+            sb.write('\t')
+        # sb.write(')')
 
     def get_leaves(self):
         if self.is_leaf:
@@ -446,7 +445,6 @@ def get_grammar(parse_trees):
         parse_tree_rules, rule_parents, value_nodes = parse_tree.get_productions()
         for rule in parse_tree_rules:
             rules.add(rule)
-
         for node in value_nodes.keys():
             values = value_nodes[node]
             if node in value_node_rules.keys():

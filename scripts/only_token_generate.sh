@@ -26,7 +26,7 @@ echo $input_base_path
 echo $model_path
 command='python translate_token_only.py -model '$model_path'
         -src '$input_base_path'prev.token -tgt '$input_base_path'next.token
-        --name '$dataset'/token-only -gpu 0 -beam_size '$bs' -n_best '$bs' -replace_unk -verbose -batch_size 100'
+        --name '$dataset'/token-only -beam_size '$bs' -n_best '$bs' -replace_unk -verbose -batch_size 16'
 #        -verbose
 echo $command
 $command

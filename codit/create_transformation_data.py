@@ -1,14 +1,12 @@
-import copy
-import sys, os
-
-from codit.grammar import ASTNode, get_grammar
+import argparse
+import os
+import pickle
 
 import numpy
-import argparse
-import pickle
-from util import debug
 import numpy as np
-import os
+
+from codit.grammar import ASTNode, get_grammar
+from util import debug
 
 
 def serialize_to_file(obj, path, protocol=pickle.HIGHEST_PROTOCOL):
@@ -44,8 +42,15 @@ value_nodes = []
 
 
 def fix_ast(root):
+    # if root.type == '76':
+    #     print(root.pretty_print())
     if isinstance(root, ASTNode):
         if root.is_leaf:
+            if root.value == '?':
+                root.type = '900'
+            if root.value == '<EMPTY>':
+                root.type = '901'
+                root.value = '{}'
             return
         elif len(root.children) == 1 and root.children[0].is_leaf:
             child_value = root.children[0].type
@@ -57,6 +62,7 @@ def fix_ast(root):
             #     return
             root.value = child_value
             root.children = []
+            fix_ast(root)
         else:
             for child in root.children:
                 fix_ast(child)
@@ -64,7 +70,6 @@ def fix_ast(root):
 
 def create_tree_from_string(line):
     tokens = line.strip().split(' ')
-    # print line
     stack = []
     for token in tokens:
         token = token.strip()
@@ -88,6 +93,9 @@ def create_tree_from_string(line):
             stack.append(node)
     root = stack.pop()
     fix_ast(root)
+    lstr = ' '.join([str(leaf.value) for leaf in root.get_leaves()])
+    if lstr == '{}':
+        return None
     return root
 
 
@@ -165,15 +173,13 @@ def get_identifier_type(node, tree, code):
 
 
 def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
-                                 child_trees, parent_tree_os,  type='original', allowed_tokens=None,
+                                 child_trees, parent_tree_os, type='original', allowed_tokens=None,
                                  file_names=None):
     data = []
     if allowed_tokens is not None:
         assert len(allowed_tokens) == len(parent_codes)
     if file_names is None:
         file_names = [''] * len(parent_codes)
-
-    new_token_introduced = False
     for idx, (parent_code, parent_tree, child_code, child_tree, parent_tree_o, file_name) in \
             enumerate(zip(parent_codes, parent_trees, child_codes, child_trees, parent_tree_os, file_names)):
         if parent_tree is None or len(parent_tree) < 5:
@@ -188,7 +194,7 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
             atc['802'] = allowed_tokens[idx]
         else:
             atc = dict()
-            atc['40'],  atc['800'],  atc['801'],  atc['802'] = [], [], [], []
+            atc['40'], atc['800'], atc['801'], atc['802'] = [], [], [], []
 
         assert isinstance(parent_tree_o, ASTNode) and isinstance(child_tree, ASTNode)
         variables = set()
@@ -227,7 +233,7 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                     variables.add(child_value)
             elif node_c.type.strip() == '40':
                 if child_value not in packages:
-                    new_token_introduced =True
+                    new_token_introduced = True
                 packages.add(child_value)
 
         variable_map = {}
@@ -387,16 +393,20 @@ def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
         for idx, (pcs, pts, ccs, cts, pots, at) in enumerate(zip(pc, pt, cc, ct, pot, ats)):
             if exc_str_ch and cts.strip() == pots.strip():
                 continue
-            counter += 1
             if '`' in ccs:
                 continue
             if len(pts.strip()) < 5:
                 continue
+            ct = create_tree_from_string(cts)
+            pot = create_tree_from_string(pots)
+            if ct is None or pot is None:
+                continue
+            counter += 1
             pcodes.append(pcs.strip())
             ptrees.append(pts.strip())
             ccodes.append(ccs.strip())
-            ctrees.append(create_tree_from_string(cts))
-            potrees.append(create_tree_from_string(pots))
+            ctrees.append(ct)
+            potrees.append(pot)
             allowed_tokens.append([s.strip() for s in at.split()])
             included_ids.append(idx)
             if counter == samples:
@@ -407,16 +417,20 @@ def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
         for idx, (pcs, pts, ccs, cts, pots, at, fn) in enumerate(zip(pc, pt, cc, ct, pot, ats, fnf)):
             if exc_str_ch and pcs.strip() == ccs.strip():
                 continue
-            counter += 1
             if '`' in ccs:
                 continue
             if len(pts.strip()) < 5:
                 continue
+            ct = create_tree_from_string(cts)
+            pot = create_tree_from_string(pots)
+            if ct is None or pot is None:
+                continue
+            counter += 1
             pcodes.append(pcs.strip())
             ptrees.append(pts.strip())
             ccodes.append(ccs.strip())
-            ctrees.append(create_tree_from_string(cts))
-            potrees.append(create_tree_from_string(pots))
+            ctrees.append(ct)
+            potrees.append(pot)
             allowed_tokens.append([s.strip() for s in at.split()])
             file_names.append(fn)
             included_ids.append(idx)
@@ -556,12 +570,13 @@ def create_all_files(folder_name, data_type):
     prev_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'prev.frontier'), 'w')
     next_frontier_file = open(os.path.join(folder_name + '/' + data_type, 'next.frontier'), 'w')
     parent_tree_file = open(os.path.join(folder_name + '/' + data_type, 'prev.tree'), 'w')
-    child_tree_file = open(os.path.join(folder_name + '/' + data_type, 'next.tree') , 'w')
+    child_tree_file = open(os.path.join(folder_name + '/' + data_type, 'next.tree'), 'w')
     return prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file, \
            prev_rule_parent_t_file, next_rule_parent_t_file, prev_token_node_id_file, \
-           next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, next_token_plus_id_file, \
-           prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file,\
-            parent_tree_file, child_tree_file
+           next_token_node_id_file, prev_token_file, next_token_file, prev_token_plus_id_file, \
+           next_token_plus_id_file, \
+           prev_augmented_rule_file, next_augmented_rule_file, prev_frontier_file, next_frontier_file, \
+           parent_tree_file, child_tree_file
 
 
 def write_contents(prev_rule_file, next_rule_file, prev_rule_parent_file, next_rule_parent_file,
@@ -632,37 +647,26 @@ def get_token_str(example):
     pass
 
 
+def get_tree_productions(tree):
+    assert isinstance(tree, ASTNode)
+    stack = []
+    # for
+
+
 def check_and_remove_example_from_train_data(train_data, example):
     example_str = get_token_str(example)
-    found = False
-    fid = -1
     indices = []
     new_train_data = np.array(train_data)
     for idx, t_ex in enumerate(train_data):
         t_ex_str = get_token_str(t_ex)
         if example_str == t_ex_str:
-            # debug(example_str)
-            # debug(t_ex_str)
-            # found = True
-            # debug(found)
             fid = idx
             indices.append(fid)
             break
     all_indices = [i for i in range(len(new_train_data))]
-    # debug(len(all_indices))
     for fid in indices:
         all_indices.remove(fid)
-    # debug(len(all_indices))
     return new_train_data[all_indices].tolist()
-    # train_data = []
-    # if len(indices) > 0:
-    #     for idx, data in enumerate(new_train_data):
-    #         if idx not in indices:
-    #             train_data.append(data)
-    # else:
-    #     train_data = new_train_data
-    # # if found:
-    # #     del train_data[fid]
     pass
 
 
@@ -730,29 +734,17 @@ def parse_java_change_dataset():
     pt.extend([entry['child_tree'] for entry in data])
     grammar = get_grammar(pt)
     debug('Total rules : ' + str((len(grammar.rules))))
-    # new_tokens = sum([1 if entry['new_token_introduced'] else 0 for entry in data])
-    # debug('Total %d New Token introduced in %d' % (len(data), new_tokens))
     debug(grammar.terminal_nodes)
     value_nodes = grammar.value_node_rules.keys()
     debug('Total Value Nodes : ', len(value_nodes))
-
-    # for node in value_nodes:
-    #     debug(grammar.value_node_rules[node])
-    # debug('Total terminal nodes : ' + str(len(grammar.terminal_nodes)))
-
-    # data = pre_process_java_change_data(parent_codes=parent_codes, parent_trees=parent_trees,
-    #                                    child_codes=child_codes, child_trees=child_trees,
-    #                                    # parent_tree_os=parent_tree_o, file_names=file_names,
-    #                                    allowed_tokens_file=allowed_tokens_for_nodes)
-
     train_data, dev_data, test_data, all_examples, train_ids, dev_ids, test_ids = [], [], [], [], [], [], []
 
     for idx, entry in enumerate(data):
         if idx % 1000 == 0:
             debug(idx)
-        prev_token_node_id, prev_token, next_token_node_id, next_token, next_rule, next_rule_parent_t,\
-            next_rule_parent, prev_rule, prev_rule_parent, prev_rule_parent_t,\
-            prev_rule_frontier, next_rule_frontier = [], [], [], [], [], [], [], [], [], [], [], []
+        prev_token_node_id, prev_token, next_token_node_id, next_token, next_rule, next_rule_parent_t, \
+        next_rule_parent, prev_rule, prev_rule_parent, prev_rule_parent_t, \
+        prev_rule_frontier, next_rule_frontier = [], [], [], [], [], [], [], [], [], [], [], []
 
         parse_tree = entry['child_tree']
         parent_original_tree = entry['parent_original_tree']
@@ -772,7 +764,10 @@ def parse_java_change_dataset():
                 rule_pos_map[rule] = len(actions)
                 action = 'Action(APPLY_RULE, d)'
                 actions.append(action)
-                next_rule.append(grammar.rule_to_id.get(rule))
+                rid = grammar.rule_to_id.get(rule)
+                if rid is None:
+                    print(rule)
+                next_rule.append(rid)
                 next_rule_parent_t.append(grammar.rule_to_id.get(parent_rule))
                 next_rule_parent.append(parent_t)
                 next_rule_frontier.append(rule.type)
@@ -794,7 +789,10 @@ def parse_java_change_dataset():
                 rule_pos_map[rule] = len(actions)
                 action = 'Action(APPLY_RULE, d)'
                 actions.append(action)
-                prev_rule.append(grammar.rule_to_id.get(rule))
+                rid = grammar.rule_to_id.get(rule)
+                if rid is None:
+                    print(rule)
+                prev_rule.append(rid)
                 prev_rule_parent.append(grammar.rule_to_id.get(parent_rule))
                 prev_rule_parent_t.append(parent_t)
                 prev_rule_frontier.append(rule.type)
@@ -807,12 +805,13 @@ def parse_java_change_dataset():
         if args.exclude_no_structure_change and prev_rule == next_rule:
             continue
         atc = entry['atc']
-        example = [entry['parent_code_abstract'], entry['child_code_abstract'],
-                   prev_rule, next_rule, prev_rule_parent, next_rule_parent,
-                   prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
-                   next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier,
-                   parent_original_tree, parse_tree, atc, entry['file_name'],
-                   ]
+        example = [
+            entry['parent_code_abstract'], entry['child_code_abstract'],
+            prev_rule, next_rule, prev_rule_parent, next_rule_parent,
+            prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
+            next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier,
+            parent_original_tree, parse_tree, atc, entry['file_name'],
+        ]
         all_examples.append(example)
 
         if idx < num_train_examples:
@@ -821,29 +820,22 @@ def parse_java_change_dataset():
                 train_ids.append(idx)
         elif idx < num_valid_examples:
             if args.remove_repeat:
-                # debug(idx)
                 check_and_remove_example_from_train_data(train_data, example)
             if not already_exists(dev_data, example):
                 dev_data.append(example)
                 dev_ids.append(idx)
         else:
             if args.remove_repeat:
-                # debug(idx)
                 train_data = check_and_remove_example_from_train_data(train_data, example)
             if not already_exists(test_data, example):
                 test_data.append(example)
                 test_ids.append(idx)
     atc_file_name = 'atc_scope.bin'
-
     train_w = write_all_content_to_file(args, atc_file_name, train_data, 'train')
-
     valid_w = write_all_content_to_file(args, atc_file_name, dev_data, 'valid')
-
     test_w = write_all_content_to_file(args, atc_file_name, test_data, 'test')
-
     debug(train_w, valid_w, test_w)
     serialize_to_file(grammar, os.path.join(args.output, 'grammar.bin'))
-    # print(len(train_data), len(dev_data), len(test_data))
     return train_data, dev_data, test_data
 
 
@@ -875,8 +867,13 @@ def write_all_content_to_file(args, atc_file_name, _data, name):
 
 
 if __name__ == '__main__':
-    # st = '{"type":"CODIT_ROOT","children":[{"type":"ObjectCreationExpr","children":[{"type":"ClassOrInterfaceType","children":[{"type":"ClassOrInterfaceType","value":"Range"}]},{"type":"DoubleLiteralExpr","value":"0.0","children":[]},{"type":"BinaryExpr","children":[{"type":"BinaryOperator","value":"MINUS","children":[]},{"type":"MethodCallExpr","children":[{"type":"NameExpr","children":[{"type":"VariableName","value":"constraint","children":[]}]},{"type":"MethodNameFromVarOrOtherClass","value":"getWidth","children":[]}]},{"type":"ArrayAccessExpr","children":[{"type":"NameExpr","children":[{"type":"VariableName","value":"w","children":[]}]},{"type":"IntegerLiteralExpr","value":"2","children":[]}]}]}]}]}'
-    # print(create_tree_from_string(st)[0].pretty_print())
+    # st = 'AST_ROOT_SC2NF ` 8 ` 218 ` { `` `` ` 41 ` 329 ` return `` `` ` 14 ` 304 ` new `` `` ` 74 ` 43 ` 42 ` ' \
+    #      'Callable `` ``  `` ` 230 ` < `` `` ` 43 ` 42 ` T `` ``  `` ` 231 ` > `` ``  `` ` 216 ` () `` `` ` 1 ` 218 ` ' \
+    #      '{ `` `` ` 31 ` 83 ` public `` `` ` 43 ` 42 ` T `` ``  `` ` 42 ` call `` `` ` 216 ` () `` `` ` 8 ` 218 ` { ' \
+    #      '`` `` ` 41 ` 329 ` return `` `` ` 42 ` value `` `` ` 227 ` ; `` ``  `` ` 219 ` } `` ``  ``  `` ` 219 ` } `` ' \
+    #      '``  ``  `` ` 227 ` ; `` ``  `` ` 219 ` } `` ``  ``'
+    # tree = create_tree_from_string(st)
+    # print(tree.pretty_print())
     # numpy.random.seed(1000)
     parse_java_change_dataset()
     # print tra.get_prob_func_inputs([0])

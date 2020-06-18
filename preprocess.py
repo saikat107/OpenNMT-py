@@ -27,7 +27,7 @@ def check_existing_pt_files(opt):
         if glob.glob(pattern):
             sys.stderr.write("Please backup existing pt file: %s, "
                              "to avoid tampering!\n" % pattern)
-            sys.exit(1)
+            # sys.exit(1)
 
 
 def parse_args():

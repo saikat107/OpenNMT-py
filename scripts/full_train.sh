@@ -1,5 +1,5 @@
 for data_name in pull_request_data code_change_data; do
-  for kind in rule augmented.token; do
+  for kind in token rule augmented.token abstract.code sbt2tok tok2sbt sbt2sbt; do
     echo "Training on ${data_name}-${kind}"
     python train.py \
           -data data/processed/${data_name}/$kind \

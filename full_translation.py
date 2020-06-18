@@ -13,9 +13,9 @@ from clone_based_edit import main as clone_based_token_generate
 
 
 def transform_structurally(structure_opts):
-    if os.path.exists(structure_opts.tmp_file):
-        debug('Structure Transformation result already exists!\n')
-        return
+    # if os.path.exists(structure_opts.tmp_file):
+    #     debug('Structure Transformation result already exists!\n')
+    #     return
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)

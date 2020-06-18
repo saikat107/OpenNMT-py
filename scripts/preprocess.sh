@@ -1,5 +1,5 @@
 for data_name in pull_request_data code_change_data; do
-  for kind in rule token augmented.token abstract.code; do
+  for kind in token rule augmented.token abstract.code; do
     echo ${data_name}' '$kind
     python preprocess.py -train_src data/raw/${data_name}/train/prev.$kind \
                   -train_tgt data/raw/${data_name}/train/next.$kind \
