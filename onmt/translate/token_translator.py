@@ -28,7 +28,6 @@ def generate_token_mask(atc, node_type_vocab, vocab):
         if node_id in ['40', '800', '801', '802']:
             tokens.append(inputters.UNK)
         token_mask = [1. for _ in range(len(vocab))]
-        token_indices = [idx for idx in range(len(vocab))]
         inverse_token_indices = []
         if len(tokens) >= 0:
             token_mask = [1e-20 for _ in range(len(vocab))]
@@ -292,7 +291,7 @@ class TokenTranslator(object):
             curr_node_type = node_types[step]
             node_type_str = str(node_type_vocab.itos[curr_node_type.item()])
             not_allowed_indices = not_allowed_token_indices[node_type_str]
-            extra_input = torch.stack([node_types[step] for _ in range(decoder_input.shape[1])])
+            extra_input = torch.stack([var(0) for _ in range(decoder_input.shape[1])])
             extra_input = extra_input.view(1, -1, 1)
             final_input = torch.cat((decoder_input, extra_input), dim=-1)
             if self.cuda:
@@ -301,13 +300,18 @@ class TokenTranslator(object):
             dec_out, dec_states, attn = self.model.decoder(
                 final_input, memory_bank, dec_states, memory_lengths=memory_lengths,  step=step)
             # Generator forward.
-            log_probs = self.model.generator.forward(dec_out.squeeze(0))
+            generator_input = dec_out.squeeze(0)
+            # debug(generator_input.shape)
+            log_probs = self.model.generator.forward(generator_input)
             vocab_size = log_probs.size(-1)
             # log_probs[:, unk_token] = -1.1e30
-            log_probs[:, end_token] = -1.1e30
-            log_probs[:, not_allowed_indices] = -1.1e30
-            log_probs = torch.log(torch.softmax(log_probs, dim=-1))
-            log_probs += topk_log_probs.view(-1).unsqueeze(1)
+            log_probs[:, end_token] = -1.1e10
+            log_probs[:, not_allowed_indices] = -1.1e10
+            log_probs = torch.log_softmax(log_probs, dim=-1)
+            reshaped_topk = topk_log_probs.view(-1).unsqueeze(1)
+            # debug(reshaped_topk.shape)
+            # debug(topk_log_probs)
+            log_probs += reshaped_topk
             attn_probs = attn['std'].squeeze()  # (beam_size, source_length)
             alpha = self.global_scorer.alpha
             length_penalty = ((5.0 + (step + 1)) / 6.0) ** alpha

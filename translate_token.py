@@ -140,8 +140,7 @@ def main(opt):
         all_targets.append(process_source(b.strip()))
     tgt_file.close()
     src_file.close()
-    correct = 0
-    no_change = 0
+    correct, no_change = 0, 0
     decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '_codit_result.txt', 'w')
     all_eds = []
     total_example = 0

@@ -83,7 +83,7 @@ def get_paths(dataset_str):
 
 
 if __name__ == '__main__':
-    dataset = 'pull_request_data'
+    dataset = 'code_change_data'
     if len(sys.argv) > 1:
         dataset = sys.argv[1]
     tree_count = '2'
@@ -101,7 +101,7 @@ if __name__ == '__main__':
     src_struc = data_path + '/test/prev.rule'
     grammar = data_path + '/grammar.bin'
     tmp_file = dataset
-    name = dataset
+    name = dataset + '/full'
     atc_file_path = data_path + '/test/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
