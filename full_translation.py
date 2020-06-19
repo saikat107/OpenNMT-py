@@ -21,9 +21,9 @@ def check_existence(trees, golden_tree):
 
 
 def transform_structurally(structure_opts, golden_id_file):
-    # if os.path.exists(structure_opts.tmp_file):
-    #     debug('Structure Transformation result already exists!\n')
-    #     return
+    if os.path.exists(structure_opts.tmp_file):
+        debug('Structure Transformation result already exists!\n')
+        return
     golden_ids = []
     with open(golden_id_file) as fp:
         golden_ids = [line.strip() for line in fp]
@@ -83,7 +83,7 @@ def get_paths(dataset_str):
 
 
 if __name__ == '__main__':
-    dataset = 'code_change_data'
+    dataset = 'pull_request_data'
     if len(sys.argv) > 1:
         dataset = sys.argv[1]
     tree_count = '2'
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     grammar = data_path + '/grammar.bin'
     tmp_file = dataset
     name = dataset + '/full'
-    atc_file_path = data_path + '/test/atc_scope.bin'
+    atc_file_path = data_path + '/test/atc_method.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
