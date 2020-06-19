@@ -186,13 +186,8 @@ class TokenTranslator(object):
         total_correct = 0
 
         for bidx, batch in enumerate(data_iter):
-            # if bidx == 100:
-            #     break
             example_idx = batch.indices.item()  # Only 1 item in this batch, guaranteed
-            # print(batch.src[0].squeeze())
-            # print(self.fields["tgt"].vocab.stoi[inputters.UNK])
-            # print('=' * 100)
-            if bidx % 200 == 0:
+            if bidx % 50 == 0:
                debug('Current Example : ', example_idx)
             nt_sequences = node_type_seq[example_idx]
             nt_scores = node_type_scores[example_idx]
@@ -204,8 +199,7 @@ class TokenTranslator(object):
             predictions = []
             tree_count = self.option.tree_count
             for type_sequence, type_score in zip(nt_sequences[:tree_count], nt_scores[:tree_count]):
-                batch_data = self.translate_batch(
-                    batch, data, node_type_str=type_sequence, fast=self.fast, atc=atc_item)
+                batch_data = self.translate_batch(batch, data, node_type_str=type_sequence, atc=atc_item)
                 translations = builder.from_batch(batch_data)
                 already_found = False
                 for trans in translations:
@@ -228,28 +222,6 @@ class TokenTranslator(object):
                     predictions += n_best_preds
             all_scores += [scores]
             all_predictions += [predictions]
-            # print(len(predictions))
-
-        if self.report_score:
-            if tgt_path is not None:
-                msg = self._report_score('GOLD', gold_score_total,
-                                         gold_words_total)
-                # if self.logger:
-                #     self.logger.info(msg)
-                # else:
-                #     print(msg)
-                if self.report_bleu:
-                    msg = self._report_bleu(tgt_path)
-                    # if self.logger:
-                    #     self.logger.info(msg)
-                    # else:
-                    #     print(msg)
-                if self.report_rouge:
-                    msg = self._report_rouge(tgt_path)
-                    # if self.logger:
-                    #     self.logger.info(msg)
-                    # else:
-                    #     print(msg)
 
         if self.dump_beam:
             import json
@@ -258,11 +230,11 @@ class TokenTranslator(object):
         debug(total_correct)
         return all_scores, all_predictions
 
-    def translate_batch(self, batch, data, node_type_str, fast=False, atc=None):
+    def translate_batch(self, batch, data, node_type_str, atc=None):
         with torch.no_grad():
-            return self._fast_translate_batch(batch, data, 0, node_type_str, atc)
+            return self._fast_translate_batch(batch, data, node_type_str, atc)
 
-    def _fast_translate_batch(self, batch, data, min_length=0, node_type=None, atc=None):
+    def _fast_translate_batch(self, batch, data, node_type, atc):
         # TODO: faster code path for beam_size == 1.
         # TODO: support these blacklisted features.
         assert data.data_type == 'text'
@@ -317,8 +289,8 @@ class TokenTranslator(object):
         # max_length += 1
         for step in range(max_length):
             decoder_input = alive_seq[:, -1].view(1, -1, 1)
-            node_type = node_types[step]
-            node_type_str = str(node_type_vocab.itos[node_type.item()])
+            curr_node_type = node_types[step]
+            node_type_str = str(node_type_vocab.itos[curr_node_type.item()])
             not_allowed_indices = not_allowed_token_indices[node_type_str]
             extra_input = torch.stack([node_types[step] for _ in range(decoder_input.shape[1])])
             extra_input = extra_input.view(1, -1, 1)
@@ -348,6 +320,7 @@ class TokenTranslator(object):
             # Resolve beam origin and true word ids.
             topk_beam_index = topk_ids.div(vocab_size)
             topk_ids = topk_ids.fmod(vocab_size)
+            # debug(topk_ids)
             beam_indices = topk_beam_index.squeeze().cpu().numpy().tolist()
             if len(attn_probs.shape) == 1:
                 attn_to_save = attn_probs[:]

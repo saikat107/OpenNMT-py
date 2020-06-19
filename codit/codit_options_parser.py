@@ -37,15 +37,15 @@ def get_options(options):
         tgt_struct = None
     structure_options = get_structure_transformation_parser().parse_args(
         (' -src ' + options.src_struct + ' -batch_size 32'
-         + ' -model ' + options.model_structure + ' -beam_size 50 -n_best 50 -verbose'
+         + ' -model ' + options.model_structure + ' -beam_size 10 -n_best 5 -verbose'
          + ' --grammar ' + options.grammar + ' --tmp_file tmp/' + options.cout
          + ((' -tgt ' + tgt_struct) if tgt_struct is not None else '')
          ).split())
 
     token_options = get_token_transformation_parser().parse_args(
         ('-model ' + options.model_token + ' -src ' + options.src_token + ' -tgt ' + options.tgt_token
-         + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size ' + str(options.beam_size)
-         + ' -n_best ' + str(options.n_best) + ' --tmp_file tmp/' + options.cout
+         + ' --name ' + options.name + '.' + options.tree_count + ' -batch_size 1 ' + ' -beam_size ' + str(10)
+         + ' -n_best ' + str(10) + ' --tmp_file tmp/' + options.cout
          + ' --atc ' + options.atc + ' --grammar ' + options.grammar + ' --tree_count ' + options.tree_count
          # + ' -verbose '
          ).split())

@@ -15,7 +15,7 @@ from codit.grammar import JavaGrammar
 from onmt.translate.translator import build_translator
 from onmt.utils.logging import init_logger
 from translate_structure import get_edit_dist
-from util import write_dummy_generated_node_types
+from util import write_dummy_generated_node_types, debug
 
 
 def get_bleu_score(original_codes, generated_top_result):
@@ -88,7 +88,6 @@ def re_organize_candidates(cands, scores, src, n_best):
     for i in sorted_indices[:n_best]:
         reformatted.append(cands[sorted_indices[i]])
     return reformatted
-    # dists =
     pass
 
 
@@ -119,10 +118,6 @@ def refine_atc(all_atcs, atc_file):
 
 
 def main(opt):
-    # # This is just a dummy to test the implementation
-    # # TODO this needs to be fixed
-    # write_dummy_generated_node_types(opt.tgt, 'tmp/generated_node_types.nt')
-    # ####################################################################################
     # TODO 1. Extract grammar and build initial atc
     # TODO 2. Extract atc_file and enhance atc
     grammar_atc = extract_atc_from_grammar(opt.grammar)
@@ -137,8 +132,7 @@ def main(opt):
         node_type_seq=[all_node_type_seq_str, node_seq_scores], atc=all_atcs)
     beam_size = len(all_scores[0])
     exp_name = opt.name
-    all_sources = []
-    all_targets = []
+    all_sources, all_targets = [], []
     tgt_file = open(opt.tgt)
     src_file = open(opt.src)
     for a, b in zip(src_file, tgt_file):
@@ -180,6 +174,7 @@ def main(opt):
         all_eds.append(eds)
         decode_res_file.write(str(found) + '\n\n')
         decode_res_file.flush()
+        debug(idx)
 
     ed_file = open('full_report/edit_distances/' + exp_name +
                    '-' + str(correct) + '-' + str(opt.tree_count) + '-' +
@@ -192,15 +187,15 @@ def main(opt):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='translate_token.py',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description='translate_token.py', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
     parser.add_argument('--name', help='Name of the Experiment', default='pull_request_data/golden_types')
     parser.add_argument('--tmp_file', default='data/raw/pull_request_data/test/next.token.id')
     parser.add_argument('--grammar', default='data/raw/pull_request_data/grammar.bin')
     parser.add_argument('--atc', default='data/raw/pull_request_data/test/atc_scope.bin')
-    parser.add_argument('--tree_count', type=int, default=10)
+    parser.add_argument('--tree_count', type=int, default=1)
     opt = parser.parse_args()
     opt.batch_size = 1
     opt.model = '/home/saikatc/Research/OpenNMT-py/models/pull_request_data/augmented.token-best-acc.pt'

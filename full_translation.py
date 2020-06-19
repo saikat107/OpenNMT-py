@@ -12,10 +12,21 @@ from util import debug
 from clone_based_edit import main as clone_based_token_generate
 
 
-def transform_structurally(structure_opts):
+def check_existence(trees, golden_tree):
+    for tree in trees:
+        if tree.strip() == golden_tree.strip():
+            return 1
+    return 0
+    pass
+
+
+def transform_structurally(structure_opts, golden_id_file):
     # if os.path.exists(structure_opts.tmp_file):
     #     debug('Structure Transformation result already exists!\n')
     #     return
+    golden_ids = []
+    with open(golden_id_file) as fp:
+        golden_ids = [line.strip() for line in fp]
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
@@ -24,13 +35,17 @@ def transform_structurally(structure_opts):
     all_scores, _, all_trees = structure_translate(structure_opts, grammar, structure_opts.n_best)
     if not os.path.exists('tmp'):
         os.mkdir('tmp')
+    total_found = 0
     with open(structure_opts.tmp_file, 'w') as tmp:
-        for trees, scores in zip(all_trees, all_scores):
-            # debug(trees, scores)
-            t_strs = [' '.join(tree) + '/' + str(score) for tree, score in zip(trees, scores)]
+        for cidx, (trees, scores) in enumerate(zip(all_trees, all_scores)):
+            golden_tree = golden_ids[cidx]
+            trees = [' '.join(tree) for tree in trees]
+            total_found += check_existence(trees, golden_tree)
+            t_strs = [tree + '/' + str(score) for tree, score in zip(trees, scores)]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
         tmp.close()
+    debug('Total Tree Correctly found', total_found)
 
 
 def get_paths(dataset_str):
@@ -68,14 +83,17 @@ def get_paths(dataset_str):
 
 
 if __name__ == '__main__':
-    dataset = sys.argv[1]
-    tree_count = '1'
+    dataset = 'pull_request_data'
+    if len(sys.argv) > 1:
+        dataset = sys.argv[1]
+    tree_count = '2'
     if len(sys.argv) > 2:
         tree_count = sys.argv[2]
     token_beam_size = 10
     if len(sys.argv) > 3:
         token_beam_size = int(sys.argv[3])
     data_path, model_base = get_paths(dataset)
+    token_id_file = data_path + '/test/next.token.id'
     augmented_token_model = model_base + 'augmented.token-best-acc.pt'
     structure_model = model_base + 'rule-best-acc.pt'
     src_token = data_path + '/test/prev.augmented.token'
@@ -107,9 +125,6 @@ if __name__ == '__main__':
                         choices=['clone', 'nmt', 'none'], default='nmt')
     parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
     parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
-    # parser.add_argument('-cout', default=None)
-    # options = parser.parse_args()
-
 
     parser.add_argument('--token_gen', '-tg', help='Use of Token generation mechanism',
                         choices=['clone', 'nmt'],
@@ -124,8 +139,7 @@ if __name__ == '__main__':
     parser.add_argument('--token_out', '-tout', help='File name to store clone based result',
                         default=tmp_file+'.clone.jaccard.token')
 
-    parser.add_argument('-cout',
-                        default=tmp_file)
+    parser.add_argument('-cout', default=tmp_file)
     parser.add_argument('--tree_count', default=tree_count)
     parser.add_argument('--atc', default=atc_file_path)
     options = parser.parse_args('')
@@ -134,7 +148,7 @@ if __name__ == '__main__':
     # debug(token_options)
     if options.token_gen == 'nmt':
         if options.rule_gen == 'nmt':
-            transform_structurally(structure_options)
+            transform_structurally(structure_options, token_id_file)
         elif options.rule_gen == 'clone':
             assert (options.train_rule_src is not None) and (options.train_rule_tgt is not None), \
                 'Train Src and Tgt rules must be provided for clone based structural transformation'

@@ -105,8 +105,6 @@ def generate_all_tree_candidates(all_cands, all_scores, grammar, actual_n_best, 
         filtered_cands.append(line)
         if actual_src_tree is None:
             debug('Original Tree Cannot be generated from this source', line)
-            actual_src_tree = '83 39 42 214 42 230 42 231 42 234 39 42 234 39 42 234 42 230 40 231 42 215 301 42 ' \
-                              '227'.split()
         filtered_trees.append(actual_src_tree)
         filtered_scores.append(-1e20)
         for tree, cand, score in zip(trees, cands, scores):
@@ -131,11 +129,8 @@ def generate_all_tree_candidates(all_cands, all_scores, grammar, actual_n_best, 
 
 def translate_all(opt, grammar, actual_n_best):
     translator = build_translator(opt, report_score=True)
-    all_scores, all_cands = translator.translate(src_path=opt.src,
-                                                 tgt_path=opt.tgt,
-                                                 src_dir=opt.src_dir,
-                                                 batch_size=opt.batch_size,
-                                                 attn_debug=opt.attn_debug)
+    all_scores, all_cands = translator.translate(
+        src_path=opt.src, tgt_path=opt.tgt, src_dir=opt.src_dir, batch_size=opt.batch_size, attn_debug=opt.attn_debug)
     all_cands, all_trees, all_scores = generate_all_tree_candidates(
         all_cands, all_scores, grammar, actual_n_best, opt.src)
     return all_scores, all_cands, all_trees
@@ -143,11 +138,9 @@ def translate_all(opt, grammar, actual_n_best):
 
 def main(opt, grammar, actual_n_best):
     all_scores, all_cands, all_tree_cands = translate_all(opt, grammar, actual_n_best)
-    # debug(len(all_cands[0]), len(all_tree_cands[0]))
-    beam_size = actual_n_best#len(all_scores[0])
+    beam_size = actual_n_best
     exp_name = opt.name
-    all_sources = []
-    all_targets = []
+    all_sources, all_targets = [], []
     tgt_file = open(opt.tgt)
     src_file = open(opt.src)
     for a, b in zip(src_file, tgt_file):
@@ -155,12 +148,10 @@ def main(opt, grammar, actual_n_best):
         all_targets.append(b.strip())
     tgt_file.close()
     src_file.close()
-    correct = 0
-    no_change = 0
+    correct, no_change = 0, 0
     decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
     bleu_file = open('full_report/bleu_scores/' + exp_name + '_'+ str(beam_size) + '.csv', 'w')
     correct_id_file = open('full_report/correct_ids/' + exp_name + '_' + str(beam_size) + '.txt', 'w')
-
     all_bleus = []
     total_example = 0
     for idx, (src, tgt, cands, trees) in enumerate(zip(all_sources, all_targets, all_cands, all_tree_cands)):
@@ -201,8 +192,7 @@ def main(opt, grammar, actual_n_best):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='translate_token.py',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        description='translate_token.py', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
     parser.add_argument('--name', help='Name of the Experiment', required=True)
