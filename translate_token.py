@@ -173,7 +173,8 @@ def main(opt):
         all_eds.append(eds)
         decode_res_file.write(str(found) + '\n\n')
         decode_res_file.flush()
-        debug(idx)
+        if idx % 100 == 0:
+            debug("Processed %d examples so far, found %d correct!" % (idx, correct))
 
     ed_file = open('full_report/edit_distances/' + exp_name +
                    '-' + str(correct) + '-' + str(opt.tree_count) + '-' +
@@ -190,16 +191,16 @@ if __name__ == "__main__":
         description='translate_token.py', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
-    parser.add_argument('--name', help='Name of the Experiment', default='pull_request_data/golden_types')
-    parser.add_argument('--tmp_file', default='data/raw/pull_request_data/test/next.token.id')
-    parser.add_argument('--grammar', default='data/raw/pull_request_data/grammar.bin')
-    parser.add_argument('--atc', default='data/raw/pull_request_data/test/atc_scope.bin')
+    parser.add_argument('--name', help='Name of the Experiment', default='code_change_data/golden_types')
+    parser.add_argument('--tmp_file', default='data/raw/code_change_data/test/next.token.id')
+    parser.add_argument('--grammar', default='data/raw/code_change_data/grammar.bin')
+    parser.add_argument('--atc', default='data/raw/code_change_data/test/atc_method.bin')
     parser.add_argument('--tree_count', type=int, default=1)
     opt = parser.parse_args()
     opt.batch_size = 1
-    opt.model = '/home/saikatc/Research/OpenNMT-py/models/pull_request_data/augmented.token-best-acc.pt'
-    opt.src = '/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/prev.augmented.token'
-    opt.tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/pull_request_data/test/next.augmented.token'
+    opt.model = '/home/saikatc/Research/OpenNMT-py/models/code_change_data/augmented.token-best-acc.pt'
+    opt.src = '/home/saikatc/Research/OpenNMT-py/data/raw/code_change_data/test/prev.augmented.token'
+    opt.tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/code_change_data/test/next.augmented.token'
     opt.beam_size = 10
     opt.n_best = 10
     print(opt)

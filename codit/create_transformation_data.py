@@ -42,8 +42,6 @@ value_nodes = []
 
 
 def fix_ast(root):
-    # if root.type == '76':
-    #     print(root.pretty_print())
     if isinstance(root, ASTNode):
         if root.is_leaf:
             if root.value == '?':
@@ -54,12 +52,6 @@ def fix_ast(root):
             return
         elif len(root.children) == 1 and root.children[0].is_leaf:
             child_value = root.children[0].type
-            # if child_value == '<EMPTY>':
-            #     root.children[0].value = child_value
-            #     return
-            # if child_value == '?':
-            #     root.children[0].value = child_value
-            #     return
             root.value = child_value
             root.children = []
             fix_ast(root)
@@ -220,20 +212,12 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
             if node_c.type.strip() == '42':
                 ident_type = get_identifier_type(node_c, child_tree, child_code)
                 if ident_type == 'method':
-                    if child_value not in method_names:
-                        new_token_introduced = True
                     method_names.add(child_value)
                 elif ident_type == 'type':
-                    if child_value not in type_names:
-                        new_token_introduced = True
                     type_names.add(child_value)
                 else:
-                    if child_value not in variables:
-                        new_token_introduced = True
                     variables.add(child_value)
             elif node_c.type.strip() == '40':
-                if child_value not in packages:
-                    new_token_introduced = True
                 packages.add(child_value)
 
         variable_map = {}
@@ -407,7 +391,9 @@ def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
             ccodes.append(ccs.strip())
             ctrees.append(ct)
             potrees.append(pot)
-            allowed_tokens.append([s.strip() for s in at.split()])
+            allowed = [s.strip() for s in at.split()]
+            allowed_tokens.append(allowed)
+            # print(allowed_tokens[-1])
             included_ids.append(idx)
             if counter == samples:
                 break
@@ -431,7 +417,9 @@ def read_raw_data(p_code, p_tree, c_code, c_tree, parent_original_tree,
             ccodes.append(ccs.strip())
             ctrees.append(ct)
             potrees.append(pot)
-            allowed_tokens.append([s.strip() for s in at.split()])
+            allowed = [s.strip() for s in at.split()]
+            allowed_tokens.append(allowed)
+            # print(allowed_tokens[-1])
             file_names.append(fn)
             included_ids.append(idx)
             if counter == samples:

@@ -291,7 +291,7 @@ class TokenTranslator(object):
             curr_node_type = node_types[step]
             node_type_str = str(node_type_vocab.itos[curr_node_type.item()])
             not_allowed_indices = not_allowed_token_indices[node_type_str]
-            extra_input = torch.stack([var(0) for _ in range(decoder_input.shape[1])])
+            extra_input = torch.stack([var(2) for _ in range(decoder_input.shape[1])])
             extra_input = extra_input.view(1, -1, 1)
             final_input = torch.cat((decoder_input, extra_input), dim=-1)
             if self.cuda:

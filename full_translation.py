@@ -83,10 +83,10 @@ def get_paths(dataset_str):
 
 
 if __name__ == '__main__':
-    dataset = 'pull_request_data'
+    dataset = 'code_change_data'
     if len(sys.argv) > 1:
         dataset = sys.argv[1]
-    tree_count = '2'
+    tree_count = '1'
     if len(sys.argv) > 2:
         tree_count = sys.argv[2]
     token_beam_size = 10
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     grammar = data_path + '/grammar.bin'
     tmp_file = dataset
     name = dataset + '/full'
-    atc_file_path = data_path + '/test/atc_method.bin'
+    atc_file_path = data_path + '/test/atc_scope.bin'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
