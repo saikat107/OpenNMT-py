@@ -164,6 +164,17 @@ def get_identifier_type(node, tree, code):
     pass
 
 
+def classify_token(token):
+    if '.' in token:
+        return '40'
+    first_char = token[0]
+    if ord('A') <= ord(first_char) <= ord('Z'):
+        return '801'
+    else:
+        return '800'
+    pass
+
+
 def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
                                  child_trees, parent_tree_os, type='original', allowed_tokens=None,
                                  file_names=None):
@@ -180,10 +191,13 @@ def pre_process_java_change_data(parent_codes, parent_trees, child_codes,
             debug(idx)
         if allowed_tokens is not None:
             atc = dict()
-            atc['40'] = allowed_tokens[idx]
-            atc['800'] = allowed_tokens[idx]
-            atc['801'] = allowed_tokens[idx]
-            atc['802'] = allowed_tokens[idx]
+            atc['40'], atc['800'], atc['801'], atc['802'] = [], [], [], []
+            for token in allowed_tokens[idx]:
+                atc[classify_token(token)].append(token)
+            # atc['40'] = allowed_tokens[idx]
+            # atc['800'] = allowed_tokens[idx]
+            # atc['801'] = allowed_tokens[idx]
+            # atc['802'] = allowed_tokens[idx]
         else:
             atc = dict()
             atc['40'], atc['800'], atc['801'], atc['802'] = [], [], [], []
@@ -671,15 +685,15 @@ def parse_java_change_dataset():
     # '/home/saikatc/Research/codit_data/complete_split_data/10_20_original'
     # '/home/saikatc/Research/icse_data_concrete/all/small'
 
-    parser.add_argument('-data', help='Main Data Directory', default='/home/saikatc/Research/codit_data/')
-    parser.add_argument('-source', help='Relative path of the data source', default='complete_split_data')
+    parser.add_argument('-data', help='Main Data Directory', default='/home/saikatc/Research/icse_data_concrete/')
+    parser.add_argument('-source', help='Relative path of the data source', default='all')
     parser.add_argument('-train', help='Train Folder Name(s)', nargs='+', default=['train'])
-    parser.add_argument('-valid', help='Train Folder Name', default='valid')
+    parser.add_argument('-valid', help='Train Folder Name', default='eval')
     parser.add_argument('-test', help='Train Folder Name(s)', default='test')
 
     parser.add_argument('-output', help='name of the output folder',
-                        default='/home/saikatc/data_hdd/Codit/CoditData')
-    parser.add_argument('-name', help='name of the data file', default='10_20_original')
+                        default='/home/saikatc/data_hdd/Codit/IcseData')
+    parser.add_argument('-name', help='name of the data file', default='small')
     parser.add_argument('-exclude_no_structure_change', action='store_true')
     parser.add_argument('-type', help='Type of the Data given', default='concrete')
     parser.add_argument('-remove_repeat', action='store_false')
@@ -742,6 +756,7 @@ def parse_java_change_dataset():
             include_value_node=True)
         actions = []
         rule_pos_map = dict()
+        action_list_prev = []
         for rule_count, rule in enumerate(rule_list_next_v):
             if not grammar.is_value_node(rule):
                 parent_rule = rule_parents_next_v[(rule_count, rule)][0]
@@ -755,17 +770,25 @@ def parse_java_change_dataset():
                 rid = grammar.rule_to_id.get(rule)
                 if rid is None:
                     print(rule)
+                action_list_prev.append('A.' + str(rid))
                 next_rule.append(rid)
                 next_rule_parent_t.append(grammar.rule_to_id.get(parent_rule))
                 next_rule_parent.append(parent_t)
                 next_rule_frontier.append(rule.type)
             else:
+                v = rule.value
+                if v == '|':
+                    v = 'BIT_OR'
+                elif v == '||':
+                    v = 'LOG_OR'
+                action_list_prev.append('G.' + str(v))
                 node_id = str(rule.type)
                 node_value = str(rule.value)
                 next_token_node_id.append(node_id)
                 next_token.append(node_value)
 
         actions = []
+        action_list_n = []
         rule_pos_map = dict()
         for rule_count, rule in enumerate(rule_list_prev_v):
             if not grammar.is_value_node(rule):
@@ -780,6 +803,7 @@ def parse_java_change_dataset():
                 rid = grammar.rule_to_id.get(rule)
                 if rid is None:
                     print(rule)
+                action_list_n.append('A.' + str(rid))
                 prev_rule.append(rid)
                 prev_rule_parent.append(grammar.rule_to_id.get(parent_rule))
                 prev_rule_parent_t.append(parent_t)
@@ -789,12 +813,18 @@ def parse_java_change_dataset():
                 node_value = str(rule.value)
                 prev_token_node_id.append(node_id)
                 prev_token.append(node_value)
+                v = rule.value
+                if v == '|':
+                    v = 'BIT_OR'
+                elif v == '||':
+                    v = 'LOG_OR'
+                action_list_n.append('G.' + str(v))
 
         if args.exclude_no_structure_change and prev_rule == next_rule:
             continue
         atc = entry['atc']
         example = [
-            entry['parent_code_abstract'], entry['child_code_abstract'],
+            action_list_prev, action_list_n, entry['parent_code_abstract'], entry['child_code_abstract'],
             prev_rule, next_rule, prev_rule_parent, next_rule_parent,
             prev_rule_parent_t, next_rule_parent_t, prev_token_node_id,
             next_token_node_id, prev_token, next_token, prev_rule_frontier, next_rule_frontier,
@@ -834,20 +864,26 @@ def write_all_content_to_file(args, atc_file_name, _data, name):
     file_names_file = open(os.path.join(args.output, name + '/files.txt'), 'w')
     parent_abstract_file = open(os.path.join(args.output, name + '/prev.abstract.code'), 'w')
     child_abstract_file = open(os.path.join(args.output, name + '/next.abstract.code'), 'w')
+    parent_actions = open(os.path.join(args.output, name + '/prev.actions'), 'w')
+    child_actions = open(os.path.join(args.output, name + '/next.actions'), 'w')
     for ex in _data:
         af = [f for f in _file_all]
-        af.extend(ex[2:-2])
+        af.extend(ex[4:-2])
         _atc.append(ex[-2])
         success = write_contents(*af)
         train_w += success
         flush_all(*_file_all)
         if success == 1:
             file_names_file.write(ex[-1].strip() + '\n')
-            parent_abstract_file.write(ex[0] + '\n')
-            child_abstract_file.write(ex[1] + '\n')
+            parent_actions.write(' '.join(ex[0]) + '\n')
+            child_actions.write(' '.join(ex[1]) + '\n')
+            parent_abstract_file.write(ex[2] + '\n')
+            child_abstract_file.write(ex[3] + '\n')
     file_names_file.close()
     parent_abstract_file.close()
     child_abstract_file.close()
+    parent_actions.close()
+    child_actions.close()
     atc_file = os.path.join(args.output, name + '/' + atc_file_name)
     serialize_to_file(_atc, atc_file)
     close_all(*_file_all)

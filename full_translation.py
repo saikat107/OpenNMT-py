@@ -86,7 +86,7 @@ if __name__ == '__main__':
     dataset = 'code_change_data'
     if len(sys.argv) > 1:
         dataset = sys.argv[1]
-    tree_count = '1'
+    tree_count = '2'
     if len(sys.argv) > 2:
         tree_count = sys.argv[2]
     token_beam_size = 10

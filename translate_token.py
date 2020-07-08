@@ -85,9 +85,12 @@ def re_organize_candidates(cands, scores, src, n_best):
         all_scores.append(score)
     sorted_indices = np.argsort(all_scores)
     reformatted = []
-    for i in sorted_indices[:n_best]:
-        reformatted.append(cands[sorted_indices[i]])
-    return reformatted
+    taken_cands = set()
+    for i in sorted_indices:
+        if str(cands[sorted_indices[i]]) not in taken_cands:
+            reformatted.append(cands[sorted_indices[i]])
+            taken_cands.add(str(cands[sorted_indices[i]]))
+    return reformatted[:n_best]
     pass
 
 
@@ -144,6 +147,7 @@ def main(opt):
     decode_res_file = open('full_report/details/' + exp_name + '_' + str(beam_size) + '_codit_result.txt', 'w')
     all_eds = []
     total_example = 0
+    correct_ids_file = open('full_report/correct_ids/' + exp_name + '_' + str(beam_size) + '_codit_result.txt', 'w')
     for idx, (src, tgt, cands, scores) in enumerate(zip(all_sources, all_targets, all_cands, all_scores)):
         total_example += 1
         decode_res_file.write(str(idx) + '\n')
@@ -170,6 +174,7 @@ def main(opt):
             decode_res_file.write(str(ed) + '\n')
         if found:
             correct += 1
+            correct_ids_file.write(str(idx) + '\n')
         all_eds.append(eds)
         decode_res_file.write(str(found) + '\n\n')
         decode_res_file.flush()
@@ -183,6 +188,7 @@ def main(opt):
     print_bleu_res_to_file(ed_file, all_eds)
     decode_res_file.close()
     ed_file.close()
+    correct_ids_file.close()
     print(correct, no_change, total_example)
 
 

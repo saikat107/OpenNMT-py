@@ -96,8 +96,12 @@ java_keywords = ["abstract", "continue", "for", "new", "switch", "assert", "defa
                  "catch", "extends", "int", "short", "try", "char", "final", "interface", "static", "void", "class",
                  "finally", "long", "strictfp", "volatile", "const", "float", "native", "super", "while"]
 java_keywords.extend([t for t in '~`!@#$%^&*()-+={[}]|\\:;\"\'<,>.?'])
+for c1 in '~`!@#$%^&*()-+={[}]|\\:;\"\'<,>.?':
+    for c2 in '~`!@#$%^&*()-+={[}]|\\:;\"\'<,>.?':
+        java_keywords.extend(c1 + c2)
 import re
-identifier = re.compile('[A-Za-z_]+[A-Za-z0-9]*')
+identifier = re.compile('[A-Za-z_]+[A-Za-z0-9]*(\\.[A-Za-z_]+[A-Za-z0-9]*)*')
+
 
 def is_there_new_token_in_tgt(src, tgt):
     src = src.strip()
