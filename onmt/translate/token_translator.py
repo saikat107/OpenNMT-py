@@ -293,9 +293,9 @@ class TokenTranslator(object):
             not_allowed_indices = not_allowed_token_indices[node_type_str]
             extra_input = torch.stack([var(2) for _ in range(decoder_input.shape[1])])
             extra_input = extra_input.view(1, -1, 1)
-            final_input = torch.cat((decoder_input, extra_input), dim=-1)
             if self.cuda:
-                final_input = final_input.cuda()
+                extra_input = extra_input.cuda()
+            final_input = torch.cat((decoder_input, extra_input), dim=-1)
             # Decoder forward.
             dec_out, dec_states, attn = self.model.decoder(
                 final_input, memory_bank, dec_states, memory_lengths=memory_lengths,  step=step)
