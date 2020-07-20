@@ -1,5 +1,5 @@
-for data_name in pr_data_codit_format; do
-  for kind in rule augmented.token abstract.code ; do
+for data_name in cc_data_project_split; do
+  for kind in rule augmented.token token abstract.code ; do
     echo "Training on ${data_name}-${kind}"
     python train.py \
           -data data/processed/${data_name}/$kind \

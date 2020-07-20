@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-if [[ $# != 2 ]]; then
-    echo "Must provide 2 arguments "
-    echo "dataset<code_change_data, pull_request_data>, <beam_size>"
-    exit
-fi
+#if [[ $# != 2 ]]; then
+#    echo "Must provide 2 arguments "
+#    echo "dataset<code_change_data, pull_request_data>, <beam_size>"
+#    exit
+#fi
 
 dataset=$1 # icse, codit
 #datasize=$2 # all, filtered, original

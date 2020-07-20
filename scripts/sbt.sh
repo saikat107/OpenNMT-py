@@ -11,7 +11,7 @@ input=$3
 output=$4
 input_base_path="/home/saikatc/Research/OpenNMT-py/data/raw/${dataset}/test/"
 model_path="/home/saikatc/Research/OpenNMT-py/models/${dataset}/${input}2${output}-best-acc.pt"
-echo $input_base_path
+#echo $input_base_path
 echo $model_path
 python translate_token_only.py \
         -model ${model_path} \
@@ -21,5 +21,7 @@ python translate_token_only.py \
         -beam_size ${bs} \
         -n_best ${bs} \
         -replace_unk \
-        -verbose \
-        -batch_size 64;
+        -batch_size 64 \
+        -gpu 0;
+
+echo '==========================================='

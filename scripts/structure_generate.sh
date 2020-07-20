@@ -22,7 +22,7 @@
 #    grammar_path=/home/saikatc/Research/OpenNMT-py/c_data/raw/$datasize/$datatype/grammar.bin
 #fi
 
-if [[ $# -le 2 ]]; then
+if [[ $# -le 1 ]]; then
     echo "Must provide 2 arguments "
     echo "dataset<code_change_data, pull_request_data>, <beam_size>"
     exit
@@ -41,10 +41,10 @@ model_path="/home/saikatc/Research/OpenNMT-py/models/${dataset}/rule-best-acc.pt
 grammar_path="/home/saikatc/Research/OpenNMT-py/data/raw/${dataset}/grammar.bin"
 
 
-echo $input_base_path
-echo $model_path
+#echo $input_base_path
+echo $model_path ' '$bs
 python translate_structure.py -model $model_path \
         -src $input_base_path/prev.rule -tgt $input_base_path/next.rule\
         --name ${dataset}/structure-only \
-        --grammar $grammar_path -beam_size $bs -n_best $nbest \
-        -verbose
+        --grammar $grammar_path -beam_size $bs -n_best $nbest -gpu 0 \
+#        -verbose

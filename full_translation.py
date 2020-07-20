@@ -24,9 +24,10 @@ def transform_structurally(structure_opts, golden_id_file):
     if os.path.exists(structure_opts.tmp_file):
         debug('Structure Transformation result already exists!\n')
         return
-    golden_ids = []
-    with open(golden_id_file) as fp:
-        golden_ids = [line.strip() for line in fp]
+    golden_ids = None
+    if os.path.exists(golden_id_file):
+        with open(golden_id_file) as fp:
+            golden_ids = [line.strip() for line in fp]
     f = open(structure_opts.grammar, 'rb')
     debug('Loading the Grammar')
     grammar = pickle.load(f)
@@ -38,9 +39,10 @@ def transform_structurally(structure_opts, golden_id_file):
     total_found = 0
     with open(structure_opts.tmp_file, 'w') as tmp:
         for cidx, (trees, scores) in enumerate(zip(all_trees, all_scores)):
-            golden_tree = golden_ids[cidx]
             trees = [' '.join(tree) for tree in trees]
-            total_found += check_existence(trees, golden_tree)
+            if golden_ids is not None:
+                golden_tree = golden_ids[cidx]
+                total_found += check_existence(trees, golden_tree)
             t_strs = [tree + '/' + str(score) for tree, score in zip(trees, scores)]
             wstr = '\t'.join(t_strs)
             tmp.write(wstr + '\n')
@@ -103,6 +105,8 @@ if __name__ == '__main__':
     tmp_file = dataset
     name = dataset + '/full'
     atc_file_path = data_path + '/test/atc_scope.bin'
+    train_src_rule = data_path + '/train/prev.rule'
+    train_tgt_rule = data_path + '/train/next.rule'
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--model_structure', '-ms', help='Model For Rule Transformation',
@@ -123,8 +127,10 @@ if __name__ == '__main__':
                         default=grammar)
     parser.add_argument('--rule_gen', '-rg', help='Use of Rule generation mechanism',
                         choices=['clone', 'nmt', 'none'], default='nmt')
-    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection', default=None)
-    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection', default=None)
+    parser.add_argument('--train_rule_src', '-tr_src', help='Path of train rule src file for clone based detection',
+                        default=train_src_rule)
+    parser.add_argument('--train_rule_tgt', '-tr_tgt', help='Path of train rule src file for clone based detection',
+                        default=train_tgt_rule)
 
     parser.add_argument('--token_gen', '-tg', help='Use of Token generation mechanism',
                         choices=['clone', 'nmt'],
@@ -155,8 +161,9 @@ if __name__ == '__main__':
             clone_based_structural_transformation(
                 options.train_rule_src, options.train_rule_tgt,
                 options.src_struct, 100, options.grammar, 'tmp/' + options.cout)
-
+        print(dataset, tree_count, token_beam_size, sep='\t', end='\t')
         token_translate(token_options)
+        print('=' * 100)
     elif options.token_gen == 'clone':
         clone_based_token_generate(options.src_token, options.tgt_token, options.train_token_src,
                                    options.train_token_tgt, int(tree_count),  options.token_out)

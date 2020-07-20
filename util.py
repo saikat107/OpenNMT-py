@@ -1,6 +1,8 @@
 import inspect
 import os
 from datetime import datetime
+from sys import stderr
+
 from apted import APTED, Config
 from codit.hypothesis import Hypothesis
 import numpy as np
@@ -16,11 +18,11 @@ def debug(*msg):
     if os.getcwd() in file_path:
         file_name = file_path[len(os.getcwd())+1:]
     stack = str(file_name) + '#' + str(line_num) + ' [' + timestr + ']'
-    print(stack, end=' ')
+    print(stack, end=' ', file=stderr)
     res = '\t'
     for ms in msg:
         res += (str(ms) + ' ')
-    print(res)
+    print(res, file=stderr)
 
 
 def sample_roulette_wheel(prob_dist):

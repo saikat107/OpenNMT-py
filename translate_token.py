@@ -6,6 +6,7 @@ from __future__ import division, unicode_literals
 import argparse
 import copy
 import pickle
+import sys
 
 import numpy as np
 from nltk.translate import bleu_score
@@ -193,22 +194,25 @@ def main(opt):
 
 
 if __name__ == "__main__":
+    data = 'code_change_data'
+    bs = 10
     parser = argparse.ArgumentParser(
         description='translate_token.py', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     onmt.opts.add_md_help_argument(parser)
     onmt.opts.translate_opts(parser)
-    parser.add_argument('--name', help='Name of the Experiment', default='code_change_data/golden_types')
-    parser.add_argument('--tmp_file', default='data/raw/code_change_data/test/next.token.id')
-    parser.add_argument('--grammar', default='data/raw/code_change_data/grammar.bin')
-    parser.add_argument('--atc', default='data/raw/code_change_data/test/atc_method.bin')
+    # data = '10-20'
+    parser.add_argument('--name', help='Name of the Experiment', default=data + '/golden_types')
+    parser.add_argument('--tmp_file', default='data/raw/' + data + '/test/next.token.id')
+    parser.add_argument('--grammar', default='data/raw/' + data + '/grammar.bin')
+    parser.add_argument('--atc', default='data/raw/' + data + '/test/atc_scope.bin')
     parser.add_argument('--tree_count', type=int, default=1)
     opt = parser.parse_args()
     opt.batch_size = 1
-    opt.model = '/home/saikatc/Research/OpenNMT-py/models/code_change_data/augmented.token-best-acc.pt'
-    opt.src = '/home/saikatc/Research/OpenNMT-py/data/raw/code_change_data/test/prev.augmented.token'
-    opt.tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/code_change_data/test/next.augmented.token'
-    opt.beam_size = 10
-    opt.n_best = 10
-    print(opt)
+    opt.model = '/home/saikatc/Research/OpenNMT-py/models/' + data + '/augmented.token-best-acc.pt'
+    opt.src = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data + '/test/prev.augmented.token'
+    opt.tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data + '/test/next.augmented.token'
+    opt.gpu = 0
+    opt.beam_size = bs
+    opt.n_best = bs
     logger = init_logger(opt.log_file)
     main(opt)

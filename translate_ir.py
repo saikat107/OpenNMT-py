@@ -93,7 +93,7 @@ def find_similar_matches(train_examples, test_examples):
 
 if __name__ == '__main__':
     ir_output_file = open('full_report/ir_result.tsv', 'a')
-    for data_source in ['pull_request_data', 'code_change_data']:
+    for data_source in ['10-20', 'code_change_data']:
         train_src = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/train/prev.token'
         train_tgt = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/train/next.token'
         test_src = '/home/saikatc/Research/OpenNMT-py/data/raw/' + data_source + '/test/prev.token'
